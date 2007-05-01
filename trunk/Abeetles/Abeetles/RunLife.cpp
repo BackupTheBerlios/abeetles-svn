@@ -24,6 +24,7 @@ int CRunLife::run(void)
 	//Zivot
 	for (Time=0;Time<MAXTIME;Time++)
 	{
+		printf("\nT:%d ",Time);
 		for(I=Env.G_FirstIndex;I<(Env.G_Width+Env.G_FirstIndex);I++)
 			for(J=Env.G_FirstIndex;J<(Env.G_Height+Env.G_FirstIndex);J++)
 			{
@@ -31,7 +32,6 @@ int CRunLife::run(void)
 				if (Env.GetCell(I,J)==NOTHING); //Env.MakeFloweGrow(I,J);
 				//if there is a wall, flower of something bad, do nothing
 			}
-			printf("\nT:%d ",Time);
 		Env.NextTime();
 	}
 	return 0;

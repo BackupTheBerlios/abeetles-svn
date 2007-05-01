@@ -4,9 +4,13 @@
 int CBeetle::EnergyMax_C = 100; //static variable must be inicialized like this out of the class!
 
 CBeetle::CBeetle(void)
-: LearnAbility(0)
-, InvInChild(0)
-{	
+{
+	Age=15;
+	Direction=2;
+	Energy=50;
+	HungryThreshold=30;
+	InvInChild=30;
+	LearnAbility=50;
 	
 }
 CBeetle::CBeetle(int energy,char direction, int hungryThreshold, char brain[2][4][4][4])

@@ -13,5 +13,5 @@ public:
 	bool LoadNextBeetle(FILE * file, CBeetle* beetle);
 protected:
 	int LoadBeetleCfgFile(void);
-	int LoadEnvironmentFromBmp(int G_x, int G_y);
+	int LoadEnvironmentFromBmp(int Grid [20][20][2] ,int G_x, int G_y,int G_FI);
 };

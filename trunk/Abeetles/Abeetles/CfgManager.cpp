@@ -25,7 +25,7 @@ bool CfgManager::GetGridInit(int Grid [20][20][2]/*3D array*/, int FirstIndex,in
 {
 
 	//First part - init environment: Loads environment with "places" for beetles
-	LoadEnvironmentFromBmp(Width, Height);
+	//LoadEnvironmentFromBmp(Grid,Width, Height, FirstIndex);
 	//instead of reading of files is here for the timebeing this: Empty environment 
 
 	int I,J,K;
@@ -38,24 +38,29 @@ bool CfgManager::GetGridInit(int Grid [20][20][2]/*3D array*/, int FirstIndex,in
 
 
 	//Second part - load beetles and add them to half finished environment
-	CBeetle * beetle=NULL;
 
 	FILE * btlFile;
 	errno_t err;
-	if ((err= fopen_s(&btlFile,"Beetle.txt","r"))!=0) 
+	if ((err= fopen_s(&btlFile,"Beetle.txt","r"))!=0)
+	{
 		printf("%d",err);
-
+		exit;
+	}
+/*
 	for (I=0;I< (FirstIndex+Width+1);I++)
 		for (J=0;J< (FirstIndex+Height+1);J++)
 			if (Grid[I][J][0]==BEETLE)
 			{
 				LoadNextBeetle(btlFile,beetle);
 				Grid[I][J][1]=(int)beetle;
-			}
-
+			}*/
+I=1;
+CBeetle * beetle=NULL; 
+	
 	while (!feof(btlFile))
 	{
-		
+		beetle= new CBeetle();
+		LoadNextBeetle(btlFile,beetle);
 		Grid[I][1][0]=BEETLE;
 		Grid[I][1][1]=(int)beetle;
 		I++;
@@ -149,7 +154,7 @@ bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
 
 
 //windows specific function to load bmp file of environment
-int CfgManager::LoadEnvironmentFromBmp(int G_x, int G_y)
+int CfgManager::LoadEnvironmentFromBmp(int Grid  [20][20][2] ,int G_x, int G_y,int G_FI)
 {
 	HDC hDC = CreateCompatibleDC(0);
 	if (hDC==0) printf("chyba DC\n"); //chyba
@@ -164,14 +169,7 @@ int CfgManager::LoadEnvironmentFromBmp(int G_x, int G_y)
 								G_y,
 								LR_LOADFROMFILE
 							);
-	char buffer [256];
-		_getcwd( 
-		   buffer,
-		   200 
-		);
-		printf("Directory: %s\n", buffer);
-
-
+	
 	if (hBitmap == 0) 
 	{
 		printf("Chyba hBitmap load env_cfg\n");
@@ -185,11 +183,15 @@ int CfgManager::LoadEnvironmentFromBmp(int G_x, int G_y)
 
 
 	SelectObject ( hDC, hBitmap );
+	
+	int I,J;
+	for (I=0;I< (G_FI+G_x+1);I++)
+		for (J=0;J< (G_FI+G_y+1);J++)	
+		{
+			Grid[I][J][0]=0;
+			Grid[I][J][1]=0;
+		}
 
-	for (I=0;I< (FirstIndex+Width+1);I++)
-		for (J=0;J< (FirstIndex+Height+1);J++)
-			
-				Grid[I][J][K]=0;
 	COLORREF colorRef = GetPixel(	hDC,    // handle to DC
 									1,  // x-coordinate of pixel
 									1   // y-coordinate of pixel
