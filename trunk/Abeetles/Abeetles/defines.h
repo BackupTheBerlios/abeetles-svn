@@ -1,10 +1,12 @@
-#define BEETLE 3
-#define FLOWER 2
-#define WALL 1
-#define NOTHING 0
+#define BEETLE 4
+#define FLOWER 3
+#define WALL 2
+#define NOTHING 1
 
-#define G_WIDTHMAX 20
-#define G_HEIGHTMAX 20
+#define G_WIDTH_MAX 20 
+#define G_WIDTH_MIN 5
+#define G_HEIGHT_MAX 20
+#define G_HEIGHT_MIN 5
 
 #define MAXTIME 100
 
@@ -28,3 +30,8 @@
 #define NUMOPTVARIABLES 1
 
 #define ENV_BMP_FILE L"env_cfg.bmp"
+//colors of the map of the environment
+#define CFG_CLR_FLOWER_BOTTOM   RGB(0,0,0)  //= NOTHING
+#define CFG_CLR_FLOWER_TOP		RGB(0,255,0)
+#define CFG_CLR_BEETLE			RGB(255,255,255)
+#define CFG_CLR_WALL			RGB(255,0,0)

@@ -1,5 +1,8 @@
 #pragma once
 #include "Beetle.h"
+#include "Grid.h"
+#include <windows.h>
+
 
 
 class CfgManager
@@ -7,11 +10,12 @@ class CfgManager
 public:
 	CfgManager(void);
 	~CfgManager(void);
-	bool GetGridInit(int Grid [20][20][2]/*3D array*/,int FirstIndex, int Width, int Height);	
-	bool GetGridShape(int * G_FirstIndex, int * G_Width, int * G_Height );
+	bool GetGridInit(CGrid * Grid);		
 	bool GetOptionsInit(void);
 	bool LoadNextBeetle(FILE * file, CBeetle* beetle);
 protected:
+	bool LoadGridShape(int * G_FirstIndex, int * G_Width, int * G_Height );
 	int LoadBeetleCfgFile(void);
-	int LoadEnvironmentFromBmp(int Grid [20][20][2] ,int G_x, int G_y,int G_FI);
+	bool LoadEnvironmentFromBmp(CGrid * Grid);
+	int FlowerProbabilityFromColor(COLORREF colorRef);
 };

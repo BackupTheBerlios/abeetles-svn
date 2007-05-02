@@ -12,7 +12,6 @@ CfgManager CfgMng;
 int _tmain(int argc, _TCHAR* argv[])
 {	
 	CRunLife::run();
-	getc(stdin);
 	return 0;
 }
 

@@ -3,6 +3,7 @@
 #include "defines.h"
 #include "Beetle.h"
 #include "Environment.h"
+#include "Grid.h"
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
@@ -21,32 +22,25 @@ CfgManager::~CfgManager(void)
 
 
 // reads init content of environment from files Env_cfg.bmp and AdamBeetles.txt
-bool CfgManager::GetGridInit(int Grid [20][20][2]/*3D array*/, int FirstIndex,int Width, int Height)
+bool CfgManager::GetGridInit(CGrid * Grid)
 {
+	int FI,W,H;
+	if (false==LoadGridShape(&FI,&W,&H)) return false;
+	if (false==Grid->SetGridShape(FI,W,H)) return false;
 
-	//First part - init environment: Loads environment with "places" for beetles
-	//LoadEnvironmentFromBmp(Grid,Width, Height, FirstIndex);
-	//instead of reading of files is here for the timebeing this: Empty environment 
-
-	int I,J,K;
-	//init all Grid.. include borders!
-	for (I=0;I< (FirstIndex+Width+1);I++)
-		for (J=0;J< (FirstIndex+Height+1);J++)
-			for (K=0;K<2;K++)
-				Grid[I][J][K]=0;
-	
+	//First part - init environment: Loads environment without beetles
+	LoadEnvironmentFromBmp(Grid);
 
 
 	//Second part - load beetles and add them to half finished environment
+	CBeetle * beetle=NULL;
 
 	FILE * btlFile;
 	errno_t err;
-	if ((err= fopen_s(&btlFile,"Beetle.txt","r"))!=0)
-	{
+	if ((err= fopen_s(&btlFile,"Beetle.txt","r"))!=0) 
 		printf("%d",err);
-		exit;
-	}
-/*
+
+	/*
 	for (I=0;I< (FirstIndex+Width+1);I++)
 		for (J=0;J< (FirstIndex+Height+1);J++)
 			if (Grid[I][J][0]==BEETLE)
@@ -54,15 +48,12 @@ bool CfgManager::GetGridInit(int Grid [20][20][2]/*3D array*/, int FirstIndex,in
 				LoadNextBeetle(btlFile,beetle);
 				Grid[I][J][1]=(int)beetle;
 			}*/
-I=1;
-CBeetle * beetle=NULL; 
-	
+	int I = 0;
 	while (!feof(btlFile))
 	{
-		beetle= new CBeetle();
+		beetle=new CBeetle();
 		LoadNextBeetle(btlFile,beetle);
-		Grid[I][1][0]=BEETLE;
-		Grid[I][1][1]=(int)beetle;
+		Grid->SetCellContent(BEETLE,I,0,beetle);		
 		I++;
 	}
 	fclose(btlFile);
@@ -90,7 +81,7 @@ int CfgManager::LoadBeetleCfgFile(void)
 	return 0;
 }
 
-bool CfgManager::GetGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
+bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 {
 	*G_FirstIndex=1;
 	*G_Width = 15;
@@ -107,7 +98,7 @@ bool CfgManager::GetOptionsInit(void)
 }
 
 bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
-																CBeetle* beetle)
+								CBeetle* beetle)
 {
 	char  VarName[20];
 	int VarValue=0;
@@ -123,10 +114,10 @@ bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
     fscanf_s(file," Brain = ");
     for (I=0;I<127;I++)
     {
-      fscanf(file," %d ,",&VarValue);
+      fscanf_s(file," %d ,",&VarValue);
       beetle->SetBrain(I,VarValue);
     }
-    fscanf(file," %d ; ",&VarValue);
+    fscanf_s(file," %d ; ",&VarValue);
     beetle->SetBrain(127,VarValue);
     fscanf_s(file," Direction = %d ; ",&VarValue);
     beetle->Direction=VarValue;
@@ -135,9 +126,9 @@ bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
     fscanf_s(file," ExpectOnPartner = ");
     for (I=0;I<4;I++)
     {
-      fscanf(file," %d , ",&VarValue);
+      fscanf_s(file," %d , ",&VarValue);
       beetle->ExpectOnPartner[I][0]=VarValue;
-      fscanf(file," %d ; ",&VarValue);
+      fscanf_s(file," %d ; ",&VarValue);
       beetle->ExpectOnPartner[I][1]=VarValue;
     }
     fscanf_s(file," HungryThreshold = %d ; ",&VarValue);
@@ -153,20 +144,32 @@ bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
 }
 
 
-//windows specific function to load bmp file of environment
-int CfgManager::LoadEnvironmentFromBmp(int Grid  [20][20][2] ,int G_x, int G_y,int G_FI)
+/**
+* Protected method
+* Desc:  Loads bmp file of environment and fills the grid's first layer according to it. Only environ without beetles.
+* System dependence: windows specific (windows.h)
+* Usage comments: 
+* @return (Return values - meaning) :
+* @param name [ descrip](Parameters - meaning):
+* @throws name [descrip](Exceptions - meaning)
+*/
+//
+bool CfgManager::LoadEnvironmentFromBmp(CGrid * Grid)
 {
+//1. Read the bmp file
+	//In windows any image must be connected with a device context, so as to read individual pixels
 	HDC hDC = CreateCompatibleDC(0);
 	if (hDC==0) printf("chyba DC\n"); //chyba
 
-	wchar_t * name= ENV_BMP_FILE ;
+	
+	wchar_t * name= ENV_BMP_FILE ;// function LoadImage needs a unicode string!
 	printf("%s\n", name);
 
-	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,					//HINSTANCE hinst
-								name,	//file name
+	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
+								name,	//file name - as UNICODE string !!!!
 								IMAGE_BITMAP,	//type of loaded result
-								G_x,
-								G_y,
+								Grid->G_Width, 
+								Grid->G_Height,
 								LR_LOADFROMFILE
 							);
 	
@@ -178,24 +181,33 @@ int CfgManager::LoadEnvironmentFromBmp(int Grid  [20][20][2] ,int G_x, int G_y,i
 		LPTSTR lpMsgBuf;
 		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,NULL,Err,MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),(LPTSTR) &lpMsgBuf,0, NULL);
 		printf("%s\n",lpMsgBuf);
-		LocalFree(lpMsgBuf);		
+		LocalFree(lpMsgBuf);
+		return false;
 	}
 
-
+	//Ataching of image with DeviceContext
 	SelectObject ( hDC, hBitmap );
-	
+
+	//TODO: check, if picture is at least as big as the grid !!
+
+//2.Fill Grid with information from the image
+	COLORREF colorRef;
 	int I,J;
-	for (I=0;I< (G_FI+G_x+1);I++)
-		for (J=0;J< (G_FI+G_y+1);J++)	
+	for (I=0;I< (Grid->G_Width);I++)
+		for (J=0;J< (Grid->G_Height);J++)
 		{
-			Grid[I][J][0]=0;
-			Grid[I][J][1]=0;
+			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
+			if (colorRef == CFG_CLR_WALL)
+				Grid->SetCellContent_Init(WALL,I,J);			
+			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
+			{
+				Grid->SetCellContent_Init(NOTHING,I,J);
+				Grid->SetCellGrowingProbability(FlowerProbabilityFromColor(colorRef),I,J);
+			}
+			else Grid->SetCellContent_Init(NOTHING,I,J);
 		}
 
-	COLORREF colorRef = GetPixel(	hDC,    // handle to DC
-									1,  // x-coordinate of pixel
-									1   // y-coordinate of pixel
-								);
+
 	DeleteObject(hBitmap);
 
 	printf("Picture[1,1]=%X\n",colorRef);
@@ -205,5 +217,12 @@ int CfgManager::LoadEnvironmentFromBmp(int Grid  [20][20][2] ,int G_x, int G_y,i
 								);
 	printf("Picture[0,0]=%X\n",colorRef);
 
-	return 0;
+	return true;
+}
+
+int CfgManager::FlowerProbabilityFromColor(COLORREF colorRef)
+{
+	BYTE top_g =GetGValue (CFG_CLR_FLOWER_TOP);
+	BYTE bottom_g =GetGValue (CFG_CLR_FLOWER_BOTTOM);
+	return ((GetGValue(colorRef)-bottom_g)/(top_g - bottom_g));
 }
