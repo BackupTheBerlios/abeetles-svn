@@ -193,10 +193,14 @@ bool CfgManager::LoadEnvironmentFromBmp(CGrid * Grid)
 //2.Fill Grid with information from the image
 	COLORREF colorRef;
 	int I,J;
-	for (I=0;I< (Grid->G_Width);I++)
-		for (J=0;J< (Grid->G_Height);J++)
+
+	//for the sake of the printf in lines, this reads in the direction of lines, not columns
+	for (J=0;J< (Grid->G_Height);J++)	
+	{	
+		for (I=0;I<(Grid->G_Width);I++)
 		{
 			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
+			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
 			if (colorRef == CFG_CLR_WALL)
 				Grid->SetCellContent_Init(WALL,I,J);			
 			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
@@ -206,17 +210,11 @@ bool CfgManager::LoadEnvironmentFromBmp(CGrid * Grid)
 			}
 			else Grid->SetCellContent_Init(NOTHING,I,J);
 		}
+		printf("\n");
+	}
 
 
 	DeleteObject(hBitmap);
-
-	printf("Picture[1,1]=%X\n",colorRef);
-	colorRef = GetPixel(	hDC,    // handle to DC
-									0,  // x-coordinate of pixel
-									0   // y-coordinate of pixel
-								);
-	printf("Picture[0,0]=%X\n",colorRef);
-
 	return true;
 }
 

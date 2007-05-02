@@ -13,7 +13,7 @@ public:
 	int Age; 
 	int HungryThreshold;
 	char Brain[2][4][4][4];//Decision table - if hunger, what is on left, in front, on right
-													//Values: 0-nothing, 1-wall, 2-flower, 3-beetl
+													//Values: 0-nothing, 1-wall, 2-flower, 3-beetle
 public:
 	int AddEnergy(int HowMuch);
 	int GetAction(bool bHunger, char Left, char Front, char Right);

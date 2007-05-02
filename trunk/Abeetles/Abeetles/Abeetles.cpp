@@ -12,6 +12,8 @@ CfgManager CfgMng;
 int _tmain(int argc, _TCHAR* argv[])
 {	
 	CRunLife::run();
+	printf("\nPress any key to finnish\n");
+	getc(stdin);
 	return 0;
 }
 

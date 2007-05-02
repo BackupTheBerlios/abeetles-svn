@@ -70,6 +70,7 @@ void CEnvironment::A_Step(int oldx, int oldy, char direction)
 	
 	//check, whether other beetle has decided to go to same cell sooner:
 	if (Grid_Next.GetCellContent(x,y)==BEETLE){} // do nothing, the first beetle goes there.
+	else if (Grid_Next.GetCellContent(x,y)==WALL) {}// do nothing, there is a wall
 	else
 	{		
 		//step costs some energy
@@ -90,9 +91,7 @@ void CEnvironment::A_Step(int oldx, int oldy, char direction)
 				beetle->AddEnergy(beetle->EnergyFromFlower());
 
 			Grid_Next.SetCellContent(NOTHING, oldx, oldy);
-			Grid_Next.SetCellContent(BEETLE,x,y,beetle);
-			/*Grid_Next[x][y][0]=BEETLE;
-			Grid_Next[x][y][1]=(int)beetle;*/
+			Grid_Next.SetCellContent(BEETLE,x,y,beetle);			
 		}
 	
 	}	

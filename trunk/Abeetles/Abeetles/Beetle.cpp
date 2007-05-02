@@ -76,7 +76,9 @@ char CBeetle::GetDirection(void)
 
 int CBeetle::Decide(int Left, int Front, int Right)
 {
-	return A_STEP;
+	//Left, Front, Right: NOTHING=1/WALL/FLOWER/BEETLE=4
+	if (Front==WALL) return A_ROTATERIGHT;
+	return Brain [IsHungry()][Left-1][Front-1][Right-1];
 }
 int CBeetle::EnergyFromFlower(void)
 {
