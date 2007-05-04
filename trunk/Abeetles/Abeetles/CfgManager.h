@@ -13,6 +13,7 @@ public:
 	bool GetGridInit(CGrid * Grid);		
 	bool GetOptionsInit(void);
 	bool LoadNextBeetle(FILE * file, CBeetle* beetle);
+	bool SaveBeetles(CGrid * grid,char * filename);
 protected:
 	bool LoadGridShape(int * G_FirstIndex, int * G_Width, int * G_Height );
 	int LoadBeetleCfgFile(void);

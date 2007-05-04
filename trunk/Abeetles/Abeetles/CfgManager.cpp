@@ -224,3 +224,46 @@ int CfgManager::FlowerProbabilityFromColor(COLORREF colorRef)
 	BYTE bottom_g =GetGValue (CFG_CLR_FLOWER_BOTTOM);
 	return ((GetGValue(colorRef)-bottom_g)/(top_g - bottom_g));
 }
+
+bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
+{
+	FILE * btlFile;
+	CBeetle * beetle;
+	errno_t err;
+	int I,J,K,L,M,N;	
+
+	if ((err= fopen_s(&btlFile,filename,"w"))!=0) 
+	{
+		printf("%d",err);
+		return false;
+	}
+
+	for (I=0;I<grid->G_Height;I++)
+		for (J=0;J<grid->G_Width;J++)
+			if (grid->GetCellContent(I,J,&beetle)== BEETLE)
+			{
+				fprintf(btlFile," ---------- \n");
+				fprintf(btlFile,"Age=%d\n",beetle->Age);
+				fprintf(btlFile,"Brain=%d",beetle->Brain [0][0][0][0]);
+				for (M=0;M<BRAIN_D1;M++)
+					for(N=0;N<BRAIN_D2;N++)
+						for(K=0;K<BRAIN_D3;K++)
+							for(L=0;L<BRAIN_D4;L++)
+								fprintf(btlFile,",%d",beetle->Brain [M][N][K][L]);
+				fprintf(btlFile,";\n");
+				fprintf(btlFile,"Direction=%d\n",beetle->Direction);
+				fprintf(btlFile,"Energy=%d\n",beetle->Energy);
+				fprintf(btlFile,"ExpectOnPartner=");
+				for (I=0;I<PARTNER_EXP_D1;I++)
+						fprintf(btlFile,"%d,%d;",beetle->ExpectOnPartner[I][0],beetle->ExpectOnPartner[I][1]);
+				fprintf(btlFile,"\n");
+				fprintf(btlFile,"HungryThreshold=%d\n",beetle->HungryThreshold);
+				fprintf(btlFile,"InvInChil=%d\n",beetle->InvInChild);
+				fprintf(btlFile,"LearnAbility=%d\n",beetle->LearnAbility);
+
+			}
+	fprintf(btlFile," ---------- \n");
+	
+	fclose(btlFile);
+	return true;
+}

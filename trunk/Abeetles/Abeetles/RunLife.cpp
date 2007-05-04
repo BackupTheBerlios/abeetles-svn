@@ -24,7 +24,11 @@ int CRunLife::run(void)
 	//Zivot
 	for (Time=0;Time<MAXTIME;Time++)
 	{
-		printf("\nT:%d ",Time);
+		printf("\nT:%d ",Time);		
+		Env.PrintEnv();
+
+		if (getc(stdin) == QUIT_CHAR) break;
+
 		for(I=0;I<Env.Grid.G_Width;I++)
 			for(J=0;J<Env.Grid.G_Width;J++)
 			{

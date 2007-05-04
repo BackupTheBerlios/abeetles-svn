@@ -5,6 +5,8 @@
 #include "CfgManager.h"
 #include "defines.h"
 
+extern int RandInBound (int bound);
+
 CEnvironment::CEnvironment(void)
 {
 	//Set values of options of environment and beetles
@@ -105,4 +107,63 @@ void CEnvironment::NextTime(void)
 	int I,J;
 	//TODO: use overloaded operator '='
 	Grid=Grid_Next;
+}
+
+bool CEnvironment::PrintEnv(void)
+{
+	int I,J;
+	CBeetle * beetle;
+	int what=NOTHING;
+	
+	printf("\n");
+	for(J=0;J<Grid.G_Height;J++)
+	{
+		for(I=0;I<Grid.G_Height;I++)
+		{
+			what = Grid.GetCellContent(I,J,&beetle);
+			if (what==NOTHING) putc('.',stdout);
+			if (what==FLOWER) putc('$',stdout);
+			if (what==WALL) putc('W',stdout);
+			if (what==BEETLE)
+			{
+				if (beetle->Direction == WEST)putc('<',stdout);
+				if (beetle->Direction == NORTH)putc('^',stdout);
+				if (beetle->Direction == EAST)putc('>',stdout);
+				if (beetle->Direction == SOUTH)putc('V',stdout);
+			}
+		}
+		printf("\n");
+	}
+	printf("\n");
+	
+	return true;
+}
+/**
+* Public method:
+* Desc: Creates a random beetle and places it on given coords
+* System dependence:
+* Usage comments:
+* @return (Return values - meaning) :
+* @param name [ descrip](Parameters - meaning):
+* @throws name [descrip](Exceptions - meaning)
+*/
+
+CBeetle * CEnvironment::CreateRandomBeetle()
+{
+	int I,J,K,L;
+	int energy=1+RandInBound(MAX_ENERGY);
+	char direction = RandInBound(4);
+	int hungryThreshold = RandInBound(MAX_ENERGY);
+	char brain[2][4][4][4];
+	for (I=0;I<BRAIN_D1;I++)
+		for(J=0;J<BRAIN_D2;J++)
+			for(K=0;K<BRAIN_D3;K++)
+				for(L=0;L<BRAIN_D4;L++)
+					brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+	
+	CBeetle * beetle;
+	beetle = new CBeetle(energy,direction,hungryThreshold,brain);
+
+
+	return beetle;
 }

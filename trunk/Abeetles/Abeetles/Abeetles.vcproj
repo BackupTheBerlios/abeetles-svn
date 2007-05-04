@@ -257,6 +257,22 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="CfgFiles"
+			>
+			<File
+				RelativePath=".\Beetle.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\BeetleCfg.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\env_cfg.bmp"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

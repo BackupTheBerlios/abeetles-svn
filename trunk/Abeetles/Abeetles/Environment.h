@@ -19,4 +19,6 @@ public:
 	int GetBeetleNeighborCell(int x, int y, char l_r_f);
 	void A_Step(int x, int y, char direction);
 	void NextTime(void); // increases time by 1
+	bool PrintEnv(void);
+	CBeetle * CreateRandomBeetle();
 };
