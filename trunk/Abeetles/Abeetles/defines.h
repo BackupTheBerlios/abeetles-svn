@@ -42,12 +42,10 @@
 #define PARTNER_EXP_D1 4
 #define PARTNER_EXP_D2 2
 
-
-
-
 #define NUMOPTVARIABLES 1
 
-#define ENV_BMP_FILE L"env_cfg.bmp"
+#define MAP_BMP_FILE L"env_cfg.bmp"
+
 //colors of the map of the environment
 #define CFG_CLR_FLOWER_BOTTOM   RGB(0,0,0)  //= NOTHING
 #define CFG_CLR_FLOWER_TOP		RGB(0,255,0)

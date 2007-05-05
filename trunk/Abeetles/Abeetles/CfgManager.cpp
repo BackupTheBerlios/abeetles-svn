@@ -22,54 +22,39 @@ CfgManager::~CfgManager(void)
 
 
 // reads init content of environment from files Env_cfg.bmp and AdamBeetles.txt
-bool CfgManager::GetGridInit(CGrid * Grid)
+//functionality removed to Env.LoadEnv()
+/*
+bool CfgManager::GetGridInit(CGrid * grid)
 {
 	int FI,W,H;
 	if (false==LoadGridShape(&FI,&W,&H)) return false;
 	if (false==Grid->SetGridShape(FI,W,H)) return false;
 
 	//First part - init environment: Loads environment without beetles
-	LoadEnvironmentFromBmp(Grid);
+	LoadMapFromBmp(grid,MAP_BMP_FILE);
 
 
 	//Second part - load beetles and add them to half finished environment
-	CBeetle * beetle=NULL;
-
-	FILE * btlFile;
-	errno_t err;
-	if ((err= fopen_s(&btlFile,"Beetle.txt","r"))!=0) 
-		printf("%d",err);
-
-	/*
-	for (I=0;I< (FirstIndex+Width+1);I++)
-		for (J=0;J< (FirstIndex+Height+1);J++)
-			if (Grid[I][J][0]==BEETLE)
-			{
-				LoadNextBeetle(btlFile,beetle);
-				Grid[I][J][1]=(int)beetle;
-			}*/
-	int I = 0;
-	while (!feof(btlFile))
-	{
-		beetle=new CBeetle();
-		LoadNextBeetle(btlFile,beetle);
-		Grid->SetCellContent(BEETLE,I,0,beetle);		
-		I++;
-	}
-	fclose(btlFile);
-
 	
+	LoadBeetles(grid,"Beetle.txt");
+
 	return true;
 }
+*/
 
-int CfgManager::LoadBeetleCfgFile(void)
+int CfgManager::LoadCfgFile(char* cfg_filename)
 {
+	//proprietary solution
+	CBeetle::EnergyMax_C=50;
+	//later: LoadCfgFile():
+	return true;
+	/*
 	char VarName[25];
 	int VarValue=0;
 	errno_t err;
 	int I;
 	FILE * pConfigFile;
-	if ((err= fopen_s(&pConfigFile,"BeetleCfg.txt","r"))!=0) 
+	if ((err= fopen_s(&pConfigFile,cfg_filename,"r"))!=0) 
 		return err;
 	for (I=0;I<NUMOPTVARIABLES;I++)
 	{
@@ -78,7 +63,7 @@ int CfgManager::LoadBeetleCfgFile(void)
 		else CBeetle::EnergyMax_C=50;
 
 	}
-	return 0;
+	return 0;*/
 }
 
 bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
@@ -89,60 +74,58 @@ bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 	return true;
 }
 
-bool CfgManager::GetOptionsInit(void)
-{
-	//proprietary solution
-	CBeetle::EnergyMax_C=50;
-	//later: LoadBeetleCfgFile();
-	return true;
-}
 
-bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
+
+/*
+//functionality removed to LoadBeetles()
+bool CfgManager::LoadNextBeetle(FILE * btlFile, //file opened for reading
 								CBeetle* beetle)
 {
 	char  VarName[20];
 	int VarValue=0;
 	int I;
 		
-	//reading of file using fscanf_s function
-	/*remarks:
-		1.One white-space character in the format matches any number (including 0) and combination of white-space characters in the input.
-	*/
-		fscanf_s(file," ---------- ");
-    fscanf_s(file," Age = %d ; ",&VarValue);
+	//reading of btlFile using fscanf_s function
+	//remarks:
+	//	1.One white-space character in the format matches any number (including 0) and combination of white-space characters in the input.
+	//
+		fscanf_s(btlFile," ---------- ");
+    fscanf_s(btlFile," Age = %d ; ",&VarValue);
     beetle->Age=VarValue;
-    fscanf_s(file," Brain = ");
+    fscanf_s(btlFile," Brain = ");
     for (I=0;I<127;I++)
     {
-      fscanf_s(file," %d ,",&VarValue);
+      fscanf_s(btlFile," %d ,",&VarValue);
       beetle->SetBrain(I,VarValue);
     }
-    fscanf_s(file," %d ; ",&VarValue);
+    fscanf_s(btlFile," %d ; ",&VarValue);
     beetle->SetBrain(127,VarValue);
-    fscanf_s(file," Direction = %d ; ",&VarValue);
+    fscanf_s(btlFile," Direction = %d ; ",&VarValue);
     beetle->Direction=VarValue;
-    fscanf_s(file," Energy = %d ; ",&VarValue);
+    fscanf_s(btlFile," Energy = %d ; ",&VarValue);
     beetle->Energy=VarValue;
-    fscanf_s(file," ExpectOnPartner = ");
+    fscanf_s(btlFile," ExpectOnPartner = ");
     for (I=0;I<4;I++)
     {
-      fscanf_s(file," %d , ",&VarValue);
+      fscanf_s(btlFile," %d , ",&VarValue);
       beetle->ExpectOnPartner[I][0]=VarValue;
-      fscanf_s(file," %d ; ",&VarValue);
+      fscanf_s(btlFile," %d ; ",&VarValue);
       beetle->ExpectOnPartner[I][1]=VarValue;
     }
-    fscanf_s(file," HungryThreshold = %d ; ",&VarValue);
+    fscanf_s(btlFile," HungryThreshold = %d ; ",&VarValue);
     beetle->HungryThreshold=VarValue;
-    fscanf_s(file," InvInChild = %d ; ",&VarValue);
+    fscanf_s(btlFile," InvInChild = %d ; ",&VarValue);
     beetle->InvInChild=VarValue;
-    fscanf_s(file," LearnAbility = %d ; ",&VarValue);
+    fscanf_s(btlFile," LearnAbility = %d ; ",&VarValue);
     beetle->LearnAbility=VarValue;
+	fscanf_s(btlFile," x = %d ; ",&VarValue);
+	fscanf_s(btlFile," y = %d ; ",&VarValue);
 
-		fscanf_s(file," ---------- ");
+	fscanf_s(btlFile," ---------- ");
 	
 	return true;
 }
-
+*/
 
 /**
 * Protected method
@@ -154,7 +137,7 @@ bool CfgManager::LoadNextBeetle(FILE * file, //file opened for reading
 * @throws name [descrip](Exceptions - meaning)
 */
 //
-bool CfgManager::LoadEnvironmentFromBmp(CGrid * Grid)
+bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 {
 //1. Read the bmp file
 	//In windows any image must be connected with a device context, so as to read individual pixels
@@ -162,11 +145,11 @@ bool CfgManager::LoadEnvironmentFromBmp(CGrid * Grid)
 	if (hDC==0) printf("chyba DC\n"); //chyba
 
 	
-	wchar_t * name= ENV_BMP_FILE ;// function LoadImage needs a unicode string!
-	printf("%s\n", name);
+	//wchar_t * filename= MAP_BMP_FILE ;// function LoadImage needs a unicode string!
+	printf("%s\n", filename);
 
 	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
-								name,	//file name - as UNICODE string !!!!
+								filename,	//file name - as UNICODE string !!!!
 								IMAGE_BITMAP,	//type of loaded result
 								Grid->G_Width, 
 								Grid->G_Height,
@@ -238,32 +221,111 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 		return false;
 	}
 
-	for (I=0;I<grid->G_Height;I++)
-		for (J=0;J<grid->G_Width;J++)
+	for (J=0;J<grid->G_Height;J++)
+		for (I=0;I<grid->G_Width;I++)
 			if (grid->GetCellContent(I,J,&beetle)== BEETLE)
 			{
 				fprintf(btlFile," ---------- \n");
-				fprintf(btlFile,"Age=%d\n",beetle->Age);
+				fprintf(btlFile,"Age=%d;\n",beetle->Age);
 				fprintf(btlFile,"Brain=%d",beetle->Brain [0][0][0][0]);
 				for (M=0;M<BRAIN_D1;M++)
 					for(N=0;N<BRAIN_D2;N++)
 						for(K=0;K<BRAIN_D3;K++)
 							for(L=0;L<BRAIN_D4;L++)
-								fprintf(btlFile,",%d",beetle->Brain [M][N][K][L]);
+								if (!((M==0)&&(N==0)&&(K==0)&&(L==0)))
+									fprintf(btlFile,",%d",beetle->Brain [M][N][K][L]);
 				fprintf(btlFile,";\n");
-				fprintf(btlFile,"Direction=%d\n",beetle->Direction);
-				fprintf(btlFile,"Energy=%d\n",beetle->Energy);
+				fprintf(btlFile,"Direction=%d;\n",beetle->Direction);
+				fprintf(btlFile,"Energy=%d;\n",beetle->Energy);
 				fprintf(btlFile,"ExpectOnPartner=");
-				for (I=0;I<PARTNER_EXP_D1;I++)
-						fprintf(btlFile,"%d,%d;",beetle->ExpectOnPartner[I][0],beetle->ExpectOnPartner[I][1]);
+				for (M=0;M<PARTNER_EXP_D1;M++)
+						fprintf(btlFile,"%d,%d;",beetle->ExpectOnPartner[M][0],beetle->ExpectOnPartner[M][1]);
 				fprintf(btlFile,"\n");
-				fprintf(btlFile,"HungryThreshold=%d\n",beetle->HungryThreshold);
-				fprintf(btlFile,"InvInChil=%d\n",beetle->InvInChild);
-				fprintf(btlFile,"LearnAbility=%d\n",beetle->LearnAbility);
+				fprintf(btlFile,"HungryThreshold=%d;\n",beetle->HungryThreshold);
+				fprintf(btlFile,"InvInChild=%d;\n",beetle->InvInChild);
+				fprintf(btlFile,"LearnAbility=%d;\n",beetle->LearnAbility);
+				fprintf(btlFile,"x=%d;\n",I);
+				fprintf(btlFile,"y=%d;\n",J);
 
 			}
 	fprintf(btlFile," ---------- \n");
 	
 	fclose(btlFile);
+	return true;
+}
+bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
+{
+	CBeetle * beetle=NULL;
+
+	FILE * btlFile;
+	errno_t err;
+	if ((err= fopen_s(&btlFile,filename,"r"))!=0) 
+	{
+		printf("%d",err);
+		exit;
+	}
+
+	//reading of btlFile using fscanf_s function
+		/*remarks:
+			1.One white-space character in the format matches any number (including 0) and combination of white-space characters in the input.
+		*/
+	int I,J = 0;
+	int x,y;
+	int VarValue=0;
+	char  VarName[20];
+	bool ok=true;
+
+	while (!feof(btlFile))
+	{
+		beetle=new CBeetle();
+							
+		fscanf_s(btlFile," ---------- ");
+		if (0==fscanf_s(btlFile," Age = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->Age=VarValue;
+		fscanf_s(btlFile," Brain = ");
+		for (I=0;I<127;I++)
+		{
+		  if (0==fscanf_s(btlFile," %d ,",&VarValue)) {ok=false;break;};
+		  beetle->SetBrain(I,VarValue);
+		}
+		if (0==fscanf_s(btlFile," %d ; ",&VarValue)) {ok=false;break;};
+		beetle->SetBrain(127,VarValue);
+		if (0==fscanf_s(btlFile," Direction = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->Direction=VarValue;
+		if (0==fscanf_s(btlFile," Energy = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->Energy=VarValue;
+		fscanf_s(btlFile," ExpectOnPartner = ");
+		for (I=0;I<4;I++)
+		{
+		  if (0==fscanf_s(btlFile," %d , ",&VarValue)) {ok=false;break;};
+		  beetle->ExpectOnPartner[I][0]=VarValue;
+		  if (0==fscanf_s(btlFile," %d ; ",&VarValue)) {ok=false;break;};
+		  beetle->ExpectOnPartner[I][1]=VarValue;
+		}
+		if (0==fscanf_s(btlFile," HungryThreshold = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->HungryThreshold=VarValue;
+		if (0==fscanf_s(btlFile," InvInChild = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->InvInChild=VarValue;
+		if (0==fscanf_s(btlFile," LearnAbility = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->LearnAbility=VarValue;
+		if (0==fscanf_s(btlFile," x = %d ; ",&x)) {ok=false;break;};		
+		if (0==fscanf_s(btlFile," y = %d ; ",&y)) {ok=false;break;};		
+		fscanf_s(btlFile," ---------- ");
+		
+		if (false==grid->SetCellContent(BEETLE,x,y,beetle))
+		{
+			printf("Beetle %d could not be placed into Grid([%d,%d] is out of grid or there is a wall).\n",I,x,y);
+			delete beetle;
+		}
+		J++;
+	}
+	fclose(btlFile);
+
+	if (ok==false)
+	{
+		printf("File %s was not read correctly.\n",btlFile);
+		exit;
+	}
+
 	return true;
 }

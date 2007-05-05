@@ -10,11 +10,19 @@ extern int RandInBound (int bound);
 CEnvironment::CEnvironment(void)
 {
 	//Set values of options of environment and beetles
-	CfgMng.GetOptionsInit();
+	CfgMng.LoadCfgFile("BeetleCfg.txt");
 	
 	//Init Grid and Grid_Next (with sizes, flowers probability, walls and beetles)
-	CfgMng.GetGridInit(&Grid);
-	CfgMng.GetGridInit(&Grid_Next);
+	LoadEnv("Beetle.txt",MAP_BMP_FILE);
+}
+
+CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename)
+{	
+	//Set values of options of environment and beetles
+	CfgMng.LoadCfgFile(cfg_filename);
+
+	//Init Grid and Grid_Next (with sizes, flowers probability, walls and beetles)
+	LoadEnv(btl_filename,map_filename);
 }
 
 CEnvironment::~CEnvironment(void)
@@ -166,4 +174,58 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 
 
 	return beetle;
+}
+
+bool CEnvironment::LoadEnv(char * btl_filename, wchar_t * map_filename)
+{
+	int FI,W,H;
+	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
+	if (false==Grid.SetGridShape(FI,W,H)) return false;
+	//if (false==Grid_Next.SetGridShape(FI,W,H)) return false;
+
+	//First part - init environment: Loads environment without beetles
+	if (false==CfgMng.LoadMapFromBmp(&Grid,map_filename))return false;
+	//if (false==CfgMng.LoadMapFromBmp(&Grid_Next,map_filename))return false;
+
+	//Second part - load beetles and add them to half finished environment
+	
+	if (false==CfgMng.LoadBeetles(&Grid,btl_filename))return false;
+	//if (false==CfgMng.LoadBeetles(&Grid_Next,btl_filename))return false;
+	
+	Grid_Next=Grid;
+
+	return true;
+}
+
+bool CEnvironment::SaveEnv(char * btl_filename)
+{
+	if (false==CfgMng.SaveBeetles(&Grid,btl_filename))return false;
+	return true;
+}
+
+bool CEnvironment::CreateRandomEnv(void)
+{
+	int FI,W,H;
+	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
+	if (false==Grid.SetGridShape(FI,W,H)) return false;
+	//if (false==Grid_Next.SetGridShape(FI,W,H)) return false;
+
+	//First part - init environment: Loads environment without beetles
+	if (false==CfgMng.LoadMapFromBmp(&Grid,MAP_BMP_FILE))return false;
+	//if (false==CfgMng.LoadMapFromBmp(&Grid_Next,map_filename))return false;
+
+	//Second part - load beetles and add them to half finished environment
+	int I,J,K;
+	CBeetle * beetle;
+	for (K=0;K<20;K++)
+	{
+		I=RandInBound(Grid.G_Width);
+		J=RandInBound(Grid.G_Height);
+		beetle=CreateRandomBeetle();
+		Grid.SetCellContent(BEETLE,I,J,beetle);
+	}
+			
+	//if (false==CfgMng.LoadBeetles(&Grid_Next,btl_filename))return false;
+	
+	Grid_Next=Grid;
 }

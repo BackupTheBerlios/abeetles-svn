@@ -12,14 +12,19 @@ CBeetle::CBeetle(void)
 CBeetle::CBeetle(int energy,char direction, int hungryThreshold, char brain[2][4][4][4])
 {	
 	int I,J,K,L;
-	if ((energy>0)&&(energy<=EnergyMax_C)) Energy=energy; 
-		else energy=EnergyMax_C;
-	if ((direction>=0) &&(direction<=3))Direction=direction;
-		else Direction=0;
-	if ((hungryThreshold>0)&&(hungryThreshold<=EnergyMax_C))HungryThreshold = hungryThreshold;
-		else HungryThreshold=EnergyMax_C;
+	Age=0;
 	for (I=0;I<2;I++)for (J=0;J<4;J++)for (K=0;K<4;K++)for (L=0;L<4;L++)
 		Brain[I][J][K][L]=brain[I][J][K][L];
+	if ((direction>=0) &&(direction<=3))Direction=direction;
+		else Direction=0;
+	if ((energy>0)&&(energy<=EnergyMax_C)) Energy=energy; 
+		else energy=EnergyMax_C;
+	//TODO add expect on partner
+	if ((hungryThreshold>0)&&(hungryThreshold<=EnergyMax_C))HungryThreshold = hungryThreshold;
+		else HungryThreshold=EnergyMax_C;
+	InvInChild=EnergyMax_C/2;
+	LearnAbility = 20;
+	
 }
 
 CBeetle::~CBeetle(void)

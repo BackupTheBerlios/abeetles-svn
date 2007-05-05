@@ -10,6 +10,7 @@ class CEnvironment
 {
 public:
 	CEnvironment(void);
+	CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename);
 	~CEnvironment(void);
 	
 	CGrid Grid; //actual grid
@@ -21,4 +22,7 @@ public:
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
 	CBeetle * CreateRandomBeetle();
+	bool LoadEnv(char * btl_filename, wchar_t * map_filename);
+	bool SaveEnv(char * btl_filename);
+	bool CreateRandomEnv(void);
 };
