@@ -25,4 +25,5 @@ public:
 	bool LoadEnv(char * btl_filename, wchar_t * map_filename);
 	bool SaveEnv(char * btl_filename);
 	bool CreateRandomEnv(void);
+	bool MakeFlowerGrow(int x, int y);
 };

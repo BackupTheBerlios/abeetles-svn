@@ -183,7 +183,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 		for (I=0;I<(Grid->G_Width);I++)
 		{
 			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
-			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
+			printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
 			if (colorRef == CFG_CLR_WALL)
 				Grid->SetCellContent_Init(WALL,I,J);			
 			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
@@ -205,7 +205,8 @@ int CfgManager::FlowerProbabilityFromColor(COLORREF colorRef)
 {
 	BYTE top_g =GetGValue (CFG_CLR_FLOWER_TOP);
 	BYTE bottom_g =GetGValue (CFG_CLR_FLOWER_BOTTOM);
-	return ((GetGValue(colorRef)-bottom_g)/(top_g - bottom_g));
+	BYTE pom=(GetGValue(colorRef)-bottom_g);
+	return (((pom*100)/(top_g - bottom_g)));
 }
 
 bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
@@ -238,7 +239,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 				fprintf(btlFile,"Direction=%d;\n",beetle->Direction);
 				fprintf(btlFile,"Energy=%d;\n",beetle->Energy);
 				fprintf(btlFile,"ExpectOnPartner=");
-				for (M=0;M<PARTNER_EXP_D1;M++)
+				for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
 						fprintf(btlFile,"%d,%d;",beetle->ExpectOnPartner[M][0],beetle->ExpectOnPartner[M][1]);
 				fprintf(btlFile,"\n");
 				fprintf(btlFile,"HungryThreshold=%d;\n",beetle->HungryThreshold);

@@ -4,6 +4,7 @@
 #include "Beetle.h"
 #include "CfgManager.h"
 #include "defines.h"
+#include <time.h>
 
 extern int RandInBound (int bound);
 
@@ -126,11 +127,11 @@ bool CEnvironment::PrintEnv(void)
 	printf("\n");
 	for(J=0;J<Grid.G_Height;J++)
 	{
-		for(I=0;I<Grid.G_Height;I++)
+		for(I=0;I<Grid.G_Width;I++)
 		{
 			what = Grid.GetCellContent(I,J,&beetle);
 			if (what==NOTHING) putc('.',stdout);
-			if (what==FLOWER) putc('$',stdout);
+			if (what==FLOWER) putc('~',stdout);
 			if (what==WALL) putc('W',stdout);
 			if (what==BEETLE)
 			{
@@ -140,6 +141,16 @@ bool CEnvironment::PrintEnv(void)
 				if (beetle->Direction == SOUTH)putc('V',stdout);
 			}
 		}
+		printf("     ");
+		for(I=0;I<Grid.G_Width;I++)
+		{
+			what=Grid.GetCellGrowingProbability(I,J);
+			if (what==0) putc('.', stdout);
+			if ((what>0)&&(what<50)) putc('o', stdout);
+			if ((what>=50) && (what<100)) putc('O',stdout);
+
+		}
+
 		printf("\n");
 	}
 	printf("\n");
@@ -158,20 +169,30 @@ bool CEnvironment::PrintEnv(void)
 
 CBeetle * CEnvironment::CreateRandomBeetle()
 {
-	int I,J,K,L;
-	int energy=1+RandInBound(MAX_ENERGY);
-	char direction = RandInBound(4);
-	int hungryThreshold = RandInBound(MAX_ENERGY);
-	char brain[2][4][4][4];
+	int I,J,K,L,M;
+	int a,b;
+	char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];
+	int expectOnPartner [EXPECT_ON_PARTNER_D1][EXPECT_ON_PARTNER_D2];
 	for (I=0;I<BRAIN_D1;I++)
 		for(J=0;J<BRAIN_D2;J++)
 			for(K=0;K<BRAIN_D3;K++)
 				for(L=0;L<BRAIN_D4;L++)
 					brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+	char direction = RandInBound(4);
+	int energy=1+RandInBound(MAX_ENERGY);
 	
+	for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
+	{
+		a=RandInBound(CBeetle::GetExpectOnPartnerMax(M));
+		b=RandInBound(CBeetle::GetExpectOnPartnerMax(M));
+		if (a<=b){expectOnPartner [M][0]= a;expectOnPartner [M][1]= b;}
+		else {expectOnPartner [M][0]= b;expectOnPartner [M][1]= a;}
+	}
+	int hungryThreshold = RandInBound(MAX_ENERGY);
+	int invInChild = RandInBound(MAX_ENERGY);
+	int learnAbility= RandInBound(MAX_LEARN_ABILITY);
 	CBeetle * beetle;
-	beetle = new CBeetle(energy,direction,hungryThreshold,brain);
-
+	beetle = new CBeetle(0,brain,direction,energy,expectOnPartner,hungryThreshold,invInChild,learnAbility);
 
 	return beetle;
 }
@@ -215,6 +236,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	//if (false==CfgMng.LoadMapFromBmp(&Grid_Next,map_filename))return false;
 
 	//Second part - load beetles and add them to half finished environment
+	srand( (unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
 	for (K=0;K<20;K++)
@@ -228,4 +250,16 @@ bool CEnvironment::CreateRandomEnv(void)
 	//if (false==CfgMng.LoadBeetles(&Grid_Next,btl_filename))return false;
 	
 	Grid_Next=Grid;
+}
+
+//tries agains probability to plant a flower on the x,y.
+bool CEnvironment::MakeFlowerGrow(int x, int y)
+{
+	int prob = Grid.GetCellGrowingProbability(x,y);
+	if (prob> RandInBound(100)) 
+	{
+		if (true == Grid_Next.SetCellContent(FLOWER,x,y))
+			return true;
+	}
+	return false;
 }

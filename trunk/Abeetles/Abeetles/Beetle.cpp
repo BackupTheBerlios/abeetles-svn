@@ -9,21 +9,22 @@ CBeetle::CBeetle(void)
 {	
 	
 }
-CBeetle::CBeetle(int energy,char direction, int hungryThreshold, char brain[2][4][4][4])
+CBeetle::CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D1][EXPECT_ON_PARTNER_D2] , int hungryThreshold, int invInChild, int learnAbility )
 {	
 	int I,J,K,L;
-	Age=0;
+	Age=age;
 	for (I=0;I<2;I++)for (J=0;J<4;J++)for (K=0;K<4;K++)for (L=0;L<4;L++)
 		Brain[I][J][K][L]=brain[I][J][K][L];
 	if ((direction>=0) &&(direction<=3))Direction=direction;
 		else Direction=0;
 	if ((energy>0)&&(energy<=EnergyMax_C)) Energy=energy; 
 		else energy=EnergyMax_C;
-	//TODO add expect on partner
+	for (I=0;I<EXPECT_ON_PARTNER_D1;I++)for (J=0;J<EXPECT_ON_PARTNER_D2;J++)
+		ExpectOnPartner[I][J]=expectOnPartner[I][J];
 	if ((hungryThreshold>0)&&(hungryThreshold<=EnergyMax_C))HungryThreshold = hungryThreshold;
 		else HungryThreshold=EnergyMax_C;
-	InvInChild=EnergyMax_C/2;
-	LearnAbility = 20;
+	InvInChild=invInChild;
+	LearnAbility = learnAbility;
 	
 }
 
@@ -118,4 +119,18 @@ void CBeetle::SetBrain(int Num, int Value)
 	I1=Num%2;
 	
 	Brain[I1][I2][I3][I4]=Value;
+}
+
+int CBeetle::GetExpectOnPartnerMax(int which)
+{
+	switch (which)
+	{
+		case 0: return EXPECT_ON_PARTNER_MAX_1;
+		case 1: return EXPECT_ON_PARTNER_MAX_2;
+		case 2: return EXPECT_ON_PARTNER_MAX_3;
+		case 3: return EXPECT_ON_PARTNER_MAX_4;
+		default:
+			printf ("Wrong input for CBeetle::GetExpectOnPartnerMax(int which)\n");
+			return 0;
+	}
 }

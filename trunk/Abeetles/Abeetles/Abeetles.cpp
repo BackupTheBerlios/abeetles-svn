@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+#include <time.h>
+
 
 //Global variables
 CfgManager CfgMng; 
@@ -30,7 +32,7 @@ int RandInBound (int bound)
     unsigned int    number;
     errno_t         err=0;
 	
-	
+
 	#ifdef _CRT_RAND_S
 		//printf("Hura");
 		//err = rand_s(&number);

@@ -1,10 +1,11 @@
 #pragma once
+#include "defines.h"
 
 class CBeetle
 {
 public:
 	CBeetle(void);
-	CBeetle(int energy,char direction, int hungryThreshold, char brain[2][4][4][4]);
+	CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner [EXPECT_ON_PARTNER_D1][EXPECT_ON_PARTNER_D2], int hungryThreshold, int invInChild, int learnAbility );
 	~CBeetle(void);
 	static int EnergyMax_C;
 //protected:
@@ -31,4 +32,5 @@ public:
 	int InvInChild;
 	int ExpectOnPartner[4][2];
 	void SetBrain(int Num, int Value);
+	static int GetExpectOnPartnerMax(int which);
 };

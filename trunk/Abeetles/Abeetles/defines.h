@@ -30,7 +30,7 @@
 
 //beetle's limits on features
 #define MAX_ENERGY 50
-#define MAX_LEARNABILITY 50
+#define MAX_LEARN_ABILITY 50
 #define MAX_AGE 50
 //dimesions of beetles brain
 #define BRAIN_D1 2
@@ -39,8 +39,13 @@
 #define BRAIN_D4 4
 
 //dimesions of beetles expectations on partner
-#define PARTNER_EXP_D1 4
-#define PARTNER_EXP_D2 2
+#define EXPECT_ON_PARTNER_D1 4 
+#define EXPECT_ON_PARTNER_D2 2
+
+#define EXPECT_ON_PARTNER_MAX_1 50
+#define EXPECT_ON_PARTNER_MAX_2 50
+#define EXPECT_ON_PARTNER_MAX_3 50
+#define EXPECT_ON_PARTNER_MAX_4 50
 
 #define NUMOPTVARIABLES 1
 

@@ -31,15 +31,19 @@ int CRunLife::run(void)
 		printf("\nT:%d ",Time);		
 		Env.PrintEnv();
 		sprintf (fname,"sb_t%d.txt",Time);
-		CfgMng.SaveBeetles(&Env.Grid,fname);
 
-		if (getc(stdin) == QUIT_CHAR) break;
+		//communication with user
+		printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
+		char input = getc(stdin);
+		if (input == QUIT_CHAR) break;
+		if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
+		printf("\n\n");
 
 		for(I=0;I<Env.Grid.G_Width;I++)
 			for(J=0;J<Env.Grid.G_Width;J++)
 			{
 				if (Env.Grid.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
-				//if (Env.Grid.GetCellContent(I,J)==NOTHING); //Env.MakeFloweGrow(I,J);
+				if (Env.Grid.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
 				//if there is a wall, flower of something bad, do nothing
 			}
 		
