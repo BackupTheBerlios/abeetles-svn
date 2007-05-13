@@ -30,7 +30,9 @@ public:
 	void Die(void);
 	int LearnAbility;
 	int InvInChild;
-	int ExpectOnPartner[4][2];
+	int ExpectOnPartner[4][2]; //0.Energy, 1.Age, 2.InvInChild, 3.LearningAbility
 	void SetBrain(int Num, int Value);
 	static int GetExpectOnPartnerMax(int which);
+	int IsExpectOnPartnerSatisfied(int expect, int valueOfPartner);
+	bool CreateChild(CBeetle * beetle2);
 };

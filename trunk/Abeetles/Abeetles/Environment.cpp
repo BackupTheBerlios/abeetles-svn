@@ -41,9 +41,9 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	Grid.GetCellContent(x,y,&beetle);
 	printf ("E:%dX:%dY:%d",beetle->GetEnergy(),x,y);
 	
-	Left=GetBeetleNeighborCell(x,y,'L');
-	Right=GetBeetleNeighborCell(x,y,'R');
-	Front=GetBeetleNeighborCell(x,y,'F');
+	Left=GetBeetleNeighborCell(x,y,beetle->Direction,'L');
+	Right=GetBeetleNeighborCell(x,y,beetle->Direction,'R');
+	Front=GetBeetleNeighborCell(x,y,beetle->Direction,'F');
 
 	int action = beetle->Decide(Left,Front,Right);
 
@@ -61,14 +61,20 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 		case A_WAIT:
 			break;
 		case A_COPULATE:
+			A_Copulate(x,y,beetle);
 			break;
 	}
 
 }
 
-int CEnvironment::GetBeetleNeighborCell(int x, int y, char l_r_f)
+
+int CEnvironment::GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle)
 {
-	return 0;
+	int x_n,y_n;
+	direction = RotateDirection(direction,L_R_F);
+	
+	Grid.GetNeigborCellCoords(x,y,&x_n,&y_n,direction);
+	return Grid.GetCellContent(x_n,y_n, beetle);		
 }
 
 void CEnvironment::A_Step(int oldx, int oldy, char direction)
@@ -262,4 +268,93 @@ bool CEnvironment::MakeFlowerGrow(int x, int y)
 			return true;
 	}
 	return false;
+}
+
+/**
+* Public method:
+* Desc: Realises the intention of one beetle to copulate.
+* System dependence:
+* Usage comments: Used as whole action from beetles brain, contains all checks of conditions.
+* @return (Return values - meaning) : true - child(ren) created, false - no copulation
+* @param name [descrip](Parameters - meaning):x,y - coordinates of the beetle, who intends to copulate. beetle - the beetle's reference.
+* @throws name [descrip](Exceptions - meaning)
+*/
+bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
+{
+	CBeetle * beetle2 = NULL;
+	int what = GetBeetleNeighborCell(x,y,beetle->Direction,'F', &beetle2);
+	if (what != BEETLE) return false;
+
+	//check my conditions
+	if ((beetle->IsExpectOnPartnerSatisfied(EXPECT_ENERGY, beetle2->Energy)) &&
+		(beetle->IsExpectOnPartnerSatisfied(EXPECT_AGE, beetle2->Age))&&
+		(beetle->IsExpectOnPartnerSatisfied(EXPECT_INVINCHILD, beetle2->InvInChild))&&
+		(beetle->IsExpectOnPartnerSatisfied(EXPECT_LEARNINGABILITY, beetle2->LearningAbility)))
+	
+	if (beetle2->Energy >= beetle2->InvInChild)
+	//check his conditions
+	if ((beetle2->IsExpectOnPartnerSatisfied(EXPECT_ENERGY, beetle->Energy)) &&
+		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_AGE, beetle->Age))&&
+		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_INVINCHILD, beetle->InvInChild))&&
+		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_LEARNINGABILITY, beetle->LearningAbility)))
+
+	if (beetle->Energy >= beetle->InvInChild)
+	{
+		//check if there is a space next to both of beetles( 4 possibile cells)
+		int neigh[4][3];//1st column - what, 2nd - x, 3rd - y
+		int x2,y2;
+		int free_n=0; //number of free cell from the 4 of the neighborhood 
+		Grid.GetNeigborCellCoords(x,y,&x2,&y2,beetle->Direction);//get coords of beetle2
+
+			Grid.GetNeigborCellCoords(x,y,&(neigh[0][1]),&(neigh[0][2]),RotateDirection(beetle->Direction),'L');
+			Grid.GetNeigborCellCoords(x,y,&(neigh[1][1]),&(neigh[1][2]),RotateDirection(beetle->Direction),'R');
+			Grid.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction),'L');
+			Grid.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction),'R');
+
+			//get content of neighbor cells and count the number of free ones
+			for (I=0;I<4;I++)
+			{
+				neigh[I][0]=Grid.GetCellContent(neigh[I][1],neigh[I][2]);
+				if ((neigh[I][0]==FLOWER) ||(neigh[I][0]==NOTHING))
+					neigh[I][0]=NOTHING; free_n++;
+			}
+			
+			//if there is no free cell in neighborhood, new beetle cannot be born
+			if (free_n== 0 )return false;
+			
+			//take random one from free neighbors
+			int rand_n = RandInBound (free_n)
+			for (J=0;J<bound;J++)
+				if (neigh[J][0]==NOTHING) 
+				{
+					rand_n--;
+					if (rand_n==0)
+						break;
+				}
+			//J is now the index of the chosen neighbor
+		
+			beetle->ConsumeEnergy(beetle->InvInChild);
+			beetle2->ConsumeEnergy(beetle2->InvInChild);
+
+			CBeetle beetle_child=beetle->CreateChild(beetle2);
+			if (Grid.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
+				return true;
+			else return false;
+	}
+
+	
+	
+
+	//
+
+	return true;
+}
+
+char CEnvironment::RotateDirection(char direction, char L_R_F)
+{
+	//there are 4 directions: W=0,N=1,E=2,S=3, so the "right" adds 1 and "left" subtracts 1
+	if (L_R_F== 'L') { direction-=1; if (direction<0) direction=3; }
+	if (L_R_F== 'R') { direction+=1;direction%=4;}
+	//if (L_R_F== 'F') ;
+	return direction;
 }

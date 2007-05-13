@@ -47,6 +47,12 @@
 #define EXPECT_ON_PARTNER_MAX_3 50
 #define EXPECT_ON_PARTNER_MAX_4 50
 
+//0.Energy, 1.Age, 2.InvInChild, 3.LearningAbility
+#define EXPECT_ENERGY 0
+#define EXPECT_AGE 1
+#define EXPECT_INVINCHILD 2
+#define EXPECT_LEARNINGABILITY 3
+
 #define NUMOPTVARIABLES 1
 
 #define MAP_BMP_FILE L"env_cfg.bmp"

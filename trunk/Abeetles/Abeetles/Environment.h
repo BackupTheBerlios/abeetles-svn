@@ -17,7 +17,7 @@ public:
 	CGrid Grid_Next; //grid for the following time value
 				
 	void MakeBeetleAction(int x, int y);
-	int GetBeetleNeighborCell(int x, int y, char l_r_f);
+	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);
 	void A_Step(int x, int y, char direction);
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
@@ -26,4 +26,6 @@ public:
 	bool SaveEnv(char * btl_filename);
 	bool CreateRandomEnv(void);
 	bool MakeFlowerGrow(int x, int y);
+	bool A_Copulate(int x, int y, CBeetle * beetle);
+	int RotateDirection(char direction, char L_R);
 };

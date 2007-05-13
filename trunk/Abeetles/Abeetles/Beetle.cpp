@@ -134,3 +134,24 @@ int CBeetle::GetExpectOnPartnerMax(int which)
 			return 0;
 	}
 }
+
+bool CBeetle::IsExpectOnPartnerSatisfied(int expect, int valueOfPartner)
+{
+	//0.Energy, 1.Age, 2.InvInChild, 3.LearningAbility
+	if ((valueOfPartner >= ExpectOnPartner[expect][0])&&
+		(valueOfPartner <= ExpectOnPartner[expect][1]))
+	return true;
+	else return false;
+
+}
+
+bool CBeetle::CreateChild(CBeetle * beetle2)
+{
+	CBeetle * beetle_child=new CBeetle();
+	beetle_child->Age=0;
+	beetle_child->Brain;
+	beetle_child->Direction;
+	beetle_child->Energy;
+	beetle_child ->ExpectOnPartner
+	return false;
+}
