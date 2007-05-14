@@ -145,13 +145,14 @@ bool CBeetle::IsExpectOnPartnerSatisfied(int expect, int valueOfPartner)
 
 }
 
-bool CBeetle::CreateChild(CBeetle * beetle2)
+CBeetle * CBeetle::CreateChild(CBeetle * beetle2)
 {
-	CBeetle * beetle_child=new CBeetle();
+	CBeetle * beetle_child=new CBeetle(*beetle2);
 	beetle_child->Age=0;
+	/*
 	beetle_child->Brain;
 	beetle_child->Direction;
 	beetle_child->Energy;
-	beetle_child ->ExpectOnPartner
-	return false;
+	beetle_child ->ExpectOnPartner;*/
+	return beetle_child;
 }

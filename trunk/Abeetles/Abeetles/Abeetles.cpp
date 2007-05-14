@@ -41,14 +41,12 @@ int RandInBound (int bound)
 	number=rand();
 
     
-	
-    // Display 10 random integers in the range [ 1,10 ].
-    if (err != 0)
+       if (err != 0)
     {
        printf("The rand_s function failed!\n");
 	   return 0;
     }
-	unsigned int Res = ((((double)number /(double) RAND_MAX ) * bound) - 1);
+	unsigned int Res = ((int)((((double)number /(double) RAND_MAX ) * bound))) % bound;
     return Res;
 
 }

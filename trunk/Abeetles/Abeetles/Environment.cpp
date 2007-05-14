@@ -179,16 +179,39 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 	int a,b;
 	char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];
 	int expectOnPartner [EXPECT_ON_PARTNER_D1][EXPECT_ON_PARTNER_D2];
+	//children oriented Beetle
 	for (I=0;I<BRAIN_D1;I++)
 		for(J=0;J<BRAIN_D2;J++)
 			for(K=0;K<BRAIN_D3;K++)
 				for(L=0;L<BRAIN_D4;L++)
-					brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+					//beetle tries to copulate always if there is a beetle in front of them
+					if (K==(BEETLE-1))brain [I][J][K][L]=A_COPULATE;
+					else brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
 	char direction = RandInBound(4);
 	int energy=1+RandInBound(MAX_ENERGY);
 	
 	for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
 	{
+		expectOnPartner [M][0]= 0; expectOnPartner [M][1]=CBeetle::GetExpectOnPartnerMax(M);
+		//too strict, no children occur then		 		
+	}
+	int hungryThreshold = RandInBound(MAX_ENERGY);
+	int invInChild = RandInBound(MAX_ENERGY);
+	int learnAbility= RandInBound(MAX_LEARN_ABILITY);
+	//general Beetle
+	/*
+	for (I=0;I<BRAIN_D1;I++)
+		for(J=0;J<BRAIN_D2;J++)
+			for(K=0;K<BRAIN_D3;K++)
+				for(L=0;L<BRAIN_D4;L++)
+					//beetle tries to copulate only if there is a beetle in front of them
+					if (K==(BEETLE-1))brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+					else brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
+	char direction = RandInBound(4);
+	int energy=1+RandInBound(MAX_ENERGY);
+	
+	for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
+	{			 
 		a=RandInBound(CBeetle::GetExpectOnPartnerMax(M));
 		b=RandInBound(CBeetle::GetExpectOnPartnerMax(M));
 		if (a<=b){expectOnPartner [M][0]= a;expectOnPartner [M][1]= b;}
@@ -197,6 +220,7 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 	int hungryThreshold = RandInBound(MAX_ENERGY);
 	int invInChild = RandInBound(MAX_ENERGY);
 	int learnAbility= RandInBound(MAX_LEARN_ABILITY);
+	*/
 	CBeetle * beetle;
 	beetle = new CBeetle(0,brain,direction,energy,expectOnPartner,hungryThreshold,invInChild,learnAbility);
 
@@ -245,7 +269,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	srand( (unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<20;K++)
+	for (K=0;K<60;K++)
 	{
 		I=RandInBound(Grid.G_Width);
 		J=RandInBound(Grid.G_Height);
@@ -289,14 +313,14 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 	if ((beetle->IsExpectOnPartnerSatisfied(EXPECT_ENERGY, beetle2->Energy)) &&
 		(beetle->IsExpectOnPartnerSatisfied(EXPECT_AGE, beetle2->Age))&&
 		(beetle->IsExpectOnPartnerSatisfied(EXPECT_INVINCHILD, beetle2->InvInChild))&&
-		(beetle->IsExpectOnPartnerSatisfied(EXPECT_LEARNINGABILITY, beetle2->LearningAbility)))
+		(beetle->IsExpectOnPartnerSatisfied(EXPECT_LEARNABILITY, beetle2->LearnAbility)))
 	
 	if (beetle2->Energy >= beetle2->InvInChild)
 	//check his conditions
 	if ((beetle2->IsExpectOnPartnerSatisfied(EXPECT_ENERGY, beetle->Energy)) &&
 		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_AGE, beetle->Age))&&
 		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_INVINCHILD, beetle->InvInChild))&&
-		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_LEARNINGABILITY, beetle->LearningAbility)))
+		(beetle2->IsExpectOnPartnerSatisfied(EXPECT_LEARNABILITY, beetle->LearnAbility)))
 
 	if (beetle->Energy >= beetle->InvInChild)
 	{
@@ -306,12 +330,13 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 		int free_n=0; //number of free cell from the 4 of the neighborhood 
 		Grid.GetNeigborCellCoords(x,y,&x2,&y2,beetle->Direction);//get coords of beetle2
 
-			Grid.GetNeigborCellCoords(x,y,&(neigh[0][1]),&(neigh[0][2]),RotateDirection(beetle->Direction),'L');
-			Grid.GetNeigborCellCoords(x,y,&(neigh[1][1]),&(neigh[1][2]),RotateDirection(beetle->Direction),'R');
-			Grid.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction),'L');
-			Grid.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction),'R');
+			Grid.GetNeigborCellCoords(x,y,&(neigh[0][1]),&(neigh[0][2]),RotateDirection(beetle->Direction,'L'));
+			Grid.GetNeigborCellCoords(x,y,&(neigh[1][1]),&(neigh[1][2]),RotateDirection(beetle->Direction,'R'));
+			Grid.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction,'L'));
+			Grid.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction,'R'));
 
 			//get content of neighbor cells and count the number of free ones
+			int I,J;
 			for (I=0;I<4;I++)
 			{
 				neigh[I][0]=Grid.GetCellContent(neigh[I][1],neigh[I][2]);
@@ -323,8 +348,9 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 			if (free_n== 0 )return false;
 			
 			//take random one from free neighbors
-			int rand_n = RandInBound (free_n)
-			for (J=0;J<bound;J++)
+			int rand_n = RandInBound (free_n);
+			rand_n++;
+			for (J=0;J<4;J++)
 				if (neigh[J][0]==NOTHING) 
 				{
 					rand_n--;
@@ -336,7 +362,7 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 			beetle->ConsumeEnergy(beetle->InvInChild);
 			beetle2->ConsumeEnergy(beetle2->InvInChild);
 
-			CBeetle beetle_child=beetle->CreateChild(beetle2);
+			CBeetle * beetle_child=beetle->CreateChild(beetle2);
 			if (Grid.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
 				return true;
 			else return false;

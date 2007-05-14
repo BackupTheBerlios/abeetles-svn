@@ -11,11 +11,12 @@
 #define MAXTIME 100
 
 #define NUM_ACTIONS 5
+
 #define A_STEP 0
 #define A_ROTATERIGHT 1
 #define A_ROTATELEFT 2
 #define A_WAIT 3
-#define A_COPULATE 4
+#define A_COPULATE 4 //A_COPULATE must be the last action
 
 #define A_STEP_COSTS 2
 
@@ -51,7 +52,7 @@
 #define EXPECT_ENERGY 0
 #define EXPECT_AGE 1
 #define EXPECT_INVINCHILD 2
-#define EXPECT_LEARNINGABILITY 3
+#define EXPECT_LEARNABILITY 3
 
 #define NUMOPTVARIABLES 1
 

@@ -27,5 +27,5 @@ public:
 	bool CreateRandomEnv(void);
 	bool MakeFlowerGrow(int x, int y);
 	bool A_Copulate(int x, int y, CBeetle * beetle);
-	int RotateDirection(char direction, char L_R);
+	char RotateDirection(char direction, char L_R);
 };
