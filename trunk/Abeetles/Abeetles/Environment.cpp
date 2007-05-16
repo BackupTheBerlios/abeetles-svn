@@ -39,7 +39,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	int Left,Front,Right; //content of Beetle's neighbor cells
 	CBeetle * beetle=NULL;
 	Grid.GetCellContent(x,y,&beetle);
-	printf ("E:%dX:%dY:%d",beetle->GetEnergy(),x,y);
+	//printf("E:%dX:%dY:%d",beetle->GetEnergy(),x,y); --debug info about beetles location
 	
 	Left=GetBeetleNeighborCell(x,y,beetle->Direction,'L');
 	Right=GetBeetleNeighborCell(x,y,beetle->Direction,'R');
@@ -64,6 +64,9 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 			A_Copulate(x,y,beetle);
 			break;
 	}
+
+	//beetle is now 1 time slice older
+	beetle->Age++;
 
 }
 
@@ -131,8 +134,16 @@ bool CEnvironment::PrintEnv(void)
 	int what=NOTHING;
 	
 	printf("\n");
+
+	//upper line of numbers
+	putc(' ',stdout);
+	for (I=0;I<Grid.G_Width;I++)
+		putc((char)(I%10)+'0',stdout);
+	printf("\n");
+
 	for(J=0;J<Grid.G_Height;J++)
 	{
+		putc((char)(J%10)+'0',stdout); //left column of numbers
 		for(I=0;I<Grid.G_Width;I++)
 		{
 			what = Grid.GetCellContent(I,J,&beetle);
@@ -141,10 +152,14 @@ bool CEnvironment::PrintEnv(void)
 			if (what==WALL) putc('W',stdout);
 			if (what==BEETLE)
 			{
-				if (beetle->Direction == WEST)putc('<',stdout);
-				if (beetle->Direction == NORTH)putc('^',stdout);
-				if (beetle->Direction == EAST)putc('>',stdout);
-				if (beetle->Direction == SOUTH)putc('V',stdout);
+				if ((beetle->Age)==0) putc('*',stdout);
+				else
+				{
+					if (beetle->Direction == WEST)putc('<',stdout);
+					if (beetle->Direction == NORTH)putc('^',stdout);
+					if (beetle->Direction == EAST)putc('>',stdout);
+					if (beetle->Direction == SOUTH)putc('V',stdout);
+				}
 			}
 		}
 		printf("     ");
@@ -269,7 +284,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	srand( (unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<60;K++)
+	for (K=0;K<240;K++)
 	{
 		I=RandInBound(Grid.G_Width);
 		J=RandInBound(Grid.G_Height);
@@ -335,13 +350,12 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 			Grid.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction,'L'));
 			Grid.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction,'R'));
 
-			//get content of neighbor cells and count the number of free ones
+			//get content of neighbor cells in following step and count the number of free ones
 			int I,J;
 			for (I=0;I<4;I++)
 			{
-				neigh[I][0]=Grid.GetCellContent(neigh[I][1],neigh[I][2]);
-				if ((neigh[I][0]==FLOWER) ||(neigh[I][0]==NOTHING))
-					neigh[I][0]=NOTHING; free_n++;
+				neigh[I][0]=Grid_Next.GetCellContent(neigh[I][1],neigh[I][2]);				
+				free_n++;
 			}
 			
 			//if there is no free cell in neighborhood, new beetle cannot be born
@@ -351,19 +365,21 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 			int rand_n = RandInBound (free_n);
 			rand_n++;
 			for (J=0;J<4;J++)
-				if (neigh[J][0]==NOTHING) 
+				if ((neigh[I][0]==FLOWER) ||neigh[J][0]==NOTHING) 
 				{
 					rand_n--;
 					if (rand_n==0)
 						break;
 				}
 			//J is now the index of the chosen neighbor
-		
+					
+			CBeetle * beetle_child=beetle->CreateChild(beetle2);
+			
+			//beetles might die during the consumption
 			beetle->ConsumeEnergy(beetle->InvInChild);
 			beetle2->ConsumeEnergy(beetle2->InvInChild);
 
-			CBeetle * beetle_child=beetle->CreateChild(beetle2);
-			if (Grid.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
+			if (Grid_Next.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
 				return true;
 			else return false;
 	}

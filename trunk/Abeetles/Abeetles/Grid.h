@@ -25,7 +25,7 @@ public:
 		//1st layer: what is actualy where
 		//2nd layer: beetles references
 		//3rd layer: probability of growth of flowers
-	int GridMatrix [20][20][3] ;
+	int GridMatrix [G_WIDTH_MAX][G_HEIGHT_MAX][3] ;
 	int G_FirstIndex; //Grid[G_FirstIndex][G_FirstIndex][0]is the top left corner of the grid
 
 

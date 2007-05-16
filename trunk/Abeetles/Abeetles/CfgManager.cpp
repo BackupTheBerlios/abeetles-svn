@@ -69,8 +69,8 @@ int CfgManager::LoadCfgFile(char* cfg_filename)
 bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 {
 	*G_FirstIndex=1;
-	*G_Width = 15;
-	*G_Height =15;
+	*G_Width = 30;
+	*G_Height =30;
 	return true;
 }
 
@@ -183,7 +183,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 		for (I=0;I<(Grid->G_Width);I++)
 		{
 			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
-			printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
+			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
 			if (colorRef == CFG_CLR_WALL)
 				Grid->SetCellContent_Init(WALL,I,J);			
 			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
@@ -193,7 +193,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 			}
 			else Grid->SetCellContent_Init(NOTHING,I,J);
 		}
-		printf("\n");
+		//printf("\n");
 	}
 
 

@@ -3,9 +3,9 @@
 #define WALL 2
 #define NOTHING 1
 
-#define G_WIDTH_MAX 20 
+#define G_WIDTH_MAX 50 
 #define G_WIDTH_MIN 5
-#define G_HEIGHT_MAX 20
+#define G_HEIGHT_MAX 50
 #define G_HEIGHT_MIN 5
 
 #define MAXTIME 100

@@ -2,8 +2,11 @@
 #include "RunLife.h"
 #include "Environment.h"
 #include "Beetle.h"
-#include <iostream>
+#include <conio.h>
 #include "defines.h"
+//#include <mscorlib.dll>
+//using namespace System;
+
 
 CRunLife::CRunLife(void)
 {
@@ -25,6 +28,7 @@ int CRunLife::run(void)
 	char fname [15];
 
 	int Time=0;
+	char input;
 	//Zivot
 	for (Time=0;Time<MAXTIME;Time++)
 	{
@@ -34,11 +38,14 @@ int CRunLife::run(void)
 
 		//communication with user
 		printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
-		char input = getc(stdin);
-		if (input == QUIT_CHAR) break;
-		if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
+		if (input = _getch())
+		{
+			//input = getc(stdin);
+			if (input == QUIT_CHAR) break;
+			if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
+		}
 		printf("\n\n");
-
+		
 		for(I=0;I<Env.Grid.G_Width;I++)
 			for(J=0;J<Env.Grid.G_Width;J++)
 			{
