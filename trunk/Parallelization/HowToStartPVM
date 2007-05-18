@@ -1,0 +1,9 @@
+Prace na spusteni prikladu HelloWorld v PVM:
+
+*spustena instalace je v $PVM_ROOT
+*moje priklady (zdrojovy kod) jsou v $HOME/BIG/pvm3/examples
+*moje bezici aplikace (executables) jsou v $HOME/BIG/pvm3/bin/LINUX. Spoustim je v prikazovem modu spusteneho programu pvm. A to takto: pvm> spawn -> hello . 
+*Jak spustit spravne pvm: pvm $HOME/hostfile kde hostfile je soubor, ve kterem je cesta $HOME/BIG/pvm3/bin/LINUX nastavena jako cesta ke spoustenym zdrojakum.
+
+Dalsi uzitecne informace k pvm:
+*manual http://www.csm.ornl.gov/pvm/manpages.html 

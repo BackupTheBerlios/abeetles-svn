@@ -1,0 +1,274 @@
+\documentclass [10pt]{report}
+
+\title{The Tool for Modeling of Evolution of the Artificial Life}
+\author{Iva Bartunkova}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Software environment allowing experiments with the evolution of simple organisms.
+\end{abstract}
+
+\chapter{Artificial life}
+*2 pages about Artificial life - definition, history, contemporary course*
+Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}). 
+The term Artificial life was first coined by Christopher Langton in the late 1980s at the first "International Conference on the Synthesis and Simulation of Living Systems" (otherwise known as Artificial Life I) at the Los Alamos National Laboratory in 1987. He envisioned a study of life as it could be in any possible setting \cite{Langton}.\\
+Artificial life compliments traditional Biology by trying to recreate biological phenomena rather than take them apart.[http://zooland.alife.org/] Because of its predominance within the field, the term "Artificial Life" is often used to specifically refer to soft alife. \\
+Related term to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are mostly focused on evolution of motion, shape, visual art and music In my work I've used the Genetic Programming technique which allows the evolution of parameter based organisms. 
+
+\chapter{Survey of existing artificial life applications}
+These contain organisms with a complex DNA language, usually Turing complete. This language is more often in the form of a computer program than actual biological DNA. Assembly derivatives are the most common languages used. Use of cellular automata is common but not required.
+\section {Program-based}
+\begin{itemize} 
+    \item  Artificial Planet
+    \item  Avida \linebreak
+		Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
+    \item  Breve
+    \item  DarwinHom
+    \item  Darwinbots
+    \item  Evolve4.0
+    \item  Framsticks 
+    \item  Grey Thumb Society Simulators
+          (Archis, Nanopond) 
+    \item  Physis (software) 
+    \item  Tierra \linebreak
+			Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite {Tierra}
+\end{itemize}
+
+
+\section {Module Based}
+Individual modules are added to a creature. These modules modify the creature's behaviors and characteristics either directly, by hard coding into the simulation (leg type A increases speed and metabolism), or indirectly, through the emergent interactions between a creature's modules (leg type A moves up and down with a frequency of X, which interacts with other legs to create motion). Generally these are simulators which emphasize user creation and accessibility over mutation and evolution.
+\begin{itemize} 
+    \item  Spore (video game)
+    \item  TechnoSphere
+\end{itemize}
+
+\section { Parameter Based }
+Organisms are generally constructed with pre defined and fixed behaviors that are controlled by various parameters that mutate. That is, each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of an organism in a well defined way.
+
+\begin{itemize}
+    \item  \textbf{Jeffrey Ventrella programs: Darwin Pond and Gene Pool }
+            Darwin Pond is older version of newer system Gene Pool. This system is an imaginary pool, where live swimbots. Swimbots move by swimming, eat food growing in the pool and reproduce sexualy. This system was designed to explore topics of relations between natural and sexual selection.
+Their Darwinian fitness is how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots. So they evolve their swimming techniques and features that might be attractive to other swimbots. Author of this program published interesting discoveries about results of setting various attraction criteria. Criterion "still" (i.e., swimbots exhibiting the least amount of motion become the most attractive) causes swimbots to converge on distinct bifurcation among body types resembling sexual dismorphism.\linebreak
+				Model of the system: Swimbots consist of mouth, genitals and 2-10 parts,  which rotate and let swimbot move. Parameters of this parts are coded in genes. Each swimbot has its current level of energy, which is used for moving, obtained from food and 50\% of it gives parent swimbot to its offspring. Amount of energy in all system is constant, changing in the way: food->swimbots->pool->food.
+Swimbot chooses its mate for reproduction in its "view horizon" at one snapshot. It chooses one mate which most satisfied attractiveness criterion. Swimbots mate when at least one of them is pursuing the other, and the distance between their genitals is less than the length of the genital vector) one offspring
+appears in-between them, which inherits genetic building blocks from both parents. A standard genetic-algorithm crossover technique is used, and some random mutation occurs in random genes. \linebreak
+				Settings of the program: The program avails to set the attraction criterion (big, similar color, long, still, crooked,... ). Swimbots can be moved by user, cloned or killed.\linebreak
+				Future development: Recursive embryology, Parental investment and gender.
+          
+    \item  Evolites (No official article, no precise information)
+          Graphical game with creatures called evolites swimming in the sea.        
+          Organisms: round creatures, different colors
+          Features: Energy, Hunger
+          Reproduction: ??
+          Environment: Sea with pieces of food
+          Possibilities: Mutation blobs, food rate, ...
+
+    \item \textbf{Mitozoos} \cite{Mitozoos}
+Th e Mitozoos World is a model of artificial life calculated and generated graphically on a computer. It is is an educational and recreational
+project to support study of evolution and genetics. It consists of two modules - the world and coders, which avail user to create their own mitozoos and send them to the running world. These modules can be deployed on different computers, world on one and coder on a number of other computers. Connection to internet is the only condition for them to cooperate.
+Description of the model:
+Organisms in this model are spider-like mitozoos with 2 eyes, body in shape of tetrahydron and four bent legs that inhabit a simulated threedimensional world. So as to move around, they must move their legs in sequence. The genome of a mitozoos consists of ten genes, each gene has four bases (four possible colors).
+Relation between genome and phenome(graphic appearance and behavior) is determined by large set of rules. These rules are designed in such
+a way that each element of the code is related to various aspects of the phenotype. The related traits simply depend on similar genes and rules, in other words, there is no such thing as a one-to-one relationship between the gene and the phenotype.
+Each mitozoos has its energy level, varying durig its life, and procreation threshold stating, how much energy allows it to reproduce. Mitozoos moves in the 3D world, consumes its energy on it, eats food bits growing in the world and gets energy from them. 
+Individual physical features of each mitozoos are length of parts of its legs determining moving possibilities and procreation threshold. Next to it every mitozoos has behavior given by strategy of retrieving meal (up to which distance it walks rather then waits for one to appear closer, whether there are not too many other mitozoos nearby the food bit) and frequency and duration of resting periods.
+
+
+
+the birth of individuals; the
+existence of a genetic code that determines individuals’
+appearance and behaviour; feeding (energy gain); the
+dissipation of energy through activity; reproduction,
+in which two individuals combine their genetic code in
+order to give birth to a third individual (sexual reproduction);
+and lastly, the death of individuals.
+          Organisms: spider-like mitozoos, different colors, \\
+          Features: Energy, copulation and risk threshold(?)\\
+          Reproduction: sexual\\
+          Environment: earth with pieces of food\\
+          Possibilities: creation of new creatures with user affected genes.\\
+          Multicomp: YES: One world, more creators of creatures\\
+          
+  \item Primordial life\\
+  
+	\item  Broucci - http://ksvi.mff.cuni.cz/\~holan/jinak/
+
+    \item  "Cell Based" - Parameters control the expression of "genes" or "proteins" which can themselves interact in complex ways. The resulting organism's properties are largely emergent, but are still encoded in the genome with a finite number of parameters.
+       \begin{itemize}    
+          \item  Cell-O-Sim (http://mbi.dkfz-heidelberg.de/projects/cellsim/cellosim/index.html) 
+				 Organisms: cells,
+          	 Features: 
+	          Reproduction: division
+	          Environment: tissue of cells
+	          Possibilities: 
+	          Multicomp: ??
+				 Under development
+          \item  Gardens of Kyresoo
+				 Organisms: cells of flowers 
+          	 Features: ??
+	          Reproduction: division
+	          Environment: garden for flowers
+	          Possibilities: seeding plants
+	          Multicomp: Yes, more player, cooperation
+				 Under development
+       \end{itemize}
+\end{itemize}
+
+\section {Neural Net Based}
+These simulations have creatures that learn and grow using neural nets or a close derivative. Emphasis is often, although not always, more on learning than on natural selection.
+\begin{itemize} 
+    \item  Creatures (a game)
+commercial game based on evolution of creatures.
+    \item  Evolutionz 
+    \item  NERO - Neuro Evolving Robotic Operatives(a game)
+    \item  Noble Ape
+    \item  Polyworld
+    \item  Bitozoa - focuses more on natural selection, no learning. http://www.alcyone.com/max/links/alife.html\#Simulations\_amp\_systems
+\end{itemize}    
+
+\chapter{Model of Abeetles}
+Abeetles would like to contribute to the set of artificial life applications. Its predecesor is the program Broucci developed at the Faculty of Mathematic and Physis at Charles University by RNDr.Tomas Holan as a  sample program for teaching purposes. Its source code is available at http://ksvi.mff.cuni.cz/\~holan/jinak/. 
+Program Broucci implements interesting ideas - evolution of strategy of motion of simple beetles in a grid with obstacles or in case when beetles eat each other. Closer description of this application can be found in chapter Survey of existing artificial life applications. Abeetle overtook some of this ideas and tries to apply them in new ways.\\
+On the whole, there are quite a few artificial life applications. This topic became famous in past decade and encouraged this field of knowledge to considerable development. Existing applications cover wide range of interesting features and access the problematics from different points of view. Some of this applications and articles on this topic work are accessible completely, with all documentation, other are poorly documented or without source code and some are even not accessible freely at all. For example the website of International Society of Artificial Life demands membership fees for access to presented information. Therefore the objective to allocate a set of features and attitudes for a new artifical life system that would be verifiably original is hardly reachable. \\
+Accordingly Abeetles only strive to present an original set of features and attitudes among well-described parts of free and accesible implementations of artificial life.\\
+\indent
+
+\section{Chosen features}
+	All the evaluated artificial life applications were compared in 33(TO CHECK) cathegories. For Abeetles four were chosen as the key ones. The following table compares Abeetles with other solutions specificaly in this cathegories.
+
+\begin{tabular}{lcccccc}
+ & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\
+Motion strategy&x&x&G&G&S&G\\
+mems learning&x&O&x&x&x&G/O\\
+Expectations on partner&x&x&x&x&O&G/O\\
+Distribution of computation&x&Y&x&x&x&Y\\.
+Obstacles in evironment&x&x&x&x&x&O
+ \end{tabular}
+
+individual motion strategy = (input=view, output=moving strategy)
+O-optional
+S-static
+G-genetically evolved
+x-Not present
+\indent
+\subsection{Description of features}
+\subsubsection{Motion strategy}
+The predecessor of Abeetles, Broucci, evolved
+
+
+\chapter{References to related web pages}
+http://myxo.css.msu.edu/cgi-bin/lenski/prefman.pl?group=al - Evolution experiments with digital organisms
+
+
+
+\chapter {Implementation}
+
+\section {Paralelisation}
+
+\subsection Idea of paralelisation in Abeetles:
+Paralelisation should distribute the computation of the grid environment for abeetles on several computers. As the environment is a grid, it can be cut into rectangular parts, each of this executed and evolved on a different source computer. This parts can have versatile size according to performance of the computer. With this schema, the number of fields of one part, that are computed on one computer is up to quadratical to width(heigth) of the part and number of fields of one part, that need communication with other parts is linear (four times) to width(heigth) of the part.\\
+Why paralelisation can make the computation quicker: Beetles are located in a grid, so the interactions between the grid cells are similar to those of a celular automata - each beetle interacts only with its nearest neighborhood.
+Artificial systems such as Tom Ray's tierra \cite{Tierra} have opened the possibility of studying evolvable systems. The study of evolution in such an information-rich artificial environment requires ever larger and faster systems, and present systems are largely restricted by such limits. 
+Distributing overmultiple processors is not practical on a large scale, because of the non-local interaction between members of the tierran population. But the system Avida developed the idea of the environment towards distribution. Avida is based on an array of cells that interact only with their nearest neighbours and an update mechanism reminiscet of 2D cellular automata.\cite{Avida} \\
+Nevertheless Avida system does not include distributed computation in its latest implementation, neither in older ones. 
+Abeetles should exploit ideas presented in the article about Avida, follow suggestions about local interaction and other improvements of Avida and implement them in a system, that will execute in a paralel way. But unlike Avida, Abeetles will be a parameter based system, not a program based.
+
+ 
+
+
+\subsection Choice of tool for Abeetles:
+There are two main tools used for paralelisation of computation. PVM(Paralel virtual Machine) and MPI(Message Passing Interface). Comparison of features has been published in an article \cite {PVM versus MPI}
+
+	\subsubsection {Topology:}
+	MPI provides higher level of the message-passing topology. In MPI a group of tasks can be arranged in a specific logical interconnection topology. PVM does not support such an abstraction, the programmer is to manually arrange tasks into groups with the desired communication organization.
+	For Abeetles the concept of MPI would be more convenient. But the organization of squares as parts of a toroid should be simple enough to realize using PVM.
+
+	\subsubsection {Fault Tolerance:}
+	Fault tolerance is important for any long-running simulation.  PVM has supported a basic fault notification scheme. Using this scheme individual tasks can inform other tasks about faults and respond to faults without hanging or failing.
+	
+	\subsubsection {Resource Control:}
+	PVM is inherently dynamic in nature. Computing resources can be added or deleted any time. In a long­running application in which the user occasionally wishes to attach a graphical front­end to view the computation's progress. Without virtual machine dynamics, the graphical workstation would have to be allocated during the entire computation. MPI lacks such dynamics and is, in fact, specifically designed to be static in nature to improve performance.
+	Abeetles intends to be such an application - fast running, with rare user requests for graphical view of progress (possibly) or graphs and metrics of the course of the computation. Thus PVM should serve better for the case of Abeetles.
+	
+	\subsubsection {Process Control:}
+	Ability to stop and start tasks in included both in MPI(v.2.0) and PVM.
+
+	\subsubsection {Portability versus Interoperability:}
+	MPI programs are only portable, which means that they can be ported from one architecture to another, compiled and executed without modification. PVM programs can be dealt in the same way, but moreover can also communicate with each other.
+
+	\subsubsection{Context for Safe Communication:}
+	Offered by both MPI and PVM (v.3.4.)
+
+	\subsubsection{Speed:}
+	MPI is expected to be faster within a large multiprocessor. Reason is MPI's simplicity.
+
+\section {Genetical Algorithm}
+
+\subsection {Choice of genetical algorithm for Abeetles}
+
+Sources:
+\begin{itemize}
+	\item http://en.wikipedia.org/wiki/Crossover_\%28genetic_algorithm\%29
+	\item http://www.springerlink.com/content/b67qv704abd9mtgt/fulltext.pdf	
+	\item http://www.springerlink.com/content/b67qv704abd9mtgt/
+	\item http://www.cs.cas.cz/~roman/ea.html  	
+	\item http://wiki.matfyz.cz/wiki/AIL025
+	\end{itemize}
+
+\chapter{my Remarks}
+
+http://www.alife.org/ - International society for Artificial life
+
+http://www.scs.carleton.ca/\~soma/biosec/readings/spafford-viruses.pdf - Interesting essay about considerations whether viruses are forms of artificial life or not. Result: No.
+Paper includes a worthwhile definition of life:
+	\begin{itemize}
+	\item Life is a pattern in space-time rather than a specific material object.
+	\item Self-reproduction, in itself or in a related organism.
+	\item Information storage of a self-representation.
+	\item A metabolism that converts matter/energy.
+	\item Functional interactions with the environment.
+	\item Interdependence of parts.
+	\item Stability under perturbations of the environment.
+	\item The ability to evolve.
+	\item Growth or expansion
+	\end{itemize}
+
+\chapter {Ideas}
+\begin {itemize}
+  \item Pocet rodicu > 2 ... jak to ovlivni evoluci?
+  \item Kontaktovat m.borkowskeho a napsat rozsireni pro jeho program.
+\end{itemize}
+
+\begin{thebibliography}{99}
+
+\bibitem{Bedau}
+Mark A. Bedau (November 2003). Artificial life: organization, adaptation and complexity from the bottom up. TRENDS in Cognitive Sciences. http://www.reed.edu/\~mab/publications/papers/BedauTICS03.pdf
+
+\bibitem{Langton}
+Langton, C. ed. (1989) Artificial Life Addison-Wesley
+
+\bibitem{Avida}
+Avida: A Software Platform for Research in Computational Evolutionary Biology;
+C. Ofria and C.O. Wilke, Artif. Life 10 (2004) 191-229.
+
+\bibitem{Tierra}
+Ray, T. S. 1991, "Evolution and optimization of digital organisms", in Billingsley K.R. et al (eds), Scientific Excellence in Supercomputing: The IBM 1990 Contest Prize Papers, Athens, GA, 30602: The Baldwin Press, The University of Georgia. Publication date: December 1991, pp. 489-531.
+
+\bibitem{GenePool}
+Attractiveness vs. Efficiency 1998
+"How Mate Preference Affects Locomotion in the Evolution of Artificial Swimming Organisms" published in "Artificial Life VI Proceedings" MIT Press) \linebreak
+Gene Pool: Exploring the Interaction Between Natural Selection and Sexual Selection published as Chapter 4 in Artificial Life Models in Software, edited by Andrew Adamatzky and Maciej Komosinski, Springer, 2005 
+
+\bibitem{Mitozoos}
+The book of the mitozoos. (http://bestiario.org/mitozoos/english/pdf/mitozoos\_en.pdf). Mitozoos World is a project created and developed by Bestiario [www.bestiario.org]. Website of the project (http://bestiario.org/mitozoos/english/index.html).
+
+\bibitem{PVM versus MPI}
+PVM and MPI: a Comparison of Features; G.A.Geist J.A.Kohl P.M. Papadopoulos
+
+\end{thebibliography}
+
+\end{document}
