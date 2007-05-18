@@ -35,4 +35,5 @@ public:
 	static int GetExpectOnPartnerMax(int which);
 	bool IsExpectOnPartnerSatisfied(int expect, int valueOfPartner);
 	CBeetle * CreateChild(CBeetle * beetle2);
+	static CBeetle * Crossover1Point(Cbeetle * beetle1, Cbeetle * beetle2);
 };

@@ -1,0 +1,17 @@
+Ahoj,
+
+ 
+
+Takze som to pohladal a posielam postupne vsetky informacie okolo LaTeXu, co sme sa vcera bavili …
+
+ 
+
+http://www.it.cas.cz/manual/latex/g.html -- tu najdes navod ako na to
+
+http://jabref.sourceforge.net/ -- tento program pouzivam na spravu referencii – je napisany v Jave (pre mna velka vyhoda ;) lebo ho pouzivam pod Win aj pod Linuxom
+
+http://www.toolscenter.org/ -- odkaz na ten program TeXnicCenter … je fakt dobry, odsadzovat sice nevie, ale ma navigacnu strukturu, pomocou ktorej sa vies dostat rychlo tam kam chces (tj. z “Section” a “Subsection” vytvara navigacny stromcek, podobne ako Kile v Linuxe).
+
+ 
+
+Tot vsjo. Pa. b.

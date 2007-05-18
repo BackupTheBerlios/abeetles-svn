@@ -147,13 +147,48 @@ bool CBeetle::IsExpectOnPartnerSatisfied(int expect, int valueOfPartner)
 
 CBeetle * CBeetle::CreateChild(CBeetle * beetle2)
 {
-	CBeetle * beetle_child=new CBeetle(*beetle2);
+	beetle = Crossover1Point(this, beetle2)
+	
 	beetle_child->Age=0;	
-
+	
 	beetle_child->Brain;
 	beetle_child->Direction;
 	beetle_child->Energy;
 	beetle_child ->ExpectOnPartner;
 
+	return beetle_child;
+}
+
+CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
+{
+	CBeetle * beetle_child1=new CBeetle();
+	CBeetle * beetle_child2==new CBeetle();
+	
+	CBeetle beetle_parent=beetle1;
+	
+	int I,J,K,L,M,pom,rand;
+
+	//indexes of 
+	int * [4] indx=(&I,&J,&K,&L);
+	for (N=3;N>=0;N--)
+	{
+		pom=indx[N];
+		indx[N]=indx[rand=RandInBound(N+1)];
+		indx[rand]=pom;
+	}
+
+
+	for (I=0;I<BRAIN_D1;I++)
+		for(J=0;J<BRAIN_D2;J++)
+			for(K=0;K<BRAIN_D3;K++)
+				for(L=0;L<BRAIN_D4;L++)
+					beetle_child1->Brain = 
+
+	
+	CBeetle * beetle_child=NULL;
+	if (RandInBound(2)) beetle_child=beetle_child1;
+	else beetle_child=beetle_child2;
+	beetle_child->Age=0;
+	beetle_child->Energy= beetle1->InvInChild + beetle2->InvInChild;	
 	return beetle_child;
 }
