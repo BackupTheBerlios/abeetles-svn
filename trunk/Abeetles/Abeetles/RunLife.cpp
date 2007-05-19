@@ -33,8 +33,7 @@ int CRunLife::run(void)
 	for (Time=0;Time<MAXTIME;Time++)
 	{
 		printf("\nT:%d ",Time);		
-		Env.PrintEnv();
-		sprintf (fname,"sb_t%d.txt",Time);
+		Env.PrintEnv();		
 
 		//communication with user
 		printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
@@ -42,6 +41,7 @@ int CRunLife::run(void)
 		{
 			//input = getc(stdin);
 			if (input == QUIT_CHAR) break;
+			sprintf (fname,"sb_t%d.txt",Time);
 			if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
 		}
 		printf("\n\n");

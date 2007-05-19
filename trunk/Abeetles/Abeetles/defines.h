@@ -19,6 +19,10 @@
 #define A_COPULATE 4 //A_COPULATE must be the last action
 
 #define A_STEP_COSTS 2
+#define A_ROTATION_COSTS 2
+#define A_COPULATION_COSTS 3
+#define A_WAIT_COSTS 1
+
 
 #define NOT_HUNGRY 1
 #define HUNGRY 0
@@ -40,10 +44,10 @@
 #define BRAIN_D4 4
 
 //dimesions of beetles expectations on partner
-#define EXPECT_ON_PARTNER_D1 4 
-#define EXPECT_ON_PARTNER_D2 2
+#define EXPECT_ON_PARTNER_D 6 
 
-#define EXPECT_ON_PARTNER_MAX_1 50
+//not used any more
+/*#define EXPECT_ON_PARTNER_MAX_1 50
 #define EXPECT_ON_PARTNER_MAX_2 50
 #define EXPECT_ON_PARTNER_MAX_3 50
 #define EXPECT_ON_PARTNER_MAX_4 50
@@ -52,7 +56,7 @@
 #define EXPECT_ENERGY 0
 #define EXPECT_AGE 1
 #define EXPECT_INVINCHILD 2
-#define EXPECT_LEARNABILITY 3
+#define EXPECT_LEARNABILITY 3*/
 
 #define NUMOPTVARIABLES 1
 

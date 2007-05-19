@@ -1,15 +1,16 @@
 #include "StdAfx.h"
 #include "Beetle.h"
 #include "defines.h"
-int CBeetle::EnergyMax_C = 100; //static variable must be inicialized like this out of the class!
+#include <assert.h>
+int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
+
+extern int RandInBound(int);
 
 CBeetle::CBeetle(void)
-: LearnAbility(0)
-, InvInChild(0)
 {	
 	
 }
-CBeetle::CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D1][EXPECT_ON_PARTNER_D2] , int hungryThreshold, int invInChild, int learnAbility )
+CBeetle::CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility )
 {	
 	int I,J,K,L;
 	Age=age;
@@ -17,14 +18,16 @@ CBeetle::CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int exp
 		Brain[I][J][K][L]=brain[I][J][K][L];
 	if ((direction>=0) &&(direction<=3))Direction=direction;
 		else Direction=0;
-	if ((energy>0)&&(energy<=EnergyMax_C)) Energy=energy; 
-		else energy=EnergyMax_C;
-	for (I=0;I<EXPECT_ON_PARTNER_D1;I++)for (J=0;J<EXPECT_ON_PARTNER_D2;J++)
-		ExpectOnPartner[I][J]=expectOnPartner[I][J];
+	if ((energy>0)&&(energy<=MAX_ENERGY)) Energy=energy; 
+		else Energy=MAX_ENERGY;
+	for (I=0;I<EXPECT_ON_PARTNER_D;I++)
+		ExpectOnPartner[I]=expectOnPartner[I];
 	if ((hungryThreshold>0)&&(hungryThreshold<=EnergyMax_C))HungryThreshold = hungryThreshold;
 		else HungryThreshold=EnergyMax_C;
 	InvInChild=invInChild;
 	LearnAbility = learnAbility;
+
+	assert(Energy>0);
 	
 }
 
@@ -52,17 +55,7 @@ int CBeetle::GetAction(bool bHunger, char Left, char Front, char Right)
 	return Brain[bHunger][Left][Front][Right];
 }
 
-void CBeetle::A_RotateLeft(void)//0,1,2,3 = West, North, East, South
-{
-	if (Direction>0) Direction--;
-	else Direction=3;
-}
 
-void CBeetle::A_RotateRight(void)
-{
-	if (Direction<3) Direction++;
-	else Direction=0;
-}
 
 bool CBeetle::IsHungry(void)
 {
@@ -88,7 +81,7 @@ int CBeetle::Decide(int Left, int Front, int Right)
 }
 int CBeetle::EnergyFromFlower(void)
 {
-	return 10;
+	return (int)((((double)1/(Age+1)) * 10)+1);
 }
 
 int CBeetle::ConsumeEnergy(int HowMuch)
@@ -122,73 +115,164 @@ void CBeetle::SetBrain(int Num, int Value)
 }
 
 int CBeetle::GetExpectOnPartnerMax(int which)
-{
+{	
+	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
+
 	switch (which)
 	{
-		case 0: return EXPECT_ON_PARTNER_MAX_1;
-		case 1: return EXPECT_ON_PARTNER_MAX_2;
-		case 2: return EXPECT_ON_PARTNER_MAX_3;
-		case 3: return EXPECT_ON_PARTNER_MAX_4;
+		case 0: return 100;
+		case 1: return 100;
+		case 2: return 100;
+		case 3: return 100;
+		case 4: return 100;
+		case 5: return 100;
 		default:
-			printf ("Wrong input for CBeetle::GetExpectOnPartnerMax(int which)\n");
+			printf ("Wrong input for CBeetle::GetExpectOnPartnerMax(beetle)\n");
 			return 0;
 	}
 }
 
-bool CBeetle::IsExpectOnPartnerSatisfied(int expect, int valueOfPartner)
+bool CBeetle::IsExpectOnPartnerSatisfied(CBeetle * beetle2)
 {
-	//0.Energy, 1.Age, 2.InvInChild, 3.LearningAbility
-	if ((valueOfPartner >= ExpectOnPartner[expect][0])&&
-		(valueOfPartner <= ExpectOnPartner[expect][1]))
-	return true;
-	else return false;
+	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
+	if (beetle2->Age < Age - ExpectOnPartner[0]) return false;
+	if (beetle2->Age > Age + ExpectOnPartner[1]) return false;
+	if (beetle2->Energy < ExpectOnPartner[3]+ExpectOnPartner[2])return false; 
+	if (beetle2->InvInChild< ExpectOnPartner[3])return false; 
+	if (beetle2->LearnAbility < LearnAbility - ExpectOnPartner[4]) return false;
+	if (beetle2->LearnAbility > LearnAbility + ExpectOnPartner[5]) return false;
+	if (beetle2->Energy <=beetle2->InvInChild) return false; //beetle2 would not survive creation of the child
+	return true;
+	
 }
 
 CBeetle * CBeetle::CreateChild(CBeetle * beetle2)
 {
-	beetle = Crossover1Point(this, beetle2)
-	
-	beetle_child->Age=0;	
-	
-	beetle_child->Brain;
-	beetle_child->Direction;
-	beetle_child->Energy;
-	beetle_child ->ExpectOnPartner;
+	CBeetle * beetle_child = Crossover1Point(this, beetle2);
 
+	
 	return beetle_child;
 }
 
 CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 {
 	CBeetle * beetle_child1=new CBeetle();
-	CBeetle * beetle_child2==new CBeetle();
+	CBeetle * beetle_child2=new CBeetle();
+	CBeetle * pom_ref_beetle;
 	
-	CBeetle beetle_parent=beetle1;
 	
-	int I,J,K,L,M,pom,rand;
+	int N,J,pom,rand;
 
 	//indexes of 
-	int * [4] indx=(&I,&J,&K,&L);
+	int  I [4];
+	int  indxInI [4]={0,1,2,3};
+	
 	for (N=3;N>=0;N--)
 	{
-		pom=indx[N];
-		indx[N]=indx[rand=RandInBound(N+1)];
-		indx[rand]=pom;
+		pom=indxInI[N];
+		indxInI[N] = indxInI[rand=RandInBound(N+1)];
+		indxInI[rand]=pom;
 	}
 
+	int PossibleCrossPoints = CBeetle::GetBrainDimension(indxInI[0]) +//size of first dimension of Brain
+							  EXPECT_ON_PARTNER_D + //size of ExpectOnPartner array
+							  1;	// There are 3 variables left - we start CP_count from 0, thus 2 more CP and after the last variable is no CP, thus 1.
+	int CrossPoint = RandInBound(PossibleCrossPoints+1);
+	int CP_count=0;
+	bool isCrossed=false;
+	
+	//Brain
+	for (I[indxInI[0]]=0;I[indxInI[0]]<CBeetle::GetBrainDimension(indxInI[0]);I[indxInI[0]]++)
+	{
+		for(I[indxInI[1]]=0;I[indxInI[1]]<CBeetle::GetBrainDimension(indxInI[1]);I[indxInI[1]]++)
+			for(I[indxInI[2]]=0;I[indxInI[2]]<CBeetle::GetBrainDimension(indxInI[2]);I[indxInI[2]]++)
+				for(I[indxInI[3]]=0;I[indxInI[3]]<CBeetle::GetBrainDimension(indxInI[3]);I[indxInI[3]]++)
+				{
+					beetle_child1->Brain[I[0]][I[1]][I[2]][I[3]] = beetle1->Brain[I[0]][I[1]][I[2]][I[3]];
+					beetle_child2->Brain[I[0]][I[1]][I[2]][I[3]] = beetle2->Brain[I[0]][I[1]][I[2]][I[3]];
+				}
 
-	for (I=0;I<BRAIN_D1;I++)
-		for(J=0;J<BRAIN_D2;J++)
-			for(K=0;K<BRAIN_D3;K++)
-				for(L=0;L<BRAIN_D4;L++)
-					beetle_child1->Brain = 
+		
+		if (!isCrossed &&(CP_count==CrossPoint)) 
+		{
+			isCrossed=true;
+			// switch of references of child 1 and 2
+			pom_ref_beetle = beetle_child1;beetle_child1=beetle_child2;beetle_child2=pom_ref_beetle;
+		}
+		CP_count++;
+	}
+	//ExpectOnPartner
+	for (J=0;J<EXPECT_ON_PARTNER_D;J++)
+	{
+		beetle_child1->ExpectOnPartner[J] = beetle1->ExpectOnPartner[J];
+		beetle_child2->ExpectOnPartner[J] = beetle2->ExpectOnPartner[J];
 
+		
+		if (!isCrossed &&(CP_count==CrossPoint)) 
+		{
+			isCrossed=true;
+			// switch of references of child 1 and 2
+			pom_ref_beetle = beetle_child1;beetle_child1=beetle_child2;beetle_child2=pom_ref_beetle;
+		}
+		CP_count++;
+	}
+
+	//Hungry Threshold
+	beetle_child1->HungryThreshold = beetle1->HungryThreshold;
+	beetle_child2->HungryThreshold = beetle2->HungryThreshold;
+	
+	if (!isCrossed &&(CP_count==CrossPoint)) 
+	{
+		isCrossed=true;
+		// switch of references of child 1 and 2
+		pom_ref_beetle = beetle_child1;beetle_child1=beetle_child2;beetle_child2=pom_ref_beetle;
+	}
+	CP_count++;
+
+	//InvInChild
+	beetle_child1->InvInChild = beetle1->InvInChild;
+	beetle_child2->InvInChild = beetle2->InvInChild;
+	
+	if (!isCrossed &&(CP_count==CrossPoint)) 
+	{
+		isCrossed=true;
+		// switch of references of child 1 and 2
+		pom_ref_beetle = beetle_child1;beetle_child1=beetle_child2;beetle_child2=pom_ref_beetle;
+	}
+	CP_count++;
+
+	//LearnAbility
+	beetle_child1->LearnAbility = beetle1->LearnAbility;
+	beetle_child2->LearnAbility = beetle2->LearnAbility;
+
+	assert (isCrossed==true);
 	
 	CBeetle * beetle_child=NULL;
 	if (RandInBound(2)) beetle_child=beetle_child1;
 	else beetle_child=beetle_child2;
 	beetle_child->Age=0;
 	beetle_child->Energy= beetle1->InvInChild + beetle2->InvInChild;	
+	if (beetle_child->Energy > MAX_ENERGY)beetle_child->Energy= MAX_ENERGY;
+	assert (beetle_child->Energy>0); 
+	beetle_child->Direction = RandInBound(4);
 	return beetle_child;
+}
+
+int CBeetle::GetBrainDimension(int which)
+{
+	switch (which)
+	{
+		case 0: return BRAIN_D1;
+		case 1: return BRAIN_D2;
+		case 2: return BRAIN_D3;
+		case 3: return BRAIN_D4;
+		default: return 0;
+	}
 }

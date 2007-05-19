@@ -18,7 +18,6 @@ public:
 				
 	void MakeBeetleAction(int x, int y);
 	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);
-	void A_Step(int x, int y, char direction);
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
 	CBeetle * CreateRandomBeetle();
@@ -27,5 +26,8 @@ public:
 	bool CreateRandomEnv(void);
 	bool MakeFlowerGrow(int x, int y);
 	bool A_Copulate(int x, int y, CBeetle * beetle);
+	bool A_Step(int x, int y, char direction);
+	void A_RotateLeft(CBeetle * beetle);
+	void A_RotateRight(CBeetle * beetle);
 	char RotateDirection(char direction, char L_R);
 };

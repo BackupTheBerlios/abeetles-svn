@@ -210,6 +210,45 @@ There are two main tools used for paralelisation of computation. PVM(Paralel vir
 
 \subsection {Choice of genetical algorithm for Abeetles}
 
+Representation of an agent(beetle) in Abeetles from genetical point of view:
+Chromosome of a beetle is the set of variables, representing the beetle:
+
+Brain [2][4][4][4] = 128B 
+
+I will consider the individual brain decisions as noninteracting and availe placing of a crossover point anywhere after finished set of decisions
+
+I want following variables to be logicaly noninteracting and thus it should be possible to place a crossover point anywhere among them. Hence I represent the expectations on a partner as relative divergence from other values.
+
+ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
+InvInChild = 1B
+HungryThreshold = 1B
+LearningAbility = 1B
+
+For implementation of crossover step the possible crossover points must be carefully chosen. The target is to find points, that availe separation of the genome into two noninteracting groups. Otherwise the crossover is not important for evolution and may be omitted. 
+
+Points can be placed between any pair of adjacent variables. Two created parts will be independent
+
+
+Generally: 
+\begin{itemize}
+  \item 1.selection
+  \item 2.crossover
+    \begin{itemize}
+      \item One-point crossover: This algorithm seems to be useful for the case of Abeetles. I will implement it as the first.
+      \item Two-point crossover: This algorithm seems to be useful for the case of Abeetles. I will implement it.
+      \item "Cut and splice": This technique is not suitable for case of Abeetles, because created children have different length of chromosomes.
+      \item Uniform Crossover and Half Uniform Crossover: These aproaches may also be useful.
+      \item Crossover for Ordered Chromosomes
+    \end {itemize}
+  \item 3.mutation
+\end {itemize}
+
+
+
+
 Sources:
 \begin{itemize}
 	\item http://en.wikipedia.org/wiki/Crossover_\%28genetic_algorithm\%29
@@ -217,6 +256,7 @@ Sources:
 	\item http://www.springerlink.com/content/b67qv704abd9mtgt/
 	\item http://www.cs.cas.cz/~roman/ea.html  	
 	\item http://wiki.matfyz.cz/wiki/AIL025
+	\item http://en.wikipedia.org/wiki/Swarm_intelligence
 	\end{itemize}
 
 \chapter{my Remarks}
@@ -240,7 +280,6 @@ Paper includes a worthwhile definition of life:
 \chapter {Ideas}
 \begin {itemize}
   \item Pocet rodicu > 2 ... jak to ovlivni evoluci?
-  \item Kontaktovat m.borkowskeho a napsat rozsireni pro jeho program.
 \end{itemize}
 
 \begin{thebibliography}{99}

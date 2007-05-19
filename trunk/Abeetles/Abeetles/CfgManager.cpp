@@ -238,10 +238,10 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 				fprintf(btlFile,";\n");
 				fprintf(btlFile,"Direction=%d;\n",beetle->Direction);
 				fprintf(btlFile,"Energy=%d;\n",beetle->Energy);
-				fprintf(btlFile,"ExpectOnPartner=");
-				for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
-						fprintf(btlFile,"%d,%d;",beetle->ExpectOnPartner[M][0],beetle->ExpectOnPartner[M][1]);
-				fprintf(btlFile,"\n");
+				fprintf(btlFile,"ExpectOnPartner=%d",beetle->ExpectOnPartner[0]);
+				for (M=1;M<EXPECT_ON_PARTNER_D;M++)
+						fprintf(btlFile,",%d,",beetle->ExpectOnPartner[M]);
+				fprintf(btlFile,";\n");
 				fprintf(btlFile,"HungryThreshold=%d;\n",beetle->HungryThreshold);
 				fprintf(btlFile,"InvInChild=%d;\n",beetle->InvInChild);
 				fprintf(btlFile,"LearnAbility=%d;\n",beetle->LearnAbility);
@@ -296,13 +296,13 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		if (0==fscanf_s(btlFile," Energy = %d ; ",&VarValue)) {ok=false;break;};
 		beetle->Energy=VarValue;
 		fscanf_s(btlFile," ExpectOnPartner = ");
-		for (I=0;I<4;I++)
+		for (I=0;I<EXPECT_ON_PARTNER_D-1;I++)
 		{
 		  if (0==fscanf_s(btlFile," %d , ",&VarValue)) {ok=false;break;};
-		  beetle->ExpectOnPartner[I][0]=VarValue;
-		  if (0==fscanf_s(btlFile," %d ; ",&VarValue)) {ok=false;break;};
-		  beetle->ExpectOnPartner[I][1]=VarValue;
+		  beetle->ExpectOnPartner[I]=VarValue;		  
 		}
+		if (0==fscanf_s(btlFile," %d ; ",&VarValue)) {ok=false;break;};
+		beetle->ExpectOnPartner[EXPECT_ON_PARTNER_D-1]=VarValue;		
 		if (0==fscanf_s(btlFile," HungryThreshold = %d ; ",&VarValue)) {ok=false;break;};
 		beetle->HungryThreshold=VarValue;
 		if (0==fscanf_s(btlFile," InvInChild = %d ; ",&VarValue)) {ok=false;break;};
