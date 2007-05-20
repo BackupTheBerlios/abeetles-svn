@@ -8,6 +8,7 @@ public:
 	CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner [EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility );
 	~CBeetle(void);
 	static int EnergyMax_C;
+	static int EFF_Age [EFF_BMP_X];
 //protected:
 	int Energy;// 0-100
 	char Direction; //0,1,2,3 = West, North, East, South

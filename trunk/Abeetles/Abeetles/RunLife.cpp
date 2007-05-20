@@ -41,7 +41,7 @@ int CRunLife::run(void)
 		{
 			//input = getc(stdin);
 			if (input == QUIT_CHAR) break;
-			sprintf (fname,"sb_t%d.txt",Time);
+			sprintf_s (fname,15,"sb_t%d.txt",Time);
 			if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
 		}
 		printf("\n\n");

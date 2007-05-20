@@ -10,7 +10,7 @@ class CEnvironment
 {
 public:
 	CEnvironment(void);
-	CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename);
+	CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename);
 	~CEnvironment(void);
 	
 	CGrid Grid; //actual grid

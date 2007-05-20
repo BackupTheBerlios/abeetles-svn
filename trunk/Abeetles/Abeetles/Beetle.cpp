@@ -3,7 +3,7 @@
 #include "defines.h"
 #include <assert.h>
 int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
-
+int CBeetle::EFF_Age [EFF_BMP_X]={10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 extern int RandInBound(int);
 
 CBeetle::CBeetle(void)
@@ -81,7 +81,10 @@ int CBeetle::Decide(int Left, int Front, int Right)
 }
 int CBeetle::EnergyFromFlower(void)
 {
-	return (int)((((double)1/(Age+1)) * 10)+1);
+	if (Age<EFF_BMP_X) return EFF_Age[Age];
+	else return EFF_Age[EFF_BMP_X-1];
+
+		//(int)((((double)1/(Age+1)) * 10)+1);
 }
 
 int CBeetle::ConsumeEnergy(int HowMuch)

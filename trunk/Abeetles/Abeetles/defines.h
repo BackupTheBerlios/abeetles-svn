@@ -8,6 +8,10 @@
 #define G_HEIGHT_MAX 50
 #define G_HEIGHT_MIN 5
 
+#define EFF_BMP_X 100
+#define EFF_BMP_Y 20
+#define EFF_BMP_FILE L"EnergyFromFlower.bmp"
+
 #define MAXTIME 100
 
 #define NUM_ACTIONS 5

@@ -42,7 +42,7 @@ bool CfgManager::GetGridInit(CGrid * grid)
 }
 */
 
-int CfgManager::LoadCfgFile(char* cfg_filename)
+bool CfgManager::LoadCfgFile(char* cfg_filename)
 {
 	//proprietary solution
 	CBeetle::EnergyMax_C=50;
@@ -263,7 +263,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	if ((err= fopen_s(&btlFile,filename,"r"))!=0) 
 	{
 		printf("%d",err);
-		exit;
+		return false;
 	}
 
 	//reading of btlFile using fscanf_s function
@@ -273,7 +273,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	int I,J = 0;
 	int x,y;
 	int VarValue=0;
-	char  VarName[20];
+	//char  VarName[20];
 	bool ok=true;
 
 	while (!feof(btlFile))
@@ -325,8 +325,73 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	if (ok==false)
 	{
 		printf("File %s was not read correctly.\n",btlFile);
-		exit;
+		return false;
 	}
 
 	return true;
 }
+
+
+bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * filename)
+{
+//1. Read the bmp file
+	//In windows any image must be connected with a device context, so as to read individual pixels
+	HDC hDC = CreateCompatibleDC(0);
+	if (hDC==0) printf("chyba DC\n"); //chyba
+
+	
+	//wchar_t * filename= MAP_BMP_FILE ;// function LoadImage needs a unicode string!
+	printf("%s\n", filename);
+
+	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
+								filename,	//file name - as UNICODE string !!!!
+								IMAGE_BITMAP,	//type of loaded result
+								EFF_BMP_X, 
+								EFF_BMP_Y,
+								LR_LOADFROMFILE
+							);
+	
+	if (hBitmap == 0) 
+	{
+		printf("Chyba hBitmap load EnergyFromFlower\n");
+		DWORD Err=GetLastError();
+		//char Buffer [256];
+		LPTSTR lpMsgBuf;
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,NULL,Err,MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),(LPTSTR) &lpMsgBuf,0, NULL);
+		printf("%s\n",lpMsgBuf);
+		LocalFree(lpMsgBuf);
+		return false;
+	}
+
+	//Ataching of image with DeviceContext
+	SelectObject ( hDC, hBitmap );
+
+	//TODO: check, if picture is at least as big as the grid !!
+
+//2.Fill EnergyFromFlower array with information from the image
+	COLORREF colorRef;
+	int I,J;
+
+	//for the sake of the printf in lines, this reads in the direction of columns from bottom up.
+	for (I=0;I<EFF_BMP_X;I++)	
+	{	
+		for (J=EFF_BMP_Y-1;J>=0;J--)
+		{
+			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
+			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
+			if (colorRef == 0)
+			{
+				EFF_Age[I]=J;
+				continue;
+			}
+		}
+		//printf("\n");
+	}
+
+
+	DeleteObject(hBitmap);
+	return true;
+}
+
+
+

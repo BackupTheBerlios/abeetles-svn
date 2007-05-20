@@ -12,19 +12,50 @@ extern int RandInBound (int bound);
 CEnvironment::CEnvironment(void)
 {
 	//Set values of options of environment and beetles
-	CfgMng.LoadCfgFile("BeetleCfg.txt");
-	
-	//Init Grid and Grid_Next (with sizes, flowers probability, walls and beetles)
-	LoadEnv("Beetle.txt",MAP_BMP_FILE);
+	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
+	{
+		printf("Loading of cfg file %s was not successful.","BeetleCfg.txt");
+		exit (EXIT_FAILURE);
+	}
+
+	//Init Grid and Grid_Next (with sizes, flowers probability, walls and beetles)	
+	if (false == LoadEnv("Beetle.txt",MAP_BMP_FILE))
+	{
+		printf("Loading of environment bmp file %S or beetle %s file was not successful.",MAP_BMP_FILE,"Beetle.txt");
+		exit (EXIT_FAILURE);
+	}
+
+	//load function of Age and EnergyFromFlower from bmp file
+	int pom [100];
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(pom, EFF_BMP_FILE))
+	{
+		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
+		exit (EXIT_FAILURE);
+	}
 }
 
-CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename)
+CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename)
 {	
 	//Set values of options of environment and beetles
-	CfgMng.LoadCfgFile(cfg_filename);
+	if (false == CfgMng.LoadCfgFile(cfg_filename))
+	{
+		printf("Loading of cfg file %s was not successful.",cfg_filename);
+		exit (EXIT_FAILURE);
+	}
 
 	//Init Grid and Grid_Next (with sizes, flowers probability, walls and beetles)
-	LoadEnv(btl_filename,map_filename);
+	if (false == LoadEnv(btl_filename,map_filename))
+	{
+		printf("Loading of environment bmp file %S or beetle %s file was not successful.",map_filename,btl_filename);
+		exit (EXIT_FAILURE);
+	}
+
+	//load function of Age and EnergyFromFlower from bmp file
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, eff_filename))
+	{
+		printf("Loading of energy from flower bmp file %S was not successful.",eff_filename);
+		exit (EXIT_FAILURE);
+	}
 }
 
 CEnvironment::~CEnvironment(void)
@@ -233,7 +264,10 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 				for(L=0;L<BRAIN_D4;L++)
 					//beetle tries to copulate always if there is a beetle in front of them
 					if (K==(BEETLE-1))brain [I][J][K][L]=A_COPULATE;
-					else brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
+					else 
+						if ((I==1)&&(K==(FLOWER-1))) brain[I][J][K][L]=A_STEP;
+						else
+							brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
 	char direction = RandInBound(4);
 	int energy=10+RandInBound(MAX_ENERGY);
 	
@@ -329,6 +363,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	//if (false==CfgMng.LoadBeetles(&Grid_Next,btl_filename))return false;
 	
 	Grid_Next=Grid;
+	return true;
 }
 
 //tries agains probability to plant a flower on the x,y.
@@ -374,7 +409,7 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 	if (beetle->IsExpectOnPartnerSatisfied(beetle2))
 		//check his conditions
 	{
-		if (beetle2->IsExpectOnPartnerSatisfied(beetle));
+		if (beetle2->IsExpectOnPartnerSatisfied(beetle))
 		{
 			//check if there is a space next to both of beetles( 4 possibile cells)
 				int neigh[4][3];//1st column - what, 2nd - x, 3rd - y
