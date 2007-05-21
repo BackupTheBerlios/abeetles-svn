@@ -28,7 +28,7 @@ int CRunLife::run(void)
 	char fname [15];
 
 	int Time=0;
-	char input;
+	char input;	
 	//Zivot
 	for (Time=0;Time<MAXTIME;Time++)
 	{
@@ -37,13 +37,13 @@ int CRunLife::run(void)
 
 		//communication with user
 		printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
-		if (input = _getch())
-		{
-			//input = getc(stdin);
+		//if (input = _getch())
+		//{
+			input = getc(stdin);
 			if (input == QUIT_CHAR) break;
 			sprintf_s (fname,15,"sb_t%d.txt",Time);
 			if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
-		}
+		//}
 		printf("\n\n");
 		
 		for(I=0;I<Env.Grid.G_Width;I++)

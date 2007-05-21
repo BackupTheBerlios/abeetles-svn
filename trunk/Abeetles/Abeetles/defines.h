@@ -41,6 +41,8 @@
 #define MAX_ENERGY 50
 #define MAX_LEARN_ABILITY 50
 #define MAX_AGE 50
+#define MAX_INV_IN_CHILD 25
+
 //dimesions of beetles brain
 #define BRAIN_D1 2
 #define BRAIN_D2 4

@@ -25,9 +25,8 @@ CEnvironment::CEnvironment(void)
 		exit (EXIT_FAILURE);
 	}
 
-	//load function of Age and EnergyFromFlower from bmp file
-	int pom [100];
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(pom, EFF_BMP_FILE))
+	//load function of Age and EnergyFromFlower from bmp file	
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
 	{
 		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
 		exit (EXIT_FAILURE);
@@ -271,11 +270,21 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 	char direction = RandInBound(4);
 	int energy=10+RandInBound(MAX_ENERGY);
 	
-	for (M=0;M<EXPECT_ON_PARTNER_D;M++)
-	{
-		expectOnPartner [M]= CBeetle::GetExpectOnPartnerMax(M); 
-		//		 		
-	}
+	
+	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
+
+	//for (M=0;M<EXPECT_ON_PARTNER_D;M++)
+	expectOnPartner [0]= CBeetle::GetExpectOnPartnerMax(0); 
+	expectOnPartner [1]= CBeetle::GetExpectOnPartnerMax(1); 
+	expectOnPartner [2]= 6; 
+	expectOnPartner [3]= 10; 
+	expectOnPartner [4]=30;
+	expectOnPartner [5]=30;
+				 		
+	
 	int hungryThreshold = 1+RandInBound(MAX_ENERGY);
 	int invInChild = 1+RandInBound(MAX_ENERGY);
 	int learnAbility= 1+RandInBound(MAX_LEARN_ABILITY);

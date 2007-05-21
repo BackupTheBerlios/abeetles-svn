@@ -240,7 +240,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 				fprintf(btlFile,"Energy=%d;\n",beetle->Energy);
 				fprintf(btlFile,"ExpectOnPartner=%d",beetle->ExpectOnPartner[0]);
 				for (M=1;M<EXPECT_ON_PARTNER_D;M++)
-						fprintf(btlFile,",%d,",beetle->ExpectOnPartner[M]);
+						fprintf(btlFile,",%d",beetle->ExpectOnPartner[M]);
 				fprintf(btlFile,";\n");
 				fprintf(btlFile,"HungryThreshold=%d;\n",beetle->HungryThreshold);
 				fprintf(btlFile,"InvInChild=%d;\n",beetle->InvInChild);
@@ -332,7 +332,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 }
 
 
-bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * filename)
+bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * filename)
 {
 //1. Read the bmp file
 	//In windows any image must be connected with a device context, so as to read individual pixels

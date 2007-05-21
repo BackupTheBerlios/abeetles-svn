@@ -120,7 +120,7 @@ void CBeetle::SetBrain(int Num, int Value)
 int CBeetle::GetExpectOnPartnerMax(int which)
 {	
 	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
-	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+	//	ExpectOnPartner - Energy = 1B how much more must at least have than ExpectOnPartner - InvInChild
 	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
@@ -128,8 +128,8 @@ int CBeetle::GetExpectOnPartnerMax(int which)
 	{
 		case 0: return 100;
 		case 1: return 100;
-		case 2: return 100;
-		case 3: return 100;
+		case 2: return MAX_ENERGY - MAX_INV_IN_CHILD;
+		case 3: return MAX_INV_IN_CHILD;
 		case 4: return 100;
 		case 5: return 100;
 		default:
