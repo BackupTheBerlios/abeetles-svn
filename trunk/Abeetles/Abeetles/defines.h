@@ -52,6 +52,10 @@
 //dimesions of beetles expectations on partner
 #define EXPECT_ON_PARTNER_D 6 
 
+//probability of mutation
+#define MUTATION_PROB 2
+#define LEARN_PROB 2
+
 //not used any more
 /*#define EXPECT_ON_PARTNER_MAX_1 50
 #define EXPECT_ON_PARTNER_MAX_2 50
@@ -76,3 +80,4 @@
 
 //console interface
 #define QUIT_CHAR 'x'
+#define SAVE_CHAR 's'

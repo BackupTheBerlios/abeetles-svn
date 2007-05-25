@@ -249,7 +249,6 @@ Generally:
 
 
 
-
 Sources:
 \begin{itemize}
 	\item http://en.wikipedia.org/wiki/Crossover_\%28genetic_algorithm\%29
@@ -259,6 +258,40 @@ Sources:
 	\item http://wiki.matfyz.cz/wiki/AIL025
 	\item http://en.wikipedia.org/wiki/Swarm_intelligence
 	\end{itemize}
+	
+\section {Statistic and overviews offered by Abeetles}
+GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
+Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
+Bitozoa: graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file
+Primordial life: ecosystem status (population, time death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)
+Avida: instruction viewer, string details, graphs of 
+
+GenePool: graph of no. of swimbots vs. food, 
+          features of individual, 
+          the best one in attraction/mating/eating
+Mitozoos: genetic landscape, 
+          log of events, 
+          on reproduction join crossjoin of genotypes is shown
+Bitozoa:  graph of populations, 
+          energy flow and energy flow averaged, 
+          Save simulation description, 
+          Collect information to .txt file
+Primordial life: ecosystem status (population, time death and birth rate numbers), 
+          global status of all connected ecosystems(no. of connected ecosystems, population)
+Avida: instruction viewer, 
+       string details, 
+       graphs of 
+
+\section {Memory of beetles}
+Beetles without memory have no chance to vary their decision, if the situation around them is constant. And if the decision is anything else than a step, their repeat this until they get hungry, die or the situation changes. But in case their are already hungry and the situation is a for long time constant, they are determined to die. And in the range of whole environment, if there are few beetles in the environment, they become extinct. 
+
+Ways how to solve this problem:
+1. Flowers could besides growing also die back. Such a solution would  cause the environment to vary in every step, even if beetle don't eat the flowers.
+2. Beetles could get aditional memory, to determine a deadlock-like situation. This could be done in several different ways:
+a) remember n past coords - a beetle which does not move is likely to die.
+b) remember n past actions - a beetle which does some other action than the step more than 3 times (rotation) or more than once (unsuccessful copulation) does it wastefully.
+ 
+
 
 \chapter{my Remarks}
 

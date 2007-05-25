@@ -72,13 +72,20 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	Grid.GetCellContent(x,y,&beetle);
 	printf("E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
 	
+	//beetle looks around him
 	Left=GetBeetleNeighborCell(x,y,beetle->Direction,'L');
 	Right=GetBeetleNeighborCell(x,y,beetle->Direction,'R');
 	Front=GetBeetleNeighborCell(x,y,beetle->Direction,'F');
-
+	
+	//beetle decides what to do according to what he sees and whether he is hungry
 	int action = beetle->Decide(Left,Front,Right);
-	int Res = 0; //whether is the beetle still alive -1==DEAD
+	//int Res = 0; //whether is the beetle still alive -1==DEAD
+	bool newChild = false;
 
+
+	//IDEA: beetle learns himself: if beetle is at the same place for 
+
+	//he makes the action he decided to do
 	assert (! beetle->IsDead());
 	switch (action) 
 	{
@@ -118,7 +125,10 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 			if (beetle->Energy > A_COPULATION_COSTS)
 			{
 				if (true == A_Copulate(x,y,beetle))
+				{
 					beetle->ConsumeEnergy(A_COPULATION_COSTS);
+					newChild = true;
+				}
 				else beetle->ConsumeEnergy(A_WAIT_COSTS);
 			}
 			else beetle->Energy =0;
@@ -131,9 +141,29 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 			delete(beetle);	beetle = NULL;
 			Grid.SetCellContent(NOTHING,x,y);// even in old grid beetle must be removed - it would be reference to deleted memory
 			Grid_Next.SetCellContent(NOTHING,x,y);//in next grid the beetle is on same position as in old one.
+			return;
 		}
-	else //beetle is now 1 time slice older
-		beetle->Age++;
+
+	//when beetle meets some other beetle2 and didn't create child with beetle2
+	// and the beetle is better = has more energy than him, he can learn something from beetle2 according to beetle's learning ability
+	int b2_x, b2_y;
+	CBeetle * beetle2;
+	if ((newChild==false)&&(Front==BEETLE) && 
+		(RandInBound(MAX_LEARN_ABILITY) < beetle->LearnAbility )) // beetles that have higher learnAbility, have higher probability, that they learn something
+	{
+		Grid.GetNeigborCellCoords(x,y,&b2_x,&b2_y, beetle->Direction);
+		Grid.GetCellContent(b2_x,b2_y, &beetle2);
+		if (beetle2 != NULL)
+		{
+			if (beetle2->Energy > beetle->Energy)
+				beetle->LearnFrom(beetle2);
+		}
+	}
+
+
+	beetle->Age++; //beetle is now 1 time slice older
+	
+	
 
 }
 
@@ -252,7 +282,7 @@ bool CEnvironment::PrintEnv(void)
 
 CBeetle * CEnvironment::CreateRandomBeetle()
 {
-	int I,J,K,L,M;
+	int I,J,K,L;
 	//int a;
 	char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];
 	int expectOnPartner [EXPECT_ON_PARTNER_D];

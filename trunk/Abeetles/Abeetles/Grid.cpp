@@ -23,6 +23,15 @@ CGrid::~CGrid(void)
 {
 }
 
+/**
+* Public method:GetCellContent
+* Desc: Returns id of content of the cell and if there is a beetle, it returns pointer to it.
+* System dependence: no
+* Usage comments:
+* @return (Return values - meaning) : id of content of a cell - see defines.h
+* @param name [ descrip](Parameters - meaning): x,y - coords of the cell in Grid, we are interested in. beetle_ref - reference to reference to a beetle, where the reference of found beetle is placed, if there is a beetle in [x,y] cell
+* @throws name [descrip](Exceptions - meaning)
+*/
 int CGrid::GetCellContent(int x, int y, CBeetle** beetle_ref)
 {
 	if ((x<0) ||(x>=(G_Width))||(y<0)||(y>=(G_Height))) return 0;
@@ -106,7 +115,16 @@ bool CGrid::SetGridShape(int FI,int W,int H)
 	return true;
 }
 
-//ZKONTROLUJ!!!
+/**
+* Public method:
+* Desc: Returns coords of the neighbor cell in chosen E/N/W/S direction
+* System dependence:no
+* Usage comments:
+* @return (Return values - meaning) : if input direction is not correct, it returns false, true otherwise.
+* @param name [ descrip](Parameters - meaning): x,y - coords of the original cell. n_x, n_y - references to the obtained coords of the neighbor cell. direction = id of the point of the compass - EAST, NORTH, WEST, SOUTH - see defines.h
+* @throws name [descrip](Exceptions - meaning)
+* Remarks:ZKONTROLUJ!!!
+*/
 bool CGrid::GetNeigborCellCoords(int x, int y, int * n_x,int * n_y, char direction)
 {
 

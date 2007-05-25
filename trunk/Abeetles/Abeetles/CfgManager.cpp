@@ -21,26 +21,6 @@ CfgManager::~CfgManager(void)
 }
 
 
-// reads init content of environment from files Env_cfg.bmp and AdamBeetles.txt
-//functionality removed to Env.LoadEnv()
-/*
-bool CfgManager::GetGridInit(CGrid * grid)
-{
-	int FI,W,H;
-	if (false==LoadGridShape(&FI,&W,&H)) return false;
-	if (false==Grid->SetGridShape(FI,W,H)) return false;
-
-	//First part - init environment: Loads environment without beetles
-	LoadMapFromBmp(grid,MAP_BMP_FILE);
-
-
-	//Second part - load beetles and add them to half finished environment
-	
-	LoadBeetles(grid,"Beetle.txt");
-
-	return true;
-}
-*/
 
 bool CfgManager::LoadCfgFile(char* cfg_filename)
 {
@@ -76,56 +56,7 @@ bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 
 
 
-/*
-//functionality removed to LoadBeetles()
-bool CfgManager::LoadNextBeetle(FILE * btlFile, //file opened for reading
-								CBeetle* beetle)
-{
-	char  VarName[20];
-	int VarValue=0;
-	int I;
-		
-	//reading of btlFile using fscanf_s function
-	//remarks:
-	//	1.One white-space character in the format matches any number (including 0) and combination of white-space characters in the input.
-	//
-		fscanf_s(btlFile," ---------- ");
-    fscanf_s(btlFile," Age = %d ; ",&VarValue);
-    beetle->Age=VarValue;
-    fscanf_s(btlFile," Brain = ");
-    for (I=0;I<127;I++)
-    {
-      fscanf_s(btlFile," %d ,",&VarValue);
-      beetle->SetBrain(I,VarValue);
-    }
-    fscanf_s(btlFile," %d ; ",&VarValue);
-    beetle->SetBrain(127,VarValue);
-    fscanf_s(btlFile," Direction = %d ; ",&VarValue);
-    beetle->Direction=VarValue;
-    fscanf_s(btlFile," Energy = %d ; ",&VarValue);
-    beetle->Energy=VarValue;
-    fscanf_s(btlFile," ExpectOnPartner = ");
-    for (I=0;I<4;I++)
-    {
-      fscanf_s(btlFile," %d , ",&VarValue);
-      beetle->ExpectOnPartner[I][0]=VarValue;
-      fscanf_s(btlFile," %d ; ",&VarValue);
-      beetle->ExpectOnPartner[I][1]=VarValue;
-    }
-    fscanf_s(btlFile," HungryThreshold = %d ; ",&VarValue);
-    beetle->HungryThreshold=VarValue;
-    fscanf_s(btlFile," InvInChild = %d ; ",&VarValue);
-    beetle->InvInChild=VarValue;
-    fscanf_s(btlFile," LearnAbility = %d ; ",&VarValue);
-    beetle->LearnAbility=VarValue;
-	fscanf_s(btlFile," x = %d ; ",&VarValue);
-	fscanf_s(btlFile," y = %d ; ",&VarValue);
 
-	fscanf_s(btlFile," ---------- ");
-	
-	return true;
-}
-*/
 
 /**
 * Protected method

@@ -28,7 +28,7 @@ int CRunLife::run(void)
 	char fname [15];
 
 	int Time=0;
-	char input;	
+	char input;
 	//Zivot
 	for (Time=0;Time<MAXTIME;Time++)
 	{

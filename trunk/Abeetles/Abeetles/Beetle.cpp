@@ -159,7 +159,7 @@ bool CBeetle::IsExpectOnPartnerSatisfied(CBeetle * beetle2)
 CBeetle * CBeetle::CreateChild(CBeetle * beetle2)
 {
 	CBeetle * beetle_child = Crossover1Point(this, beetle2);
-
+	Mutation(beetle_child);
 	
 	return beetle_child;
 }
@@ -268,6 +268,15 @@ CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 	return beetle_child;
 }
 
+/**
+* Static method: GetBrainDimension
+* Desc: Returns certain dimension range of the Brain attribute
+* System dependence: no
+* Usage comments:
+* @return (Return values - meaning) : no return value
+* @param name [ descrip](Parameters - meaning): which - zero based index of the dimension, in which the range will be returned
+* @throws name [descrip](Exceptions - meaning)
+*/
 int CBeetle::GetBrainDimension(int which)
 {
 	switch (which)
@@ -278,4 +287,49 @@ int CBeetle::GetBrainDimension(int which)
 		case 3: return BRAIN_D4;
 		default: return 0;
 	}
+}
+
+
+/**
+* Static method: Mutation
+* Desc: Mutates Genom a beetle with probability MUTATION_PROB
+* System dependence: no
+* Usage comments:
+* @return (Return values - meaning) : no return value
+* @param name [ descrip](Parameters - meaning):beetle - reference to the beetle, whose genome is to be mutated
+* @throws name [descrip](Exceptions - meaning)
+*/
+void CBeetle::Mutation(CBeetle * beetle)
+{
+	int M,N,K,L;		
+	bool isChange = false;
+				for (M=0;M<BRAIN_D1;M++)
+					for(N=0;N<BRAIN_D2;N++)
+						for(K=0;K<BRAIN_D3;K++)
+							for(L=0;L<BRAIN_D4;L++)
+								if (RandInBound(100)<MUTATION_PROB)
+									{beetle->Brain [M][N][K][L]= RandInBound(NUM_ACTIONS); isChange=true;}
+				for (M=1;M<EXPECT_ON_PARTNER_D;M++)
+					if (RandInBound(100)<MUTATION_PROB){beetle->ExpectOnPartner[M]= RandInBound(GetExpectOnPartnerMax(M));isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->HungryThreshold= RandInBound(MAX_ENERGY);isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->InvInChild= RandInBound(MAX_INV_IN_CHILD);isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->LearnAbility= RandInBound(MAX_LEARN_ABILITY);	isChange=true;}
+}
+
+void CBeetle::LearnFrom(CBeetle* beetle2)
+{
+	int M,N,K,L;		
+		bool isChange = false;
+					for (M=0;M<BRAIN_D1;M++)
+						for(N=0;N<BRAIN_D2;N++)
+							for(K=0;K<BRAIN_D3;K++)
+								for(L=0;L<BRAIN_D4;L++)
+									if (RandInBound(100)<LEARN_PROB)
+										{Brain [M][N][K][L]= beetle2->Brain [M][N][K][L]; isChange=true;}
+					for (M=1;M<EXPECT_ON_PARTNER_D;M++)
+						if (RandInBound(100)<LEARN_PROB){ExpectOnPartner[M]= beetle2->ExpectOnPartner[M];isChange=true;}
+					if (RandInBound(100)<LEARN_PROB){HungryThreshold= beetle2->HungryThreshold;isChange=true;}
+					if (RandInBound(100)<LEARN_PROB){InvInChild= beetle2->InvInChild;isChange=true;}
+					if (RandInBound(100)<LEARN_PROB){LearnAbility= beetle2->LearnAbility;	isChange=true;}
+	
 }

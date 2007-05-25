@@ -43,5 +43,7 @@ public:
 	bool IsExpectOnPartnerSatisfied(CBeetle * beetle2);
 	CBeetle * CreateChild(CBeetle * beetle2);
 	static CBeetle * Crossover1Point(CBeetle * beetle1, CBeetle * beetle2);
+	static void Mutation(CBeetle * beetle);
 	static int GetBrainDimension(int which);
+	void LearnFrom(CBeetle* beetle2);
 };
