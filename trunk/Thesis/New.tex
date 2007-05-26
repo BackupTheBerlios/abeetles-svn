@@ -156,7 +156,28 @@ S-static
 G-genetically evolved
 x-Not present
 \indent
-\subsection{Description of features}
+\subsection{Description of the model of a beetle}
+Representation of an agent(beetle) in Abeetles from genetical point of view:
+Chromosome of a beetle includes following genes:\\
+\\
+Brain [2][4][4][4] - Set of actions, each of them is chosen by the beetle in the proper situation. Situation is defined by the quaternion (hunger,what is in the left, the front, the right). Item "hunger" specifies whether or not is the beetle hungry. Values of what is in the three directions from the beetle are four: beetle, flower, wall or nothing. These four possibilities are precisely the four possible contents of cells of the environment.\\
+Actions, for which the beetle can decide in this situations are chosen from the following set: make one step, turn right, turn left.\\
+Originally there were five actions: these three and copulation and waiting. Decision for copulation has sense only in situations, where is another beetle in front of the beetle and when the beetle is not hungry. And, furthemore, it these situations the beetle should always or almost always copulate (add here more rigorous explanation)when he meets another beetle. As a result, it is compulsory action in case a beetle sees another beetle in front of him.\\
+ The action waiting was omitted - it gets beetles into deadlock situation. They should never decide for waiting, when they are hungry, because there cannot grow any flower on the spot, where they are staying. And when they are not hungry, it might be useful only as waiting for somebody to come and make child with him. But even in this situation it is not clever - beetle cannot finish it, because it has no memory. So it waits until it gets hungry or situation around changes.\\
+  
+
+
+
+ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
+InvInChild = 1B
+HungryThreshold = 1B
+LearningAbility = 1B
+
+\subsection{Description of the model of the environment}
+
 \subsubsection{Motion strategy}
 The predecessor of Abeetles, Broucci, evolved
 
@@ -259,7 +280,7 @@ Sources:
 	\item http://en.wikipedia.org/wiki/Swarm_intelligence
 	\end{itemize}
 	
-\section {Statistic and overviews offered by Abeetles}
+\section {Statistics and overviews offered by Abeetles}
 GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
 Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
 Bitozoa: graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file
@@ -284,6 +305,7 @@ Avida: instruction viewer,
 
 \section {Memory of beetles}
 Beetles without memory have no chance to vary their decision, if the situation around them is constant. And if the decision is anything else than a step, their repeat this until they get hungry, die or the situation changes. But in case their are already hungry and the situation is a for long time constant, they are determined to die. And in the range of whole environment, if there are few beetles in the environment, they become extinct. 
+The other problematic situation ocurrs, when two beetles meet and want to copulate with each other. They might make a child or more, but then they do not have enough energy to create another child and get into deadlock, until situation around them changes or one of them dies. (Ne.. tohle nevadi, protoze se zmeni situace z hladove na nehladovou. Postreh: obecne nema smysl, aby hladovi broucci mohli volit akci A_COPULATE Postreh2: A je nutne, aby broucek pri kazdem setkani s jinym brouckem provedl A_COPULATE) Solution: omit action A_COPULATE from list of possible actions and include it as "hardwired". So this action will be performed always when in front of a beetle is another beetle and no decision will be made in this case. In case the copulation did not create a child beetle, e.a. expectations were not met, the decision for the case "beetle in the front" will be made according to the Brain table.  
 
 Ways how to solve this problem:
 1. Flowers could besides growing also die back. Such a solution would  cause the environment to vary in every step, even if beetle don't eat the flowers.

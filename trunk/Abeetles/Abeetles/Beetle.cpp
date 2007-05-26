@@ -10,7 +10,7 @@ CBeetle::CBeetle(void)
 {	
 	
 }
-CBeetle::CBeetle(int age,char brain[2][4][4][4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility )
+CBeetle::CBeetle(int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility )
 {	
 	int I,J,K,L;
 	Age=age;

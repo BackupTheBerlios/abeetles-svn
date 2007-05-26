@@ -77,13 +77,33 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	Right=GetBeetleNeighborCell(x,y,beetle->Direction,'R');
 	Front=GetBeetleNeighborCell(x,y,beetle->Direction,'F');
 	
-	//beetle decides what to do according to what he sees and whether he is hungry
-	int action = beetle->Decide(Left,Front,Right);
-	//int Res = 0; //whether is the beetle still alive -1==DEAD
+
+	int action = INVALID_NUM;
+	//HA_COPULATE - hardwired action of every beetle, when there is another beetle in front of him
 	bool newChild = false;
+	if (Front==BEETLE)
+	{
+		action=HA_COPULATE;
+		if (beetle->Energy > A_COPULATION_COSTS)
+			{
+				if (true == A_Copulate(x,y,beetle))
+				{
+					beetle->ConsumeEnergy(A_COPULATION_COSTS);
+					newChild = true;
+				}
+				else beetle->ConsumeEnergy(A_WAIT_COSTS);
+			}
+			else beetle->Energy =0;
+	}	
+	// if there was no copulation or no child created, beetle decides what to do according to what he sees and whether he is hungry
+	
+	if (newChild==false) action = beetle->Decide(Left,Front,Right);
 
+	assert(action!=INVALID_NUM);
 
-	//IDEA: beetle learns himself: if beetle is at the same place for 
+	//int Res = 0; //whether is the beetle still alive -1==DEAD
+
+	//IDEA: beetle learns himself: if beetle is at the same place for ...
 
 	//he makes the action he decided to do
 	assert (! beetle->IsDead());
@@ -114,25 +134,16 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 			}
 			else beetle->Energy =0;
 			break;
-		case A_WAIT:		
+/*		case A_WAIT:		
 			if (beetle->Energy > A_WAIT_COSTS)
 			{
 				beetle->ConsumeEnergy(A_WAIT_COSTS);
 			}
 			else beetle->Energy =0;
 			break;
-		case A_COPULATE:
-			if (beetle->Energy > A_COPULATION_COSTS)
-			{
-				if (true == A_Copulate(x,y,beetle))
-				{
-					beetle->ConsumeEnergy(A_COPULATION_COSTS);
-					newChild = true;
-				}
-				else beetle->ConsumeEnergy(A_WAIT_COSTS);
-			}
-			else beetle->Energy =0;
-			break;
+		case HA_COPULATE:
+			
+			break;*/
 	}
 
 	if (beetle->IsDead()) 
@@ -275,6 +286,7 @@ bool CEnvironment::PrintEnv(void)
 * Desc: Creates a random beetle and places it on given coords
 * System dependence:
 * Usage comments:
+* Remarks: method sums up all restriction for beetles' genes, that exclude all genotype that are "non sense"
 * @return (Return values - meaning) :
 * @param name [ descrip](Parameters - meaning):
 * @throws name [descrip](Exceptions - meaning)
@@ -291,12 +303,12 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 		for(J=0;J<BRAIN_D2;J++)
 			for(K=0;K<BRAIN_D3;K++)
 				for(L=0;L<BRAIN_D4;L++)
-					//beetle tries to copulate always if there is a beetle in front of them
-					if (K==(BEETLE-1))brain [I][J][K][L]=A_COPULATE;
-					else 
+				{
+					//Special set for debugging:
 						if ((I==1)&&(K==(FLOWER-1))) brain[I][J][K][L]=A_STEP;
 						else
-							brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
+							brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+				}
 	char direction = RandInBound(4);
 	int energy=10+RandInBound(MAX_ENERGY);
 	
