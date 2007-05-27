@@ -407,10 +407,10 @@ bool CEnvironment::CreateRandomEnv(void)
 	//if (false==CfgMng.LoadMapFromBmp(&Grid_Next,map_filename))return false;
 
 	//Second part - load beetles and add them to half finished environment
-	srand( (unsigned)time( NULL ) );
+	srand( 100);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<240;K++)
+	for (K=0;K<20;K++)
 	{
 		I=RandInBound(Grid.G_Width);
 		J=RandInBound(Grid.G_Height);
@@ -432,7 +432,8 @@ bool CEnvironment::CreateRandomEnv(void)
 bool CEnvironment::MakeFlowerGrow(int x, int y)
 {
 	int prob = Grid.GetCellGrowingProbability(x,y);
-	if (prob> RandInBound(100)) 
+	if ((Grid_Next.GetCellContent(x,y) == NOTHING) //a beetle might have made a step into this cell
+		&&(prob> RandInBound(100))) 
 	{
 		if (true == Grid_Next.SetCellContent(FLOWER,x,y))
 		{
