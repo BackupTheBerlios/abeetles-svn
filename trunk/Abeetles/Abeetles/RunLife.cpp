@@ -26,13 +26,12 @@ int CRunLife::run(void)
 	printf("SP:%d,SI:%d\n",sizeof(int*),sizeof(int));
 	printf("Width: %d\n",Env.Grid.G_Width);
 	char fname [15];
-
-	int Time=0;
+	
 	char input;
 	//Zivot
-	for (Time=0;Time<MAXTIME;Time++)
+	for (;;)
 	{
-		printf("\nT:%d ",Time);		
+		printf("\nTime:%d NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Time,Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
 		Env.PrintEnv();		
 
 		//communication with user
@@ -41,7 +40,7 @@ int CRunLife::run(void)
 		//{
 			input = getc(stdin);
 			if (input == QUIT_CHAR) break;
-			sprintf_s (fname,15,"sb_t%d.txt",Time);
+			sprintf_s (fname,15,"sb_t%d.txt",Env.Time);
 			if (input== 's') CfgMng.SaveBeetles(&Env.Grid,fname);
 		//}
 		printf("\n\n");
@@ -55,7 +54,8 @@ int CRunLife::run(void)
 			}
 		
 		Env.NextTime();
+		if (Env.Time>=MAXTIME) break;
 
 	}
-	return 0;
+	return EXIT_SUCCESS;
 }

@@ -11,6 +11,8 @@ extern int RandInBound (int bound);
 
 CEnvironment::CEnvironment(void)
 {
+	Time=0;
+
 	//Set values of options of environment and beetles
 	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
 	{
@@ -35,6 +37,8 @@ CEnvironment::CEnvironment(void)
 
 CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename)
 {	
+	Time=0; //Remake to load it from some save file of the environment!
+
 	//Set values of options of environment and beetles
 	if (false == CfgMng.LoadCfgFile(cfg_filename))
 	{
@@ -77,6 +81,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	Right=GetBeetleNeighborCell(x,y,beetle->Direction,'R');
 	Front=GetBeetleNeighborCell(x,y,beetle->Direction,'F');
 	
+	assert (! beetle->IsDead());
 
 	int action = INVALID_NUM;
 	//HA_COPULATE - hardwired action of every beetle, when there is another beetle in front of him
@@ -88,10 +93,12 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 			{
 				if (true == A_Copulate(x,y,beetle))
 				{
+					Statist.NumBeetles++;
+					Statist.NumBirths++;
 					beetle->ConsumeEnergy(A_COPULATION_COSTS);
 					newChild = true;
 				}
-				else beetle->ConsumeEnergy(A_WAIT_COSTS);
+				//else beetle->ConsumeEnergy(A_WAIT_COSTS);
 			}
 			else beetle->Energy =0;
 	}	
@@ -106,7 +113,6 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	//IDEA: beetle learns himself: if beetle is at the same place for ...
 
 	//he makes the action he decided to do
-	assert (! beetle->IsDead());
 	switch (action) 
 	{
 		case A_STEP: 
@@ -140,15 +146,16 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 				beetle->ConsumeEnergy(A_WAIT_COSTS);
 			}
 			else beetle->Energy =0;
-			break;
-		case HA_COPULATE:
-			
 			break;*/
+		case HA_COPULATE:
+				//realized beforehead.
+			break;
 	}
 
 	if (beetle->IsDead()) 
 		{	
 			beetle->Die();
+			Statist.NumBeetles--;
 			delete(beetle);	beetle = NULL;
 			Grid.SetCellContent(NOTHING,x,y);// even in old grid beetle must be removed - it would be reference to deleted memory
 			Grid_Next.SetCellContent(NOTHING,x,y);//in next grid the beetle is on same position as in old one.
@@ -158,7 +165,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	//when beetle meets some other beetle2 and didn't create child with beetle2
 	// and the beetle is better = has more energy than him, he can learn something from beetle2 according to beetle's learning ability
 	int b2_x, b2_y;
-	CBeetle * beetle2;
+	CBeetle * beetle2=NULL;
 	if ((newChild==false)&&(Front==BEETLE) && 
 		(RandInBound(MAX_LEARN_ABILITY) < beetle->LearnAbility )) // beetles that have higher learnAbility, have higher probability, that they learn something
 	{
@@ -212,7 +219,10 @@ bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 	{		
 			//if there is a flower
 			if (Grid.GetCellContent(x,y)==FLOWER) 
+			{
+				Statist.NumFlowers--;
 				beetle->AddEnergy(beetle->EnergyFromFlower());
+			}
 
 			Grid_Next.SetCellContent(NOTHING, oldx, oldy);
 			Grid_Next.SetCellContent(BEETLE,x,y,beetle);						
@@ -225,8 +235,8 @@ bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 //Should be called at the end of a time slice - rewrites Grid with Grid_Next
 void CEnvironment::NextTime(void)
 {
-	
-	//TODO: use overloaded operator '='
+	Time++;
+	Statist.NextTime(Time);
 	Grid=Grid_Next;
 }
 
@@ -405,7 +415,8 @@ bool CEnvironment::CreateRandomEnv(void)
 		I=RandInBound(Grid.G_Width);
 		J=RandInBound(Grid.G_Height);
 		beetle=CreateRandomBeetle();
-		Grid.SetCellContent(BEETLE,I,J,beetle);
+		if (Grid.SetCellContent(BEETLE,I,J,beetle))
+			Statist.NumBeetles++;
 		assert(beetle->GetEnergy()>0);
 		printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
 
@@ -424,7 +435,10 @@ bool CEnvironment::MakeFlowerGrow(int x, int y)
 	if (prob> RandInBound(100)) 
 	{
 		if (true == Grid_Next.SetCellContent(FLOWER,x,y))
+		{
+			Statist.NumFlowers++;
 			return true;
+		}
 	}
 	return false;
 }

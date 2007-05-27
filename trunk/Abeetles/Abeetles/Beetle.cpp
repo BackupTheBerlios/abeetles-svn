@@ -152,6 +152,8 @@ bool CBeetle::IsExpectOnPartnerSatisfied(CBeetle * beetle2)
 	if (beetle2->LearnAbility < LearnAbility - ExpectOnPartner[4]) return false;
 	if (beetle2->LearnAbility > LearnAbility + ExpectOnPartner[5]) return false;
 	if (beetle2->Energy <=beetle2->InvInChild) return false; //beetle2 would not survive creation of the child
+	//if the beetle who checks the other beetle is not hungry -- I am not sure whether this check should not be somewhere else
+	if (IsHungry() == true) return false;
 	return true;
 	
 }
@@ -257,9 +259,11 @@ CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 
 	assert (isCrossed==true);
 	
+	//choice of one of two beetle_childs, produced by crossover}
 	CBeetle * beetle_child=NULL;
-	if (RandInBound(2)) beetle_child=beetle_child1;
-	else beetle_child=beetle_child2;
+	if (RandInBound(2)==0) {beetle_child=beetle_child1;delete(beetle_child2);beetle_child2=NULL;}
+	else {beetle_child=beetle_child2;delete(beetle_child1);beetle_child1=NULL;};
+
 	beetle_child->Age=0;
 	beetle_child->Energy= beetle1->InvInChild + beetle2->InvInChild;	
 	if (beetle_child->Energy > MAX_ENERGY)beetle_child->Energy= MAX_ENERGY;

@@ -2,6 +2,7 @@
 #include "Beetle.h"
 #include "Grid.h"
 #include "CfgManager.h"
+#include "StatisticsEnv.h"
 
 //make globals visible
 extern CfgManager CfgMng;
@@ -15,6 +16,8 @@ public:
 	
 	CGrid Grid; //actual grid
 	CGrid Grid_Next; //grid for the following time value
+	int Time;
+	CStatisticsEnv Statist; //Statistics of the environment
 				
 	void MakeBeetleAction(int x, int y);
 	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);
