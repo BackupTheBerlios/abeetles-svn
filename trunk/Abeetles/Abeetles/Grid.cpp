@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "Grid.h"
 #include "defines.h"
+#include <assert.h>
 
 CGrid::CGrid(void)
 {
@@ -40,6 +41,11 @@ int CGrid::GetCellContent(int x, int y, CBeetle** beetle_ref)
 	if (GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0] == BEETLE)
 		if (beetle_ref!=NULL)
 			*beetle_ref = (CBeetle*)GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1];
+	//--debug:
+	if (GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]==NOTHING) 
+	{
+		assert (GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]==NULL);
+	}
 
 	return GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0];
 
@@ -67,6 +73,8 @@ bool CGrid::SetCellContent(int what,int x, int y, CBeetle * beetle )
 		else
 			GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=(int)beetle;
 	}
+	else
+		GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=NULL;//if here was a ref to beetle, I have to delete it.
 		
 	GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]=what;
 	return true;
@@ -98,7 +106,7 @@ bool CGrid::SetCellContent_Init(int what/* BEETLE/FLOWER/NOTHING/WALL */,int x, 
 			GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=(int)beetle;
 	}
 	else
-		GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=NULL; //if here was a ret to beetle, I have to delete it.
+		GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=NULL; //if here was a ref to beetle, I have to delete it.
 		
 	GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]=what;
 	return true;

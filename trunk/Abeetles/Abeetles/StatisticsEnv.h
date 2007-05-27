@@ -5,16 +5,25 @@ class CStatisticsEnv
 public:
 	CStatisticsEnv(void);
 	~CStatisticsEnv(void);
-
+	public:
 	int NumBeetles;
 	int NumBirths;
+	int NumFlowers;
 
-	double AvgAge;
-	double AvgEnergy;
-	double AvgHungryThreshold;
-	double AvgInvInChild;
-	double AvgLearnAbility;
+	double SumAge;
+	double SumEnergy;
+	double SumHungryThreshold;
+	double SumInvInChild;
+	double SumLearnAbility;
+	double SumNumChildren;
 
 	void NextTime(int Time);
-	int NumFlowers;
+	
+	void MakeEmpty(void);
+	double GetAvgAge(void);
+	double GetAvgEnergy(void);
+	double GetAvgHungryThreshold(void);
+	double GetAvgInvInChild(void);
+	double GetAvgLearnAbility(void);
+	double GetAvgNumChildren(void);
 };

@@ -14,8 +14,8 @@ public:
 	CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename);
 	~CEnvironment(void);
 	
-	CGrid Grid; //actual grid
-	CGrid Grid_Next; //grid for the following time value
+	CGrid Grid_Past; //actual grid
+	CGrid Grid; //grid for the following time value
 	int Time;
 	CStatisticsEnv Statist; //Statistics of the environment
 				
@@ -33,4 +33,5 @@ public:
 	void A_RotateLeft(CBeetle * beetle);
 	void A_RotateRight(CBeetle * beetle);
 	char RotateDirection(char direction, char L_R);
+	void CountStatistics(void);
 };

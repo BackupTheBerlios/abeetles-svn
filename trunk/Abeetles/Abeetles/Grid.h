@@ -8,7 +8,7 @@
 * Interface: Shows grid as a normal matrix [0..G_Width][0..G_Height] and stores information about what is in cells
 *	and about features of the cells(=flower growing probability) references to beetles. Masks two layers of the grid.
 * Usage comments:
-* Relations to other classes: Used by Environment for Grid and Grid_next
+* Relations to other classes: Used by Environment for Grid_Past and Grid_next
 */
 class CGrid
 {

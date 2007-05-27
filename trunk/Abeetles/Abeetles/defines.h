@@ -87,3 +87,6 @@
 //console interface
 #define QUIT_CHAR 'x'
 #define SAVE_CHAR 's'
+
+//boundaries of types
+#define MAX_INT 2147483647

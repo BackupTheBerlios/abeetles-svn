@@ -26,6 +26,7 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 {
 	//proprietary solution
 	CBeetle::EnergyMax_C=50;
+	CBeetle::LastId=0;
 	//later: LoadCfgFile():
 	return true;
 	/*
@@ -68,7 +69,7 @@ bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 * @throws name [descrip](Exceptions - meaning)
 */
 //
-bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
+bool CfgManager::LoadMapFromBmp(CGrid * grid, wchar_t * filename)
 {
 //1. Read the bmp file
 	//In windows any image must be connected with a device context, so as to read individual pixels
@@ -82,8 +83,8 @@ bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
 								filename,	//file name - as UNICODE string !!!!
 								IMAGE_BITMAP,	//type of loaded result
-								Grid->G_Width, 
-								Grid->G_Height,
+								grid->G_Width, 
+								grid->G_Height,
 								LR_LOADFROMFILE
 							);
 	
@@ -104,25 +105,25 @@ bool CfgManager::LoadMapFromBmp(CGrid * Grid, wchar_t * filename)
 
 	//TODO: check, if picture is at least as big as the grid !!
 
-//2.Fill Grid with information from the image
+//2.Fill grid with information from the image
 	COLORREF colorRef;
 	int I,J;
 
 	//for the sake of the printf in lines, this reads in the direction of lines, not columns
-	for (J=0;J< (Grid->G_Height);J++)	
+	for (J=0;J< (grid->G_Height);J++)	
 	{	
-		for (I=0;I<(Grid->G_Width);I++)
+		for (I=0;I<(grid->G_Width);I++)
 		{
 			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
 			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
 			if (colorRef == CFG_CLR_WALL)
-				Grid->SetCellContent_Init(WALL,I,J);			
+				grid->SetCellContent_Init(WALL,I,J);			
 			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
 			{
-				Grid->SetCellContent_Init(NOTHING,I,J);
-				Grid->SetCellGrowingProbability(FlowerProbabilityFromColor(colorRef),I,J);
+				grid->SetCellContent_Init(NOTHING,I,J);
+				grid->SetCellGrowingProbability(FlowerProbabilityFromColor(colorRef),I,J);
 			}
-			else Grid->SetCellContent_Init(NOTHING,I,J);
+			else grid->SetCellContent_Init(NOTHING,I,J);
 		}
 		//printf("\n");
 	}
@@ -158,6 +159,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 			if (grid->GetCellContent(I,J,&beetle)== BEETLE)
 			{
 				fprintf(btlFile," ---------- \n");
+				fprintf(btlFile,"Id=%d;\n",beetle->Id);
 				fprintf(btlFile,"Age=%d;\n",beetle->Age);
 				fprintf(btlFile,"Brain=%d",beetle->Brain [0][0][0][0]);
 				for (M=0;M<BRAIN_D1;M++)
@@ -176,6 +178,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 				fprintf(btlFile,"HungryThreshold=%d;\n",beetle->HungryThreshold);
 				fprintf(btlFile,"InvInChild=%d;\n",beetle->InvInChild);
 				fprintf(btlFile,"LearnAbility=%d;\n",beetle->LearnAbility);
+				fprintf(btlFile,"NumChildren=%d;\n",beetle->NumChildren);
 				fprintf(btlFile,"x=%d;\n",I);
 				fprintf(btlFile,"y=%d;\n",J);
 
@@ -212,6 +215,8 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		beetle=new CBeetle();
 							
 		fscanf_s(btlFile," ---------- ");
+		if (0==fscanf_s(btlFile," Id = %d ; ",&VarValue)) {ok=false;break;};
+				beetle->Id=VarValue;
 		if (0==fscanf_s(btlFile," Age = %d ; ",&VarValue)) {ok=false;break;};
 		beetle->Age=VarValue;
 		fscanf_s(btlFile," Brain = ");
@@ -240,6 +245,8 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		beetle->InvInChild=VarValue;
 		if (0==fscanf_s(btlFile," LearnAbility = %d ; ",&VarValue)) {ok=false;break;};
 		beetle->LearnAbility=VarValue;
+		if (0==fscanf_s(btlFile," NumChildren = %d ; ",&VarValue)) {ok=false;break;};
+		beetle->NumChildren=VarValue;
 		if (0==fscanf_s(btlFile," x = %d ; ",&x)) {ok=false;break;};		
 		if (0==fscanf_s(btlFile," y = %d ; ",&y)) {ok=false;break;};		
 		fscanf_s(btlFile," ---------- ");

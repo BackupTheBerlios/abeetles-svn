@@ -3,6 +3,7 @@
 #include "defines.h"
 #include <assert.h>
 int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
+int CBeetle::LastId=0;
 int CBeetle::EFF_Age [EFF_BMP_X]={10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
 extern int RandInBound(int);
 
@@ -10,7 +11,7 @@ CBeetle::CBeetle(void)
 {	
 	
 }
-CBeetle::CBeetle(int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility )
+CBeetle::CBeetle(int id, int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility, int numChildren=0)
 {	
 	int I,J,K,L;
 	Age=age;
@@ -26,6 +27,8 @@ CBeetle::CBeetle(int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int 
 		else HungryThreshold=EnergyMax_C;
 	InvInChild=invInChild;
 	LearnAbility = learnAbility;
+	NumChildren=numChildren;
+	Id=id;
 
 	assert(Energy>0);
 	
@@ -336,4 +339,10 @@ void CBeetle::LearnFrom(CBeetle* beetle2)
 					if (RandInBound(100)<LEARN_PROB){InvInChild= beetle2->InvInChild;isChange=true;}
 					if (RandInBound(100)<LEARN_PROB){LearnAbility= beetle2->LearnAbility;	isChange=true;}
 	
+}
+
+int CBeetle::CreateNewId(void)
+{
+	if (LastId<MAX_INT)	return ++LastId;
+	else return LastId=1;
 }

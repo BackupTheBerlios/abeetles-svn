@@ -50,11 +50,11 @@ int CRunLife::run(void)
 	for (;;)
 	{
 		//go through all environment, make actions of all beetles and try grow a flower in all empty cells
-		for(I=0;I<Env.Grid.G_Width;I++)
-			for(J=0;J<Env.Grid.G_Width;J++)
+		for(I=0;I<Env.Grid_Past.G_Width;I++)
+			for(J=0;J<Env.Grid_Past.G_Height;J++)
 			{
-				if (Env.Grid.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
-				if (Env.Grid.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
+				if (Env.Grid_Past.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
+				if (Env.Grid_Past.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
 				//if there is a wall, flower of something bad, do nothing
 			}
 

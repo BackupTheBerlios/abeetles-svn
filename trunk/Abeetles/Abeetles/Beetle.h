@@ -5,11 +5,11 @@ class CBeetle
 {
 public:
 	CBeetle(void);
-	CBeetle(int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner [EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility );
+	CBeetle(int id, int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner [EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility, int numChildren );
 	~CBeetle(void);
 	static int EnergyMax_C;
 	static int EFF_Age [EFF_BMP_X];
-//protected:
+	int Id;
 	int Energy;// 0-100
 	char Direction; //0,1,2,3 = West, North, East, South
 	int Age; 
@@ -26,6 +26,8 @@ public:
 	
 	int LearnAbility;
 	int InvInChild;
+	int NumChildren;
+	static int LastId;
 
 	int AddEnergy(int HowMuch);
 	int GetAction(bool bHunger, char Left, char Front, char Right);	
@@ -46,4 +48,6 @@ public:
 	static void Mutation(CBeetle * beetle);
 	static int GetBrainDimension(int which);
 	void LearnFrom(CBeetle* beetle2);
+	
+	static int CreateNewId(void);
 };
