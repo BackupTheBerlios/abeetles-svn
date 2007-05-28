@@ -220,9 +220,10 @@ bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 //Should be called at the end of a time slice - rewrites Grid_Past with Grid
 void CEnvironment::NextTime(void)
 {
-	Time++;
+	
 	Statist.NextTime(Time);
 	Grid_Past=Grid;
+	Time++;
 }
 
 bool CEnvironment::PrintEnv(void)

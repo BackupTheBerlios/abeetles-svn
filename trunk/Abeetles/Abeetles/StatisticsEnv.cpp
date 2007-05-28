@@ -1,25 +1,30 @@
 #include "StdAfx.h"
 #include "StatisticsEnv.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+
 
 CStatisticsEnv::CStatisticsEnv(void)
 {
 	MakeEmpty();
 
-	FILE * stTimeFile;
-		errno_t err;
+	FILE * statTimeFile;
+		errno_t err; 
 
-		if ((err= fopen_s(&statTimeFile,"p_statist.cvs","w"))!=0) 
+		if ((err= fopen_s(&statTimeFile,STAT_TIME_FILE,"w"))!=0) 
+		{
+			printf("Creation of file for time statistics was not successful - Error No.%d.\n",err);
+			exit (EXIT_FAILURE);
+		}
+		else 
 		{
 			fprintf(statTimeFile,"Number of beetles;\n");
 			fprintf(statTimeFile,"Number of births;\n");
 			fprintf(statTimeFile,"Number of flowers;\n");
 			fprintf(statTimeFile,"Density of population;\n");
 		}
-		else 
-		{
-			printf("Creation of file for time statistics unsuccessful.");
-			exit(EXIT_FAILURE);
-		}
+	fclose(statTimeFile);
 
 }
 
@@ -33,21 +38,67 @@ void CStatisticsEnv::NextTime(int Time)
 	SumAge=0;
 	SumEnergy=0;
 	SumNumChildren=0;
-	
-	//After 1000 time slices write all time values into files.
-	if (Time%1000==999)
-	{
-		FILE * stTimeFile;
-		errno_t err;
 
-		if ((err= fopen_s(&statTimeFile,"p_numbeetles.cvs","a"))!=0) 
-		{
-			for (I=0;I<1000;I++)
-			printf("%d;",PastNumBeetles[I]);
-			return false;
-		}
+
+
+	PastNumBeetles[Time%BUF_SIZE]=NumBeetles;
+	PastNumBirths[Time%BUF_SIZE]=NumBirths;
+	PastNumFlowers[Time%BUF_SIZE]=NumFlowers;
+	//After 1000 time slices add all time values into file.
+	if (Time% BUF_SIZE == (BUF_SIZE-1))
+	{
+		FILE * stTFOld;FILE * stTF;
+		errno_t err;
+		char chr=0;
 		
-	PastNumBeetles[Time % 1000]
+		//rename file to some other name
+		rename(STAT_TIME_FILE,STAT_TIME_FILE_OLD);
+		//opne old file for reading and new file for writing
+		if ((err= fopen_s(&stTFOld,STAT_TIME_FILE_OLD,"r"))!=0) 
+		{
+			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+		}
+		if ((err= fopen_s(&stTF,STAT_TIME_FILE,"w"))!=0) 
+		{
+			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+		}
+		//rewrite old to new up to the end of the first line
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+			
+		int I;
+		for (I=0;I<BUF_SIZE;I++)
+			fprintf(stTF,"%d;",PastNumBeetles[I]);
+		fprintf(stTF,"\n");
+
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+					        
+        for (I=0;I<BUF_SIZE;I++)
+            fprintf(stTF,"%d;",PastNumBirths[I]);
+        fprintf(stTF,"\n");
+
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+					
+		for (I=0;I<BUF_SIZE;I++)
+			fprintf(stTF,"%d;",PastNumFlowers[I]);
+		fprintf(stTF,"\n");
+
+		fclose(stTF);fclose(stTFOld);
+		remove (STAT_TIME_FILE_OLD);
+	}
+	
+
 
 }
 

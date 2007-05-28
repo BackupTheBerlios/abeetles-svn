@@ -1,4 +1,5 @@
 #pragma once
+#include "defines.h"
 
 class CStatisticsEnv
 {
@@ -17,9 +18,9 @@ public:
 	double SumLearnAbility;
 	double SumNumChildren;
 
-	int PastNumBeetles [1000];
-	int PastNumBirths [1000];
-	int PastNumFlowers [1000];
+	int PastNumBeetles [BUF_SIZE];
+	int PastNumBirths [BUF_SIZE];
+	int PastNumFlowers [BUF_SIZE];
 
 	void NextTime(int Time);
 	
