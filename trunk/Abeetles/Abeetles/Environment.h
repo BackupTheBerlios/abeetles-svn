@@ -34,4 +34,5 @@ public:
 	void A_RotateRight(CBeetle * beetle);
 	char RotateDirection(char direction, char L_R);
 	void CountStatistics(void);
+	bool CreateDefaultEnv(void);
 };

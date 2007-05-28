@@ -15,7 +15,7 @@
 #define EFF_BMP_Y 20
 #define EFF_BMP_FILE L"EnergyFromFlower.bmp"
 
-#define MAXTIME 100
+#define MAXTIME 2000
 
 #define NUM_ACTIONS 3 //changed 26.5. - beforehead: 5, including A_COPULATE
 

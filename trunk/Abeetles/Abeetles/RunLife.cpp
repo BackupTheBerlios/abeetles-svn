@@ -22,7 +22,7 @@ int CRunLife::run(void)
 	CEnvironment Env;
 	Env.CreateRandomEnv();
 	//Env.LoadEnv("sb_t2.txt",MAP_BMP_FILE);
-	char fname [15];	
+	char fname [40];	
 	char input;
 
 	//First, output to console the situation at the beginning
@@ -30,16 +30,22 @@ int CRunLife::run(void)
 	printf("Width: %d\n",Env.Grid.G_Width);
 	printf("\nTime:%d NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Time,Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
 	Env.PrintEnv();		
-	printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
+	printf("(quit: x + Enter, continue: Enter, save: s + Enter, save statistics: t + Enter): ");
 		if (input = _getch())
 		{
 			//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
 			if (input == QUIT_CHAR) return EXIT_SUCCESS;
 			if (input== 's') 
 			{
-				sprintf_s (fname,15,"sb_t%d.txt",Env.Time);
+				sprintf_s (fname,40,"sb_t%d.txt",Env.Time);
 				CfgMng.SaveBeetles(&Env.Grid,fname);
 			}
+			if (input =='t')
+			{
+				sprintf_s(fname,40,"stat_t%d.txt",Env.Time);
+				Env.Statist.SaveStatist(fname,Env.Time);
+			}
+
 		}
 	printf("\n\n");
 
@@ -63,15 +69,20 @@ int CRunLife::run(void)
 		Env.PrintEnv();	
 
 		//communication with user
-		printf("(quit: x + Enter, continue: Enter, save: s + Enter): ");
+	printf("(quit: x + Enter, continue: Enter, save: s + Enter, save statistics: t + Enter): ");
 		if (input = _getch())
 		{
 			//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
 			if (input == QUIT_CHAR) break;
 			if (input== 's') 
 			{
-				sprintf_s (fname,15,"sb_t%d.txt",Env.Time);
+				sprintf_s (fname,40,"sb_t%d.txt",Env.Time);
 				CfgMng.SaveBeetles(&Env.Grid,fname);
+			}
+			if (input =='t')
+			{
+				sprintf_s(fname,40,"stat_t%d.txt",Env.Time);
+				Env.Statist.SaveStatist(fname,Env.Time);
 			}
 		}
 		printf("\n\n");

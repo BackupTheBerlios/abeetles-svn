@@ -17,6 +17,10 @@ public:
 	double SumLearnAbility;
 	double SumNumChildren;
 
+	int PastNumBeetles [1000];
+	int PastNumBirths [1000];
+	int PastNumFlowers [1000];
+
 	void NextTime(int Time);
 	
 	void MakeEmpty(void);
@@ -26,4 +30,6 @@ public:
 	double GetAvgInvInChild(void);
 	double GetAvgLearnAbility(void);
 	double GetAvgNumChildren(void);
+
+	bool CStatisticsEnv::SaveStatist(char * filename, int time);
 };
