@@ -74,7 +74,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	int Left,Front,Right; //content of Beetle's neighbor cells
 	CBeetle * beetle=NULL;
 	Grid_Past.GetCellContent(x,y,&beetle);
-	printf("E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
+	//printf("E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
 	
 	//beetle looks around him
 	Left=GetBeetleNeighborCell(x,y,beetle->Direction,'L');
@@ -420,7 +420,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	srand( 100);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<20;K++)
+	for (K=0;K<150;K++)
 	{
 		I=RandInBound(Grid_Past.G_Width);
 		J=RandInBound(Grid_Past.G_Height);
@@ -428,7 +428,7 @@ bool CEnvironment::CreateRandomEnv(void)
 		if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
 			Statist.NumBeetles++;
 		assert(beetle->GetEnergy()>0);
-		printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
+		//printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
 
 	}
 			
