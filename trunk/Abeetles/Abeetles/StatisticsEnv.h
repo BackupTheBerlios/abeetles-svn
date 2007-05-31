@@ -52,7 +52,7 @@ public:
 	double GetAvgNumChildren(void);
 
 	bool SaveActAgrStatist(char * filename, int time);
-	bool SaveTimeStatist_InLinesAppend();
+	bool SaveTimeStatist_InRowsAppend();
 	bool SaveTimeStatist_InColumnsAppend();
 
 };

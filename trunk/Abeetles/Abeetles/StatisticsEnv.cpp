@@ -2,6 +2,8 @@
 #include "StatisticsEnv.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 
 
 
@@ -45,8 +47,8 @@ void CStatisticsEnv::NextTime(int Time)
 	//After 1000 time slices add all time values into file.
 	if (Time% BUF_SIZE == (BUF_SIZE-1))
 	{
-		SaveTimeStatist_InLinesAppend();
-		//SaveTimeStatist_InColumnsAppend()
+		//SaveTimeStatist_InRowsAppend();
+		SaveTimeStatist_InColumnsAppend();
 	}
 	
 	NumBirths=0;
@@ -98,6 +100,20 @@ double CStatisticsEnv::GetAvgNumChildren(void)
 {
 	return (double)SumNumChildren/NumBeetles;
 }
+
+/**
+* Public method <br>
+* Description: Saves {@link Abeetles.CStatisticsEnv} actual and agregated statistics<br>
+* System dependence: no<br>
+* Usage comments:<br>
+* @return true - if successful, false - otherwise
+* @param filename [name for file, where the statistics will be saved]
+* @param time [Actual time to be writte](Parameters - meaning):
+* @throws name [descrip](Exceptions - meaning)
+* @see Abeetles.CStatisticsEnv #SaveTimeStatist_InColumnsAppend
+* @see Abeetles.CStatisticsEnv #SaveTimeStatist_InRowsAppend
+*/
+
 bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 {
 	FILE * statFile;
@@ -114,12 +130,6 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 	fprintf(statFile,"NumBeetles=%d;\n",NumBeetles);
 	fprintf(statFile,"NumBirths=%d;\n",NumBirths);
 	fprintf(statFile,"NumFlowers=%d;\n",NumFlowers);
-	fprintf(statFile,"SumAge=%d;\n",SumAge);
-	fprintf(statFile,"SumEnergy=%d;\n",SumEnergy);
-	fprintf(statFile,"SumHungryThreshold=%d;\n",SumHungryThreshold);
-	fprintf(statFile,"SumInvInChild=%d;\n",SumInvInChild);
-	fprintf(statFile,"SumLearnAbility=%d;\n",SumLearnAbility);
-	fprintf(statFile,"SumNumChildren=%d;\n",SumNumChildren);
 
 	fprintf(statFile,"AvgAge=%f;\n",GetAvgAge());
 	fprintf(statFile,"AvgEnergy=%f;\n",GetAvgEnergy());
@@ -135,7 +145,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 	return true;
 }
 
-bool CStatisticsEnv::SaveTimeStatist_InLinesAppend()
+bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 {
 		FILE * stTFOld;FILE * stTF;
 		errno_t err;
@@ -143,7 +153,7 @@ bool CStatisticsEnv::SaveTimeStatist_InLinesAppend()
 		
 		//rename file to some other name
 		rename(STAT_TIME_FILE,STAT_TIME_FILE_OLD);
-		//opne old file for reading and new file for writing
+		//open old file for reading and new file for writing
 		if ((err= fopen_s(&stTFOld,STAT_TIME_FILE_OLD,"r"))!=0) 
 		{
 			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
@@ -191,6 +201,14 @@ bool CStatisticsEnv::SaveTimeStatist_InLinesAppend()
 	return true;
 }
 
+
+/**
+* Public method <br>
+* Description: Writes last n value to a .csv file. The n is defined by constant BUF_SIZE. The name of the file is STAT_TIME_FILE. It adds every monitored variable into separate column. <br>
+* System dependence: no<br>
+* Usage comments:<br>
+* @return True - if saving was successful and false, if opening of the file failed.
+*/
 bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
 {
 	FILE *  stTF;
@@ -199,14 +217,13 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
 
 	if ((err= fopen_s(&stTF,STAT_TIME_FILE,"a+"))!=0) 
 	{
-		printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",err,strerror(err),STAT_TIME_FILE);			
 		return false;
 	}
 	
 	for (I=0;I<BUF_SIZE;I++)
         fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
 
-
-
+	fclose(stTF);
 	return true;
 }

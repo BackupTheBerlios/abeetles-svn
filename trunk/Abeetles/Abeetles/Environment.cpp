@@ -513,12 +513,17 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 				beetle->NumChildren++;
 				beetle2->NumChildren++;
 				
-				//beetles might die during the consumption
+				//beetles consume energy on creation of a child
 				beetle->ConsumeEnergy(beetle->InvInChild);
 				beetle2->ConsumeEnergy(beetle2->InvInChild);
 				assert(beetle->Energy >0);
 				assert(beetle2->Energy >0);
+				
+				//if there is a flower in the target cell, it must be count out from statistics
+				if (Grid.GetCellContent(neigh[J][1],neigh[J][2]) == FLOWER)
+					Statist.NumFlowers--;
 
+				//child_beetle is placed into environment
 				if (Grid.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
 					return true;
 				else return false;

@@ -37,17 +37,24 @@ CppDoc Guidelines:
 
 My rules:
 Method comment:
+
 /**
-* Protected method:
-* Desc:
-* System dependence:
-* Usage comments:
-* @return (Return values - meaning) :
-* @param name [ descrip](Parameters - meaning):
+* Protected method <br>
+* Description:<br>
+* System dependence:<br>
+* Usage comments:<br>
+* @return (Return values - meaning) 
+* @param name [ descrip](Parameters - meaning)
 * @throws name [descrip](Exceptions - meaning)
+* @see reference : adds reference to the "See Also" section. The reference can be any of the following:
+*          o HTML tag/text, which is added unmodified
+*          o a quoted string (e.g., "Foo Bar"), the contents of which are added unmodified
+*          o [project].[ class-name][#member] [text ], which adds a link to the given member in class class-name in project project . If project is omitted, the current entity's project is assumed. If class-name is omitted, the current class is assumed. If member is omitted, the link is to the class-file. If text is omitted, default display text is added, based on the actual link.
+* {@link reference } replaced with a reference that is built using the exact same syntax as the @see tag (above). For example:
 */
 
 Class comment:
+
 /**
 * Desc:
 * System dependence:
