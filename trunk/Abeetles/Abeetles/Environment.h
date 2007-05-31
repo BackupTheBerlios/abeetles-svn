@@ -18,6 +18,7 @@ public:
 	CGrid Grid; //grid for the following time value
 	int Time;
 	CStatisticsEnv Statist; //Statistics of the environment
+	bool DisplayOn;
 				
 	void MakeBeetleAction(int x, int y);
 	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);

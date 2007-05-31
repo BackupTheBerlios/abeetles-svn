@@ -1,23 +1,42 @@
 #pragma once
 #include "defines.h"
 
+/**
+* Desc: Class CStatisticsEnv serves to monitor features of the environment and its inhabitants, collect them into data structures and output them on demand.
+* System dependence: no
+* Usage comments:
+* Relations to other classes: its methods are called from Env class. Env uses object of CStatisticsEnv as its attribute.
+* Remarks: Statistics in Abeetles:
+* Statistics in Abeetles can be structured in several groups.
+* 1. Aggregated statistics, counted in one moment on demand: SumAge, SumEnergy, SumHungryThreshold, ... <br>
+*	There is no need to keep trace of this values continuoustly. There are count by function Env::CountStatistics()
+* 2. Actual statistics, that are displayed at every step should be count continuosly. 
+* 3. Past statistics, that are logged into file every MAX_BUF time slices: PastNumBeetles[], PastNumBirths,..
+*	The value of statistics of type 2 are add to them at every end of a time slice.
+*	Problem: When time > 
+*
+*/
 class CStatisticsEnv
 {
 public:
 	CStatisticsEnv(void);
 	~CStatisticsEnv(void);
 	public:
-	int NumBeetles;
-	int NumBirths;
-	int NumFlowers;
+	// Values valid at 1 time slice:
+	//Type 1:
+	int NumBeetles; //added at every birth / death
+	int NumBirths; //added at every birth in one time slice
+	int NumFlowers; //added at every growth/eaten up/deletion by beetle at the same time slice
 
-	double SumAge;
-	double SumEnergy;
-	double SumHungryThreshold;
-	double SumInvInChild;
-	double SumLearnAbility;
-	double SumNumChildren;
+	//Type 2:
+	int SumAge;
+	int SumEnergy;
+	int SumHungryThreshold;
+	int SumInvInChild;
+	int SumLearnAbility;
+	int SumNumChildren;
 
+	//Type 3:
 	int PastNumBeetles [BUF_SIZE];
 	int PastNumBirths [BUF_SIZE];
 	int PastNumFlowers [BUF_SIZE];
@@ -32,5 +51,8 @@ public:
 	double GetAvgLearnAbility(void);
 	double GetAvgNumChildren(void);
 
-	bool CStatisticsEnv::SaveStatist(char * filename, int time);
+	bool SaveActAgrStatist(char * filename, int time);
+	bool SaveTimeStatist_InLinesAppend();
+	bool SaveTimeStatist_InColumnsAppend();
+
 };

@@ -12,11 +12,13 @@ extern int RandInBound (int bound);
 CEnvironment::CEnvironment(void)
 {
 	Time=0; //Remake to load it from some save file of the environment!
+	DisplayOn = true; 
 }
 
 CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename)
 {	
 	Time=0; //Remake to load it from some save file of the environment!
+	DisplayOn = true; 
 
 	//Set values of options of environment and beetles
 	if (false == CfgMng.LoadCfgFile(cfg_filename))
@@ -71,7 +73,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 		if (beetle->Energy > A_COPULATION_COSTS)
 			{
 				if (true == A_Copulate(x,y,beetle))
-				{
+				{										
 					Statist.NumBeetles++;
 					Statist.NumBirths++;
 					beetle->ConsumeEnergy(A_COPULATION_COSTS);
@@ -160,10 +162,11 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 
 	beetle->Age++; //beetle is now 1 time slice older
 
+	//count only on demand in Env.CountStatistics()
 	//add changed features to statistics:
-	Statist.SumAge+=beetle->Age;
-	Statist.SumEnergy+=beetle->Energy;
-	Statist.SumNumChildren+=beetle->NumChildren;
+	//Statist.SumAge+=beetle->Age;
+	//Statist.SumEnergy+=beetle->Energy;
+	//Statist.SumNumChildren+=beetle->NumChildren;
 
 }
 

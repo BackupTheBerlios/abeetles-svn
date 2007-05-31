@@ -15,14 +15,18 @@ CStatisticsEnv::CStatisticsEnv(void)
 		if ((err= fopen_s(&statTimeFile,STAT_TIME_FILE,"w"))!=0) 
 		{
 			printf("Creation of file for time statistics was not successful - Error No.%d.\n",err);
-			exit (EXIT_FAILURE);
+			return; //It is not a reason to finnish the program.
+			//exit (EXIT_FAILURE);
 		}
 		else 
-		{
+		{	//adding to rows
+			/*
 			fprintf(statTimeFile,"Number of beetles;\n");
 			fprintf(statTimeFile,"Number of births;\n");
 			fprintf(statTimeFile,"Number of flowers;\n");
-			fprintf(statTimeFile,"Density of population;\n");
+			fprintf(statTimeFile,"Density of population;\n");*/
+			//adding to columns
+			fprintf(statTimeFile,"Number of beetles;Number of births;Number of flowers\n");
 		}
 	fclose(statTimeFile);
 
@@ -33,72 +37,22 @@ CStatisticsEnv::~CStatisticsEnv(void)
 }
 
 void CStatisticsEnv::NextTime(int Time)
-{
+{	
+	PastNumBeetles[Time%BUF_SIZE]=NumBeetles;
+	PastNumBirths[Time%BUF_SIZE]=NumBirths;
+	PastNumFlowers[Time%BUF_SIZE]=NumFlowers;
+
+	//After 1000 time slices add all time values into file.
+	if (Time% BUF_SIZE == (BUF_SIZE-1))
+	{
+		SaveTimeStatist_InLinesAppend();
+		//SaveTimeStatist_InColumnsAppend()
+	}
+	
 	NumBirths=0;
 	SumAge=0;
 	SumEnergy=0;
 	SumNumChildren=0;
-
-
-
-	PastNumBeetles[Time%BUF_SIZE]=NumBeetles;
-	PastNumBirths[Time%BUF_SIZE]=NumBirths;
-	PastNumFlowers[Time%BUF_SIZE]=NumFlowers;
-	//After 1000 time slices add all time values into file.
-	if (Time% BUF_SIZE == (BUF_SIZE-1))
-	{
-		FILE * stTFOld;FILE * stTF;
-		errno_t err;
-		char chr=0;
-		
-		//rename file to some other name
-		rename(STAT_TIME_FILE,STAT_TIME_FILE_OLD);
-		//opne old file for reading and new file for writing
-		if ((err= fopen_s(&stTFOld,STAT_TIME_FILE_OLD,"r"))!=0) 
-		{
-			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
-		}
-		if ((err= fopen_s(&stTF,STAT_TIME_FILE,"w"))!=0) 
-		{
-			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
-		}
-		//rewrite old to new up to the end of the first line
-		chr=getc(stTFOld);
-		while(chr!='\n')
-		{
-			putc(chr,stTF);chr=getc(stTFOld);
-		}
-			
-		int I;
-		for (I=0;I<BUF_SIZE;I++)
-			fprintf(stTF,"%d;",PastNumBeetles[I]);
-		fprintf(stTF,"\n");
-
-		chr=getc(stTFOld);
-		while(chr!='\n')
-		{
-			putc(chr,stTF);chr=getc(stTFOld);
-		}
-					        
-        for (I=0;I<BUF_SIZE;I++)
-            fprintf(stTF,"%d;",PastNumBirths[I]);
-        fprintf(stTF,"\n");
-
-		chr=getc(stTFOld);
-		while(chr!='\n')
-		{
-			putc(chr,stTF);chr=getc(stTFOld);
-		}
-					
-		for (I=0;I<BUF_SIZE;I++)
-			fprintf(stTF,"%d;",PastNumFlowers[I]);
-		fprintf(stTF,"\n");
-
-		fclose(stTF);fclose(stTFOld);
-		remove (STAT_TIME_FILE_OLD);
-	}
-	
-
 
 }
 
@@ -144,7 +98,7 @@ double CStatisticsEnv::GetAvgNumChildren(void)
 {
 	return (double)SumNumChildren/NumBeetles;
 }
-bool CStatisticsEnv::SaveStatist(char * filename, int time)
+bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 {
 	FILE * statFile;
 	errno_t err;
@@ -177,6 +131,82 @@ bool CStatisticsEnv::SaveStatist(char * filename, int time)
 	fprintf(statFile," ---------- \n");
 	
 	fclose(statFile);
+
+	return true;
+}
+
+bool CStatisticsEnv::SaveTimeStatist_InLinesAppend()
+{
+		FILE * stTFOld;FILE * stTF;
+		errno_t err;
+		char chr=0;
+		
+		//rename file to some other name
+		rename(STAT_TIME_FILE,STAT_TIME_FILE_OLD);
+		//opne old file for reading and new file for writing
+		if ((err= fopen_s(&stTFOld,STAT_TIME_FILE_OLD,"r"))!=0) 
+		{
+			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+			return false;
+		}
+		if ((err= fopen_s(&stTF,STAT_TIME_FILE,"w"))!=0) 
+		{
+			printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+			return false;
+		}
+		//rewrite old to new up to the end of the first line
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+			
+		int I;
+		for (I=0;I<BUF_SIZE;I++)
+			fprintf(stTF,"%d;",PastNumBeetles[I]);
+		fprintf(stTF,"\n");
+
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+					        
+        for (I=0;I<BUF_SIZE;I++)
+            fprintf(stTF,"%d;",PastNumBirths[I]);
+        fprintf(stTF,"\n");
+
+		chr=getc(stTFOld);
+		while(chr!='\n')
+		{
+			putc(chr,stTF);chr=getc(stTFOld);
+		}
+					
+		for (I=0;I<BUF_SIZE;I++)
+			fprintf(stTF,"%d;",PastNumFlowers[I]);
+		fprintf(stTF,"\n");
+
+		fclose(stTF);fclose(stTFOld);
+		remove (STAT_TIME_FILE_OLD);
+	return true;
+}
+
+bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
+{
+	FILE *  stTF;
+	errno_t err;	
+	int I;
+
+	if ((err= fopen_s(&stTF,STAT_TIME_FILE,"a+"))!=0) 
+	{
+		printf("Error No.%d occured, opening of file %s unsuccessful.",err,STAT_TIME_FILE);			
+		return false;
+	}
+	
+	for (I=0;I<BUF_SIZE;I++)
+        fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+
+
 
 	return true;
 }

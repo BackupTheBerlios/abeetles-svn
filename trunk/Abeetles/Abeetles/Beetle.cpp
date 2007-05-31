@@ -272,6 +272,8 @@ CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 	if (beetle_child->Energy > MAX_ENERGY)beetle_child->Energy= MAX_ENERGY;
 	assert (beetle_child->Energy>0); 
 	beetle_child->Direction = RandInBound(4);
+	beetle_child->NumChildren=0;
+	beetle_child->Id=CBeetle::CreateNewId();
 	return beetle_child;
 }
 

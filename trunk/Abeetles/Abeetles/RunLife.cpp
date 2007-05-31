@@ -19,76 +19,98 @@ CRunLife::~CRunLife(void)
 int CRunLife::run(void)
 {
 	int I,J;
-	CEnvironment Env;
-	Env.CreateRandomEnv();
-	//Env.LoadEnv("sb_t2.txt",MAP_BMP_FILE);
-	char fname [40];	
-	char input;
+	CEnvironment env;
+	env.CreateRandomEnv();
+	//env.LoadEnv("sb_t2.txt",MAP_BMP_FILE);
+	int jumpTime;
 
 	//First, output to console the situation at the beginning
 	printf("SP:%d,SI:%d\n",sizeof(int*),sizeof(int));
-	printf("Width: %d\n",Env.Grid.G_Width);
-	printf("\nTime:%d NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Time,Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
-	Env.PrintEnv();		
-	printf("(quit: x + Enter, continue: Enter, save: s + Enter, save statistics: t + Enter): ");
-		if (input = _getch())
-		{
-			//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
-			if (input == QUIT_CHAR) return EXIT_SUCCESS;
-			if (input== 's') 
-			{
-				sprintf_s (fname,40,"sb_t%d.txt",Env.Time);
-				CfgMng.SaveBeetles(&Env.Grid,fname);
-			}
-			if (input =='t')
-			{
-				sprintf_s(fname,40,"stat_t%d.txt",Env.Time);
-				Env.Statist.SaveStatist(fname,Env.Time);
-			}
+	printf("Width: %d\n",env.Grid.G_Width);
+	printf("\nTime:%d",env.Time);
+	if (env.DisplayOn)
+	{
+		printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
+		env.PrintEnv();		
+	}
 
-		}
-	printf("\n\n");
+	if (false==DialogWithUser(&env,&jumpTime)) exit(EXIT_SUCCESS);
 
-	Env.NextTime();
-
+	env.NextTime();
 	
 	//Zivot
 	for (;;)
 	{
 		//go through all environment, make actions of all beetles and try grow a flower in all empty cells
-		for(I=0;I<Env.Grid_Past.G_Width;I++)
-			for(J=0;J<Env.Grid_Past.G_Height;J++)
+		for(I=0;I<env.Grid_Past.G_Width;I++)
+			for(J=0;J<env.Grid_Past.G_Height;J++)
 			{
-				if (Env.Grid_Past.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
-				if (Env.Grid_Past.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
+				if (env.Grid_Past.GetCellContent(I,J)==BEETLE) env.MakeBeetleAction(I,J);
+				if (env.Grid_Past.GetCellContent(I,J)==NOTHING) env.MakeFlowerGrow(I,J);
 				//if there is a wall, flower of something bad, do nothing
 			}
 
 		//output to console
-		printf("\nTime:%d NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Time,Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
-		Env.PrintEnv();	
-
-		//communication with user
-	printf("(quit: x + Enter, continue: Enter, save: s + Enter, save statistics: t + Enter): ");
-		if (input = _getch())
+		printf("\nTime:%d",env.Time);
+		if (env.DisplayOn)
 		{
-			//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
-			if (input == QUIT_CHAR) break;
-			if (input== 's') 
-			{
-				sprintf_s (fname,40,"sb_t%d.txt",Env.Time);
-				CfgMng.SaveBeetles(&Env.Grid,fname);
-			}
-			if (input =='t')
-			{
-				sprintf_s(fname,40,"stat_t%d.txt",Env.Time);
-				Env.Statist.SaveStatist(fname,Env.Time);
-			}
+			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
+			env.PrintEnv();	
 		}
-		printf("\n\n");
-		Env.NextTime();
-		if (Env.Time>=MAXTIME) break;
+		
+		if (jumpTime>0) jumpTime--;
+		else	
+			if (false==DialogWithUser(&env,&jumpTime)) break;
+				
+		env.NextTime();
+		if (env.Time>=MAXTIME) break;
 
 	}
 	return EXIT_SUCCESS;
+}
+/**
+* Static method: DialogWithUser
+* Desc: Encapsulates communication with user after 1 time slice.
+* System dependence: no 
+* Usage comments: communication through std input and output
+* @return (Return values - meaning) : true - go on running Environment, false - finnish it without saving
+* @param name [ descrip](Parameters - meaning): env - reference to environment being run. jumpTime - number of time slices without users input. Can be modified in this method according to users wishes.
+* @throws name [descrip](Exceptions - meaning)
+*/
+bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
+{
+	char fname [40];	
+	char input;
+
+	//communication with user
+	printf("(quit: x + Enter, continue: Enter, set time for not stopping: n\n save: s, save statistics: t, Display on/off: d): ");
+	if (input = _getch())
+	{
+		//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
+		if (input == QUIT_CHAR) return false;
+		if (input== 's') 
+		{
+			sprintf_s (fname,40,"sb_t%d.txt",env->Time);
+			CfgMng.SaveBeetles(&env->Grid,fname);
+		}
+		if (input =='t')
+		{
+			env->CountStatistics();
+			sprintf_s(fname,40,"stat_t%d.txt",env->Time);
+			env->Statist.SaveActAgrStatist(fname,env->Time);
+		}
+		if (input =='d')
+		{
+			if (env->DisplayOn) env->DisplayOn=false;
+			else env->DisplayOn=true;
+		}
+		if (input =='n')
+		{
+			if (env->DisplayOn) env->DisplayOn=false;
+			printf("\nNum of time for not stopping run: ");
+			scanf("%d",jumpTime);
+		}
+	}
+	printf("\n\n");
+	return true;
 }
