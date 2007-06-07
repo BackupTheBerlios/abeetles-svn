@@ -84,8 +84,9 @@ bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
 
 	//communication with user
 	printf("(quit: x + Enter, continue: Enter, set time for not stopping: n\n save: s, save statistics: t, Display on/off: d): ");
-	if (input = _getch())
+	if (input = _getch()) // (_kbhit()) - zjisteni, byla-li stisknuta klavesa
 	{
+		input = _getch();
 		//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
 		if (input == QUIT_CHAR) return false;
 		if (input== 's') 
