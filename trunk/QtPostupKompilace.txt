@@ -1,0 +1,36 @@
+Postup kompilace aplikace:
+
+1. nainstaluj qt z flashky
+2. pridej C:\Qt\4.3.0\bin\ a C:\MinGW\bin\ do promenne path takto:
+  Ve spustene commandline napis set Path=%Path%C:\Qt\4.3.0\bin\;C:\MinGW\bin\;
+3. Napis projektovy soubor pro qmake:
+ 
+      We'll add the source files to the project file first. To do this you need to use the SOURCES variable. Just start a new line with SOURCES += and put hello.cpp after it. You should have something like this: 
+       SOURCES += hello.cpp 
+      We repeat this for each source file in the project, until we end up with the following: 
+       SOURCES += hello.cpp
+       SOURCES += main.cpp 
+      If you prefer to use a Make-like syntax, with all the files listed in one go you can use the newline escaping like this: 
+       SOURCES = hello.cpp \
+                 main.cpp 
+      Now that the source files are listed in the project file, the header files must be added. These are added in exactly the same way as source files, except that the variable name we use is HEADERS. 
+      Once you have done this, your project file should look something like this: 
+       HEADERS += hello.h
+       SOURCES += hello.cpp
+       SOURCES += main.cpp 
+      The target name is set automatically; it is the same as the project file, but with the suffix appropriate to the platform. For example, if the project file is called hello.pro, the target will be hello.exe on Windows and hello on Unix. If you want to use a different name you can set it in the project file: 
+       TARGET = helloworld 
+      The final step is to set the CONFIG variable. Since this is a Qt application, we need to put qt on the CONFIG line so that qmake will add the relevant libraries to be linked against and ensure that build lines for moc and uic are included in the generated Makefile. 
+      The finished project file should look like this: 
+       CONFIG += qt
+       HEADERS += hello.h
+       SOURCES += hello.cpp
+       SOURCES += main.cpp 
+ 
+4. Zavolej qmake to create standard Makefile: 
+ qmake -o Makefile hello.pro 
+5. Zavolej make z MinGW: mingw32-make
+6.Nakopiruj do adresare release nasledujici knihovny:
+  C:\MinGW\bin\mingwm10.dll 
+  C:\Qt\4.3.0\bin\QtCore4.dll 
+  C:\Qt\4.3.0\bin\QtGui4.dll  
