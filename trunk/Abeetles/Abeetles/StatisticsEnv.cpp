@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Grid.h"
+#include "assert.h"
 
 
 
@@ -142,6 +144,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 	
 	fclose(statFile);
 
+	
 	return true;
 }
 
@@ -217,7 +220,7 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
 
 	if ((err= fopen_s(&stTF,STAT_TIME_FILE,"a+"))!=0) 
 	{
-		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",err,strerror(err),STAT_TIME_FILE);			
+		printf_s("Error No.%d occured: %s, opening of file %s unsuccessful.",err,strerror(err),STAT_TIME_FILE);			
 		return false;
 	}
 	
@@ -225,5 +228,59 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
         fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
 
 	fclose(stTF);
+	return true;
+}
+
+bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
+{
+	
+	FILE *  statFile;
+	errno_t err;
+	int I,J;
+	
+	int Ages [MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) Ages[I]=0;
+	int LearnAbilities[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) LearnAbilities[I]=0;
+	int InvInChilds[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) InvInChilds[I]=0;
+	int	Energies[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) Energies[I]=0;
+
+	CBeetle * beetle=NULL;
+
+
+	for(I=0;I<grid->G_Width;I++)
+	for(J=0;J<grid->G_Height;J++)
+	{
+		if (grid->GetCellContent(I,J,&beetle)==BEETLE) 
+		{
+			if (beetle->Age <MAX_HIST)
+				Ages[beetle->Age]++;
+
+			assert(beetle->LearnAbility<MAX_HIST);
+			LearnAbilities[beetle->LearnAbility]++;
+
+			assert(beetle->InvInChild<MAX_HIST);
+			InvInChilds[beetle->InvInChild]++;
+			assert(beetle->Energy<MAX_HIST);			
+			Energies[beetle->Energy]++;
+		}
+
+	}
+
+	if ((err= fopen_s(&statFile,filename,"w"))!=0) 
+	{
+		printf_s("Error No.%d occured: %s, opening of file %s unsuccessful.",err,strerror(err),filename);			
+		return false;
+	}
+
+	fprintf(statFile,"Ages;LearnAbilities;InvInChilds;Energies\n");
+	for (I=0;I<MAX_HIST;I++)
+	{
+		fprintf(statFile,"%d;%d;%d;%d\n",Ages[I],LearnAbilities[I],InvInChilds[I],Energies[I]);
+	}
+	
+	fclose(statFile);
 	return true;
 }

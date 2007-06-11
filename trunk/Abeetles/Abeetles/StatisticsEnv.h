@@ -1,5 +1,6 @@
 #pragma once
 #include "defines.h"
+#include "Grid.h"
 
 /**
 * Desc: Class CStatisticsEnv serves to monitor features of the environment and its inhabitants, collect them into data structures and output them on demand.
@@ -55,4 +56,5 @@ public:
 	bool SaveTimeStatist_InRowsAppend();
 	bool SaveTimeStatist_InColumnsAppend();
 
+	bool SaveActHistStatist(char * filename, int time,CGrid * grid);
 };

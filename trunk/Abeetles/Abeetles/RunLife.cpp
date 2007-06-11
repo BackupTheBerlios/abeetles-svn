@@ -20,7 +20,7 @@ int CRunLife::run(void)
 {
 	int I,J;
 	CEnvironment env;
-	env.CreateRandomEnv();
+	if (false == env.CreateRandomEnv()) return EXIT_FAILURE ;
 	//env.LoadEnv("sb_t2.txt",MAP_BMP_FILE);
 	int jumpTime;
 
@@ -86,7 +86,7 @@ bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
 	printf("(quit: x + Enter, continue: Enter, set time for not stopping: n\n save: s, save statistics: t, Display on/off: d): ");
 	if (input = _getch()) // (_kbhit()) - zjisteni, byla-li stisknuta klavesa
 	{
-		input = _getch();
+		//input = _getch();
 		//input = getc(stdin); //if this function is used, any key +Enter is read as two keys - key and next time program does not wait but uses the Enter.
 		if (input == QUIT_CHAR) return false;
 		if (input== 's') 
@@ -99,6 +99,8 @@ bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
 			env->CountStatistics();
 			sprintf_s(fname,40,"stat_t%d.txt",env->Time);
 			env->Statist.SaveActAgrStatist(fname,env->Time);
+			sprintf_s(fname,40,"histStat_t%d.csv",env->Time);
+			env->Statist.SaveActHistStatist(fname,env->Time,&env->Grid);
 		}
 		if (input =='d')
 		{

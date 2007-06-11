@@ -10,7 +10,7 @@
 			>
 			<DebugSettings
 				Command="$(TargetPath)"
-				WorkingDirectory="J:/Diplomka/abeetles/Abeetles"
+				WorkingDirectory="D:/temp/Abeetles/Abeetles/Abeetles"
 				CommandArguments=""
 				Attach="false"
 				DebuggerType="3"

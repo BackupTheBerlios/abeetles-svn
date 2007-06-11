@@ -275,7 +275,7 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * 
 //1. Read the bmp file
 	//In windows any image must be connected with a device context, so as to read individual pixels
 	HDC hDC = CreateCompatibleDC(0);
-	if (hDC==0) printf("chyba DC\n"); //chyba
+	if (hDC==0) printf("Error - device for reading of bitmap for Energy from flower not obtained.\n"); //chyba
 
 	
 	//wchar_t * filename= MAP_BMP_FILE ;// function LoadImage needs a unicode string!
@@ -291,7 +291,7 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * 
 	
 	if (hBitmap == 0) 
 	{
-		printf("Chyba hBitmap load EnergyFromFlower\n");
+		printf("Error hBitmap load EnergyFromFlower\n");
 		DWORD Err=GetLastError();
 		//char Buffer [256];
 		LPTSTR lpMsgBuf;
@@ -319,7 +319,7 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * 
 			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
 			if (colorRef == 0)
 			{
-				EFF_Age[I]=J;
+				EFF_Age[I]=EFF_BMP_Y - J-1;
 				continue;
 			}
 		}

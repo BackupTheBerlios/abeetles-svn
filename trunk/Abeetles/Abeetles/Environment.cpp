@@ -394,9 +394,20 @@ bool CEnvironment::SaveEnv(char * btl_filename)
 bool CEnvironment::CreateRandomEnv(void)
 {
 	int FI,W,H;
+
+	//Load shape of the grid
 	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
 	if (false==Grid_Past.SetGridShape(FI,W,H)) return false;
 	//if (false==Grid.SetGridShape(FI,W,H)) return false;
+
+
+	//Set values of options of environment and beetles
+	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
+	{
+		printf("Loading of cfg file %s was not successful.","BeetleCfg.txt");
+		exit (EXIT_FAILURE);
+	}
+
 
 	//First part - init environment: Loads environment without beetles
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE ))return false;
@@ -422,6 +433,14 @@ bool CEnvironment::CreateRandomEnv(void)
 	
 	Grid=Grid_Past;
 	CountStatistics();
+
+	//load function of Age and EnergyFromFlower from bmp file	
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
+	{
+		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
+		exit (EXIT_FAILURE);
+	}
+
 	return true;
 }
 
@@ -573,6 +592,7 @@ void CEnvironment::CountStatistics(void)
 bool CEnvironment::CreateDefaultEnv(void)
 {
 	Time=0;
+	int FI,W,H;
 
 	//Set values of options of environment and beetles
 	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
@@ -580,6 +600,11 @@ bool CEnvironment::CreateDefaultEnv(void)
 		printf("Loading of cfg file %s was not successful.","BeetleCfg.txt");
 		exit (EXIT_FAILURE);
 	}
+
+	//Load shape of the grid
+	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
+	if (false==Grid_Past.SetGridShape(FI,W,H)) return false;
+
 
 	//Init Grid_Past and Grid (with sizes, flowers probability, walls and beetles)	
 	if (false == LoadEnv(NULL,MAP_BMP_FILE ))
@@ -594,5 +619,5 @@ bool CEnvironment::CreateDefaultEnv(void)
 		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
 		exit (EXIT_FAILURE);
 	}
-	return false;
+	return true;
 }
