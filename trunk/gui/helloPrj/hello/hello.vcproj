@@ -43,12 +43,12 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="mingw32-make"
-				ReBuildCommandLine="mingw32-make"
+				BuildCommandLine="c:\Mingw\bin\mingw32-make  d:\temp\helloPrj\hello"
+				ReBuildCommandLine="c:\Mingw\bin\mingw32-make  -B d:\temp\helloPrj\hello"
 				CleanCommandLine=""
-				Output="hello.exe"
+				Output="release\hello.exe"
 				PreprocessorDefinitions="WIN32;NDEBUG"
-				IncludeSearchPath=""
+				IncludeSearchPath="C:\MinGW\lib\debug;C:\Qt\4.3.0\lib"
 				ForcedIncludes=""
 				AssemblySearchPath=""
 				ForcedUsingAssemblies=""

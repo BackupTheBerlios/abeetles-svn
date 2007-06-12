@@ -1,14 +1,16 @@
 #include "hello.h"
 #include "quitwin.h"
+#include "SlidComp.h"
 #include <QApplication>
 #include <QVBoxLayout>
 #include <QLCDNumber>
 #include <QSlider>
 #include <QSpinBox>
+#include <QGridLayout>
 
 QuitWin::QuitWin(QWidget * parent):QWidget(parent)
 {
-  resize(200, 120);
+  //resize(200, 120);
   
   MyPushButton * quitBut = new MyPushButton(tr("Quit"));
   //quitBut->setGeometry(62, 40, 75, 30);
@@ -17,34 +19,28 @@ QuitWin::QuitWin(QWidget * parent):QWidget(parent)
   connect(quitBut, SIGNAL(clicked()), qApp, SLOT(quit()));
   
   QPushButton * but2 = new QPushButton(tr("Enlarge"));
-  //but2->setGeometry(85,35,100,45);
-  
+  //but2->setGeometry(85,35,100,45);  
   connect(but2,SIGNAL(clicked()), this, SLOT(showMaximized()));
-  
-  QLCDNumber *lcd = new QLCDNumber(2);
-  lcd->setSegmentStyle(QLCDNumber::Filled);
-/*
-  QSlider *slider = new QSlider(Qt::Horizontal);
-  slider->setRange(0, 105);
-  slider->setValue(0);
-  
-  
-  connect(slider, SIGNAL(valueChanged(int)),lcd, SLOT(display(int))); */
-  connect (lcd,SIGNAL(overflow()),qApp,SLOT(quit()));
- 
-  QSpinBox * spin = new QSpinBox();
-  spin->setRange(0, 99);
-  spin->setSingleStep(1);
-  spin->setValue(0);
-  
-   connect(spin, SIGNAL(valueChanged(int)),lcd, SLOT(display(int))); 
-  
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->addWidget(quitBut); //makes quitBut to be a child of parent of layout
-  layout->addWidget(but2);
-  layout->addWidget(lcd);
-  layout->addWidget(spin);
-  
-  setLayout(layout);  //make layout to be a child of this
+  SlidComp * slidComp = 0;
+  QGridLayout *grid = new QGridLayout;
+  int I,J;
 
+  SlidComp * prevSC=0;
+  
+  for(I=0;I<4;I++)
+    for (J=0;J<4;J++)
+    {
+      slidComp = new SlidComp();
+      grid->addWidget(slidComp,I,J);
+      if (prevSC!=0)
+        connect(slidComp,SIGNAL(valueChanged(int)),prevSC,SLOT(setValue(int)));
+      prevSC=slidComp;
+      
+    }
+  
+  QVBoxLayout * layout = new QVBoxLayout();
+  layout->addWidget(quitBut);
+  layout->addLayout(grid);
+  
+  setLayout(layout);
 }

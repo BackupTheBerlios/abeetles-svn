@@ -8,7 +8,7 @@
 
 QuitWin::QuitWin(QWidget * parent):QWidget(parent)
 {
-  resize(200, 120);
+  resize(200, 150);
   
   MyPushButton * quitBut = new MyPushButton(tr("Quit"));
   //quitBut->setGeometry(62, 40, 75, 30);
@@ -21,7 +21,7 @@ QuitWin::QuitWin(QWidget * parent):QWidget(parent)
   
   connect(but2,SIGNAL(clicked()), this, SLOT(showMaximized()));
   
-  QLCDNumber *lcd = new QLCDNumber(2);
+  QLCDNumber *lcd = new QLCDNumber(3);
   lcd->setSegmentStyle(QLCDNumber::Filled);
 /*
   QSlider *slider = new QSlider(Qt::Horizontal);
@@ -33,7 +33,7 @@ QuitWin::QuitWin(QWidget * parent):QWidget(parent)
   connect (lcd,SIGNAL(overflow()),qApp,SLOT(quit()));
  
   QSpinBox * spin = new QSpinBox();
-  spin->setRange(0, 99);
+  spin->setRange(0, 5);
   spin->setSingleStep(1);
   spin->setValue(0);
   
@@ -44,6 +44,7 @@ QuitWin::QuitWin(QWidget * parent):QWidget(parent)
   layout->addWidget(but2);
   layout->addWidget(lcd);
   layout->addWidget(spin);
+
   
   setLayout(layout);  //make layout to be a child of this
 

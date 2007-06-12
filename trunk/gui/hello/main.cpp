@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     QApplication app(argc, argv);
     
     QuitWin window;
-    window.resize(200,120);
+    //window.resize(200,120);
 
     window.show();
 
