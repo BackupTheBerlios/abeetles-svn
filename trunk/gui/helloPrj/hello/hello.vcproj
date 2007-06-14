@@ -48,10 +48,10 @@
 				CleanCommandLine=""
 				Output="release\hello.exe"
 				PreprocessorDefinitions="WIN32;NDEBUG"
-				IncludeSearchPath="C:\MinGW\lib\debug;C:\Qt\4.3.0\lib"
-				ForcedIncludes=""
+				IncludeSearchPath="C:\MinGW\lib;C:\Qt\4.3.0\lib"
+				ForcedIncludes="C:\MinGW\lib;C:\Qt\4.3.0\lib"
 				AssemblySearchPath=""
-				ForcedUsingAssemblies=""
+				ForcedUsingAssemblies="C:\MinGW\lib;C:\Qt\4.3.0\lib"
 				CompileAsManaged=""
 			/>
 		</Configuration>

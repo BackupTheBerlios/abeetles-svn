@@ -1,51 +1,54 @@
 #include "hello.h"
 #include "quitwin.h"
+#include "SlidComp.h"
 #include <QApplication>
 #include <QVBoxLayout>
 #include <QLCDNumber>
 #include <QSlider>
 #include <QSpinBox>
+#include <QGridLayout>
+
+#include "Field.h"
 
 QuitWin::QuitWin(QWidget * parent):QWidget(parent)
 {
-  resize(200, 150);
+  resize(200, 120);
   
-  MyPushButton * quitBut = new MyPushButton(tr("Quit"));
-  //quitBut->setGeometry(62, 40, 75, 30);
+  //Tlacitko Quit
+  MyPushButton * quitBut = new MyPushButton(tr("&Quit"));
+  quitBut->setGeometry(62, 40, 75, 30);
   quitBut->setFont(QFont("Times", 18, QFont::Bold));
 
   connect(quitBut, SIGNAL(clicked()), qApp, SLOT(quit()));
   
-  QPushButton * but2 = new QPushButton(tr("Enlarge"));
-  //but2->setGeometry(85,35,100,45);
   
-  connect(but2,SIGNAL(clicked()), this, SLOT(showMaximized()));
-  
-  QLCDNumber *lcd = new QLCDNumber(3);
-  lcd->setSegmentStyle(QLCDNumber::Filled);
-/*
-  QSlider *slider = new QSlider(Qt::Horizontal);
-  slider->setRange(0, 105);
-  slider->setValue(0);
-  
-  
-  connect(slider, SIGNAL(valueChanged(int)),lcd, SLOT(display(int))); */
-  connect (lcd,SIGNAL(overflow()),qApp,SLOT(quit()));
- 
-  QSpinBox * spin = new QSpinBox();
-  spin->setRange(0, 5);
-  spin->setSingleStep(1);
-  spin->setValue(0);
-  
-   connect(spin, SIGNAL(valueChanged(int)),lcd, SLOT(display(int))); 
-  
-  QVBoxLayout *layout = new QVBoxLayout;
-  layout->addWidget(quitBut); //makes quitBut to be a child of parent of layout
-  layout->addWidget(but2);
-  layout->addWidget(lcd);
-  layout->addWidget(spin);
 
+  //SlidComp  - slider plus LCDdisplay
+  SlidComp * slidComp = new SlidComp();
+
+  //Field
+	Field * field= new Field();
+
+	connect(field,SIGNAL(AngleChanged(int)),slidComp,SLOT(setValue(int)));
+	connect(slidComp,SIGNAL(valueChanged(int)),field,SLOT(setAngle(int)));
+
+	//tlacitko start/stop
+  QPushButton * startStopBut = new MyPushButton(tr("&Start"));
+  startStopBut->setGeometry(62, 40, 75, 30);
+  startStopBut->setFont(QFont("Times", 18, QFont::Bold));
+
+  connect(startStopBut,SIGNAL(clicked()),field, SLOT(startstop()));
+
+  //Grid layout
+  QGridLayout *grid = new QGridLayout();
   
-  setLayout(layout);  //make layout to be a child of this
+  grid->addWidget(quitBut,0,0);
+  grid->addWidget(slidComp,1,0);
+  grid->addWidget(field,1,1,2,1); 
+  grid->addWidget(startStopBut,0,1);
+  grid->setColumnStretch(1, 10);
+   setLayout(grid);
+
+	slidComp->setFocus();
 
 }
