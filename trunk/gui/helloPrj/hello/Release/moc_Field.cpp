@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'Field.h'
 **
-** Created: Thu 14. Jun 16:08:51 2007
+** Created: Sun 17. Jun 22:58:52 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ static const uint qt_meta_data_Field[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   10, // methods
+       5,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
@@ -33,6 +33,7 @@ static const uint qt_meta_data_Field[] = {
       31,    7,    6,    6, 0x0a,
       45,    6,    6,    6, 0x0a,
       57,    6,    6,    6, 0x0a,
+      73,   68,    6,    6, 0x0a,
 
        0        // eod
 };
@@ -40,6 +41,7 @@ static const uint qt_meta_data_Field[] = {
 static const char qt_meta_stringdata_Field[] = {
     "Field\0\0angle\0angleChanged(int)\0"
     "setAngle(int)\0startstop()\0moveRect()\0"
+    "type\0setTypeView(QString)\0"
 };
 
 const QMetaObject Field::staticMetaObject = {
@@ -71,8 +73,9 @@ int Field::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: setAngle((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 2: startstop(); break;
         case 3: moveRect(); break;
+        case 4: setTypeView((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         }
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }
