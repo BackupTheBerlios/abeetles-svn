@@ -24,6 +24,33 @@
 #include <QApplication>
 
 #include "mainwindow.h"
+#include "CfgManager.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <limits.h>
+#include <time.h>
+
+//Global variables
+CfgManager CfgMng; 
+
+int RandInBound (int bound)
+{
+    unsigned int    number;
+    int  err=0;	
+
+	number=rand();
+
+    
+       if (err != 0)
+    {
+       printf("The rand_s function failed!\n");
+	   return 0;
+    }
+	unsigned int Res = ((int)((((double)number /(double) RAND_MAX ) * bound))) % bound;
+    return Res;
+
+}
 
 int main(int argc, char *argv[])
 {

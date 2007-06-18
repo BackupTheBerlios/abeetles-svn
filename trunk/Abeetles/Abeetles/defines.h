@@ -97,3 +97,5 @@
 #define STAT_AGR_FILE "statAgr.txt"
 #define STAT_TIME_FILE "statTime.csv"
 #define STAT_TIME_FILE_OLD "statTime_old.csv"
+
+#define ZOOM_RANGE 10

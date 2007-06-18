@@ -4,7 +4,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 
-Field::Field (QWidget * parent): QWidget(parent)
+CField::CField (QWidget * parent): QWidget(parent)
 {
 	setPalette(QPalette(QColor(250, 250, 200)));
     setAutoFillBackground(true);
@@ -16,7 +16,7 @@ Field::Field (QWidget * parent): QWidget(parent)
 	setFixedSize(QSize(400,400));
 	}
 
-void Field::setAngle(int angle)
+void CField::setAngle(int angle)
 {
 	//QMessageBox::information(this,"MyApp","setAngle entered");
 
@@ -27,12 +27,12 @@ void Field::setAngle(int angle)
     emit angleChanged(currentAngle);
 }
 
-int Field::angle()
+int CField::angle()
 {
 	return currentAngle;
 }
 
-void Field::paintEvent(QPaintEvent *evnt)
+void CField::paintEvent(QPaintEvent *evnt)
 {
 	QPainter painter(this);
 	
@@ -47,7 +47,7 @@ void Field::paintEvent(QPaintEvent *evnt)
 		painter.drawRect(QRect(width()-20, x, 20, 10));
 }
 
-void Field::startstop()
+void CField::startstop()
 {
 	//QMessageBox::information(this,"MyApp","startstopentered");
 	if (autoShootTimer->isActive())
@@ -61,14 +61,14 @@ void Field::startstop()
 
 	
 }
-void Field::moveRect()
+void CField::moveRect()
 {
 	//QMessageBox::information(this,"MyApp","moverect entered");
 	x+=10;
 	update();
 
 }
-void Field::setTypeView(const QString& type)
+void CField::setTypeView(const QString& type)
 {
 	typeView = type;
 	update();

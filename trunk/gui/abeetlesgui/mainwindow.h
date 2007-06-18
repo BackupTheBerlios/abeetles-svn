@@ -30,6 +30,9 @@ class QAction;
 class QActionGroup;
 class QLabel;
 class QMenu;
+class CField;
+class CEnvironment;
+class QLCDNumber;
 
 class MainWindow : public QMainWindow
 {
@@ -66,9 +69,14 @@ private slots:
     void about();
     //void aboutQt();
 
+protected:
+	void paintEvent(QPaintEvent * /* event */);
+ 
+
 private:
     void createActions();
     void createMenus();
+
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -77,32 +85,41 @@ private:
     QActionGroup *alignmentGroup;
 
 	//Menu "File"
-    QAction *newEnvAct;
-    QAction *openEnvAct;
-    QAction *saveEnvAct;
-	QAction *saveEnvAsAct;
-    QAction *exitAct;
+		QAction *newEnvAct;
+		QAction *openEnvAct;
+		QAction *saveEnvAct;
+		QAction *saveEnvAsAct;
+		QAction *exitAct;
 
 	//Menu "Statistics"
-	/*
-    QAction *undoAct;
-    QAction *redoAct;
-    QAction *cutAct;
-    QAction *copyAct;
-    QAction *pasteAct;
-    QAction *boldAct;
-    QAction *italicAct;
-    QAction *leftAlignAct;
-    QAction *rightAlignAct;
-    QAction *justifyAct;
-    QAction *centerAct;
-    QAction *setLineSpacingAct;
-    QAction *setParagraphSpacingAct;*/
+		/*
+		QAction *undoAct;
+		QAction *redoAct;
+		QAction *cutAct;
+		QAction *copyAct;
+		QAction *pasteAct;
+		QAction *boldAct;
+		QAction *italicAct;
+		QAction *leftAlignAct;
+		QAction *rightAlignAct;
+		QAction *justifyAct;
+		QAction *centerAct;
+		QAction *setLineSpacingAct;
+		QAction *setParagraphSpacingAct;*/
 
 	//Menu "Help"
-    QAction *aboutAct;
-    QAction *aboutQtAct;
-    //QLabel *infoLabel;
+		QAction *aboutAct;
+		QAction *aboutQtAct;
+		//QLabel *infoLabel;
+	
+	CField * Field;
+	QLCDNumber * NumBeetlesLCD;
+	QLCDNumber * NumFlowersLCD;
+	QLCDNumber * NumBirthsLCD;
+	
+	CEnvironment * Env;
+	//QString beetleFN;
+	//QString mapFN;
 };
 
 #endif

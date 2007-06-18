@@ -1,0 +1,15 @@
+INPUT(
+./debug\Beetle.o
+./debug\CfgManager.o
+./debug\Environment.o
+./debug\field.o
+./debug\Grid.o
+./debug\main.o
+./debug\mainwindow.o
+./debug\RunLife.o
+./debug\StatisticsEnv.o
+./debug\zoomslider.o
+./debug\moc_field.o
+./debug\moc_mainwindow.o
+./debug\moc_zoomslider.o
+);

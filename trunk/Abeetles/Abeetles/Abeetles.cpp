@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <time.h>
-
+#include "abeetleslib.h"
 
 //Global variables
 CfgManager CfgMng; 
@@ -22,7 +22,8 @@ CfgManager CfgMng;
 
 int _tmain(int argc, _TCHAR* argv[])
 {	
-	CRunLife::run();
+	printf("%d\n",soucet(5,6));
+	//CRunLife::run();
 	printf("\nPress any key to finnish\n");
 	getc(stdin);
 	return 0;

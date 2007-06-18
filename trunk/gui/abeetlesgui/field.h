@@ -4,12 +4,12 @@ class QTimer;
 class QPushButton;
 
 
-class Field : public QWidget
+class CField : public QWidget
 {
 	Q_OBJECT
 public:
 
-	Field(QWidget * Parent=0);
+	CField(QWidget * Parent=0);
 
 	int angle();
 

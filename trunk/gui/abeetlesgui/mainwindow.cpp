@@ -27,6 +27,7 @@
 #include "field.h"
 #include "zoomslider.h"
 #include "defines.h"
+#include "Environment.h"
 
 MainWindow::MainWindow()
 {
@@ -52,7 +53,7 @@ MainWindow::MainWindow()
 	 typeViewLayout->addStretch(1);
 
 	//Field
-	Field * field= new Field();
+	CField * field= new CField();
 
     connect(typeViewCombo, SIGNAL(activated(const QString &)),field, SLOT(setTypeView(const QString &)));
 
@@ -77,7 +78,7 @@ MainWindow::MainWindow()
 	 QPushButton * runBut = new QPushButton(tr("Run"));
 	 runBut-> setCheckable(true);
 	 QSpinBox * numStepsSpin = new QSpinBox();
-	 numStepsSpin ->setMaximum(MAX_TIME);
+	 numStepsSpin ->setMaximum(MAXTIME);
 	 numStepsSpin->setValue(100);
 	 QPushButton * makeNStepsBut = new QPushButton(tr("Make steps"));
 	 makeNStepsBut-> setCheckable(true);
@@ -88,7 +89,9 @@ MainWindow::MainWindow()
 	 //connect(startBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(true)));
 	 //connect(stopBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(false)));
 	 //connect(stopBut,SIGNAL(clicked()),startBut,SLOT(setEnabled(true)));
-
+	
+	 //Legend field:
+	 
 
 	 QVBoxLayout * rightLayout= new QVBoxLayout();
 	 rightLayout->addWidget(timeLabel);
@@ -100,6 +103,39 @@ MainWindow::MainWindow()
 	 rightLayout->addStretch(1);
 
 	 
+	//numBeetles LCD
+	
+     NumBeetlesLCD = new QLCDNumber(6);
+     NumBeetlesLCD->setSegmentStyle(QLCDNumber::Filled);
+	 NumBeetlesLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+
+	 QLabel *numBeetlesLabel = new QLabel(tr("Beetles:"));
+	 numBeetlesLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	//numFlowers LCD
+	
+     NumFlowersLCD = new QLCDNumber(6);
+     NumFlowersLCD->setSegmentStyle(QLCDNumber::Filled);
+	 NumFlowersLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+
+	 QLabel *numFlowersLabel = new QLabel(tr("Flowers:"));
+	 numFlowersLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	 //numBirths LCD
+	
+     NumBirthsLCD = new QLCDNumber(6);
+     NumBirthsLCD->setSegmentStyle(QLCDNumber::Filled);
+	 NumBirthsLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+
+	 QLabel *numBirthsLabel = new QLabel(tr("New born:"));
+	 numBirthsLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	 //Bottom layout strip
+	QGridLayout * bottomLayout= new QGridLayout();
+	bottomLayout->addWidget(numBeetlesLabel,0,0);
+	bottomLayout->addWidget(NumBeetlesLCD,1,0);
+	bottomLayout->addWidget(numFlowersLabel,0,1);
+	bottomLayout->addWidget(NumFlowersLCD,1,1);
+	bottomLayout->addWidget(numBirthsLabel,0,2);
+	bottomLayout->addWidget(NumBirthsLCD,1,2);
+
 
 	//This was original stripe with info in the middle of the window and two fillers.
 	/*
@@ -120,6 +156,8 @@ MainWindow::MainWindow()
 	gridLayout->addLayout(typeViewLayout,1,1);
 	gridLayout->addWidget(zoomSlid,1,0);
 	gridLayout->addLayout(rightLayout,0,1);
+	gridLayout->addLayout(bottomLayout,2,0,1,2);
+	//gridLayout->addLayout(
 	//gridLayout->setColumnStretch(1, 1);
    /* layout->addWidget(topFiller);
     layout->addWidget(infoLabel);
@@ -137,6 +175,9 @@ MainWindow::MainWindow()
     setWindowTitle(tr("Abeetles"));
     setMinimumSize(300, 300);
     resize(480, 320);
+	
+	//non-gui attributes:
+	Env=NULL;
 }
 //Context menu - not used now.
 /*
@@ -151,22 +192,37 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::newEnv()
 {
-    //infoLabel->setText(tr("Invoked <b>File|New</b>"));
+   //Preliminarily:
+	Env = new CEnvironment();
+	Env->CreateRandomEnv();
+	update();
+	statusBar()->showMessage(tr("Random Env made."));
+
 }
 
 void MainWindow::openEnv()
 {
-    //infoLabel->setText(tr("Invoked <b>File|Open</b>"));
+    QString fileName = QFileDialog::getOpenFileName(this);
+    if (!fileName.isEmpty()) ;
+        /* Open file of environment: Env.LoadEnv();*/
 }
 
 void MainWindow::saveEnv()
 {
-    //infoLabel->setText(tr("Invoked <b>File|Save</b>"));
+    /* if (curFile.isEmpty())
+        saveEnvAs();
+		else
+        Env.SaveEnv();*/
 }
 
 void MainWindow::saveEnvAs()
 {
-    //infoLabel->setText(tr("Invoked <b>File|Print</b>"));
+    /*
+	QString fileName = QFileDialog::getSaveFileName(this);
+    if (fileName.isEmpty())
+        return;
+	Env.SaveEnv();
+	*/
 }
 /*
 void MainWindow::undo()
@@ -407,4 +463,9 @@ void MainWindow::createMenus()
     formatMenu->addSeparator();
     formatMenu->addAction(setLineSpacingAct);
     formatMenu->addAction(setParagraphSpacingAct);*/
+}
+
+void MainWindow::paintEvent(QPaintEvent * /* event */)
+{
+	Field->update();
 }
