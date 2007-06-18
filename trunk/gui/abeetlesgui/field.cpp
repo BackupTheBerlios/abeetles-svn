@@ -12,6 +12,7 @@ Field::Field (QWidget * parent): QWidget(parent)
 	connect(autoShootTimer,SIGNAL(timeout()),this,SLOT(moveRect()));
 	x=50;
 	currentAngle=45;
+	typeView = "blue";
 	setFixedSize(QSize(400,400));
 	}
 
@@ -38,7 +39,7 @@ void Field::paintEvent(QPaintEvent *evnt)
 	painter.drawText(200,200,tr("Position = ") + QString::number(currentAngle));
 
 	painter.setPen(Qt::NoPen);
-    painter.setBrush(Qt::blue);
+    painter.setBrush(QBrush(QColor(typeView)));
 	
 	if ((currentAngle*10 + 20)< width())
 		painter.drawRect(QRect(currentAngle*10, x, 20, 10));
@@ -66,5 +67,10 @@ void Field::moveRect()
 	x+=10;
 	update();
 
+}
+void Field::setTypeView(const QString& type)
+{
+	typeView = type;
+	update();
 }
 

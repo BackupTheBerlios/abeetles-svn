@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-class QSlider; //predbezna deklarace, soubor je includovan pozdeji.
+class QSlider; //preliminary declaration, file will be included later.
 class QLabel;
 
 class SlidComp : public QWidget

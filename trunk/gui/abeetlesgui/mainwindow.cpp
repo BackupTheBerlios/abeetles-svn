@@ -25,33 +25,120 @@
 
 #include "mainwindow.h"
 #include "field.h"
+#include "zoomslider.h"
+#include "defines.h"
 
 MainWindow::MainWindow()
 {
-	//crete main widget of the window
-	QWidget *widget = new QWidget;
-    setCentralWidget(widget);
+	//setting of central widget of the window
+    QWidget *mainWidget = new QWidget;
+    setCentralWidget(mainWidget);
+	
+	//ComboBox - Type of view
+	QLabel *typeViewLabel = new QLabel(tr("Type of view: "));
+	typeViewLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed); 
 
-	//Field for beetles and their environment
-	field= new Field(); 
-	QPushButton * but = new QPushButton("Neco");
-	QGridLayout *grid = new QGridLayout();
-  
-	grid->addWidget(field,0,0); 
-	grid->addWidget(but,1,0);
-	//grid->setColumnStretch(1, 10);
-	widget->setLayout(grid);
+	QComboBox *typeViewCombo = new QComboBox;
+	typeViewCombo->addItem("blue");
+    typeViewCombo->addItem("green");
+    typeViewCombo->addItem("red");
+    typeViewCombo->addItem("grey");
+    typeViewCombo->addItem("navy");
+	typeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
+	 QVBoxLayout * typeViewLayout= new QVBoxLayout();
+	 typeViewLayout->addWidget(typeViewLabel);
+	 typeViewLayout->addWidget(typeViewCombo);
+	 typeViewLayout->addStretch(1);
+
+	//Field
+	Field * field= new Field();
+
+    connect(typeViewCombo, SIGNAL(activated(const QString &)),field, SLOT(setTypeView(const QString &)));
+
+	//ScrollArea
+	QScrollArea * scrollArea = new QScrollArea ();
+	scrollArea->setBackgroundRole(QPalette::Dark);
+	scrollArea->setWidget(field); 
+
+	//Zoom
+	ZoomSlider * zoomSlid = new ZoomSlider(tr("Zoom: "));
+	
+	//Time LCD
+	
+     QLCDNumber * timeLCD = new QLCDNumber(6);
+     timeLCD->setSegmentStyle(QLCDNumber::Filled);
+	 timeLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+
+     QLabel *timeLabel = new QLabel(tr("TIME"));
+	 timeLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+
+	//Start, Stop, Make n steps buttons
+	 QPushButton * runBut = new QPushButton(tr("Run"));
+	 runBut-> setCheckable(true);
+	 QSpinBox * numStepsSpin = new QSpinBox();
+	 numStepsSpin ->setMaximum(MAX_TIME);
+	 numStepsSpin->setValue(100);
+	 QPushButton * makeNStepsBut = new QPushButton(tr("Make steps"));
+	 makeNStepsBut-> setCheckable(true);
+	 if (false ==connect(runBut,SIGNAL(toggled(bool)),makeNStepsBut,SLOT(setChecked(bool))))
+		 QMessageBox::information(this,"MyApp","not connected: runBut,makeNStepsBut");
+	 if (false ==connect(makeNStepsBut,SIGNAL(toggled(bool)),runBut,SLOT(setChecked(bool))))
+		 QMessageBox::information(this,"MyApp","not connected: runBut,makeNStepsBut");
+	 //connect(startBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(true)));
+	 //connect(stopBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(false)));
+	 //connect(stopBut,SIGNAL(clicked()),startBut,SLOT(setEnabled(true)));
+
+
+	 QVBoxLayout * rightLayout= new QVBoxLayout();
+	 rightLayout->addWidget(timeLabel);
+	 rightLayout->addWidget(timeLCD);
+	 rightLayout->addStretch(1);
+	 rightLayout->addWidget(runBut);
+	 rightLayout->addWidget(numStepsSpin);
+	 rightLayout->addWidget(makeNStepsBut);
+	 rightLayout->addStretch(1);
+
+	 
+
+	//This was original stripe with info in the middle of the window and two fillers.
+	/*
+    QWidget *topFiller = new QWidget;
+    topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    //infoLabel = new QLabel(tr("<i>Choose a menu option, or right-click to "
+                              "invoke a context menu</i>"));
+    infoLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
+    infoLabel->setAlignment(Qt::AlignCenter);
+
+    QWidget *bottomFiller = new QWidget;
+    bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);*/
+
+    QGridLayout * gridLayout = new QGridLayout;
+    //gridLayout->setMargin(5);
+	gridLayout->addWidget(scrollArea,0,0);
+	gridLayout->addLayout(typeViewLayout,1,1);
+	gridLayout->addWidget(zoomSlid,1,0);
+	gridLayout->addLayout(rightLayout,0,1);
+	//gridLayout->setColumnStretch(1, 1);
+   /* layout->addWidget(topFiller);
+    layout->addWidget(infoLabel);
+    layout->addWidget(bottomFiller);*/
+    mainWidget->setLayout(gridLayout);
+
+	//creation of menu and its actions
     createActions();
     createMenus();
 
-    QString message = tr("A context menu is available by right-clicking");
+	QString message = tr("Environment can be opened or created in the menu in \"File\" section.");
     statusBar()->showMessage(message);
+	
 
-    setWindowTitle(tr("Menus"));
-    setMinimumSize(160, 160);
+    setWindowTitle(tr("Abeetles"));
+    setMinimumSize(300, 300);
     resize(480, 320);
 }
+//Context menu - not used now.
 /*
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
@@ -60,133 +147,132 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
     menu.addAction(copyAct);
     menu.addAction(pasteAct);
     menu.exec(event->globalPos());
-}
-*/
+}*/
+
 void MainWindow::newEnv()
 {
-    statusBar()->showMessage(tr("Invoked <b>File|newEnv</b>"));
+    //infoLabel->setText(tr("Invoked <b>File|New</b>"));
 }
 
 void MainWindow::openEnv()
 {
-    statusBar()->showMessage(tr("Invoked <b>File|openEnv</b>"));
+    //infoLabel->setText(tr("Invoked <b>File|Open</b>"));
 }
 
-void MainWindow::saveEnvironment()
+void MainWindow::saveEnv()
 {
-    statusBar()->showMessage(tr("Invoked <b>File|saveEnvironment</b>"));
+    //infoLabel->setText(tr("Invoked <b>File|Save</b>"));
 }
 
-void MainWindow::print()
+void MainWindow::saveEnvAs()
 {
-    statusBar()->showMessage(tr("Invoked <b>File|Print</b>"));
+    //infoLabel->setText(tr("Invoked <b>File|Print</b>"));
 }
-
+/*
 void MainWindow::undo()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Undo</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Undo</b>"));
 }
 
 void MainWindow::redo()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Redo</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Redo</b>"));
 }
 
 void MainWindow::cut()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Cut</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Cut</b>"));
 }
 
 void MainWindow::copy()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Copy</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Copy</b>"));
 }
 
 void MainWindow::paste()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Paste</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Paste</b>"));
 }
 
 void MainWindow::bold()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Bold</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Bold</b>"));
 }
 
 void MainWindow::italic()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Italic</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Italic</b>"));
 }
 
 void MainWindow::leftAlign()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Left Align</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Left Align</b>"));
 }
 
 void MainWindow::rightAlign()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Right Align</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Right Align</b>"));
 }
 
 void MainWindow::justify()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Justify</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Justify</b>"));
 }
 
 void MainWindow::center()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Center</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Center</b>"));
 }
 
 void MainWindow::setLineSpacing()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Set Line Spacing</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Set Line Spacing</b>"));
 }
 
 void MainWindow::setParagraphSpacing()
 {
-    statusBar()->showMessage(tr("Invoked <b>Edit|Format|Set Paragraph Spacing</b>"));
+    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Set Paragraph Spacing</b>"));
 }
-
+*/
 void MainWindow::about()
 {
-    statusBar()->showMessage(tr("Invoked <b>Help|About</b>"));
+    //infoLabel->setText(tr("Invoked <b>Help|Aboutp</b>"));
     QMessageBox::about(this, tr("About Menu"),
-            tr("The <b>Menu</b> example shows how to create "
-               "menu-bar menus and context menus."));
+            tr("The application Abeetles."));
 }
-
+/*
 void MainWindow::aboutQt()
 {
-    statusBar()->showMessage(tr("Invoked <b>Help|About Qt</b>"));
-}
+    //infoLabel->setText(tr("Invoked <b>Help|About Qt</b>"));
+}*/
 
 void MainWindow::createActions()
 {
-    newAct = new QAction(tr("&New Environment"), this);
-    newAct->setShortcut(tr("Ctrl+N"));
-    newAct->setStatusTip(tr("Create New Environment"));
-    connect(newAct, SIGNAL(triggered()), this, SLOT(newEnv()));
+    newEnvAct = new QAction(tr("&New Environment"), this);
+    newEnvAct->setShortcut(tr("Ctrl+N"));
+    newEnvAct->setStatusTip(tr("Create a new environment"));
+    connect(newEnvAct, SIGNAL(triggered()), this, SLOT(newEnv()));
 
-    openAct = new QAction(tr("&Open Environment..."), this);
-    openAct->setShortcut(tr("Ctrl+O"));
-    openAct->setStatusTip(tr("Load Environment from an existing file"));
-    connect(openAct, SIGNAL(triggered()), this, SLOT(openEnv()));
+    openEnvAct = new QAction(tr("&Open Environment..."), this);
+    openEnvAct->setShortcut(tr("Ctrl+O"));
+    openEnvAct->setStatusTip(tr("Open an existing environment"));
+    connect(openEnvAct, SIGNAL(triggered()), this, SLOT(openEnv()));
 
-    saveAct = new QAction(tr("&Save Environment"), this);
-    saveAct->setShortcut(tr("Ctrl+S"));
-    saveAct->setStatusTip(tr("Save environment to disk"));
-    connect(saveAct, SIGNAL(triggered()), this, SLOT(saveEnvironment()));
+    saveEnvAct = new QAction(tr("&Save Environment"), this);
+    saveEnvAct->setShortcut(tr("Ctrl+S"));
+    saveEnvAct->setStatusTip(tr("Save the environment to disk"));
+    connect(saveEnvAct, SIGNAL(triggered()), this, SLOT(saveEnv()));
 
-    printAct = new QAction(tr("&Print..."), this);
-    printAct->setShortcut(tr("Ctrl+P"));
-    printAct->setStatusTip(tr("Print the document"));
-    connect(printAct, SIGNAL(triggered()), this, SLOT(print()));
+    saveEnvAsAct = new QAction(tr("Save &Environment As..."), this);
+    saveEnvAsAct->setShortcut(tr("Ctrl+E"));
+    saveEnvAsAct->setStatusTip(tr("Save the environment to disk"));
+    connect(saveEnvAsAct, SIGNAL(triggered()), this, SLOT(saveEnvAs()));
 
     exitAct = new QAction(tr("E&xit"), this);
     exitAct->setShortcut(tr("Ctrl+Q"));
     exitAct->setStatusTip(tr("Exit the application"));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
-
+/*
     undoAct = new QAction(tr("&Undo"), this);
     undoAct->setShortcut(tr("Ctrl+Z"));
     undoAct->setStatusTip(tr("Undo the last operation"));
@@ -243,17 +329,17 @@ void MainWindow::createActions()
     setParagraphSpacingAct = new QAction(tr("Set &Paragraph Spacing..."), this);
     setLineSpacingAct->setStatusTip(tr("Change the gap between paragraphs"));
     connect(setParagraphSpacingAct, SIGNAL(triggered()),
-            this, SLOT(setParagraphSpacing()));
+            this, SLOT(setParagraphSpacing()));*/
 
     aboutAct = new QAction(tr("&About"), this);
     aboutAct->setStatusTip(tr("Show the application's About box"));
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-    aboutQtAct = new QAction(tr("About &Qt"), this);
+    /*aboutQtAct = new QAction(tr("About &Qt"), this);
     aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
     connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));
-
+    connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));*/
+/*
     leftAlignAct = new QAction(tr("&Left Align"), this);
     leftAlignAct->setCheckable(true);
     leftAlignAct->setShortcut(tr("Ctrl+L"));
@@ -278,7 +364,7 @@ void MainWindow::createActions()
     centerAct->setStatusTip(tr("Center the selected text"));
     connect(centerAct, SIGNAL(triggered()), this, SLOT(center()));
 
-    /*alignmentGroup = new QActionGroup(this);
+    alignmentGroup = new QActionGroup(this);
     alignmentGroup->addAction(leftAlignAct);
     alignmentGroup->addAction(rightAlignAct);
     alignmentGroup->addAction(justifyAct);
@@ -289,14 +375,15 @@ void MainWindow::createActions()
 void MainWindow::createMenus()
 {
     fileMenu = menuBar()->addMenu(tr("&File"));
-    fileMenu->addAction(newAct);
-    fileMenu->addAction(openAct);
-    fileMenu->addAction(saveAct);
-    fileMenu->addAction(printAct);
+    fileMenu->addAction(newEnvAct);
+    fileMenu->addAction(openEnvAct);
+    fileMenu->addAction(saveEnvAct);
+    fileMenu->addAction(saveEnvAsAct);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
-    editMenu = menuBar()->addMenu(tr("&Edit"));
+    editMenu = menuBar()->addMenu(tr("&Statistics"));
+	/*
     editMenu->addAction(undoAct);
     editMenu->addAction(redoAct);
     editMenu->addSeparator();
@@ -319,5 +406,5 @@ void MainWindow::createMenus()
     formatMenu->addAction(centerAct);
     formatMenu->addSeparator();
     formatMenu->addAction(setLineSpacingAct);
-    formatMenu->addAction(setParagraphSpacingAct);
+    formatMenu->addAction(setParagraphSpacingAct);*/
 }

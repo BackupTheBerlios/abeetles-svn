@@ -27,9 +27,9 @@
 #include <QMainWindow>
 
 class QAction;
+class QActionGroup;
 class QLabel;
 class QMenu;
-class Field;
 
 class MainWindow : public QMainWindow
 {
@@ -38,14 +38,18 @@ class MainWindow : public QMainWindow
 public:
     MainWindow();
 
+//Context menu - not used now.
+/* 
 protected:
-//    void contextMenuEvent(QContextMenuEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
+*/
 
 private slots:
     void newEnv();
     void openEnv();
-    void saveEnvironment();
-    void print();
+    void saveEnv();
+    void saveEnvAs();
+	/*
     void undo();
     void redo();
     void cut();
@@ -58,26 +62,29 @@ private slots:
     void justify();
     void center();
     void setLineSpacing();
-    void setParagraphSpacing();
+    void setParagraphSpacing();*/
     void about();
-    void aboutQt();
+    //void aboutQt();
 
 private:
     void createActions();
     void createMenus();
 
-	Field * field;
-
     QMenu *fileMenu;
     QMenu *editMenu;
     QMenu *formatMenu;
     QMenu *helpMenu;
-    //QActionGroup *alignmentGroup;
-    QAction *newAct;
-    QAction *loadBeetlesAct;
-    QAction *saveAct;
-    QAction *printAct;
+    QActionGroup *alignmentGroup;
+
+	//Menu "File"
+    QAction *newEnvAct;
+    QAction *openEnvAct;
+    QAction *saveEnvAct;
+	QAction *saveEnvAsAct;
     QAction *exitAct;
+
+	//Menu "Statistics"
+	/*
     QAction *undoAct;
     QAction *redoAct;
     QAction *cutAct;
@@ -90,10 +97,12 @@ private:
     QAction *justifyAct;
     QAction *centerAct;
     QAction *setLineSpacingAct;
-    QAction *setParagraphSpacingAct;
+    QAction *setParagraphSpacingAct;*/
+
+	//Menu "Help"
     QAction *aboutAct;
     QAction *aboutQtAct;
-    QLabel *infoLabel;
+    //QLabel *infoLabel;
 };
 
 #endif

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Fri 15. Jun 16:33:19 2007
+** Created: Mon 18. Jun 14:09:48 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,41 +22,23 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-      19,   10, // methods
+       5,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x08,
-      22,   11,   11,   11, 0x08,
-      29,   11,   11,   11, 0x08,
-      36,   11,   11,   11, 0x08,
-      44,   11,   11,   11, 0x08,
-      51,   11,   11,   11, 0x08,
-      58,   11,   11,   11, 0x08,
-      64,   11,   11,   11, 0x08,
-      71,   11,   11,   11, 0x08,
-      79,   11,   11,   11, 0x08,
-      86,   11,   11,   11, 0x08,
-      95,   11,   11,   11, 0x08,
-     107,   11,   11,   11, 0x08,
-     120,   11,   11,   11, 0x08,
-     130,   11,   11,   11, 0x08,
-     139,   11,   11,   11, 0x08,
-     156,   11,   11,   11, 0x08,
-     178,   11,   11,   11, 0x08,
-     186,   11,   11,   11, 0x08,
+      21,   11,   11,   11, 0x08,
+      31,   11,   11,   11, 0x08,
+      41,   11,   11,   11, 0x08,
+      53,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0newFile()\0open()\0save()\0"
-    "print()\0undo()\0redo()\0cut()\0copy()\0"
-    "paste()\0bold()\0italic()\0leftAlign()\0"
-    "rightAlign()\0justify()\0center()\0"
-    "setLineSpacing()\0setParagraphSpacing()\0"
-    "about()\0aboutQt()\0"
+    "MainWindow\0\0newEnv()\0openEnv()\0saveEnv()\0"
+    "saveEnvAs()\0about()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -84,27 +66,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: newFile(); break;
-        case 1: open(); break;
-        case 2: save(); break;
-        case 3: print(); break;
-        case 4: undo(); break;
-        case 5: redo(); break;
-        case 6: cut(); break;
-        case 7: copy(); break;
-        case 8: paste(); break;
-        case 9: bold(); break;
-        case 10: italic(); break;
-        case 11: leftAlign(); break;
-        case 12: rightAlign(); break;
-        case 13: justify(); break;
-        case 14: center(); break;
-        case 15: setLineSpacing(); break;
-        case 16: setParagraphSpacing(); break;
-        case 17: about(); break;
-        case 18: aboutQt(); break;
+        case 0: newEnv(); break;
+        case 1: openEnv(); break;
+        case 2: saveEnv(); break;
+        case 3: saveEnvAs(); break;
+        case 4: about(); break;
         }
-        _id -= 19;
+        _id -= 5;
     }
     return _id;
 }

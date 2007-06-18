@@ -17,6 +17,7 @@ public slots:
 	void setAngle(int angle);
 	void startstop();
 	void moveRect();
+	void setTypeView(const QString& type);
 
 signals:
 	void angleChanged(int angle);
@@ -27,6 +28,7 @@ protected:
 
 private:
     int currentAngle;
+	QString typeView;
 public:
 	QTimer * autoShootTimer;
 	int x;
