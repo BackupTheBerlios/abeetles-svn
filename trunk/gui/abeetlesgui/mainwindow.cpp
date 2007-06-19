@@ -468,7 +468,8 @@ void MainWindow::renewAllChildren()
 	NumFlowersLCD->setValue(Env->Statist.NumFlowers);
 	NumBirthsLCD->setValue(Env->Statist.NumBirths);
 	TimeLCD->setValue(Env->Time);
-	//Field->update(); --Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
+	QMessageBox::information(this,"MyApp","1");
+	Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
 }
 
 void MainWindow::run(bool bStart)

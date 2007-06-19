@@ -267,6 +267,10 @@
 				RelativePath="..\StatisticsEnv.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\zoomslider.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

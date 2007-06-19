@@ -31,7 +31,7 @@ void ZoomSlider::init(const QString & labelText)
   lcd->setSegmentStyle(QLCDNumber::Filled);*/
 
   Slider = new QSlider(Qt::Horizontal);
-  Slider->setRange(0, ZOOM_RANGE);
+  Slider->setRange(0, NUM_ZOOM-1);
   Slider->setValue(0);
   Slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
 

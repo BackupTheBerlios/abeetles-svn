@@ -1,5 +1,5 @@
 #include <QWidget>
-
+#include "defines.h"
 
 class QTimer;
 class QPushButton;
@@ -22,12 +22,16 @@ public slots:
 
 protected:
     void paintEvent(QPaintEvent *evnt);
-	
+	QImage * getBeetleImage(int zoom, char direction, QString & typeView);
+	QRect * getCellRect(int x, int y, int zoom);
 
 private:
 	QString typeView;
 	CEnvironment * Env;
 	int Zoom;
-public:
+
+	int ZoomToSqSize[NUM_ZOOM] ;
+	int ZoomToGapSize[NUM_ZOOM];
+
 	
 };
