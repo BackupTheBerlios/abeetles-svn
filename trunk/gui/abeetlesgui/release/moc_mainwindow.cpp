@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Mon 18. Jun 23:31:42 2007
+** Created: Tue 19. Jun 15:53:12 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   10, // methods
+       8,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
@@ -31,14 +31,18 @@ static const uint qt_meta_data_MainWindow[] = {
       21,   11,   11,   11, 0x08,
       31,   11,   11,   11, 0x08,
       41,   11,   11,   11, 0x08,
-      53,   11,   11,   11, 0x08,
+      60,   53,   11,   11, 0x08,
+      70,   53,   11,   11, 0x08,
+      86,   11,   11,   11, 0x08,
+      98,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0newEnv()\0openEnv()\0saveEnv()\0"
-    "saveEnvAs()\0about()\0"
+    "saveEnvAs()\0bStart\0run(bool)\0"
+    "runNSteps(bool)\0make1Step()\0about()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -70,9 +74,12 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: openEnv(); break;
         case 2: saveEnv(); break;
         case 3: saveEnvAs(); break;
-        case 4: about(); break;
+        case 4: run((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 5: runNSteps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 6: make1Step(); break;
+        case 7: about(); break;
         }
-        _id -= 5;
+        _id -= 8;
     }
     return _id;
 }

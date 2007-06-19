@@ -21,10 +21,10 @@
 **
 ****************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
+#include <QtGui>
 
 class QAction;
 class QActionGroup;
@@ -32,7 +32,8 @@ class QLabel;
 class QMenu;
 class CField;
 class CEnvironment;
-class QLCDNumber;
+class LabeledLCD;
+class QWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -52,6 +53,10 @@ private slots:
     void openEnv();
     void saveEnv();
     void saveEnvAs();
+
+	void run(bool bStart);
+	void runNSteps(bool bStart);
+	void make1Step();
 	/*
     void undo();
     void redo();
@@ -69,20 +74,37 @@ private slots:
     void about();
     //void aboutQt();
 
-protected:
-	void paintEvent(QPaintEvent * /* event */);
- 
+
+private:
+	LabeledLCD * NumFlowersLCD;
+	LabeledLCD * NumBeetlesLCD;
+	LabeledLCD * NumBirthsLCD;
+	LabeledLCD * TimeLCD;
+
+	QComboBox * TypeViewCombo;
+	QSpinBox * NumStepsSpin;
+	QPushButton * MakeNStepsBut;
+
+	QTimer * Timer;
+
+	CField * Field;
+	CEnvironment * Env;	
+	int NumSteps;
+
+	//QString beetleFN;
+	//QString mapFN;
 
 private:
     void createActions();
     void createMenus();
+	void renewAllChildren();
 
 
     QMenu *fileMenu;
     QMenu *editMenu;
     QMenu *formatMenu;
     QMenu *helpMenu;
-    QActionGroup *alignmentGroup;
+    //QActionGroup *alignmentGroup;
 
 	//Menu "File"
 		QAction *newEnvAct;
@@ -111,15 +133,6 @@ private:
 		QAction *aboutAct;
 		QAction *aboutQtAct;
 		//QLabel *infoLabel;
-	
-	CField * Field;
-	QLCDNumber * NumBeetlesLCD;
-	QLCDNumber * NumFlowersLCD;
-	QLCDNumber * NumBirthsLCD;
-	
-	CEnvironment * Env;
-	//QString beetleFN;
-	//QString mapFN;
+
 };
 
-#endif

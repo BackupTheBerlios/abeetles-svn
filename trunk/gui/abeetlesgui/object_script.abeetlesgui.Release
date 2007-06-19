@@ -4,12 +4,14 @@ INPUT(
 ./release\Environment.o
 ./release\field.o
 ./release\Grid.o
+./release\LabeledLCD.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\RunLife.o
 ./release\StatisticsEnv.o
 ./release\zoomslider.o
 ./release\moc_field.o
+./release\moc_LabeledLCD.o
 ./release\moc_mainwindow.o
 ./release\moc_zoomslider.o
 );

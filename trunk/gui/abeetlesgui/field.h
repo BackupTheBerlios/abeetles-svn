@@ -1,7 +1,9 @@
 #include <QWidget>
 
+
 class QTimer;
 class QPushButton;
+class CEnvironment;
 
 
 class CField : public QWidget
@@ -9,28 +11,23 @@ class CField : public QWidget
 	Q_OBJECT
 public:
 
-	CField(QWidget * Parent=0);
+	CField(CEnvironment * env,QWidget * parent=0);
 
-	int angle();
 
 public slots:
-	void setAngle(int angle);
-	void startstop();
-	void moveRect();
 	void setTypeView(const QString& type);
+	void renewField();
 
-signals:
-	void angleChanged(int angle);
+//signals:
 
 protected:
     void paintEvent(QPaintEvent *evnt);
 	
 
 private:
-    int currentAngle;
 	QString typeView;
+	CEnvironment * Env;
+	int Zoom;
 public:
-	QTimer * autoShootTimer;
-	int x;
 	
 };

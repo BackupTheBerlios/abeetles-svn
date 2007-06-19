@@ -174,11 +174,51 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\Beetle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\CfgManager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\defines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Environment.h"
+				>
+			</File>
+			<File
 				RelativePath="..\field.h"
 				>
 			</File>
 			<File
+				RelativePath="..\Grid.h"
+				>
+			</File>
+			<File
+				RelativePath="..\LabeledLCD.h"
+				>
+			</File>
+			<File
 				RelativePath="..\mainwindow.h"
+				>
+			</File>
+			<File
+				RelativePath="..\RunLife.h"
+				>
+			</File>
+			<File
+				RelativePath="..\StatisticsEnv.h"
+				>
+			</File>
+			<File
+				RelativePath="..\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath="..\zoomslider.h"
 				>
 			</File>
 		</Filter>
@@ -188,7 +228,27 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\Beetle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\CfgManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Environment.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\field.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Grid.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\LabeledLCD.cpp"
 				>
 			</File>
 			<File
@@ -197,6 +257,14 @@
 			</File>
 			<File
 				RelativePath="..\mainwindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\RunLife.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\StatisticsEnv.cpp"
 				>
 			</File>
 		</Filter>

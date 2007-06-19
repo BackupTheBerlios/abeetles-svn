@@ -22,6 +22,7 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "CfgManager.h"

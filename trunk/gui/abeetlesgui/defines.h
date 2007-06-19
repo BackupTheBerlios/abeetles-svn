@@ -99,3 +99,4 @@
 #define STAT_TIME_FILE_OLD "statTime_old.csv"
 
 #define ZOOM_RANGE 10
+#define TIME_STEP 15 //in miliseconds - the time between two time slices.

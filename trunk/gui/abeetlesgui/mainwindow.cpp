@@ -28,34 +28,42 @@
 #include "zoomslider.h"
 #include "defines.h"
 #include "Environment.h"
+#include "LabeledLCD.h"
 
 MainWindow::MainWindow()
 {
 	//setting of central widget of the window
     QWidget *mainWidget = new QWidget;
     setCentralWidget(mainWidget);
+
+	//non-gui attributes:
+	Env=NULL;
+	NumSteps=-1;
+
+	Timer = new QTimer(this);
+	connect(Timer,SIGNAL(timeout()),this,SLOT(make1Step()));
 	
 	//ComboBox - Type of view
 	QLabel *typeViewLabel = new QLabel(tr("Type of view: "));
 	typeViewLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed); 
 
-	QComboBox *typeViewCombo = new QComboBox;
-	typeViewCombo->addItem("blue");
-    typeViewCombo->addItem("green");
-    typeViewCombo->addItem("red");
-    typeViewCombo->addItem("grey");
-    typeViewCombo->addItem("navy");
-	typeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	TypeViewCombo = new QComboBox;
+	TypeViewCombo->addItem("blue");
+    TypeViewCombo->addItem("green");
+    TypeViewCombo->addItem("red");
+    TypeViewCombo->addItem("grey");
+    TypeViewCombo->addItem("navy");
+	TypeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
 	 QVBoxLayout * typeViewLayout= new QVBoxLayout();
 	 typeViewLayout->addWidget(typeViewLabel);
-	 typeViewLayout->addWidget(typeViewCombo);
+	 typeViewLayout->addWidget(TypeViewCombo);
 	 typeViewLayout->addStretch(1);
 
 	//Field
-	CField * field= new CField();
+	CField * field= new CField(Env);
 
-    connect(typeViewCombo, SIGNAL(activated(const QString &)),field, SLOT(setTypeView(const QString &)));
+    connect(TypeViewCombo, SIGNAL(activated(const QString &)),field, SLOT(setTypeView(const QString &)));
 
 	//ScrollArea
 	QScrollArea * scrollArea = new QScrollArea ();
@@ -67,26 +75,29 @@ MainWindow::MainWindow()
 	
 	//Time LCD
 	
-     QLCDNumber * timeLCD = new QLCDNumber(6);
-     timeLCD->setSegmentStyle(QLCDNumber::Filled);
-	 timeLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
-
-     QLabel *timeLabel = new QLabel(tr("TIME"));
-	 timeLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+     TimeLCD = new LabeledLCD(tr("Time"));
+     
 
 	//Start, Stop, Make n steps buttons
 	 QPushButton * runBut = new QPushButton(tr("Run"));
 	 runBut-> setCheckable(true);
-	 QSpinBox * numStepsSpin = new QSpinBox();
-	 numStepsSpin ->setMaximum(MAXTIME);
-	 numStepsSpin->setValue(100);
-	 QPushButton * makeNStepsBut = new QPushButton(tr("Make steps"));
-	 makeNStepsBut-> setCheckable(true);
-	 if (false ==connect(runBut,SIGNAL(toggled(bool)),makeNStepsBut,SLOT(setChecked(bool))))
-		 QMessageBox::information(this,"MyApp","not connected: runBut,makeNStepsBut");
-	 if (false ==connect(makeNStepsBut,SIGNAL(toggled(bool)),runBut,SLOT(setChecked(bool))))
-		 QMessageBox::information(this,"MyApp","not connected: runBut,makeNStepsBut");
-	 //connect(startBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(true)));
+	 NumStepsSpin = new QSpinBox();
+	 NumStepsSpin ->setMaximum(MAXTIME);
+	 NumStepsSpin->setValue(100);
+	 MakeNStepsBut = new QPushButton(tr("Make steps"));
+	 MakeNStepsBut-> setCheckable(true);
+
+	 if (false ==connect(runBut,SIGNAL(toggled(bool)),MakeNStepsBut,SLOT(setDisabled(bool))))
+		 QMessageBox::information(this,"MyApp","not connected: runBut,MakeNStepsBut");
+	 if (false ==connect(MakeNStepsBut,SIGNAL(toggled(bool)),runBut,SLOT(setDisabled(bool))))
+		 QMessageBox::information(this,"MyApp","not connected: runBut,MakeNStepsBut");
+
+	if (false ==connect(runBut,SIGNAL(toggled(bool)),NumStepsSpin,SLOT(setDisabled(bool))))
+		 QMessageBox::information(this,"MyApp","not connected: runBut,NumStepsSpin");
+
+	 connect(MakeNStepsBut,SIGNAL(toggled(bool)),this,SLOT(runNSteps(bool)));
+	 connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
+
 	 //connect(stopBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(false)));
 	 //connect(stopBut,SIGNAL(clicked()),startBut,SLOT(setEnabled(true)));
 	
@@ -94,47 +105,29 @@ MainWindow::MainWindow()
 	 
 
 	 QVBoxLayout * rightLayout= new QVBoxLayout();
-	 rightLayout->addWidget(timeLabel);
-	 rightLayout->addWidget(timeLCD);
+	 rightLayout->addWidget(TimeLCD);
 	 rightLayout->addStretch(1);
 	 rightLayout->addWidget(runBut);
-	 rightLayout->addWidget(numStepsSpin);
-	 rightLayout->addWidget(makeNStepsBut);
+	 rightLayout->addWidget(NumStepsSpin);
+	 rightLayout->addWidget(MakeNStepsBut);
 	 rightLayout->addStretch(1);
 
 	 
 	//numBeetles LCD
-	
-     NumBeetlesLCD = new QLCDNumber(6);
-     NumBeetlesLCD->setSegmentStyle(QLCDNumber::Filled);
-	 NumBeetlesLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	NumBeetlesLCD = new LabeledLCD(tr("Beetles"));
 
-	 QLabel *numBeetlesLabel = new QLabel(tr("Beetles:"));
-	 numBeetlesLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
-	//numFlowers LCD
-	
-     NumFlowersLCD = new QLCDNumber(6);
-     NumFlowersLCD->setSegmentStyle(QLCDNumber::Filled);
-	 NumFlowersLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	//numFlowers LCD     
+	NumFlowersLCD = new LabeledLCD(tr("Flowers"));
 
-	 QLabel *numFlowersLabel = new QLabel(tr("Flowers:"));
-	 numFlowersLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
-	 //numBirths LCD
-	
-     NumBirthsLCD = new QLCDNumber(6);
-     NumBirthsLCD->setSegmentStyle(QLCDNumber::Filled);
-	 NumBirthsLCD->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	 //numBirths LCD	
+	NumBirthsLCD= new LabeledLCD(tr("Births"));
 
-	 QLabel *numBirthsLabel = new QLabel(tr("New born:"));
-	 numBirthsLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 	 //Bottom layout strip
-	QGridLayout * bottomLayout= new QGridLayout();
-	bottomLayout->addWidget(numBeetlesLabel,0,0);
-	bottomLayout->addWidget(NumBeetlesLCD,1,0);
-	bottomLayout->addWidget(numFlowersLabel,0,1);
-	bottomLayout->addWidget(NumFlowersLCD,1,1);
-	bottomLayout->addWidget(numBirthsLabel,0,2);
-	bottomLayout->addWidget(NumBirthsLCD,1,2);
+	QHBoxLayout * bottomLayout= new QHBoxLayout();
+	bottomLayout->addWidget(NumBeetlesLCD);
+	bottomLayout->addWidget(NumFlowersLCD);
+	bottomLayout->addWidget(NumBirthsLCD);
+	//QMessageBox::information(this,"MyApp","6");
 
 
 	//This was original stripe with info in the middle of the window and two fillers.
@@ -150,6 +143,7 @@ MainWindow::MainWindow()
     QWidget *bottomFiller = new QWidget;
     bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);*/
 
+//	QMessageBox::information(this,"MyApp","7");
     QGridLayout * gridLayout = new QGridLayout;
     //gridLayout->setMargin(5);
 	gridLayout->addWidget(scrollArea,0,0);
@@ -164,6 +158,7 @@ MainWindow::MainWindow()
     layout->addWidget(bottomFiller);*/
     mainWidget->setLayout(gridLayout);
 
+//	QMessageBox::information(this,"MyApp","8");
 	//creation of menu and its actions
     createActions();
     createMenus();
@@ -171,13 +166,15 @@ MainWindow::MainWindow()
 	QString message = tr("Environment can be opened or created in the menu in \"File\" section.");
     statusBar()->showMessage(message);
 	
+//	QMessageBox::information(this,"MyApp","9");
 
     setWindowTitle(tr("Abeetles"));
     setMinimumSize(300, 300);
     resize(480, 320);
 	
-	//non-gui attributes:
-	Env=NULL;
+	
+//	QMessageBox::information(this,"MyApp","10");
+
 }
 //Context menu - not used now.
 /*
@@ -195,7 +192,7 @@ void MainWindow::newEnv()
    //Preliminarily:
 	Env = new CEnvironment();
 	Env->CreateRandomEnv();
-	update();
+	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
 }
@@ -465,7 +462,86 @@ void MainWindow::createMenus()
     formatMenu->addAction(setParagraphSpacingAct);*/
 }
 
-void MainWindow::paintEvent(QPaintEvent * /* event */)
+void MainWindow::renewAllChildren()
 {
-	Field->update();
+	NumBeetlesLCD->setValue(Env->Statist.NumBeetles);
+	NumFlowersLCD->setValue(Env->Statist.NumFlowers);
+	NumBirthsLCD->setValue(Env->Statist.NumBirths);
+	TimeLCD->setValue(Env->Time);
+	//Field->update(); --Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
+}
+
+void MainWindow::run(bool bStart)
+{
+	if (bStart == true)
+	{
+		NumSteps=-1;
+		Timer->start(TIME_STEP);
+		QMessageBox::information(this,"MyApp","Run infinitely.");
+		
+	}
+	else
+	{
+		Timer->stop();
+		NumSteps=0;
+		QMessageBox::information(this,"MyApp","Stop timer.");
+	}
+	
+		
+}
+
+void MainWindow::runNSteps(bool bStart)
+{
+	if (bStart == true)
+	{
+		NumSteps=NumStepsSpin->value();
+		Timer->start(TIME_STEP);
+		QMessageBox::information(this,"MyApp","Start "+QString::number(NumStepsSpin->value())+" steps.");
+				
+	}
+	else
+	{		
+		Timer->stop();
+		NumSteps=0;
+		QMessageBox::information(this,"MyApp","Stop timer.");
+	}
+	
+		
+}
+void MainWindow::make1Step()
+{
+	int I,J;
+
+	if (NumSteps==0) 
+	{
+		MakeNStepsBut->toggle();
+		return;
+	}
+	if (Env->Time>=MAXTIME) 
+	{
+		QMessageBox::information(this,"MyApp","Maximum of time reached. Start a new environment.");
+		Timer->stop();
+		NumSteps=-1;
+	}
+
+	for(I=0;I<Env->Grid_Past.G_Width;I++)
+			for(J=0;J<Env->Grid_Past.G_Height;J++)
+			{
+				if (Env->Grid_Past.GetCellContent(I,J)==BEETLE) Env->MakeBeetleAction(I,J);
+				if (Env->Grid_Past.GetCellContent(I,J)==NOTHING) Env->MakeFlowerGrow(I,J);
+				//if there is a wall, flower of something bad, do nothing
+			}
+
+		//output 
+		renewAllChildren();
+		/*
+		if (Env->DisplayOn)
+		{
+			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env->Statist.NumBeetles,Env->Statist.NumBirths,Env->Statist.NumFlowers);		
+			Env->PrintEnv();	
+		}*/
+	if (NumSteps>0) NumSteps--;
+			
+	Env->NextTime();
+
 }
