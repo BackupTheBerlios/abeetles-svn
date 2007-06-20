@@ -5,10 +5,10 @@
 #include "Environment.h"
 #include "Grid.h"
 #include <string.h>
-#include <windows.h>
-#include <direct.h>
-#include <winuser.h>
-
+//#include <windows.h>
+//#include <direct.h>
+//#include <winuser.h>
+#include <QtGui>
 
 
 
@@ -69,45 +69,20 @@ bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
 * @throws name [descrip](Exceptions - meaning)
 */
 //
-bool CfgManager::LoadMapFromBmp(CGrid * grid, wchar_t * filename)
-{/*
+bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
+{
 //1. Read the bmp file
-	//In windows any image must be connected with a device context, so as to read individual pixels
-	HDC hDC = CreateCompatibleDC(0);
-	if (hDC==0) printf("chyba DC\n"); //chyba
-
-	
-	//wchar_t * filename= MAP_BMP_FILE ;// function LoadImage needs a unicode string!
-	printf("%s\n", filename);
-
-	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
-								filename,	//file name - as UNICODE string !!!!
-								IMAGE_BITMAP,	//type of loaded result
-								grid->G_Width, 
-								grid->G_Height,
-								LR_LOADFROMFILE
-							);
-	
-	if (hBitmap == 0) 
+	QImage * img = new QImage (filename);
+	QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
+	if ((img==NULL)||(img->width()< grid->G_Width) ||( img->height()< grid->G_Height))
 	{
-		DWORD Err=GetLastError();
-		printf("Chyba hBitmap load env_cfg no. %d.\n",Err);
-		
-		//char Buffer [256];
-		//LPTSTR lpMsgBuf;
-		//FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,NULL,Err,MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),(LPTSTR) &lpMsgBuf,0, NULL);
-		//printf("%s\n",lpMsgBuf);
-		//LocalFree(lpMsgBuf);
+		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: "+QString::number( grid->G_Width)+", "+QString::number(grid->G_Height));
 		return false;
 	}
 
-	//Ataching of image with DeviceContext
-	SelectObject ( hDC, hBitmap );
-
-	//TODO: check, if picture is at least as big as the grid !!
-
 //2.Fill grid with information from the image
-	COLORREF colorRef;
+	
+	QRgb color;	
 	int I,J;
 
 	//for the sake of the printf in lines, this reads in the direction of lines, not columns
@@ -115,31 +90,32 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, wchar_t * filename)
 	{	
 		for (I=0;I<(grid->G_Width);I++)
 		{
-			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
-			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
-			if (colorRef == CFG_CLR_WALL)
+			if (!(img->valid(I,J))) 
+			{
+				//QMessageBox::information(NULL,"MyApp","Not valid I,J");
+				continue; //if the I,J is not valid withing img
+			}
+			
+			color = img->pixel(J,I);
+			if (QColor::fromRgb(color) == CFG_CLR_WALL)
 				grid->SetCellContent_Init(WALL,I,J);			
-			else if ((colorRef>= CFG_CLR_FLOWER_BOTTOM) && (colorRef<= CFG_CLR_FLOWER_TOP))
+			else 
 			{
 				grid->SetCellContent_Init(NOTHING,I,J);
-				grid->SetCellGrowingProbability(FlowerProbabilityFromColor(colorRef),I,J);
+				grid->SetCellGrowingProbability(0,I,J);
+				if ((qRed(color)==0)&&(qBlue(color)==0)&&(qGreen (color)>= CFG_CLR_FLOWER_BOTTOM) && (qGreen (color)<= CFG_CLR_FLOWER_TOP))
+					grid->SetCellGrowingProbability(FlowerProbabilityFromColor(qGreen (color)),I,J);
 			}
-			else grid->SetCellContent_Init(NOTHING,I,J);
 		}
-		//printf("\n");
 	}
 
-
-	DeleteObject(hBitmap);*/
 	return true;
 }
 
-int CfgManager::FlowerProbabilityFromColor(COLORREF colorRef)
-{
-	BYTE top_g =GetGValue (CFG_CLR_FLOWER_TOP);
-	BYTE bottom_g =GetGValue (CFG_CLR_FLOWER_BOTTOM);
-	BYTE pom=(GetGValue(colorRef)-bottom_g);
-	return (((pom*100)/(top_g - bottom_g)));
+int CfgManager::FlowerProbabilityFromColor(int greenNum)
+{	
+	int pom=greenNum-CFG_CLR_FLOWER_BOTTOM;
+	return (((pom*100)/(CFG_CLR_FLOWER_TOP - CFG_CLR_FLOWER_BOTTOM)));
 }
 
 bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
@@ -271,45 +247,19 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 }
 
 
-bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * filename)
-{/*
+bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename)
+{
 //1. Read the bmp file
-	//In windows any image must be connected with a device context, so as to read individual pixels
-	HDC hDC = CreateCompatibleDC(0);
-	if (hDC==0) printf("Error - device for reading of bitmap for Energy from flower not obtained.\n"); //chyba
-
-	
-	//wchar_t * filename= MAP_BMP_FILE ;// function LoadImage needs a unicode string!
-	printf("%s\n", filename);
-
-	HBITMAP hBitmap= (HBITMAP) LoadImage(NULL,//HINSTANCE hinst
-								filename,	//file name - as UNICODE string !!!!
-								IMAGE_BITMAP,	//type of loaded result
-								EFF_BMP_X, 
-								EFF_BMP_Y,
-								LR_LOADFROMFILE
-							);
-	
-	if (hBitmap == 0) 
+	QImage * img = new QImage (filename);
+	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
+	if ((img==NULL)||(img->width()< EFF_BMP_X) ||( img->height()< EFF_BMP_Y))
 	{
-		DWORD Err=GetLastError();
-		printf("Error hBitmap load EnergyFromFlower no. %d.\n", Err);
-		
-		//char Buffer [256];
-		//LPTSTR lpMsgBuf;
-		//FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM,NULL,Err,MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),(LPTSTR) &lpMsgBuf,0, NULL);
-		//printf("%s\n",lpMsgBuf);
-		//LocalFree(lpMsgBuf);
+		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
 		return false;
 	}
 
-	//Ataching of image with DeviceContext
-	SelectObject ( hDC, hBitmap );
-
-	//TODO: check, if picture is at least as big as the grid !!
-
 //2.Fill EnergyFromFlower array with information from the image
-	COLORREF colorRef;
+	QRgb color;	
 	int I,J;
 
 	//for the sake of the printf in lines, this reads in the direction of columns from bottom up.
@@ -317,19 +267,22 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], wchar_t * 
 	{	
 		for (J=EFF_BMP_Y-1;J>=0;J--)
 		{
-			colorRef = GetPixel(hDC, I, J); //(DC, x-coordinate of pixel, y-coordinate of pixel)
-			//printf("(%d,%d,%d) ",GetRValue(colorRef),GetGValue(colorRef),GetBValue(colorRef));
-			if (colorRef == 0)
+			if (!(img->valid(I,J))) 
+			{
+				//QMessageBox::information(NULL,"MyApp","Not valid I,J");
+				continue; //if the I,J is not valid withing img
+			}
+			color = img->pixel(I,J); 
+			if (QColor::fromRgb(color) == QColor("black"))
 			{
 				EFF_Age[I]=EFF_BMP_Y - J-1;
+				//QMessageBox::information(NULL,"MyApp","EFF: "+QString::number(EFF_BMP_Y - J-1));
 				continue;
 			}
 		}
-		//printf("\n");
 	}
 
 
-	DeleteObject(hBitmap);*/
 	return true;
 }
 

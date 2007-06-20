@@ -53,16 +53,9 @@ void CField::paintEvent(QPaintEvent *evnt)
 		
 		//painter.drawText(200,200,tr("Time: ")+QString::number(Env->Time));
 		
-		
-		/*painter.setPen(Qt::NoPen);
-		painter.setBrush(QBrush(QColor(typeView)));
-		
-		if ((currentAngle*10 + 20)< width())
-			painter.drawRect(QRect(currentAngle*10, x, 20, 10));
-		else
-			painter.drawRect(QRect(width()-20, x, 20, 10));*/
-
+		//squares have no border
 		painter.setPen(Qt::NoPen);
+
 		for(J=0;J<Env->Grid.G_Height;J++)
 		{
 		for(I=0;I<Env->Grid.G_Width;I++)

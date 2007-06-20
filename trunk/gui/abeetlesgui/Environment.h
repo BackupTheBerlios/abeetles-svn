@@ -11,7 +11,7 @@ class CEnvironment
 {
 public:
 	CEnvironment(void);
-	CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename);
+	CEnvironment(char * cfg_filename,char * btl_filename, char * map_filename, char * eff_filename);
 	~CEnvironment(void);
 	
 	CGrid Grid_Past; //actual grid
@@ -25,7 +25,7 @@ public:
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
 	CBeetle * CreateRandomBeetle();
-	bool LoadEnv(char * btl_filename, wchar_t * map_filename);
+	bool LoadEnv(char * btl_filename, char * map_filename);
 	bool SaveEnv(char * btl_filename);
 	bool CreateRandomEnv(void);
 	bool MakeFlowerGrow(int x, int y);

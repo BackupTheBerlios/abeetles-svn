@@ -93,7 +93,8 @@ private:
 	CEnvironment * Env;	
 	int NumSteps;
 
-	//QString beetleFN;
+	
+	QString beetleFN;
 	//QString mapFN;
 
 private:

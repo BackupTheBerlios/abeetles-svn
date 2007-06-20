@@ -39,7 +39,7 @@ MainWindow::MainWindow()
 	//non-gui attributes:
 	Env=NULL;
 	NumSteps=-1;
-
+	
 	Timer = new QTimer(this);
 	connect(Timer,SIGNAL(timeout()),this,SLOT(make1Step()));
 	
@@ -192,37 +192,47 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::newEnv()
 {
    //Preliminarily:
-	Env = new CEnvironment();
+	if (Env == 0) Env = new CEnvironment();
 	Env->CreateRandomEnv();
-	emit envRefChanged(Env);
+	emit envRefChanged(Env);//uprav tak, aby to nastalo jen if Env was 0
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
 }
 
-void MainWindow::openEnv()
+void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
-    QString fileName = QFileDialog::getOpenFileName(this);
-    if (!fileName.isEmpty()) ;
-        /* Open file of environment: Env.LoadEnv();*/
+	QFileDialog openDlg;
+	openDlg.setFilter("Abeetles files (*.btl)");
+	openDlg.setFilter("All files (*.*)");
+    beetleFN = openDlg.getOpenFileName(this);
+    if (!beetleFN.isEmpty()) ;
+	{
+		if (Env == 0) Env = new CEnvironment();
+        Env->LoadEnv(beetleFN.toAscii().data(),MAP_BMP_FILE); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
+		emit envRefChanged(Env); //uprav tak, aby to nastalo jen if Env was 0
+		statusBar()->showMessage(tr("Environment opened."));
+	}
 }
 
-void MainWindow::saveEnv()
+void MainWindow::saveEnv()//pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
-    /* if (curFile.isEmpty())
-        saveEnvAs();
-		else
-        Env.SaveEnv();*/
+    if (beetleFN.isEmpty())
+		saveEnvAs();
+	else
+        Env->SaveEnv(beetleFN.toAscii().data());
 }
 
-void MainWindow::saveEnvAs()
+void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
-    /*
-	QString fileName = QFileDialog::getSaveFileName(this);
-    if (fileName.isEmpty())
+    QFileDialog saveDlg;
+	saveDlg.setFilter("Abeetles files (*.btl)");
+	saveDlg.setFilter("All files (*.*)");
+	beetleFN = saveDlg.getSaveFileName(this);
+    if (beetleFN.isEmpty())
         return;
-	Env.SaveEnv();
-	*/
+	Env->SaveEnv(beetleFN.toAscii().data());
+	
 }
 /*
 void MainWindow::undo()

@@ -15,7 +15,7 @@ CEnvironment::CEnvironment(void)
 	DisplayOn = true; 
 }
 
-CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, wchar_t * map_filename, wchar_t * eff_filename)
+CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, char * map_filename, char * eff_filename)
 {	
 	Time=0; //Remake to load it from some save file of the environment!
 	DisplayOn = true; 
@@ -364,7 +364,7 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 }
 
 bool CEnvironment::LoadEnv(char * btl_filename, //if this is NULL, then load env without any beetles.
-						   wchar_t * map_filename)
+						   char * map_filename)
 {
 	int FI,W,H;
 	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;

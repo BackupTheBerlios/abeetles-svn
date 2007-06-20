@@ -13,7 +13,7 @@
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 20
-#define EFF_BMP_FILE L"EnergyFromFlower.bmp"
+#define EFF_BMP_FILE "EnergyFromFlower.bmp"
 
 #define MAXTIME 20000
 
@@ -77,13 +77,13 @@
 
 #define NUMOPTVARIABLES 1
 
-#define MAP_BMP_FILE L"env_cfg.bmp"
+#define MAP_BMP_FILE "env_cfg.bmp"
 
 //colors of the map of the environment
-#define CFG_CLR_FLOWER_BOTTOM   RGB(0,0,0)  //= NOTHING
-#define CFG_CLR_FLOWER_TOP		RGB(0,255,0)
-#define CFG_CLR_BEETLE			RGB(255,255,255)
-#define CFG_CLR_WALL			RGB(255,0,0)
+#define CFG_CLR_FLOWER_BOTTOM   0  //= NOTHING
+#define CFG_CLR_FLOWER_TOP		255
+#define CFG_CLR_BEETLE			QColor(255,255,255)
+#define CFG_CLR_WALL			QColor(255,0,0)
 
 //console interface
 #define QUIT_CHAR 'x'
