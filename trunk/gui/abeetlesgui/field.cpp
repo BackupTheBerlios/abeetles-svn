@@ -12,20 +12,24 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
     setAutoFillBackground(true);
 
 	Env = env;
-	setFixedSize(QSize(400,400));
-	Zoom=2;
-
+	
+	
 	ZoomToSqSize[0]=1;ZoomToGapSize[0]=0;
 	ZoomToSqSize[1]=3;ZoomToGapSize[1]=1;
 	ZoomToSqSize[2]=5;ZoomToGapSize[2]=1;
 	ZoomToSqSize[3]=9;ZoomToGapSize[3]=1;
 	ZoomToSqSize[4]=17;ZoomToGapSize[4]=3;
 
+
+	int fieldWidth=EMPTY_FIELD_SIZE;
+	int fieldHeight=EMPTY_FIELD_SIZE;
+
+	setFixedSize(QSize(fieldWidth,fieldHeight));
 }
 
 void CField::renewField()
 {
-	QMessageBox::information(this,"MyApp","2");
+	//QMessageBox::information(this,"MyApp","2");
 	update();
 }
 
@@ -36,16 +40,20 @@ void CField::paintEvent(QPaintEvent *evnt)
 
 	int I,J,what;
 	CBeetle * beetle;
-	if (Env==0) return;
+	if (Env==0) 
+	{
+		//QMessageBox::information(this,"MyApp","3 - No Env");
+		return;
+	}
 	else
 	{
-	QMessageBox::information(this,"MyApp","3");
+		//QMessageBox::information(this,"MyApp","3 - Drawing field");
 
 		QPainter painter(this);
 		
-		//painter.drawText(200,200,tr("Time"));
+		//painter.drawText(200,200,tr("Time: ")+QString::number(Env->Time));
 		
-		/* acc to typeOfView I set the pen and brush*/
+		
 		/*painter.setPen(Qt::NoPen);
 		painter.setBrush(QBrush(QColor(typeView)));
 		
@@ -63,7 +71,8 @@ void CField::paintEvent(QPaintEvent *evnt)
 			if (what==BEETLE)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
-				painter.drawRect(*(this->getCellRect(I,J,Zoom)));
+				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));
+				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(Zoom, beetle->Direction,TypeView)));
 				/*if ((beetle->Age)==0) putc('*',stdout);
 				else
 				{
@@ -88,13 +97,19 @@ void CField::paintEvent(QPaintEvent *evnt)
 
 void CField::setTypeView(const QString& type)
 {
-	typeView = type;
+	TypeView = type;
 	update();
 }
 
 QImage * CField::getBeetleImage(int zoom, char direction, QString & typeView)
 {
-	QImage * img= new QImage("beetle.gif");
+	QString fname = "beetle_";
+	fname+=QString::number(zoom);
+	fname+="_";
+	fname+=QString::number(direction);
+	fname+=".gif";
+	QImage * img= new QImage(fname);
+	//if (img==0) QMessageBox::information(this,"MyApp","No image");
 	return img;
 }
 
@@ -109,3 +124,32 @@ QRect * CField::getCellRect(int row, int col, int zoom) //x,y are zero based!!
 	return rect;
 }
 
+void CField::setEnvRef(CEnvironment *env)
+{
+	Env=env;
+
+	int fieldWidth=EMPTY_FIELD_SIZE;
+	if (Env) fieldWidth= ZoomToGapSize[Zoom]+((Env->Grid.G_Width)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+	int fieldHeight=EMPTY_FIELD_SIZE;
+	if (Env) fieldHeight= ZoomToGapSize[Zoom]+((Env->Grid.G_Height)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+
+	setFixedSize(QSize(fieldWidth,fieldHeight));
+	update();
+}
+
+void CField::setZoom(int zoom)
+{
+	if ((zoom<0) || (zoom >=NUM_ZOOM) || (zoom==Zoom)) return;
+	else
+	{
+		Zoom=zoom;
+		int fieldWidth=EMPTY_FIELD_SIZE;
+		if (Env) fieldWidth= ZoomToGapSize[Zoom]+((Env->Grid.G_Width)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+		int fieldHeight=EMPTY_FIELD_SIZE;
+		if (Env) fieldHeight= ZoomToGapSize[Zoom]+((Env->Grid.G_Height)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+
+		setFixedSize(QSize(fieldWidth,fieldHeight));
+		update();
+	}
+
+}

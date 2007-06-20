@@ -61,17 +61,19 @@ MainWindow::MainWindow()
 	 typeViewLayout->addStretch(1);
 
 	//Field
-	CField * field= new CField(Env);
+	Field= new CField(Env);
 
-    connect(TypeViewCombo, SIGNAL(activated(const QString &)),field, SLOT(setTypeView(const QString &)));
+    connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
+	connect(this,SIGNAL(envRefChanged(CEnvironment *)),Field,SLOT(setEnvRef(CEnvironment *)));
 
 	//ScrollArea
 	QScrollArea * scrollArea = new QScrollArea ();
 	scrollArea->setBackgroundRole(QPalette::Dark);
-	scrollArea->setWidget(field); 
+	scrollArea->setWidget(Field); 
 
 	//Zoom
 	ZoomSlider * zoomSlid = new ZoomSlider(tr("Zoom: "));
+	connect(zoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
 	
 	//Time LCD
 	
@@ -101,7 +103,7 @@ MainWindow::MainWindow()
 	 //connect(stopBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(false)));
 	 //connect(stopBut,SIGNAL(clicked()),startBut,SLOT(setEnabled(true)));
 	
-	 //Legend field:
+	 //Legend Field:
 	 
 
 	 QVBoxLayout * rightLayout= new QVBoxLayout();
@@ -170,7 +172,7 @@ MainWindow::MainWindow()
 
     setWindowTitle(tr("Abeetles"));
     setMinimumSize(300, 300);
-    resize(480, 320);
+    resize(480, 500);
 	
 	
 //	QMessageBox::information(this,"MyApp","10");
@@ -192,6 +194,7 @@ void MainWindow::newEnv()
    //Preliminarily:
 	Env = new CEnvironment();
 	Env->CreateRandomEnv();
+	emit envRefChanged(Env);
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
@@ -468,7 +471,11 @@ void MainWindow::renewAllChildren()
 	NumFlowersLCD->setValue(Env->Statist.NumFlowers);
 	NumBirthsLCD->setValue(Env->Statist.NumBirths);
 	TimeLCD->setValue(Env->Time);
-	QMessageBox::information(this,"MyApp","1");
+	//QMessageBox::information(this,"MyApp","1");
+	if (Field == NULL){
+		QMessageBox::information(this,"MyApp","Field is not created");
+		return;
+	}
 	Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
 }
 
@@ -478,14 +485,14 @@ void MainWindow::run(bool bStart)
 	{
 		NumSteps=-1;
 		Timer->start(TIME_STEP);
-		QMessageBox::information(this,"MyApp","Run infinitely.");
+		//QMessageBox::information(this,"MyApp","Run infinitely.");
 		
 	}
 	else
 	{
 		Timer->stop();
 		NumSteps=0;
-		QMessageBox::information(this,"MyApp","Stop timer.");
+		//QMessageBox::information(this,"MyApp","Stop timer.");
 	}
 	
 		
@@ -497,14 +504,14 @@ void MainWindow::runNSteps(bool bStart)
 	{
 		NumSteps=NumStepsSpin->value();
 		Timer->start(TIME_STEP);
-		QMessageBox::information(this,"MyApp","Start "+QString::number(NumStepsSpin->value())+" steps.");
+		//QMessageBox::information(this,"MyApp","Start "+QString::number(NumStepsSpin->value())+" steps.");
 				
 	}
 	else
 	{		
 		Timer->stop();
 		NumSteps=0;
-		QMessageBox::information(this,"MyApp","Stop timer.");
+		//QMessageBox::information(this,"MyApp","Stop timer.");
 	}
 	
 		

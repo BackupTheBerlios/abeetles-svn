@@ -17,6 +17,8 @@ public:
 public slots:
 	void setTypeView(const QString& type);
 	void renewField();
+	void setEnvRef(CEnvironment * env);
+	void setZoom(int);
 
 //signals:
 
@@ -26,7 +28,7 @@ protected:
 	QRect * getCellRect(int x, int y, int zoom);
 
 private:
-	QString typeView;
+	QString TypeView;
 	CEnvironment * Env;
 	int Zoom;
 

@@ -98,8 +98,11 @@
 #define STAT_TIME_FILE "statTime.csv"
 #define STAT_TIME_FILE_OLD "statTime_old.csv"
 
+//GUI concerned:
 #define NUM_ZOOM 5
 #define TIME_STEP 15 //in miliseconds - the time between two time slices.
 #define COLOR_NOTHING "white"
 #define COLOR_WALL	"black"
 #define COLOR_FLOWER "yellow"
+
+#define EMPTY_FIELD_SIZE 200

@@ -74,6 +74,8 @@ private slots:
     void about();
     //void aboutQt();
 
+signals:
+	void envRefChanged(CEnvironment * env);
 
 private:
 	LabeledLCD * NumFlowersLCD;
