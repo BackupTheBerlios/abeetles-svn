@@ -112,6 +112,13 @@ bool CGrid::SetCellContent_Init(int what/* BEETLE/FLOWER/NOTHING/WALL */,int x, 
 	return true;
 }
 
+void CGrid::SetDefaultGridShape()
+{
+	G_FirstIndex=1;
+	G_Width = DEFAULT_GRID_WIDTH;
+	G_Height =DEFAULT_GRID_HEIGHT;	
+}
+
 bool CGrid::SetGridShape(int FI,int W,int H)
 {
 	if ((W+(2*FI)<G_WIDTH_MIN) || (W+(2*FI)>G_WIDTH_MAX)) return false;
@@ -122,6 +129,22 @@ bool CGrid::SetGridShape(int FI,int W,int H)
 	G_FirstIndex=FI;
 	return true;
 }
+
+/**
+* Public method <br>
+* Desc: Puts zero to all cells of matrix of the grid<br>
+* System dependence:no<br>
+* Usage comments:<br>
+*/
+void CGrid::CleanGrid()
+{
+	int I,J,K;
+	for (I=0;I<G_WIDTH_MAX;I++)//colls
+		for (J=0;J<G_HEIGHT_MAX;J++)//rows
+			for (K=0;K<3;K++)
+				GridMatrix[I][J][K]=0;
+}
+
 
 /**
 * Public method:

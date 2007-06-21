@@ -12,13 +12,17 @@ public:
 	~CfgManager(void);
 
 	bool SaveBeetles(CGrid * grid,char * filename);
-	bool LoadGridShape(int * G_FirstIndex, int * G_Width, int * G_Height );
-	bool LoadCfgFile(char* cfg_filename);
+	bool SaveFlowers(CGrid * grid,char * filename);
+	bool SaveMapToBmp(CGrid * grid, char * filename);
+
+	//bool LoadCfgFile(char* cfg_filename);
 	bool LoadMapFromBmp(CGrid * grid, char * filename);
 	bool LoadBeetles(CGrid * grid, char * filename);
+	bool LoadFlowers(CGrid * grid, char * filename);
 	bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename);
 
 protected:
 	int FlowerProbabilityFromColor(int colorNum);
+	int ColorFromFlowerProbability(int prob);
 
 };

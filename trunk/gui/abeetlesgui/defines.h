@@ -10,6 +10,8 @@
 #define G_WIDTH_MIN 5
 #define G_HEIGHT_MAX 50
 #define G_HEIGHT_MIN 5
+#define DEFAULT_GRID_WIDTH 30
+#define DEFAULT_GRID_HEIGHT 30
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 20
@@ -17,16 +19,18 @@
 
 #define MAXTIME 20000
 
-#define NUM_ACTIONS 3 //changed 26.5. - beforehead: 5, including A_COPULATE
+#define NUM_ACTIONS 3	//changed 26.5. - beforehead: 5, including A_COPULATE
 
 #define A_STEP 0
 #define A_ROTATERIGHT 1
 #define A_ROTATELEFT 2
+
 //26.5.2007 - A_WAIT omitted - it gets beetles into deadlock situation. They should never decide for waiting, when they are hungry. And when when they are not hungry, it might be useful only as waiting for somebody to come and make child with him. But even in this situation it is not clever - beetle cannot finish it, because it has no memory. So it waits until it gets hungry or situation around changes.
 //#define A_WAIT 3
 //26.5.2007 - A_COPULATE omited from actions that can a beetle decide for. It is compulsory action in case a beetle sees another beetle in front of him.
 //#define A_COPULATE 4 //A_COPULATE must be the last action
-#define HA_COPULATE 3 //hardwired action - copulate
+
+#define HA_COPULATE 3	//hardwired action - copulate
 
 #define A_STEP_COSTS 2
 #define A_ROTATION_COSTS 2
@@ -78,9 +82,10 @@
 #define NUMOPTVARIABLES 1
 
 #define MAP_BMP_FILE "env_cfg.bmp"
+#define DEFAULT_FILE_NAME "default"
 
 //colors of the map of the environment
-#define CFG_CLR_FLOWER_BOTTOM   0  //= NOTHING
+#define CFG_CLR_FLOWER_BOTTOM   0	//= NOTHING
 #define CFG_CLR_FLOWER_TOP		255
 #define CFG_CLR_BEETLE			QColor(255,255,255)
 #define CFG_CLR_WALL			QColor(255,0,0)
@@ -100,9 +105,10 @@
 
 //GUI concerned:
 #define NUM_ZOOM 5
-#define TIME_STEP 15 //in miliseconds - the time between two time slices.
+#define TIME_STEP 15	//in miliseconds - the time between two time slices.
 #define COLOR_NOTHING "white"
 #define COLOR_WALL	"black"
 #define COLOR_FLOWER "yellow"
 
 #define EMPTY_FIELD_SIZE 200
+

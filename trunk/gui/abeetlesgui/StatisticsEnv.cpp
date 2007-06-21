@@ -5,6 +5,8 @@
 #include <string.h>
 #include "Grid.h"
 #include "assert.h"
+//#include <QMessageBox>
+#include <QFile>
 
 
 
@@ -12,28 +14,12 @@
 CStatisticsEnv::CStatisticsEnv(void)
 {
 	MakeEmpty();
-
-	FILE * statTimeFile;
-		int err; 
-
-		if ((statTimeFile= fopen(STAT_TIME_FILE,"w"))==0) 
-		{
-			printf("Creation of file for time statistics was not successful - Error No.%d.\n",errno);
-			return; //It is not a reason to finnish the program.
-			//exit (EXIT_FAILURE);
-		}
-		else 
-		{	//adding to rows
-			/*
-			fprintf(statTimeFile,"Number of beetles;\n");
-			fprintf(statTimeFile,"Number of births;\n");
-			fprintf(statTimeFile,"Number of flowers;\n");
-			fprintf(statTimeFile,"Density of population;\n");*/
-			//adding to columns
-			fprintf(statTimeFile,"Number of beetles;Number of births;Number of flowers\n");
-		}
-	fclose(statTimeFile);
-
+	startBuf=0;
+	//remove old file of std name, if there is any. - otherwise would newly created env save its satists other then empty.
+	//wouldn' it be better to create an empty .csv here??
+	QString stdTstFN(STAT_TIME_FILE);
+	QFile::remove(stdTstFN);
+	
 }
 
 CStatisticsEnv::~CStatisticsEnv(void)
@@ -45,6 +31,23 @@ void CStatisticsEnv::NextTime(int Time)
 	PastNumBeetles[Time%BUF_SIZE]=NumBeetles;
 	PastNumBirths[Time%BUF_SIZE]=NumBirths;
 	PastNumFlowers[Time%BUF_SIZE]=NumFlowers;
+
+	if (Time==0) 
+	{
+		startBuf=0;
+		FILE * statTimeFile;		
+
+		if ((statTimeFile= fopen(STAT_TIME_FILE,"w"))==0) 
+		{
+			printf("Creation of file for time statistics was not successful - Error No.%d.\n",errno);
+			return; //It is not a reason to finnish the program.
+			//exit (EXIT_FAILURE);
+		}
+		else //adding to columns
+			fprintf(statTimeFile,"Number of beetles;Number of births;Number of flowers\n");
+	
+		fclose(statTimeFile);
+	}
 
 	//After 1000 time slices add all time values into file.
 	if (Time% BUF_SIZE == (BUF_SIZE-1))
@@ -207,15 +210,14 @@ bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 
 /**
 * Public method <br>
-* Description: Writes last n value to a .csv file. The n is defined by constant BUF_SIZE. The name of the file is STAT_TIME_FILE. It adds every monitored variable into separate column. <br>
+* Description: Writes last BUF_SIZE values to a .csv file. The name of the file is STAT_TIME_FILE. It adds every monitored variable into separate column. <br>
 * System dependence: no<br>
 * Usage comments:<br>
 * @return True - if saving was successful and false, if opening of the file failed.
 */
-bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
+bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(int upto , char * fname )
 {
 	FILE *  stTF;
-	int err;	
 	int I;
 
 	if ((stTF= fopen(STAT_TIME_FILE,"a+"))==0) 
@@ -224,10 +226,66 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend()
 		return false;
 	}
 	
-	for (I=0;I<BUF_SIZE;I++)
-        fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
-
+	if (startBuf!=upto) //if I am on just loaded time position, there is nothing to save.
+		if (startBuf>0)
+		{
+			if (startBuf<(BUF_SIZE-1)) //the startBuf index's value is the last value in .csv file.
+				for (I=(startBuf+1);I<=upto;I++)
+							fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+			startBuf=0; //after one incomplete turn of these arrays, next are already complete.
+		}
+		else
+			for (I=0;I<=upto;I++)
+				fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
 	fclose(stTF);
+	
+	if (fname!= 0)
+	{
+		//remove old file of fname name:
+		QString tstFN(fname);
+		QFile::remove(tstFN);
+
+		//non-overwriting copy of TStat file to file with std name STAT_TIME_FILE
+		if (false== QFile::copy(QString(STAT_TIME_FILE),tstFN) ) return false;
+	}
+		
+	return true;
+}
+
+bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
+{
+	FILE * stTF;
+	int I;
+
+	if ((stTF= fopen(tst_filename,"r"))==0) 
+	{
+		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+		return false;
+	}
+	
+	if (pTime!=0) //if it's necessary to count lines in tst_filename csv file
+	{
+		int I=0;
+		int p1,p2,p3; //helping variables for unimportant values;
+		fscanf(stTF,"Number of beetles;Number of births;Number of flowers\n");
+		while (!feof(stTF))
+		{
+			fscanf(stTF," %d ; %d ; %d ; ",&p1,&p2,&p3);
+			I++;		
+		}
+		*pTime=I;
+		startBuf=*pTime%BUF_SIZE;
+		fclose(stTF);
+	}
+	
+
+	//remove old file of std name:
+	QString stdTstFN(STAT_TIME_FILE);
+	QFile::remove(stdTstFN);
+
+	//non-overwriting copy of TStat file to file with std name STAT_TIME_FILE
+	if (false== QFile::copy ( tst_filename, QString(stdTstFN) ) ) return false;
+		
 	return true;
 }
 

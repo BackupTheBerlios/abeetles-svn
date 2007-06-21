@@ -203,35 +203,44 @@ void MainWindow::newEnv()
 void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
 	QFileDialog openDlg;
-	openDlg.setFilter("Abeetles files (*.btl)");
+	openDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	openDlg.setFilter("All files (*.*)");
-    beetleFN = openDlg.getOpenFileName(this);
-    if (!beetleFN.isEmpty()) ;
+    ActualFN = openDlg.getOpenFileName(this);
+	ActualFN=ActualFN.left(ActualFN.indexOf("_"));
+
+    if (!ActualFN.isEmpty()) ;
 	{
 		if (Env == 0) Env = new CEnvironment();
-        Env->LoadEnv(beetleFN.toAscii().data(),MAP_BMP_FILE); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
+        Env->LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
 		emit envRefChanged(Env); //uprav tak, aby to nastalo jen if Env was 0
+		renewAllChildren();
 		statusBar()->showMessage(tr("Environment opened."));
 	}
 }
 
 void MainWindow::saveEnv()//pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
-    if (beetleFN.isEmpty())
+    if (ActualFN.isEmpty())
 		saveEnvAs();
 	else
-        Env->SaveEnv(beetleFN.toAscii().data());
+	{
+        Env->SaveEnv(ActualFN.toAscii().data());
+		statusBar()->showMessage(tr("Environment saved."));
+	}
 }
 
 void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
     QFileDialog saveDlg;
-	saveDlg.setFilter("Abeetles files (*.btl)");
+	saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	saveDlg.setFilter("All files (*.*)");
-	beetleFN = saveDlg.getSaveFileName(this);
-    if (beetleFN.isEmpty())
+	ActualFN = saveDlg.getSaveFileName(this);
+	ActualFN=ActualFN.left(ActualFN.indexOf("_"));
+    if (ActualFN.isEmpty())
         return;
-	Env->SaveEnv(beetleFN.toAscii().data());
+	Env->SaveEnv(ActualFN.toAscii().data());
+	statusBar()->showMessage(tr("Environment saved."));
+
 	
 }
 /*

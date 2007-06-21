@@ -6,6 +6,7 @@
 #include "defines.h"
 #include <time.h>
 #include <assert.h>
+#include <QtGui>
 
 extern int RandInBound (int bound);
 
@@ -13,31 +14,24 @@ CEnvironment::CEnvironment(void)
 {
 	Time=0; //Remake to load it from some save file of the environment!
 	DisplayOn = true; 
+	LoadEnv();
+	//load function of Age and EnergyFromFlower from bmp file	
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
+	{
+		printf("Loading of energy from flower bmp file %s was not successful.",EFF_BMP_FILE);
+		exit (EXIT_FAILURE);
+	}
 }
 
-CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, char * map_filename, char * eff_filename)
+CEnvironment::CEnvironment(char * fname)
 {	
 	Time=0; //Remake to load it from some save file of the environment!
 	DisplayOn = true; 
-
-	//Set values of options of environment and beetles
-	if (false == CfgMng.LoadCfgFile(cfg_filename))
+	LoadEnv(fname);	
+	//load function of Age and EnergyFromFlower from bmp file	
+	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
 	{
-		printf("Loading of cfg file %s was not successful.",cfg_filename);
-		exit (EXIT_FAILURE);
-	}
-
-	//Init Grid_Past and Grid (with sizes, flowers probability, walls and beetles)
-	if (false == LoadEnv(btl_filename,map_filename))
-	{
-		printf("Loading of environment bmp file %S or beetle %s file was not successful.",map_filename,btl_filename);
-		exit (EXIT_FAILURE);
-	}
-
-	//load function of Age and EnergyFromFlower from bmp file
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, eff_filename))
-	{
-		printf("Loading of energy from flower bmp file %S was not successful.",eff_filename);
+		printf("Loading of energy from flower bmp file %s was not successful.",EFF_BMP_FILE);
 		exit (EXIT_FAILURE);
 	}
 }
@@ -45,10 +39,6 @@ CEnvironment::CEnvironment(char * cfg_filename,char * btl_filename, char * map_f
 CEnvironment::~CEnvironment(void)
 {
 }
-
-
-
-
 
 void CEnvironment::MakeBeetleAction(int x, int y)
 {
@@ -363,57 +353,77 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 	return beetle;
 }
 
-bool CEnvironment::LoadEnv(char * btl_filename, //if this is NULL, then load env without any beetles.
-						   char * map_filename)
+/**
+* Public method <br>
+* Description: Loads all files of one environment. <br>
+* System dependence: no. (Qt library)<br>
+* Usage comments:<br>
+* @return true, if the loading was successful (all files found), false otherwise. In both cases the Env is then is state ready for use - but maybe empty.  
+* @param fname [Prefix of names of all files, that serve for storing of the evironment. Suffixes are standard, the same for all saved environments.](Parameters - meaning)
+* @throws name [descrip](Exceptions - meaning)
+* @see reference : adds reference to the "See Also" section. The reference can be any of the following:
+*          o HTML tag/text, which is added unmodified
+*          o a quoted string (e.g., "Foo Bar"), the contents of which are added unmodified
+*          o [project].[ class-name][#member] [text ], which adds a link to the given member in class class-name in project project . If project is omitted, the current entity's project is assumed. If class-name is omitted, the current class is assumed. If member is omitted, the link is to the class-file. If text is omitted, default display text is added, based on the actual link.
+* {@link reference } replaced with a reference that is built using the exact same syntax as the @see tag (above). For example:
+*/
+
+bool CEnvironment::LoadEnv(char * fname) 
 {
-	int FI,W,H;
-	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
-	if (false==Grid_Past.SetGridShape(FI,W,H)) return false;
-	//if (false==Grid.SetGridShape(FI,W,H)) return false;
+	int res = true;
+	Grid_Past.SetDefaultGridShape();
 
-	//First part - init environment: Loads environment without beetles
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,map_filename))return false;
+	if (fname==0) 
+	{
+		Grid_Past.CleanGrid();
+		return false;
+	}
 
-	//Second part - load beetles and add them to half finished environment
-	if (btl_filename!=NULL)	 
-		if (false==CfgMng.LoadBeetles(&Grid_Past,btl_filename))return false;
+	//1st part - init environment: Loads map of environment
+	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,getMapFileName(fname)))
+	{
+		Grid_Past.CleanGrid();
+		res=false;
+	}
+
+	//2nd part - load where flowers are
+	if (false==CfgMng.LoadFlowers(&Grid_Past,getFlowersFileName(fname))) res=false;
+
+	//3rd - load beetles and add them to half finished environment
+	if (false==CfgMng.LoadBeetles(&Grid_Past,getBeetlesFileName(fname)))res=false;
 	
 	Grid=Grid_Past;
 
 	CountStatistics();
+	//4th - load time and time statistics, set Statist.startBuf to (Time+1)%BUF_SIZE
+	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname),&Time))
+	{ res=false; Time=0;}
 
-	return true;
+	return res;
 }
 
-bool CEnvironment::SaveEnv(char * btl_filename)
+bool CEnvironment::SaveEnv(char * fname)
 {
-	if (false==CfgMng.SaveBeetles(&Grid,btl_filename))return false;
-	return true;
+	bool res=true;
+	if (false==CfgMng.SaveBeetles(&Grid,getBeetlesFileName(fname)))res = false;
+	if (false==CfgMng.SaveFlowers(&Grid,getFlowersFileName(fname))) res = false;
+	if (false==CfgMng.SaveMapToBmp(&Grid,getMapFileName(fname))) res=false;
+
+	//save the not saved part of timestats and rename it.
+	if (false==Statist.SaveTimeStatist_InColumnsAppend(Time%BUF_SIZE,this->getTimeStatsFileName(fname))) res=false;
+
+	return res;
 }
 
 bool CEnvironment::CreateRandomEnv(void)
 {
-	int FI,W,H;
 
-	//Load shape of the grid
-	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
-	if (false==Grid_Past.SetGridShape(FI,W,H)) return false;
-	//if (false==Grid.SetGridShape(FI,W,H)) return false;
-
-
-	//Set values of options of environment and beetles
-	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
-	{
-		printf("Loading of cfg file %s was not successful.","BeetleCfg.txt");
-		exit (EXIT_FAILURE);
-	}
-
+	Grid_Past.SetDefaultGridShape();
 
 	//First part - init environment: Loads environment without beetles
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE ))return false;
-	//if (false==CfgMng.LoadMapFromBmp(&Grid,map_filename))return false;
 
-	//Second part - load beetles and add them to half finished environment
+	//Second part - create beetles and add them to half finished environment
 	srand( 100);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
@@ -429,17 +439,8 @@ bool CEnvironment::CreateRandomEnv(void)
 
 	}
 			
-	//if (false==CfgMng.LoadBeetles(&Grid,btl_filename))return false;
-	
 	Grid=Grid_Past;
 	CountStatistics();
-
-	//load function of Age and EnergyFromFlower from bmp file	
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
-	{
-		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
-		exit (EXIT_FAILURE);
-	}
 
 	return true;
 }
@@ -592,32 +593,39 @@ void CEnvironment::CountStatistics(void)
 bool CEnvironment::CreateDefaultEnv(void)
 {
 	Time=0;
-	int FI,W,H;
 
-	//Set values of options of environment and beetles
-	if (false == CfgMng.LoadCfgFile("BeetleCfg.txt"))
-	{
-		printf("Loading of cfg file %s was not successful.","BeetleCfg.txt");
-		exit (EXIT_FAILURE);
-	}
-
-	//Load shape of the grid
-	if (false==CfgMng.LoadGridShape(&FI,&W,&H)) return false;
-	if (false==Grid_Past.SetGridShape(FI,W,H)) return false;
-
+	Grid_Past.SetDefaultGridShape() ;
 
 	//Init Grid_Past and Grid (with sizes, flowers probability, walls and beetles)	
-	if (false == LoadEnv(NULL,MAP_BMP_FILE ))
+	if (false == LoadEnv(DEFAULT_FILE_NAME ))
 	{
-		printf("Loading of environment bmp file %S was not successful.",MAP_BMP_FILE);
-		exit (EXIT_FAILURE);
-	}
-
-	//load function of Age and EnergyFromFlower from bmp file	
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE))
-	{
-		printf("Loading of energy from flower bmp file %S was not successful.",EFF_BMP_FILE);
+		printf("Loading of environment file %s_map.bmp was not successful.",DEFAULT_FILE_NAME);
 		exit (EXIT_FAILURE);
 	}
 	return true;
+}
+
+char * CEnvironment::getMapFileName(char *fname)
+{
+	QString  * qFN= new QString(fname); 
+	*qFN+="_map.bmp";
+	return qFN->toAscii().data();
+}
+char * CEnvironment::getFlowersFileName(char *fname)
+{
+	QString  * qFN= new QString(fname); 
+	*qFN+="_flw.txt";
+	return qFN->toAscii().data();
+}
+char * CEnvironment::getBeetlesFileName(char *fname)
+{
+	QString  * qFN= new QString(fname); 
+	*qFN+="_btl.txt";
+	return qFN->toAscii().data();
+}
+char * CEnvironment::getTimeStatsFileName(char *fname)
+{
+	QString  * qFN= new QString(fname); 
+	*qFN+="_tst.csv";
+	return qFN->toAscii().data();
 }

@@ -37,10 +37,13 @@ public:
 	int SumLearnAbility;
 	int SumNumChildren;
 
-	//Type 3:
+	//Type 3: Time Statistics
 	int PastNumBeetles [BUF_SIZE];
 	int PastNumBirths [BUF_SIZE];
 	int PastNumFlowers [BUF_SIZE];
+	
+	//non-statistic helpers
+	int startBuf; // startBuf is First valid index in TimeStatistics arrays. (From startBuf+1) can be the buffer written to the .csv file. (+1), because the startBuf is already the last writen value in the .csv.Meaning: If the Env was loaded and arrays of TimeStatistic don't begin from one.
 
 	void NextTime(int Time);
 	
@@ -54,7 +57,8 @@ public:
 
 	bool SaveActAgrStatist(char * filename, int time);
 	bool SaveTimeStatist_InRowsAppend();
-	bool SaveTimeStatist_InColumnsAppend();
+	bool SaveTimeStatist_InColumnsAppend(int upto = BUF_SIZE, char * fname =0);
+	bool LoadTimeStatist_FromColums(char * tst_filename,int * pTime);
 
 	bool SaveActHistStatist(char * filename, int time,CGrid * grid);
 };

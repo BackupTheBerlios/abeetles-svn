@@ -56,9 +56,9 @@ void CField::paintEvent(QPaintEvent *evnt)
 		//squares have no border
 		painter.setPen(Qt::NoPen);
 
-		for(J=0;J<Env->Grid.G_Height;J++)
+		for(J=0;J<Env->Grid.G_Height;J++)//rows
 		{
-		for(I=0;I<Env->Grid.G_Width;I++)
+		for(I=0;I<Env->Grid.G_Width;I++)//cols
 		{
 			what = Env->Grid.GetCellContent(I,J,&beetle);
 			if (what==BEETLE)
@@ -106,7 +106,7 @@ QImage * CField::getBeetleImage(int zoom, char direction, QString & typeView)
 	return img;
 }
 
-QRect * CField::getCellRect(int row, int col, int zoom) //x,y are zero based!!
+QRect * CField::getCellRect(int col, int row, int zoom) //x,y are zero based!!
 {
 	int sizeSq= ZoomToSqSize[zoom];
 	int sizeGap=ZoomToGapSize[zoom];

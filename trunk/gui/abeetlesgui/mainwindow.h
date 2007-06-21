@@ -94,7 +94,7 @@ private:
 	int NumSteps;
 
 	
-	QString beetleFN;
+	QString ActualFN;
 	//QString mapFN;
 
 private:

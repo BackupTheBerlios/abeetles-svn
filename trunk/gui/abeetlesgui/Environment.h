@@ -11,7 +11,7 @@ class CEnvironment
 {
 public:
 	CEnvironment(void);
-	CEnvironment(char * cfg_filename,char * btl_filename, char * map_filename, char * eff_filename);
+	CEnvironment(char * fname);
 	~CEnvironment(void);
 	
 	CGrid Grid_Past; //actual grid
@@ -24,10 +24,15 @@ public:
 	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
+
+
+	bool LoadEnv(char * filename=0);
+	bool SaveEnv(char * filename);
+	bool CreateDefaultEnv(void);
+
 	CBeetle * CreateRandomBeetle();
-	bool LoadEnv(char * btl_filename, char * map_filename);
-	bool SaveEnv(char * btl_filename);
 	bool CreateRandomEnv(void);
+
 	bool MakeFlowerGrow(int x, int y);
 	bool A_Copulate(int x, int y, CBeetle * beetle);
 	bool A_Step(int x, int y, char direction);
@@ -35,5 +40,11 @@ public:
 	void A_RotateRight(CBeetle * beetle);
 	char RotateDirection(char direction, char L_R);
 	void CountStatistics(void);
-	bool CreateDefaultEnv(void);
+
+	char * getMapFileName(char *fname);
+	char * getFlowersFileName(char *fname);
+	char * getBeetlesFileName(char *fname);
+	char * getTimeStatsFileName(char *fname);
+
+
 };

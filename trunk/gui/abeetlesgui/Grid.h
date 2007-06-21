@@ -25,6 +25,7 @@ public:
 		//1st layer: what is actualy where
 		//2nd layer: beetles references
 		//3rd layer: probability of growth of flowers
+	//Beware! indexes are picture-like, not matrix-like! -> Grid[col][row]!!
 	int GridMatrix [G_WIDTH_MAX][G_HEIGHT_MAX][3] ;
 	int G_FirstIndex; //Grid[G_FirstIndex][G_FirstIndex][0]is the top left corner of the grid
 
@@ -39,6 +40,8 @@ public:
 	
 	bool SetCellContent_Init(int what /* BEETLE/FLOWER/NOTHING/WALL */,int x, int y,CBeetle * beetle=NULL );//hard changes - from CfgManager
 	bool SetGridShape(int FI,int W,int H);
+	void SetDefaultGridShape();
+	void CleanGrid();
 
 	bool GetNeigborCellCoords(int x, int y, int * n_x,int * n_y, char direction);
 

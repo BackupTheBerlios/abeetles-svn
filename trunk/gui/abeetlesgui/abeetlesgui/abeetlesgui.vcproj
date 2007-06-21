@@ -272,6 +272,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\cpp_rules.txt"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

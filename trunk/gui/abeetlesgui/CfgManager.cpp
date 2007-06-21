@@ -21,7 +21,7 @@ CfgManager::~CfgManager(void)
 }
 
 
-
+/*
 bool CfgManager::LoadCfgFile(char* cfg_filename)
 {
 	//proprietary solution
@@ -29,7 +29,7 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 	CBeetle::LastId=0;
 	//later: LoadCfgFile():
 	return true;
-	/*
+	
 	char VarName[25];
 	int VarValue=0;
 	int err;
@@ -44,16 +44,9 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 		else CBeetle::EnergyMax_C=50;
 
 	}
-	return 0;*/
-}
+	return 0;
+}*/
 
-bool CfgManager::LoadGridShape(int * G_FirstIndex,int * G_Width, int * G_Height)
-{
-	*G_FirstIndex=1;
-	*G_Width = 30;
-	*G_Height =30;
-	return true;
-}
 
 
 
@@ -96,7 +89,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 				continue; //if the I,J is not valid withing img
 			}
 			
-			color = img->pixel(J,I);
+			color = img->pixel(I,J);
 			if (QColor::fromRgb(color) == CFG_CLR_WALL)
 				grid->SetCellContent_Init(WALL,I,J);			
 			else 
@@ -112,11 +105,37 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 	return true;
 }
 
+bool CfgManager::SaveMapToBmp(CGrid * grid, char * filename)
+{
+	QImage img(grid->G_Width,grid->G_Height,QImage::Format_RGB32);
+	int I,J;
+
+	for (I=0;I<grid->G_Width;I++)
+		for (J=0;J<grid->G_Height;J++)
+		{
+			if (grid->GetCellContent(I,J) == WALL) 
+				img.setPixel(I,J,(CFG_CLR_WALL).rgb()); //qRgb(189, 149, 39)
+			else 
+				img.setPixel(I,J,qRgb(	0,
+										ColorFromFlowerProbability(grid->GetCellGrowingProbability(I,J)),
+										0));
+		}
+	return img.save(filename);
+}
+
+
+
 int CfgManager::FlowerProbabilityFromColor(int greenNum)
 {	
 	int pom=greenNum-CFG_CLR_FLOWER_BOTTOM;
 	return (((pom*100)/(CFG_CLR_FLOWER_TOP - CFG_CLR_FLOWER_BOTTOM)));
 }
+
+int CfgManager::ColorFromFlowerProbability(int prob)
+{
+	return (prob*(CFG_CLR_FLOWER_TOP - CFG_CLR_FLOWER_BOTTOM))/100 + CFG_CLR_FLOWER_BOTTOM;
+}
+
 
 bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 {
@@ -245,6 +264,40 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	return true;
 }
+
+bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
+{
+	int x,y;
+	QFile flwFile (filename);
+	 if (!flwFile.open(QIODevice::ReadOnly | QIODevice::Text))
+         return false;
+	while (!flwFile.atEnd())
+	{
+		QByteArray line = flwFile.readLine();
+		line.truncate(line.indexOf(";"));
+		x=(line.left(line.indexOf(","))).toInt(); 
+		y=(line.right(line.size()-line.indexOf(",")-1)).toInt(); 
+		grid->SetCellContent(FLOWER,x,y);
+	}
+	return true;
+}
+
+bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
+{
+	int I,J;
+	QFile flwFile (filename);
+	if (!flwFile.open(QIODevice::WriteOnly | QIODevice::Text))
+         return false;
+	
+	QTextStream out(&flwFile);
+	for (I=0;I<grid->G_Width;I++)
+		for (J=0;J<grid->G_Height;J++)
+			if (grid->GetCellContent(I,J) == FLOWER)
+				out << I<<","<<J<<";"<< "\n"; 
+
+	return true;
+}
+
 
 
 bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename)
