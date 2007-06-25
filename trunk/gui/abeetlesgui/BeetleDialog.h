@@ -4,6 +4,18 @@
 class QLabel;
 class CBeetle;
 
+class EffField:public QWidget
+{
+	Q_OBJECT
+
+public:
+	EffField(QWidget * parent = 0);
+
+protected:
+	void paintEvent(QPaintEvent *evnt);
+};
+
+
 class BeetleDialog:public QDialog
 {
 	Q_OBJECT

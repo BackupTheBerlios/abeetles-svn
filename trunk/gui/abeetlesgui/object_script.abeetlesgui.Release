@@ -8,7 +8,6 @@ INPUT(
 ./release\LabeledLCD.o
 ./release\main.o
 ./release\mainwindow.o
-./release\RunLife.o
 ./release\StatisticsEnv.o
 ./release\zoomslider.o
 ./release\moc_BeetleDialog.o

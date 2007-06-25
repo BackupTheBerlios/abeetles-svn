@@ -1,7 +1,9 @@
 #pragma once
 #include "Beetle.h"
 #include "Grid.h"
-#include <windows.h>
+//	#include <windows.h>
+
+class QImage;
 
 
 
@@ -19,7 +21,7 @@ public:
 	bool LoadMapFromBmp(CGrid * grid, char * filename);
 	bool LoadBeetles(CGrid * grid, char * filename);
 	bool LoadFlowers(CGrid * grid, char * filename);
-	bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename);
+	bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename, QImage ** image=0);
 
 protected:
 	int FlowerProbabilityFromColor(int colorNum);

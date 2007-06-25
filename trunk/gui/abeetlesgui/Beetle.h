@@ -1,6 +1,8 @@
 #pragma once
 #include "defines.h"
 
+class QImage;
+
 class CBeetle
 {
 public:
@@ -9,6 +11,8 @@ public:
 	~CBeetle(void);
 	static int EnergyMax_C;
 	static int EFF_Age [EFF_BMP_X];
+	static 	QImage * EffImg;
+
 	int Id;
 	int Energy;// 0-100
 	char Direction; //0,1,2,3 = West, North, East, South

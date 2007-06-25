@@ -300,7 +300,7 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 
 
 
-bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename)
+bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename, QImage ** image)
 {
 //1. Read the bmp file
 	QImage * img = new QImage (filename);
@@ -334,7 +334,12 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * fil
 			}
 		}
 	}
-
+	if (NULL!= image) 
+	{
+		CBeetle::EffImg=img;
+		QMessageBox::information(NULL,"MyApp","Is eff img");
+		*image = img;
+	}
 
 	return true;
 }

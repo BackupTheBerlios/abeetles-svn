@@ -17,7 +17,6 @@ HEADERS += BeetleDialog.h\
            Grid.h \
            LabeledLCD.h \
            mainwindow.h \
-           RunLife.h \
            StatisticsEnv.h \
            stdafx.h \
            zoomslider.h
@@ -30,6 +29,5 @@ SOURCES += BeetleDialog.cpp\
            LabeledLCD.cpp \
            main.cpp \
            mainwindow.cpp \
-           RunLife.cpp \
            StatisticsEnv.cpp \
            zoomslider.cpp

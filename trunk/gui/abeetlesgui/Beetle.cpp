@@ -2,9 +2,12 @@
 #include "Beetle.h"
 #include "defines.h"
 #include <assert.h>
+#include  <QImage>
+
 int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
 int CBeetle::LastId=0;
 int CBeetle::EFF_Age [EFF_BMP_X]={10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
+QImage * CBeetle::EffImg=0;
 extern int RandInBound(int);
 
 CBeetle::CBeetle(void)

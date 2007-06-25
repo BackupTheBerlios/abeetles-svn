@@ -6,6 +6,7 @@
 
 //make globals visible
 extern CfgManager CfgMng;
+class QImage;
 
 class CEnvironment
 {
