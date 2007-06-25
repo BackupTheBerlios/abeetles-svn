@@ -15,8 +15,7 @@ CEnvironment::CEnvironment(void)
 	Time=0; //Remake to load it from some save file of the environment!
 	DisplayOn = true; 
 	LoadEnv();
-	//load function of Age and EnergyFromFlower from bmp file	
-
+	//load function of Age and EnergyFromFlower from bmp file		
 	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE,&CBeetle::EffImg))
 	{
 		QErrorMessage errDlg;
@@ -431,7 +430,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	Grid_Past.SetDefaultGridShape();
 
 	//First part - init environment: Loads environment without beetles
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE,&CBeetle::EffImg ))return false;
+	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE))return false;
 
 	//Second part - create beetles and add them to half finished environment
 	srand( 100);//(unsigned)time( NULL ) );

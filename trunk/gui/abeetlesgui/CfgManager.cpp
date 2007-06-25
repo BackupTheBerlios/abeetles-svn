@@ -66,7 +66,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 {
 //1. Read the bmp file
 	QImage * img = new QImage (filename);
-	QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
+	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
 	if ((img==NULL)||(img->width()< grid->G_Width) ||( img->height()< grid->G_Height))
 	{
 		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: "+QString::number( grid->G_Width)+", "+QString::number(grid->G_Height));
@@ -336,8 +336,8 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * fil
 	}
 	if (NULL!= image) 
 	{
-		CBeetle::EffImg=img;
-		QMessageBox::information(NULL,"MyApp","Is eff img");
+		//CBeetle::EffImg=img;
+		//QMessageBox::information(NULL,"MyApp","Is eff img");
 		*image = img;
 	}
 

@@ -2,6 +2,7 @@
 #include "defines.h"
 
 class QImage;
+class QString;
 
 class CBeetle
 {
@@ -51,6 +52,7 @@ public:
 	static CBeetle * Crossover1Point(CBeetle * beetle1, CBeetle * beetle2);
 	static void Mutation(CBeetle * beetle);
 	static int GetBrainDimension(int which);
+	static QString * GetWordDirection(char direction);
 	void LearnFrom(CBeetle* beetle2);
 	
 	static int CreateNewId(void);

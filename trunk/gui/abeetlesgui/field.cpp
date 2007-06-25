@@ -80,7 +80,7 @@ void CField::paintEvent(QPaintEvent *evnt)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
 				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));
-				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(Zoom, beetle->Direction,TypeView)));
+				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(ImgBeetle[Zoom][beetle->Direction][TypeView]));
 				/*if ((beetle->Age)==0) putc('*',stdout);
 				else
 				{

@@ -3,6 +3,7 @@
 #include "defines.h"
 #include <assert.h>
 #include  <QImage>
+#include <QString>
 
 int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
 int CBeetle::LastId=0;
@@ -350,4 +351,13 @@ int CBeetle::CreateNewId(void)
 {
 	if (LastId<MAX_INT)	return ++LastId;
 	else return LastId=1;
+}
+
+QString * CBeetle::GetWordDirection(char direction)
+{
+	if (direction==WEST) return new QString("west");
+	if (direction==NORTH) return new QString("north");
+	if (direction==EAST) return new QString("east");
+	if (direction==SOUTH) return new QString("south");
+
 }

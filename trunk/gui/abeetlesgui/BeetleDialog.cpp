@@ -5,14 +5,14 @@
 BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
 {
 	AgeLabel=new QLabel("Age: "+QString::number(beetle->Age));
-	DirectionLabel=new QLabel("Direction: "+QString::number(beetle->Direction));
+	DirectionLabel=new QLabel("Direction: "+*CBeetle::GetWordDirection(beetle->Direction));
 	EnergyLabel=new QLabel("Energy: "+QString::number(beetle->Energy));
 	HungryThresholdLabel=new QLabel("HungryThreshold: "+QString::number(beetle->HungryThreshold));
 	IdLabel=new QLabel("Id: "+QString::number(beetle->Id));
 	InvInChildLabel=new QLabel("InvInChild: "+QString::number(beetle->InvInChild));
 	LearnAbilityLabel=new QLabel("LearnAbility: "+QString::number(beetle->LearnAbility));
 	NumChildrenLabel=new QLabel("NumChildren: "+QString::number(beetle->NumChildren));
-	QLabel  * eff=new QLabel("Eff: "+QString::number(beetle->EFF_Age[0])+" "+QString::number(beetle->EFF_Age[1])+" "+QString::number(beetle->EFF_Age[2]));
+	QLabel  * effLabel=new QLabel("Energy from a flower according to age(up to age "+QString::number(CBeetle::EffImg->width())+"): ");
 
 	QPushButton * okBut = new QPushButton(tr("OK"));
 	connect(okBut,SIGNAL(clicked()),this,SLOT(accept()));
@@ -28,8 +28,8 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 	layout->addWidget(InvInChildLabel);
 	layout->addWidget(LearnAbilityLabel);
 	layout->addWidget(NumChildrenLabel);
+	layout->addWidget(effLabel);
 	layout->addWidget(effField);
-	layout->addWidget(eff);
 	layout->addWidget(okBut);
 
 	setLayout(layout);
@@ -55,11 +55,13 @@ EffField::EffField(QWidget *parent):QWidget(parent)
 void EffField::paintEvent(QPaintEvent *evnt)
 {
 	QPainter painter(this);
-		
-	//painter.setPen(Qt::NoPen);
 	
-	if (NULL != CBeetle::EffImg)
-		painter.drawImage(CBeetle::EffImg->width(),CBeetle::EffImg->height(),*CBeetle::EffImg);
+	//painter.drawText(5,5,tr("Time: "));
+
+	painter.setPen(Qt::NoPen);
+	
+	if (NULL != CBeetle::EffImg)	
+		painter.drawImage(0,0,*CBeetle::EffImg);
 			
 }
 
