@@ -120,7 +120,7 @@ bool CfgManager::SaveMapToBmp(CGrid * grid, char * filename)
 										ColorFromFlowerProbability(grid->GetCellGrowingProbability(I,J)),
 										0));
 		}
-	return img.save(filename);
+	return img.save(filename,"BMP");
 }
 
 
@@ -141,7 +141,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 {
 	FILE * btlFile;
 	CBeetle * beetle;
-	int err;
+	//int err;
 	int I,J,K,L,M,N;	
 	
 	if (NULL==(btlFile= fopen(filename,"w"))) 
@@ -189,7 +189,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	CBeetle * beetle=NULL;
 
 	FILE * btlFile;
-	int err;
+	//int err;
 	if (NULL==(btlFile= fopen(filename,"r"))) 
 	{
 		printf("%d",errno);
@@ -258,7 +258,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	if (ok==false)
 	{
-		printf("File %s was not read correctly.\n",btlFile);
+		printf("File %s was not read correctly.\n",filename);
 		return false;
 	}
 

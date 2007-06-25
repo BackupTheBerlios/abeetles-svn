@@ -15,6 +15,7 @@ CStatisticsEnv::CStatisticsEnv(void)
 {
 	MakeEmpty();
 	startBuf=0;
+	LastNumBirths=0;
 	//remove old file of std name, if there is any. - otherwise would newly created env save its satists other then empty.
 	//wouldn' it be better to create an empty .csv here??
 	QString stdTstFN(STAT_TIME_FILE);
@@ -25,16 +26,31 @@ CStatisticsEnv::CStatisticsEnv(void)
 CStatisticsEnv::~CStatisticsEnv(void)
 {
 }
-
+/**
+* Public method <br>
+* Description: This method is performed at the end of every time slice.<br>
+* System dependence: no.<br>
+* Usage comments: Called it the NextTime method of class CEnvironment.<br>
+* @param Time [Time is the number of time slice, that is now finnished and its results should be recorded into this object Statist. ]
+* @see reference : adds reference to the "See Also" section. The reference can be any of the following:
+*          o HTML tag/text, which is added unmodified
+*          o a quoted string (e.g., "Foo Bar"), the contents of which are added unmodified
+*          o [project].[ class-name][#member] [text ], which adds a link to the given member in class class-name in project project . If project is omitted, the current entity's project is assumed. If class-name is omitted, the current class is assumed. If member is omitted, the link is to the class-file. If text is omitted, default display text is added, based on the actual link.
+* {@link reference } replaced with a reference that is built using the exact same syntax as the @see tag (above). For example:
+*/
 void CStatisticsEnv::NextTime(int Time)
 {	
-	PastNumBeetles[Time%BUF_SIZE]=NumBeetles;
-	PastNumBirths[Time%BUF_SIZE]=NumBirths;
-	PastNumFlowers[Time%BUF_SIZE]=NumFlowers;
+	NumBirths-=LastNumBirths;
 
 	if (Time==0) 
 	{
 		startBuf=0;
+		endBuf=0;
+
+		PastNumBeetles[0]=NumBeetles;
+		PastNumBirths[0]=NumBirths; 
+		PastNumFlowers[0]=NumFlowers;
+
 		FILE * statTimeFile;		
 
 		if ((statTimeFile= fopen(STAT_TIME_FILE,"w"))==0) 
@@ -48,15 +64,23 @@ void CStatisticsEnv::NextTime(int Time)
 	
 		fclose(statTimeFile);
 	}
-
-	//After 1000 time slices add all time values into file.
-	if (Time% BUF_SIZE == (BUF_SIZE-1))
+	else //e.a. Time>0
 	{
-		//SaveTimeStatist_InRowsAppend();
-		SaveTimeStatist_InColumnsAppend();
+		endBuf=Time%BUF_SIZE;
+		PastNumBeetles[endBuf]=NumBeetles;
+		PastNumBirths[endBuf]=NumBirths;
+		PastNumFlowers[endBuf]=NumFlowers;
+
+		//After BUF_SIZE time slices add all time values into file.
+		if (endBuf == (BUF_SIZE-1))
+		{
+			//SaveTimeStatist_InRowsAppend();
+			SaveTimeStatist_InColumnsAppend();
+		}
 	}
 	
-	NumBirths=0;
+	//NumBirths=0;//!!Cannot be zeroed here, because this number is displayed after this saving. So I keep it as lastNumBirths
+	LastNumBirths=NumBirths;
 	SumAge=0;
 	SumEnergy=0;
 	SumNumChildren=0;
@@ -122,7 +146,7 @@ double CStatisticsEnv::GetAvgNumChildren(void)
 bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 {
 	FILE * statFile;
-	int err;
+	//int err;
 
 	if ((statFile= fopen(filename,"w"))==0) 
 	{
@@ -154,7 +178,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 {
 		FILE * stTFOld;FILE * stTF;
-		int err;
+		//int err;
 		char chr=0;
 		
 		//rename file to some other name
@@ -211,35 +235,38 @@ bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 /**
 * Public method <br>
 * Description: Writes last BUF_SIZE values to a .csv file. The name of the file is STAT_TIME_FILE. It adds every monitored variable into separate column. <br>
-* System dependence: no<br>
-* Usage comments:<br>
+* System dependence: OS - no, lib-qt.<br>
+* Usage comments: called for two different purposes - distinguished by value of parameter fname.<br>
+* @param fname [ If null, the method saves into standard file. It also means, the method was called from CStatisticsEnv::NextTime() method. If not null, method saves into file of given name and nothing to standard file.](Parameters - meaning)
 * @return True - if saving was successful and false, if opening of the file failed.
 */
-bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(int upto , char * fname )
+bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 {
 	FILE *  stTF;
 	int I;
 
-	if ((stTF= fopen(STAT_TIME_FILE,"a+"))==0) 
+	if (fname==0)//this call is from method CStatisticsEnv::NextTime()
 	{
-		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
-		return false;
-	}
-	
-	if (startBuf!=upto) //if I am on just loaded time position, there is nothing to save.
-		if (startBuf>0)
+		if ((stTF= fopen(STAT_TIME_FILE,"a+"))==0) 
 		{
-			if (startBuf<(BUF_SIZE-1)) //the startBuf index's value is the last value in .csv file.
-				for (I=(startBuf+1);I<=upto;I++)
-							fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
-			startBuf=0; //after one incomplete turn of these arrays, next are already complete.
+			printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+			return false;
 		}
-		else
-			for (I=0;I<=upto;I++)
-				fprintf(stTF,"%d;%d;%d\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
-	fclose(stTF);
-	
-	if (fname!= 0)
+		
+		if (-1!=endBuf) //there is nothing to save. It happens when if I am on just loaded time position, there is nothing to save.
+			if (startBuf>0)//if I am short after last load of environment
+			{
+				if (startBuf<(BUF_SIZE-1)) //the startBuf index's value is the last value that already is in .csv file.
+					for (I=(startBuf+1);I<=endBuf;I++)
+								fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+				startBuf=0; //after one incomplete turn of these arrays, next are already complete.
+			}
+			else
+				for (I=0;I<=endBuf;I++)
+					fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+		fclose(stTF);
+	}	
+	else //e.a. (fname!= 0), this is not call from method CStatisticsEnv::NextTime() .
 	{
 		//remove old file of fname name:
 		QString tstFN(fname);
@@ -247,6 +274,26 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(int upto , char * fname )
 
 		//non-overwriting copy of TStat file to file with std name STAT_TIME_FILE
 		if (false== QFile::copy(QString(STAT_TIME_FILE),tstFN) ) return false;
+
+		if ((stTF= fopen(fname,"a+"))==0) 
+		{
+			printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+			return false;
+		}
+		
+		if (-1!=endBuf) //there is nothing to save. It happens when if I am on just loaded time position, there is nothing to save.
+			if (startBuf>0)//if I am short after last load of environment
+			{
+				if (startBuf<(BUF_SIZE-1)) //the startBuf index's value is the last value that already is in .csv file.
+					for (I=(startBuf+1);I<=endBuf;I++)
+								fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+				startBuf=0; //after one incomplete turn of these arrays, next are already complete.
+			}
+			else
+				for (I=0;I<=endBuf;I++)
+					fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+		fclose(stTF);
+	
 	}
 		
 	return true;
@@ -255,7 +302,6 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(int upto , char * fname )
 bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
 {
 	FILE * stTF;
-	int I;
 
 	if ((stTF= fopen(tst_filename,"r"))==0) 
 	{
@@ -273,11 +319,13 @@ bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
 			fscanf(stTF," %d ; %d ; %d ; ",&p1,&p2,&p3);
 			I++;		
 		}
+		
+		//I - now represents number of rows in the csv file.
 		*pTime=I;
-		startBuf=*pTime%BUF_SIZE;
-		fclose(stTF);
+		startBuf=*pTime%BUF_SIZE;	
+		endBuf=-1;
 	}
-	
+	fclose(stTF);
 
 	//remove old file of std name:
 	QString stdTstFN(STAT_TIME_FILE);
@@ -293,7 +341,7 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 {
 	
 	FILE *  statFile;
-	int err;
+	//int err;
 	int I,J;
 	
 	int Ages [MAX_HIST];

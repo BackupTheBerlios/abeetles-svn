@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu 21. Jun 18:09:26 2007
+** Created: Sun 24. Jun 14:53:09 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   10, // methods
+      13,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
@@ -38,6 +38,10 @@ static const uint qt_meta_data_MainWindow[] = {
      103,   86,   11,   11, 0x08,
      119,   11,   11,   11, 0x08,
      131,   11,   11,   11, 0x08,
+     147,   11,   11,   11, 0x08,
+     163,   11,   11,   11, 0x08,
+     183,  179,   11,   11, 0x08,
+     208,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -46,7 +50,9 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0env\0envRefChanged(CEnvironment*)\0"
     "newEnv()\0openEnv()\0saveEnv()\0saveEnvAs()\0"
     "bStart\0run(bool)\0runNSteps(bool)\0"
-    "make1Step()\0about()\0"
+    "make1Step()\0saveAggrStats()\0saveTimeStats()\0"
+    "saveHistStats()\0x,y\0showCellDetails(int,int)\0"
+    "about()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -82,9 +88,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 5: run((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 6: runNSteps((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 7: make1Step(); break;
-        case 8: about(); break;
+        case 8: saveAggrStats(); break;
+        case 9: saveTimeStats(); break;
+        case 10: saveHistStats(); break;
+        case 11: showCellDetails((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 12: about(); break;
         }
-        _id -= 9;
+        _id -= 13;
     }
     return _id;
 }

@@ -43,8 +43,13 @@ public:
 	int PastNumFlowers [BUF_SIZE];
 	
 	//non-statistic helpers
+private:
 	int startBuf; // startBuf is First valid index in TimeStatistics arrays. (From startBuf+1) can be the buffer written to the .csv file. (+1), because the startBuf is already the last writen value in the .csv.Meaning: If the Env was loaded and arrays of TimeStatistic don't begin from one.
+	int endBuf;//is last valid index in TimeStatistics arrays.
+	int LastNumBirths; //Serves to store NumBirths from previous TimeSlice, because NumBirths cannot be zeroed in NextTime() where it would be logical, because it is displayed after this method is run. 
 
+
+public:
 	void NextTime(int Time);
 	
 	void MakeEmpty(void);
@@ -57,7 +62,7 @@ public:
 
 	bool SaveActAgrStatist(char * filename, int time);
 	bool SaveTimeStatist_InRowsAppend();
-	bool SaveTimeStatist_InColumnsAppend(int upto = BUF_SIZE, char * fname =0);
+	bool SaveTimeStatist_InColumnsAppend(char * fname =0);
 	bool LoadTimeStatist_FromColums(char * tst_filename,int * pTime);
 
 	bool SaveActHistStatist(char * filename, int time,CGrid * grid);

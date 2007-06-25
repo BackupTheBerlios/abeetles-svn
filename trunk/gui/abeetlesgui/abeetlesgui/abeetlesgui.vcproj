@@ -167,6 +167,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\BeetleDialog.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -178,15 +182,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\BeetleDialog.h"
+				>
+			</File>
+			<File
 				RelativePath="..\CfgManager.h"
 				>
 			</File>
 			<File
 				RelativePath="..\defines.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Environment.h"
 				>
 			</File>
 			<File
@@ -273,7 +277,11 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\cpp_rules.txt"
+			RelativePath="..\cpp_rules.txt"
+			>
+		</File>
+		<File
+			RelativePath="..\Environment.h"
 			>
 		</File>
 	</Files>

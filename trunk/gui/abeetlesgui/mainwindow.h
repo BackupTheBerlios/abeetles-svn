@@ -33,6 +33,7 @@ class QMenu;
 class CField;
 class CEnvironment;
 class LabeledLCD;
+class ZoomSlider;
 class QWidget;
 
 class MainWindow : public QMainWindow
@@ -57,11 +58,13 @@ private slots:
 	void run(bool bStart);
 	void runNSteps(bool bStart);
 	void make1Step();
-	/*
-    void undo();
-    void redo();
-    void cut();
-    void copy();
+	
+    void saveAggrStats();
+    void saveTimeStats();
+    void saveHistStats();
+
+	void showCellDetails(int x,int y);
+  /*  void copy();
     void paste();
     void bold();
     void italic();
@@ -81,11 +84,13 @@ private:
 	LabeledLCD * NumFlowersLCD;
 	LabeledLCD * NumBeetlesLCD;
 	LabeledLCD * NumBirthsLCD;
-	LabeledLCD * TimeLCD;
+	LabeledLCD * TimeLCD;//Shows the time slice, that is about to begin.
+
 
 	QComboBox * TypeViewCombo;
 	QSpinBox * NumStepsSpin;
 	QPushButton * MakeNStepsBut;
+	ZoomSlider * ZoomSlid;
 
 	QTimer * Timer;
 
@@ -104,8 +109,8 @@ private:
 
 
     QMenu *fileMenu;
-    QMenu *editMenu;
-    QMenu *formatMenu;
+    QMenu *statistsMenu;
+    //QMenu *formatMenu;
     QMenu *helpMenu;
     //QActionGroup *alignmentGroup;
 
@@ -117,11 +122,11 @@ private:
 		QAction *exitAct;
 
 	//Menu "Statistics"
-		/*
-		QAction *undoAct;
-		QAction *redoAct;
-		QAction *cutAct;
-		QAction *copyAct;
+		
+		QAction *saveAggrStatsAct;
+		QAction *saveTimeStatsAct;
+		QAction *saveHistStatsAct;
+	/*	QAction *copyAct;
 		QAction *pasteAct;
 		QAction *boldAct;
 		QAction *italicAct;

@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QDir>
+#include <QMouseEvent>
 
 CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 {
@@ -19,6 +21,12 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 	ZoomToSqSize[2]=5;ZoomToGapSize[2]=1;
 	ZoomToSqSize[3]=9;ZoomToGapSize[3]=1;
 	ZoomToSqSize[4]=17;ZoomToGapSize[4]=3;
+	
+	int z,d,v;
+	for(z=0;z<NUM_ZOOM;z++)
+		for(d=WEST;d<=SOUTH;d++)
+			for(v=0;v<NUM_TYPE_VIEW;v++)
+				ImgBeetle[z][d][v]=getBeetleImage(z,d,v);
 
 
 	int fieldWidth=EMPTY_FIELD_SIZE;
@@ -26,6 +34,13 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 
 	setFixedSize(QSize(fieldWidth,fieldHeight));
 }
+
+void CField::mousePressEvent ( QMouseEvent * evnt )
+{
+	 QPoint  * cell = getCellFromPoint(evnt->x(),evnt->y(),Zoom);
+	 emit cellDetails(cell->x(), cell->y());
+}
+
 
 void CField::renewField()
 {
@@ -90,18 +105,25 @@ void CField::paintEvent(QPaintEvent *evnt)
 
 void CField::setTypeView(const QString& type)
 {
-	TypeView = type;
+	if (type=="blue")TypeView=0;
+    if (type=="green")TypeView=1;
+    if (type=="red")TypeView=2;
+    if (type=="grey")TypeView=3;
+    if (type=="navy")TypeView=4;
+	if (type=="red") TypeView=5;
 	update();
 }
 
-QImage * CField::getBeetleImage(int zoom, char direction, QString & typeView)
+QImage * CField::getBeetleImage(int zoom, char direction, int typeView)
 {
 	QString fname = "beetle_";
 	fname+=QString::number(zoom);
 	fname+="_";
 	fname+=QString::number(direction);
 	fname+=".gif";
+	QDir::setCurrent ("imgs");
 	QImage * img= new QImage(fname);
+	QDir::setCurrent ("..");
 	//if (img==0) QMessageBox::information(this,"MyApp","No image");
 	return img;
 }
@@ -117,6 +139,19 @@ QRect * CField::getCellRect(int col, int row, int zoom) //x,y are zero based!!
 	return rect;
 }
 
+QPoint * CField::getCellFromPoint(int x, int y, int zoom)
+{
+	int sizeSq= ZoomToSqSize[zoom];
+	int sizeGap=ZoomToGapSize[zoom];
+	int col=(x-sizeGap)/(sizeSq+sizeGap);
+	int row=(y-sizeGap)/(sizeSq+sizeGap);
+
+QPoint * point= new QPoint(col,row);
+	return point;
+
+}
+
+
 void CField::setEnvRef(CEnvironment *env)
 {
 	Env=env;
@@ -127,6 +162,7 @@ void CField::setEnvRef(CEnvironment *env)
 	if (Env) fieldHeight= ZoomToGapSize[Zoom]+((Env->Grid.G_Height)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
 
 	setFixedSize(QSize(fieldWidth,fieldHeight));
+	
 	update();
 }
 

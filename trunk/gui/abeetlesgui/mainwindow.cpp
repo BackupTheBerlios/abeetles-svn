@@ -29,6 +29,8 @@
 #include "defines.h"
 #include "Environment.h"
 #include "LabeledLCD.h"
+#include "StatisticsEnv.h"
+#include "BeetleDialog.h"
 
 MainWindow::MainWindow()
 {
@@ -58,13 +60,14 @@ MainWindow::MainWindow()
 	 QVBoxLayout * typeViewLayout= new QVBoxLayout();
 	 typeViewLayout->addWidget(typeViewLabel);
 	 typeViewLayout->addWidget(TypeViewCombo);
-	 typeViewLayout->addStretch(1);
+	 //typeViewLayout->addStretch(1);
 
 	//Field
 	Field= new CField(Env);
 
     connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
 	connect(this,SIGNAL(envRefChanged(CEnvironment *)),Field,SLOT(setEnvRef(CEnvironment *)));
+	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
 
 	//ScrollArea
 	QScrollArea * scrollArea = new QScrollArea ();
@@ -72,8 +75,8 @@ MainWindow::MainWindow()
 	scrollArea->setWidget(Field); 
 
 	//Zoom
-	ZoomSlider * zoomSlid = new ZoomSlider(tr("Zoom: "));
-	connect(zoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
+	ZoomSlid = new ZoomSlider(tr("Zoom: "));
+	connect(ZoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
 	
 	//Time LCD
 	
@@ -100,15 +103,13 @@ MainWindow::MainWindow()
 	 connect(MakeNStepsBut,SIGNAL(toggled(bool)),this,SLOT(runNSteps(bool)));
 	 connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
 
-	 //connect(stopBut,SIGNAL(clicked()),stopBut,SLOT(setEnabled(false)));
-	 //connect(stopBut,SIGNAL(clicked()),startBut,SLOT(setEnabled(true)));
 	
 	 //Legend Field:
 	 
 
 	 QVBoxLayout * rightLayout= new QVBoxLayout();
 	 rightLayout->addWidget(TimeLCD);
-	 rightLayout->addStretch(1);
+	 //rightLayout->addStretch(1);
 	 rightLayout->addWidget(runBut);
 	 rightLayout->addWidget(NumStepsSpin);
 	 rightLayout->addWidget(MakeNStepsBut);
@@ -129,32 +130,17 @@ MainWindow::MainWindow()
 	bottomLayout->addWidget(NumBeetlesLCD);
 	bottomLayout->addWidget(NumFlowersLCD);
 	bottomLayout->addWidget(NumBirthsLCD);
-	//QMessageBox::information(this,"MyApp","6");
-
-
-	//This was original stripe with info in the middle of the window and two fillers.
-	/*
-    QWidget *topFiller = new QWidget;
-    topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    //infoLabel = new QLabel(tr("<i>Choose a menu option, or right-click to "
-                              "invoke a context menu</i>"));
-    infoLabel->setFrameStyle(QFrame::StyledPanel | QFrame::Sunken);
-    infoLabel->setAlignment(Qt::AlignCenter);
-
-    QWidget *bottomFiller = new QWidget;
-    bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);*/
-
+	
 //	QMessageBox::information(this,"MyApp","7");
     QGridLayout * gridLayout = new QGridLayout;
     //gridLayout->setMargin(5);
 	gridLayout->addWidget(scrollArea,0,0);
 	gridLayout->addLayout(typeViewLayout,1,1);
-	gridLayout->addWidget(zoomSlid,1,0);
+	gridLayout->addWidget(ZoomSlid,1,0);
 	gridLayout->addLayout(rightLayout,0,1);
 	gridLayout->addLayout(bottomLayout,2,0,1,2);
 	//gridLayout->addLayout(
-	//gridLayout->setColumnStretch(1, 1);
+	gridLayout->setRowStretch(0, 1);
    /* layout->addWidget(topFiller);
     layout->addWidget(infoLabel);
     layout->addWidget(bottomFiller);*/
@@ -171,7 +157,7 @@ MainWindow::MainWindow()
 //	QMessageBox::information(this,"MyApp","9");
 
     setWindowTitle(tr("Abeetles"));
-    setMinimumSize(300, 300);
+    setMinimumSize(300, 400);
     resize(480, 500);
 	
 	
@@ -183,7 +169,7 @@ MainWindow::MainWindow()
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu menu(this);
-    menu.addAction(cutAct);
+    menu.addAction(saveHistStatsAct);
     menu.addAction(copyAct);
     menu.addAction(pasteAct);
     menu.exec(event->globalPos());
@@ -206,7 +192,7 @@ void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ul
 	openDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	openDlg.setFilter("All files (*.*)");
     ActualFN = openDlg.getOpenFileName(this);
-	ActualFN=ActualFN.left(ActualFN.indexOf("_"));
+	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
 
     if (!ActualFN.isEmpty()) ;
 	{
@@ -224,8 +210,9 @@ void MainWindow::saveEnv()//pozor! tahle funkce ulozi jenom broucky - chybi: ulo
 		saveEnvAs();
 	else
 	{
-        Env->SaveEnv(ActualFN.toAscii().data());
-		statusBar()->showMessage(tr("Environment saved."));
+		if (Env->SaveEnv(ActualFN.toAscii().data()))
+			statusBar()->showMessage(tr("Environment saved."));
+		else statusBar()->showMessage(tr("Environment was not successfully saved."));
 	}
 }
 
@@ -235,30 +222,56 @@ void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: u
 	saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	saveDlg.setFilter("All files (*.*)");
 	ActualFN = saveDlg.getSaveFileName(this);
-	ActualFN=ActualFN.left(ActualFN.indexOf("_"));
+	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
     if (ActualFN.isEmpty())
         return;
-	Env->SaveEnv(ActualFN.toAscii().data());
-	statusBar()->showMessage(tr("Environment saved."));
 
+	if (Env->SaveEnv(ActualFN.toAscii().data()))
+		statusBar()->showMessage(tr("Environment saved."));
+	else statusBar()->showMessage(tr("Environment was not successfully saved."));
 	
 }
+
+void MainWindow::saveAggrStats()
+{
+	QFileDialog saveAggrDlg;
+	saveAggrDlg.setFilter("Text files (*.txt)");
+	saveAggrDlg.setFilter("All files (*.*)");
+	ActualFN = saveAggrDlg.getSaveFileName(this);
+	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".txt";
+
+    if (Env->Statist.SaveActAgrStatist(ActualFN.toAscii().data(),Env->Time))
+		statusBar()->showMessage(tr("Aggregated statistics saved."));
+	else
+		statusBar()->showMessage(tr("Aggregated statistics were not saved."));
+}
+
+void MainWindow::saveTimeStats()
+{
+	QFileDialog saveAggrDlg;
+	saveAggrDlg.setFilter("Text files (*.csv)");
+	saveAggrDlg.setFilter("All files (*.*)");
+	ActualFN = saveAggrDlg.getSaveFileName(this);
+	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
+
+    if (Env->Statist.SaveTimeStatist_InColumnsAppend(ActualFN.toAscii().data()))
+		statusBar()->showMessage(tr("Time statistics saved."));
+	else
+		statusBar()->showMessage(tr("Time statistics were not saved."));
+}
+
+void MainWindow::saveHistStats()
+{
+	QFileDialog saveHistDlg;
+	saveHistDlg.setFilter("Text files (*.csv)");
+	saveHistDlg.setFilter("All files (*.*)");
+	ActualFN = saveHistDlg.getSaveFileName(this);
+	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
+	if (Env->Statist.SaveActHistStatist(ActualFN.toAscii().data(),Env->Time,&Env->Grid))
+		statusBar()->showMessage(tr("Histogram statistics saved."));
+	else
+		statusBar()->showMessage(tr("Histogram statistics were not saved."));}
 /*
-void MainWindow::undo()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Undo</b>"));
-}
-
-void MainWindow::redo()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Redo</b>"));
-}
-
-void MainWindow::cut()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Cut</b>"));
-}
-
 void MainWindow::copy()
 {
     //infoLabel->setText(tr("Invoked <b>Statistics|Copy</b>"));
@@ -347,24 +360,23 @@ void MainWindow::createActions()
     exitAct->setShortcut(tr("Ctrl+Q"));
     exitAct->setStatusTip(tr("Exit the application"));
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
-/*
-    undoAct = new QAction(tr("&Undo"), this);
-    undoAct->setShortcut(tr("Ctrl+Z"));
-    undoAct->setStatusTip(tr("Undo the last operation"));
-    connect(undoAct, SIGNAL(triggered()), this, SLOT(undo()));
 
-    redoAct = new QAction(tr("&Redo"), this);
-    redoAct->setShortcut(tr("Ctrl+Y"));
-    redoAct->setStatusTip(tr("Redo the last operation"));
-    connect(redoAct, SIGNAL(triggered()), this, SLOT(redo()));
+    saveAggrStatsAct = new QAction(tr("Save &Aggregated Statistics"), this);
+    saveAggrStatsAct->setShortcut(tr("Ctrl+A"));
+    saveAggrStatsAct->setStatusTip(tr("Saves various aggregated statistics into a text file."));
+    connect(saveAggrStatsAct, SIGNAL(triggered()), this, SLOT(saveAggrStats()));
 
-    cutAct = new QAction(tr("Cu&t"), this);
-    cutAct->setShortcut(tr("Ctrl+X"));
-    cutAct->setStatusTip(tr("Cut the current selection's contents to the "
-                            "clipboard"));
-    connect(cutAct, SIGNAL(triggered()), this, SLOT(cut()));
+    saveTimeStatsAct = new QAction(tr("Save &Time Statistics"), this);
+    saveTimeStatsAct->setShortcut(tr("Ctrl+T"));
+    saveTimeStatsAct->setStatusTip(tr("Saves various time dependent statistics into a .csv file."));
+    connect(saveTimeStatsAct, SIGNAL(triggered()), this, SLOT(saveTimeStats()));
 
-    copyAct = new QAction(tr("&Copy"), this);
+    saveHistStatsAct = new QAction(tr("Save &Histogram Statistics"), this);
+    saveHistStatsAct->setShortcut(tr("Ctrl+H"));
+    saveHistStatsAct->setStatusTip(tr("Saves data for view in histogram graph."));
+    connect(saveHistStatsAct, SIGNAL(triggered()), this, SLOT(saveHistStats()));
+
+ /*   copyAct = new QAction(tr("&Copy"), this);
     copyAct->setShortcut(tr("Ctrl+C"));
     copyAct->setStatusTip(tr("Copy the current selection's contents to the "
                              "clipboard"));
@@ -457,15 +469,15 @@ void MainWindow::createMenus()
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
-    editMenu = menuBar()->addMenu(tr("&Statistics"));
-	/*
-    editMenu->addAction(undoAct);
-    editMenu->addAction(redoAct);
-    editMenu->addSeparator();
-    editMenu->addAction(cutAct);
-    editMenu->addAction(copyAct);
-    editMenu->addAction(pasteAct);
-    editMenu->addSeparator();
+    statistsMenu = menuBar()->addMenu(tr("&Statistics"));
+	
+    statistsMenu->addAction(saveAggrStatsAct);
+    statistsMenu->addAction(saveTimeStatsAct);
+    statistsMenu->addAction(saveHistStatsAct);
+   /* statistsMenu->addAction(copyAct);
+     statistsMenu->addSeparator();
+   statistsMenu->addAction(pasteAct);
+    statistsMenu->addSeparator();
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);
@@ -483,7 +495,17 @@ void MainWindow::createMenus()
     formatMenu->addAction(setLineSpacingAct);
     formatMenu->addAction(setParagraphSpacingAct);*/
 }
-
+/**
+* Public method <br>
+* Description: Updates all widgets of the main window according to actual state of Environment.<br>
+* System dependence: OS - no, lib - qt.<br>
+* Usage comments: Used when: new env, open env, make1step.<br>
+* @see reference : adds reference to the "See Also" section. The reference can be any of the following:
+*          o HTML tag/text, which is added unmodified
+*          o a quoted string (e.g., "Foo Bar"), the contents of which are added unmodified
+*          o [project].[ class-name][#member] [text ], which adds a link to the given member in class class-name in project project . If project is omitted, the current entity's project is assumed. If class-name is omitted, the current class is assumed. If member is omitted, the link is to the class-file. If text is omitted, default display text is added, based on the actual link.
+* {@link reference } replaced with a reference that is built using the exact same syntax as the @see tag (above). For example:
+*/
 void MainWindow::renewAllChildren()
 {
 	NumBeetlesLCD->setValue(Env->Statist.NumBeetles);
@@ -552,15 +574,14 @@ void MainWindow::make1Step()
 	}
 
 	for(I=0;I<Env->Grid_Past.G_Width;I++)
-			for(J=0;J<Env->Grid_Past.G_Height;J++)
-			{
-				if (Env->Grid_Past.GetCellContent(I,J)==BEETLE) Env->MakeBeetleAction(I,J);
-				if (Env->Grid_Past.GetCellContent(I,J)==NOTHING) Env->MakeFlowerGrow(I,J);
-				//if there is a wall, flower of something bad, do nothing
-			}
+		for(J=0;J<Env->Grid_Past.G_Height;J++)
+		{
+			if (Env->Grid_Past.GetCellContent(I,J)==BEETLE) Env->MakeBeetleAction(I,J);
+			if (Env->Grid_Past.GetCellContent(I,J)==NOTHING) Env->MakeFlowerGrow(I,J);
+			//if there is a wall, flower of something bad, do nothing
+		}
 
 		//output 
-		renewAllChildren();
 		/*
 		if (Env->DisplayOn)
 		{
@@ -570,5 +591,19 @@ void MainWindow::make1Step()
 	if (NumSteps>0) NumSteps--;
 			
 	Env->NextTime();
+	renewAllChildren();
 
+
+}
+
+void MainWindow::showCellDetails(int x,int y)
+{
+	CBeetle * beetle;
+	if (Env->Grid.GetCellContent(x,y,&beetle) == BEETLE)
+	{
+		BeetleDialog beetleDlq(beetle,this);
+		beetleDlq.exec();
+	}
+	else
+		QMessageBox::information(this,"Cell details","Coords: "+QString::number(x)+", "+QString::number(y));
 }

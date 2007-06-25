@@ -55,7 +55,7 @@ int CBeetle::AddEnergy(int HowMuch)
 //Left,Right, Front: 0-nic, 1-stena, 2-kytka, 3-brouk
 int CBeetle::GetAction(bool bHunger, char Left, char Front, char Right)
 {	
-	return Brain[bHunger][Left][Front][Right];
+	return (int)Brain[bHunger][Left][Front][Right];
 }
 
 

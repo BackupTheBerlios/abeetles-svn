@@ -407,10 +407,17 @@ bool CEnvironment::SaveEnv(char * fname)
 	bool res=true;
 	if (false==CfgMng.SaveBeetles(&Grid,getBeetlesFileName(fname)))res = false;
 	if (false==CfgMng.SaveFlowers(&Grid,getFlowersFileName(fname))) res = false;
-	if (false==CfgMng.SaveMapToBmp(&Grid,getMapFileName(fname))) res=false;
+
+	QMessageBox::information(NULL,"MyApp",getMapFileName(fname));
+
+	if (false==CfgMng.SaveMapToBmp(&Grid,getMapFileName(fname)))
+	{
+		QMessageBox::information(NULL,"MyApp","Bmp map not saved.");
+		res=false;
+	}
 
 	//save the not saved part of timestats and rename it.
-	if (false==Statist.SaveTimeStatist_InColumnsAppend(Time%BUF_SIZE,this->getTimeStatsFileName(fname))) res=false;
+	if (false==Statist.SaveTimeStatist_InColumnsAppend(this->getTimeStatsFileName(fname))) res=false;
 
 	return res;
 }
@@ -440,6 +447,7 @@ bool CEnvironment::CreateRandomEnv(void)
 	}
 			
 	Grid=Grid_Past;
+	Time=0;
 	CountStatistics();
 
 	return true;

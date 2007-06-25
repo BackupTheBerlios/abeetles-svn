@@ -1,5 +1,5 @@
 #pragma once
-#include "Environment.h";
+#include "Environment.h"
 
 class CRunLife
 {
