@@ -73,8 +73,8 @@ MainWindow::MainWindow()
 	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
 
 	//Legend
-	legend = new CLegend();
-	connect((TypeViewCombo, SIGNAL(activated(const QString &)),legend, SLOT(setTypeView(const QString &)));
+	CLegend * legend = new CLegend();
+	connect(TypeViewCombo, SIGNAL(activated(const QString &)),legend, SLOT(setTypeView(const QString &)));
 
 	//ScrollArea
 	QScrollArea * scrollArea = new QScrollArea ();
