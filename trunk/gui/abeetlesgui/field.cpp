@@ -1,12 +1,8 @@
 #include "Field.h"
 #include "Environment.h"
 #include "Beetle.h"
-#include <QPainter>
-#include <QTimer>
-#include <QPushButton>
-#include <QMessageBox>
-#include <QDir>
-#include <QMouseEvent>
+#include <QtGui>
+
 
 CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 {
@@ -22,12 +18,13 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 	ZoomToSqSize[3]=9;ZoomToGapSize[3]=1;
 	ZoomToSqSize[4]=17;ZoomToGapSize[4]=3;
 	
-	int z,d,v;
-	for(z=0;z<NUM_ZOOM;z++)
-		for(d=WEST;d<=SOUTH;d++)
-			for(v=0;v<NUM_TYPE_VIEW;v++)
-				ImgBeetle[z][d][v]=getBeetleImage(z,d,v);
-
+	
+	if (false ==loadBeetleImages())
+	{
+		QErrorMessage errDlg;
+		errDlg.showMessage(QString::fromAscii("Loading of images of beetles was not successful."));
+		exit (EXIT_FAILURE);
+	}
 
 	int fieldWidth=EMPTY_FIELD_SIZE;
 	int fieldHeight=EMPTY_FIELD_SIZE;
@@ -80,7 +77,7 @@ void CField::paintEvent(QPaintEvent *evnt)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
 				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));
-				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(ImgBeetle[Zoom][beetle->Direction][TypeView]));
+				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(beetle,Zoom, TypeView)));
 				/*if ((beetle->Age)==0) putc('*',stdout);
 				else
 				{
@@ -105,29 +102,70 @@ void CField::paintEvent(QPaintEvent *evnt)
 
 void CField::setTypeView(const QString& type)
 {
-	if (type=="blue")TypeView=0;
-    if (type=="green")TypeView=1;
-    if (type=="red")TypeView=2;
-    if (type=="grey")TypeView=3;
-    if (type=="navy")TypeView=4;
-	if (type=="red") TypeView=5;
+	if (type==TYPE_VIEW_1)TypeView=0;
+    if (type==TYPE_VIEW_2)TypeView=1;
+    if (type==TYPE_VIEW_3)TypeView=2;
+    if (type==TYPE_VIEW_4)TypeView=3;
+    if (type==TYPE_VIEW_5)TypeView=4;
+	if (type==TYPE_VIEW_6) TypeView=5;
 	update();
 }
 
-QImage * CField::getBeetleImage(int zoom, char direction, int typeView)
+QImage * CField::getBeetleImage(CBeetle * beetle,int zoom,int typeView)
 {
-	QString fname = "beetle_";
-	fname+=QString::number(zoom);
-	fname+="_";
-	fname+=QString::number(direction);
-	fname+=".gif";
-	QDir::setCurrent ("imgs");
-	QImage * img= new QImage(fname);
-	QDir::setCurrent ("..");
-	//if (img==0) QMessageBox::information(this,"MyApp","No image");
+	QRgb newBackClr=qRgb(255,255,255);
+	QImage * img = new QImage (*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
+	QPainter painter(img);
+	if (typeView==0)//"normal"
+		//nothing
+	if (typeView==1)//age
+		newBackClr= qRgb(255,(int)(((beetle->Age)/(double)MAX_AGE)*255),(int)(((beetle->Age)/(double)MAX_AGE)*255));
+	if (typeView==2)//energy
+		newBackClr= qRgb(255,(int)(((beetle->Energy)/(double)MAX_ENERGY)*255),255);
+	if (typeView==3)//fertility
+		newBackClr= qRgb((int)(((beetle->NumChildren)/(double)10)*255),255,255);
+	if (typeView==4)//Hunger
+		if (beetle->IsHungry()) newBackClr= qRgb(255,0,0);
+	if (typeView==5);//"growth of flowers"
+			
+//	QMessageBox::information(this,"MyApp","Color: "+QString::number(newBackClr));
+	change1ImgColor(img,qRgb(255,255,255),newBackClr);
 	return img;
+
+}
+bool CField::change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor)
+{
+	int I,J;
+	for (I=0;I<img->width();I++)
+		for (J=0;J<img->height();J++)		
+			if (img->pixel(I, J) == origColor)
+				img->setPixel( I, J, desiredColor);
+	return true;
 }
 
+
+bool CField::loadBeetleImages()
+{
+	int z,d; //,v;
+	QString fname;
+	QImage * img;
+	for(z=0;z<NUM_ZOOM;z++)
+		for(d=WEST;d<=SOUTH;d++)
+			//for (v=0;v<NUM_TYPE_VIEW;v++)
+			{
+					fname = "beetle_";
+					fname+=QString::number(z);
+					fname+="_";
+					fname+=QString::number(d);
+					fname+=".gif";
+					QDir::setCurrent ("imgs");
+					if (0== (img= new QImage(fname))) return false;
+					QDir::setCurrent ("..");
+					ImgBeetle[z][d]=img;
+			}
+	//if (img==0) QMessageBox::information(this,"MyApp","No image");
+	return true;
+}
 QRect * CField::getCellRect(int col, int row, int zoom) //x,y are zero based!!
 {
 	int sizeSq= ZoomToSqSize[zoom];

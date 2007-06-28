@@ -50,7 +50,7 @@
 //beetle's limits on features
 #define MAX_ENERGY 50
 #define MAX_LEARN_ABILITY 50
-#define MAX_AGE 50
+#define MAX_AGE 100
 #define MAX_INV_IN_CHILD 25
 #define MAX_HIST 100
 
@@ -108,6 +108,12 @@
 #define START_ZOOM_VALUE 2
 
 #define NUM_TYPE_VIEW 6
+#define TYPE_VIEW_1 "normal"
+#define TYPE_VIEW_2 "age"
+#define TYPE_VIEW_3 "energy"
+#define TYPE_VIEW_4 "fertility"
+#define TYPE_VIEW_5 "hunger"
+#define TYPE_VIEW_6 "growth of flowers"
 
 #define TIME_STEP 15	//in miliseconds - the time between two time slices.
 #define COLOR_NOTHING "white"

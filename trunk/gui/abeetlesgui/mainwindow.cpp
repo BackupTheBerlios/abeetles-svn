@@ -50,11 +50,13 @@ MainWindow::MainWindow()
 	typeViewLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed); 
 
 	TypeViewCombo = new QComboBox;
-	TypeViewCombo->addItem("blue");
-    TypeViewCombo->addItem("green");
-    TypeViewCombo->addItem("red");
-    TypeViewCombo->addItem("grey");
-    TypeViewCombo->addItem("navy");
+	TypeViewCombo->addItem(TYPE_VIEW_1);
+    TypeViewCombo->addItem(TYPE_VIEW_2);
+    TypeViewCombo->addItem(TYPE_VIEW_3);
+    TypeViewCombo->addItem(TYPE_VIEW_4);
+    TypeViewCombo->addItem(TYPE_VIEW_5);
+    TypeViewCombo->addItem(TYPE_VIEW_6);
+
 	TypeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
 	 QVBoxLayout * typeViewLayout= new QVBoxLayout();
