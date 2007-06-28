@@ -22,9 +22,10 @@ public:
 	bool LoadBeetles(CGrid * grid, char * filename);
 	bool LoadFlowers(CGrid * grid, char * filename);
 	bool LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename, QImage ** image=0);
+	int ColorFromFlowerProbability(int prob);
 
 protected:
 	int FlowerProbabilityFromColor(int colorNum);
-	int ColorFromFlowerProbability(int prob);
+	
 
 };

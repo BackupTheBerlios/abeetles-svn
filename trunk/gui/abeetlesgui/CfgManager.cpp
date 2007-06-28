@@ -131,6 +131,14 @@ int CfgManager::FlowerProbabilityFromColor(int greenNum)
 	return (((pom*100)/(CFG_CLR_FLOWER_TOP - CFG_CLR_FLOWER_BOTTOM)));
 }
 
+/**
+* Public method <br>
+* Description: Inverse function to {@link #FlowerProbabilityFromColor}<br>
+* System dependence: no<br>
+* Usage comments:<br>
+* @return (Integer value is number of green 0-255 in RGB system) 
+* @param prob [ Probability of growth of flower, 0-100.]
+*/
 int CfgManager::ColorFromFlowerProbability(int prob)
 {
 	return (prob*(CFG_CLR_FLOWER_TOP - CFG_CLR_FLOWER_BOTTOM))/100 + CFG_CLR_FLOWER_BOTTOM;

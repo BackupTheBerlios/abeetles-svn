@@ -206,6 +206,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\Legend.h"
+				>
+			</File>
+			<File
 				RelativePath="..\mainwindow.h"
 				>
 			</File>
@@ -253,6 +257,10 @@
 			</File>
 			<File
 				RelativePath="..\LabeledLCD.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Legend.cpp"
 				>
 			</File>
 			<File

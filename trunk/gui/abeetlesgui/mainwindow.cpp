@@ -31,6 +31,7 @@
 #include "LabeledLCD.h"
 #include "StatisticsEnv.h"
 #include "BeetleDialog.h"
+#include "Legend.h"
 
 MainWindow::MainWindow()
 {
@@ -70,6 +71,10 @@ MainWindow::MainWindow()
     connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
 	connect(this,SIGNAL(envRefChanged(CEnvironment *)),Field,SLOT(setEnvRef(CEnvironment *)));
 	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
+
+	//Legend
+	legend = new CLegend();
+	connect((TypeViewCombo, SIGNAL(activated(const QString &)),legend, SLOT(setTypeView(const QString &)));
 
 	//ScrollArea
 	QScrollArea * scrollArea = new QScrollArea ();
@@ -116,6 +121,8 @@ MainWindow::MainWindow()
 	 rightLayout->addWidget(NumStepsSpin);
 	 rightLayout->addWidget(MakeNStepsBut);
 	 rightLayout->addStretch(1);
+	 rightLayout->addWidget(legend);
+
 
 	 
 	//numBeetles LCD

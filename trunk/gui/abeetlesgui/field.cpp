@@ -77,7 +77,7 @@ void CField::paintEvent(QPaintEvent *evnt)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
 				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));
-				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(beetle,Zoom, TypeView)));
+				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(beetle,I,J,Zoom, TypeView)));
 				/*if ((beetle->Age)==0) putc('*',stdout);
 				else
 				{
@@ -88,8 +88,19 @@ void CField::paintEvent(QPaintEvent *evnt)
 				}*/
 				continue;
 			}
-			if (what==NOTHING) painter.setBrush(QBrush(QColor(COLOR_NOTHING)));						
-			if (what==FLOWER) painter.setBrush(QBrush(QColor(COLOR_FLOWER)));		
+			if (TypeView==5)//Growth of flowers
+			{
+				QRgb BackClr=qRgb(255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(I,J))/(double)100*255),
+									255,
+									255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(I,J))/(double)100*255) );
+				if ((what==NOTHING)||(what==FLOWER))
+					painter.setBrush(QBrush(QColor(BackClr)));
+			}
+			else
+			{
+				if (what==NOTHING) painter.setBrush(QBrush(QColor(COLOR_NOTHING)));						
+				if (what==FLOWER) painter.setBrush(QBrush(QColor(COLOR_FLOWER)));		
+			}
 			if (what==WALL) painter.setBrush(QBrush(QColor(COLOR_WALL)));		
 			painter.drawRect(*(this->getCellRect(I,J,Zoom)));
 			continue;
@@ -102,31 +113,37 @@ void CField::paintEvent(QPaintEvent *evnt)
 
 void CField::setTypeView(const QString& type)
 {
-	if (type==TYPE_VIEW_1)TypeView=0;
-    if (type==TYPE_VIEW_2)TypeView=1;
-    if (type==TYPE_VIEW_3)TypeView=2;
-    if (type==TYPE_VIEW_4)TypeView=3;
-    if (type==TYPE_VIEW_5)TypeView=4;
-	if (type==TYPE_VIEW_6) TypeView=5;
+	if (type==TYPE_VIEW_1)TypeView=0;//"normal"
+    if (type==TYPE_VIEW_2)TypeView=1;//age
+    if (type==TYPE_VIEW_3)TypeView=2;//energy
+    if (type==TYPE_VIEW_4)TypeView=3;//fertility
+    if (type==TYPE_VIEW_5)TypeView=4;//Hunger
+	if (type==TYPE_VIEW_6) TypeView=5;//"growth of flowers"
 	update();
 }
 
-QImage * CField::getBeetleImage(CBeetle * beetle,int zoom,int typeView)
+QImage * CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView)
 {
 	QRgb newBackClr=qRgb(255,255,255);
 	QImage * img = new QImage (*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
 	QPainter painter(img);
-	if (typeView==0)//"normal"
+	if (typeView==0);//"normal"
 		//nothing
-	if (typeView==1)//age
-		newBackClr= qRgb(255,(int)(((beetle->Age)/(double)MAX_AGE)*255),(int)(((beetle->Age)/(double)MAX_AGE)*255));
-	if (typeView==2)//energy
-		newBackClr= qRgb(255,(int)(((beetle->Energy)/(double)MAX_ENERGY)*255),255);
-	if (typeView==3)//fertility
-		newBackClr= qRgb((int)(((beetle->NumChildren)/(double)10)*255),255,255);
-	if (typeView==4)//Hunger
+	if (typeView==1)//age...color: cyan=(_,255,255)
+	{
+		int age = beetle->Age; if (age>MAX_AGE) age=MAX_AGE; //Age must be somehow restricted.
+		newBackClr= qRgb(255-(int)(((age)/(double)MAX_AGE)*255),255,255);
+	}
+	if (typeView==2)//energy..color: red=(255,_,_)
+		newBackClr= qRgb(255,255-(int)(((beetle->Energy)/(double)MAX_ENERGY)*255),255-(int)(((beetle->Energy)/(double)MAX_ENERGY)*255));
+	if (typeView==3)//fertility..color: magenta=(255,_,255)
+		newBackClr= qRgb(255,255-(int)(((beetle->NumChildren)/(double)10)*255),255);
+	if (typeView==4)//Hunger..color: red=(255,0,0)
 		if (beetle->IsHungry()) newBackClr= qRgb(255,0,0);
-	if (typeView==5);//"growth of flowers"
+	if (typeView==5)//"growth of flowers"..color: green=(_,255,_)
+		newBackClr=qRgb(255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(x,y))/(double)100*255),
+					255,
+					255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(x,y))/(double)100*255) );
 			
 //	QMessageBox::information(this,"MyApp","Color: "+QString::number(newBackClr));
 	change1ImgColor(img,qRgb(255,255,255),newBackClr);

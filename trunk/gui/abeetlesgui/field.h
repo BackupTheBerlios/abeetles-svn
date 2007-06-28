@@ -30,7 +30,7 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent *evnt);
-	QImage * getBeetleImage(CBeetle * beetle,int zoom,  int typeView);
+	QImage * getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView);
 	QRect * getCellRect(int col, int row, int zoom);
 	QPoint * getCellFromPoint(int x, int y, int zoom);
 	virtual void mousePressEvent ( QMouseEvent * evnt );

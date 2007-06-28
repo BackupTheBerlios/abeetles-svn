@@ -8,7 +8,8 @@ DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
 
 # Input
-HEADERS += BeetleDialog.h\
+HEADERS += Legend.h\
+	   BeetleDialog.h\
 	   Beetle.h \
            CfgManager.h \
            defines.h \
@@ -20,7 +21,8 @@ HEADERS += BeetleDialog.h\
            StatisticsEnv.h \
            stdafx.h \
            zoomslider.h
-SOURCES += BeetleDialog.cpp\
+SOURCES += Legend.cpp\
+           BeetleDialog.cpp\
 	   Beetle.cpp \
            CfgManager.cpp \
            Environment.cpp \

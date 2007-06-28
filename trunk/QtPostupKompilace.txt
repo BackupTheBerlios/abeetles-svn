@@ -3,7 +3,10 @@ Postup kompilace aplikace:
 1. nainstaluj qt z flashky
 2. pridej C:\Qt\4.3.0\bin\ a C:\MinGW\bin\ do promenne path takto:
   Ve spustene commandline napis set Path=%Path%C:\Qt\4.3.0\bin\;C:\MinGW\bin\;
-3. Napis projektovy soubor pro qmake:
+
+3. skoc do adresare
+ cd temp\abeetles\gui\abeetlesgui
+4. Napis projektovy soubor pro qmake:
  
       We'll add the source files to the project file first. To do this you need to use the SOURCES variable. Just start a new line with SOURCES += and put hello.cpp after it. You should have something like this: 
        SOURCES += hello.cpp 
