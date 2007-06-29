@@ -1,0 +1,61 @@
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  29 JUN 2007 14:59
+entering extended mode
+**New.tex
+(New.tex
+LaTeX2e <2005/12/01>
+Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
+Loading SK hyphenation patterns: Jana Chlebikova, 1992
+Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, cz
+ech, slovak, german, ngerman, french, loaded.
+("C:\Program Files\MiKTeX 2.5\tex\latex\base\report.cls"
+Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.5\tex\latex\base\size10.clo"
+File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(D:\temp\abeetles\Thesis\TeXAux\New.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 9.
+ [1
+
+] [1]
+Chapter 1.
+
+LaTeX Warning: Citation `Bedau' on page 1 undefined on input line 20.
+
+
+LaTeX Warning: Citation `Langton' on page 1 undefined on input line 22.
+
+! Undefined control sequence.
+l.24 ...henomena rather than take them apart.[\url
+                                                  {http://zooland.alife.org/...
+
+? 

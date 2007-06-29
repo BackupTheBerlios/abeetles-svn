@@ -5,7 +5,7 @@
 BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
 {
 	AgeLabel=new QLabel("Age: "+QString::number(beetle->Age));
-	DirectionLabel=new QLabel("Direction: "+*CBeetle::GetWordDirection(beetle->Direction));
+	DirectionLabel=new QLabel("Direction: "+CBeetle::GetWordDirection(beetle->Direction));
 	EnergyLabel=new QLabel("Energy: "+QString::number(beetle->Energy));
 	HungryThresholdLabel=new QLabel("HungryThreshold: "+QString::number(beetle->HungryThreshold));
 	IdLabel=new QLabel("Id: "+QString::number(beetle->Id));
@@ -13,11 +13,11 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 	LearnAbilityLabel=new QLabel("LearnAbility: "+QString::number(beetle->LearnAbility));
 	NumChildrenLabel=new QLabel("NumChildren: "+QString::number(beetle->NumChildren));
 	QLabel  * effLabel=new QLabel("Energy from a flower according to age(up to age "+QString::number(CBeetle::EffImg->width())+"): ");
+	EffField * effField =  new EffField();
 
 	QPushButton * okBut = new QPushButton(tr("OK"));
 	connect(okBut,SIGNAL(clicked()),this,SLOT(accept()));
 
-	EffField * effField =  new EffField();
 	
     QVBoxLayout *layout = new QVBoxLayout;
 	layout->addWidget(AgeLabel);

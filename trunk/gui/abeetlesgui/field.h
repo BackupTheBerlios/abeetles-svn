@@ -16,6 +16,7 @@ class CField : public QWidget
 public:
 
 	CField(CEnvironment * env,QWidget * parent=0);
+	CField::~CField();
 
 
 public slots:
@@ -30,12 +31,12 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent *evnt);
-	QImage * getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView);
-	QRect * getCellRect(int col, int row, int zoom);
+	QImage getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView);
+	QRect getCellRect(int col, int row, int zoom);
 	QPoint * getCellFromPoint(int x, int y, int zoom);
 	virtual void mousePressEvent ( QMouseEvent * evnt );
 	bool loadBeetleImages();
-	bool change1ImgColor(QImage *, QRgb origColor, QRgb desiredColor);
+	bool change1ImgColor(QImage img, QRgb origColor, QRgb desiredColor);
 
 private:
 	int TypeView;

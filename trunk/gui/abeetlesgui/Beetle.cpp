@@ -353,11 +353,12 @@ int CBeetle::CreateNewId(void)
 	else return LastId=1;
 }
 
-QString * CBeetle::GetWordDirection(char direction)
+QString CBeetle::GetWordDirection(char direction)
 {
-	if (direction==WEST) return new QString("west");
-	if (direction==NORTH) return new QString("north");
-	if (direction==EAST) return new QString("east");
-	if (direction==SOUTH) return new QString("south");
-
+	if (direction==WEST) return QString("west");
+	if (direction==NORTH) return QString("north");
+	if (direction==EAST) return QString("east");
+	if (direction==SOUTH) return QString("south");
+	
+	return "";
 }

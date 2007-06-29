@@ -1,0 +1,37 @@
+Zásady pro vypracování
+Cílem práce je navrhnout a naprogramovat softwarový nástroj,
+umožòující provádìt experimenty s vývojem jednoduchých organismù,
+tyto experimenty provést a popsat výsledky.
+
+Text práce by mìl
+- prozkoumat a popsat existující práce zabývající se tímto tématem
+- navrhnout model jednoduchých organismù, dostateènì složitých
+na to, aby se u nich mohlo vyvinout nìjaké zajímavé chování,
+ale zároveò dostateènì jednoduchých, aby bylo možné pøi jejich
+evoluci v poèítaèi v rozumném èase dojít k netriviálním výsledkùm.
+- popsat provedené experimenty (viz dále).
+
+Navržený model by mìl zahrnovat
+- životní prostøedí organismù
+- prùbìžné zmìny podmínek tohoto životního prostøedí v èase
+- vlastnosti a stav organismù
+- rozmnožování - podmínky a strategie
+- životní cyklus jedincù
+
+Program by mìl umožnit
+- co nejrychlejší simulaci bez zobrazování detailù, pro rychlý
+prùbìh evoluce
+- pøepnutí na pomalý bìh se zobrazováním a s možností sledovat
+stav konkrétních jedincù
+- zobrazování "demografických" statistik jako mohou být napøíklad:
+složení populace podle energie, poètu dìtí, investicí do potomkù,
+stáøí, poètu dìtí, podle rozdìlení výdaje a pøíjmu energie
+na pohyb, na páøení, na potomky a z potravy/z páøení
+
+Provedené experimenty by mìly vyzkoušet
+- zda dojde k vývoji odlišných skupin jedincù s rùznými vlastnostmi,
+pøípadnì v závislosti na lokalitì (napø. strategiemi páøení
+(rozdìlení na pohlaví), vývoj druhù (vìtších skupin jedincù
+s odlišnými genetickými informacemi/strategiemi a neschopných køížení))
+- jak se budou organismy mìnit v závislosti na podmínkách okolí
+a životním cyklu

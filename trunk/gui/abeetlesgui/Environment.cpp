@@ -617,25 +617,25 @@ bool CEnvironment::CreateDefaultEnv(void)
 
 char * CEnvironment::getMapFileName(char *fname)
 {
-	QString  * qFN= new QString(fname); 
-	*qFN+="_map.bmp";
-	return qFN->toAscii().data();
+	QString qFN(fname); 
+	qFN+="_map.bmp";
+	return qFN.toAscii().data();
 }
 char * CEnvironment::getFlowersFileName(char *fname)
 {
-	QString  * qFN= new QString(fname); 
-	*qFN+="_flw.txt";
-	return qFN->toAscii().data();
+	QString  qFN(fname); 
+	qFN+="_flw.txt";
+	return qFN.toAscii().data();
 }
 char * CEnvironment::getBeetlesFileName(char *fname)
 {
-	QString  * qFN= new QString(fname); 
-	*qFN+="_btl.txt";
-	return qFN->toAscii().data();
+	QString qFN(fname); 
+	qFN+="_btl.txt";
+	return qFN.toAscii().data();
 }
 char * CEnvironment::getTimeStatsFileName(char *fname)
 {
-	QString  * qFN= new QString(fname); 
-	*qFN+="_tst.csv";
-	return qFN->toAscii().data();
+	QString qFN(fname); 
+	qFN+="_tst.csv";
+	return qFN.toAscii().data();
 }

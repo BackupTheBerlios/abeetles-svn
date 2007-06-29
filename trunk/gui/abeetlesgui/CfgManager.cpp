@@ -311,9 +311,9 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename, QImage ** image)
 {
 //1. Read the bmp file
-	QImage * img = new QImage (filename);
-	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
-	if ((img==NULL)||(img->width()< EFF_BMP_X) ||( img->height()< EFF_BMP_Y))
+	QImage img (filename);
+	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img.width())+", "+QString::number(img.height()));
+	if ((img.isNull())||(img.width()< EFF_BMP_X) ||( img.height()< EFF_BMP_Y))
 	{
 		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
 		return false;
@@ -328,12 +328,12 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * fil
 	{	
 		for (J=EFF_BMP_Y-1;J>=0;J--)
 		{
-			if (!(img->valid(I,J))) 
+			if (!(img.valid(I,J))) 
 			{
 				//QMessageBox::information(NULL,"MyApp","Not valid I,J");
 				continue; //if the I,J is not valid withing img
 			}
-			color = img->pixel(I,J); 
+			color = img.pixel(I,J); 
 			if (QColor::fromRgb(color) == QColor("black"))
 			{
 				EFF_Age[I]=EFF_BMP_Y - J-1;
@@ -346,7 +346,7 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * fil
 	{
 		//CBeetle::EffImg=img;
 		//QMessageBox::information(NULL,"MyApp","Is eff img");
-		*image = img;
+		*image = &img;
 	}
 
 	return true;

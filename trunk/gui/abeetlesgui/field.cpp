@@ -31,11 +31,20 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 
 	setFixedSize(QSize(fieldWidth,fieldHeight));
 }
+CField::~CField(void)
+{
+	int z,d; //,v;
+	for(z=0;z<NUM_ZOOM;z++)
+			for(d=WEST;d<=SOUTH;d++)
+			if (ImgBeetle[z][d]!=NULL) delete ImgBeetle[z][d];	
+
+}
 
 void CField::mousePressEvent ( QMouseEvent * evnt )
 {
 	 QPoint  * cell = getCellFromPoint(evnt->x(),evnt->y(),Zoom);
 	 emit cellDetails(cell->x(), cell->y());
+	 delete cell;
 }
 
 
@@ -76,8 +85,8 @@ void CField::paintEvent(QPaintEvent *evnt)
 			if (what==BEETLE)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
-				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));
-				painter.drawImage(*(this->getCellRect(I,J,Zoom)),*(getBeetleImage(beetle,I,J,Zoom, TypeView)));
+				//painter.drawRect(*(this->getCellRect(I,J,Zoom)));			
+				painter.drawImage((this->getCellRect(I,J,Zoom)),getBeetleImage(beetle,I,J,Zoom, TypeView));
 				/*if ((beetle->Age)==0) putc('*',stdout);
 				else
 				{
@@ -102,7 +111,7 @@ void CField::paintEvent(QPaintEvent *evnt)
 				if (what==FLOWER) painter.setBrush(QBrush(QColor(COLOR_FLOWER)));		
 			}
 			if (what==WALL) painter.setBrush(QBrush(QColor(COLOR_WALL)));		
-			painter.drawRect(*(this->getCellRect(I,J,Zoom)));
+			painter.drawRect((this->getCellRect(I,J,Zoom)));
 			continue;
 			
 		}
@@ -122,11 +131,12 @@ void CField::setTypeView(const QString& type)
 	update();
 }
 
-QImage * CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView)
+QImage CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeView)
 {
 	QRgb newBackClr=qRgb(255,255,255);
-	QImage * img = new QImage (*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
-	QPainter painter(img);
+	//QImage * img = new QImage (*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
+	QImage img(*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
+	QPainter painter(&img);
 	if (typeView==0);//"normal"
 		//nothing
 	if (typeView==1)//age...color: cyan=(_,255,255)
@@ -150,13 +160,13 @@ QImage * CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int type
 	return img;
 
 }
-bool CField::change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor)
+bool CField::change1ImgColor(QImage img, QRgb origColor, QRgb desiredColor)
 {
 	int I,J;
-	for (I=0;I<img->width();I++)
-		for (J=0;J<img->height();J++)		
-			if (img->pixel(I, J) == origColor)
-				img->setPixel( I, J, desiredColor);
+	for (I=0;I<img.width();I++)
+		for (J=0;J<img.height();J++)		
+			if (img.pixel(I, J) == origColor)
+				img.setPixel( I, J, desiredColor);
 	return true;
 }
 
@@ -183,14 +193,14 @@ bool CField::loadBeetleImages()
 	//if (img==0) QMessageBox::information(this,"MyApp","No image");
 	return true;
 }
-QRect * CField::getCellRect(int col, int row, int zoom) //x,y are zero based!!
+QRect CField::getCellRect(int col, int row, int zoom) //x,y are zero based!!
 {
 	int sizeSq= ZoomToSqSize[zoom];
 	int sizeGap=ZoomToGapSize[zoom];
 	int x=sizeGap+(col*(sizeSq+sizeGap));
 	int y=sizeGap+(row*(sizeSq+sizeGap));
 
-	QRect * rect = new QRect (x,y,sizeSq,sizeSq);
+	QRect rect(x,y,sizeSq,sizeSq);
 	return rect;
 }
 
@@ -201,7 +211,7 @@ QPoint * CField::getCellFromPoint(int x, int y, int zoom)
 	int col=(x-sizeGap)/(sizeSq+sizeGap);
 	int row=(y-sizeGap)/(sizeSq+sizeGap);
 
-QPoint * point= new QPoint(col,row);
+	QPoint * point= new QPoint(col,row);
 	return point;
 
 }
