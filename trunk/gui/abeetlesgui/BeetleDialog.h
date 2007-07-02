@@ -1,8 +1,10 @@
 #include <QDialog>
 #include <QWidget>
+#include "defines.h"
 
 class QLabel;
 class CBeetle;
+class QTableWidget;
 
 class EffField:public QWidget
 {
@@ -14,6 +16,7 @@ public:
 protected:
 	void paintEvent(QPaintEvent *evnt);
 };
+
 
 
 class BeetleDialog:public QDialog
@@ -35,5 +38,7 @@ protected:
 	QLabel * InvInChildLabel;
 	QLabel * LearnAbilityLabel;
 	QLabel * NumChildrenLabel;
+
+	QTableWidget * BrainTables [BRAIN_D1][BRAIN_D2];
 
 };

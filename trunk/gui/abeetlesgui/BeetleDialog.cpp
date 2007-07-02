@@ -1,5 +1,6 @@
 #include "BeetleDialog.h"
 #include "Beetle.h"
+#include "defines.h"
 #include <QtGui>
 
 BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
@@ -14,6 +15,18 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 	NumChildrenLabel=new QLabel("NumChildren: "+QString::number(beetle->NumChildren));
 	QLabel  * effLabel=new QLabel("Energy from a flower according to age(up to age "+QString::number(CBeetle::EffImg->width())+"): ");
 	EffField * effField =  new EffField();
+
+	int I,J;
+	QGridLayout * gridBrain =  new QGridLayout;
+	for (I=0; I<BRAIN_D1;I++)
+		for(J=0;J<BRAIN_D2;J++)
+		{
+			BrainTables[I][J]= new QTableWidget(BRAIN_D3,BRAIN_D4);
+			gridBrain->addWidget(BrainTables[I][J],I,J);
+		}
+			
+	
+	
 
 	QPushButton * okBut = new QPushButton(tr("OK"));
 	connect(okBut,SIGNAL(clicked()),this,SLOT(accept()));
@@ -30,6 +43,7 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 	layout->addWidget(NumChildrenLabel);
 	layout->addWidget(effLabel);
 	layout->addWidget(effField);
+	layout->addLayout(gridBrain);
 	layout->addWidget(okBut);
 
 	setLayout(layout);
