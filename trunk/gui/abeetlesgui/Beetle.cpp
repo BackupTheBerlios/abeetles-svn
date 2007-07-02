@@ -8,7 +8,7 @@
 int CBeetle::EnergyMax_C = MAX_ENERGY; //static variable must be inicialized like this out of the class!
 int CBeetle::LastId=0;
 int CBeetle::EFF_Age [EFF_BMP_X]={10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10}; 
-QImage * CBeetle::EffImg=0;
+QImage CBeetle::EffImg;
 extern int RandInBound(int);
 
 CBeetle::CBeetle(void)
@@ -85,6 +85,19 @@ int CBeetle::Decide(int Left, int Front, int Right)
 	//Left, Front, Right: NOTHING=1/WALL/FLOWER/BEETLE=4
 	if (Front==WALL) return A_ROTATERIGHT;
 	return Brain [IsHungry()][Left-1][Front-1][Right-1];
+}
+
+char CBeetle::GetBrainItemShortcut(int H,int L,int F, int R)
+{
+	if (Brain[H][L][F][R] == A_STEP) return 'S';
+	if (Brain[H][L][F][R] == A_ROTATERIGHT) return 'L';
+	if (Brain[H][L][F][R] == A_ROTATELEFT) return 'R';
+	
+	
+
+	//QErrorMessage errDlg;
+	//errDlg.showMessage(QString::fromAscii("Invalid cell of Brain:")+QString::number(H)+QString::number(L)+QString::number(F)+QString::number(R));
+	return '?';
 }
 int CBeetle::EnergyFromFlower(void)
 {

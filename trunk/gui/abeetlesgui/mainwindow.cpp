@@ -201,9 +201,9 @@ void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ul
 	openDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	openDlg.setFilter("All files (*.*)");
     ActualFN = openDlg.getOpenFileName(this);
-	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
+	if (!ActualFN.isEmpty()) ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
 
-    if (!ActualFN.isEmpty()) ;
+    if (!ActualFN.isEmpty()) 
 	{
 		if (Env == 0) Env = new CEnvironment();
         Env->LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
@@ -231,9 +231,10 @@ void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: u
 	saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	saveDlg.setFilter("All files (*.*)");
 	ActualFN = saveDlg.getSaveFileName(this);
+    if (ActualFN.isEmpty())return;
+
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
-    if (ActualFN.isEmpty())
-        return;
+    if (ActualFN.isEmpty())return;
 
 	if (Env->SaveEnv(ActualFN.toAscii().data()))
 		statusBar()->showMessage(tr("Environment saved."));
@@ -247,6 +248,7 @@ void MainWindow::saveAggrStats()
 	saveAggrDlg.setFilter("Text files (*.txt)");
 	saveAggrDlg.setFilter("All files (*.*)");
 	ActualFN = saveAggrDlg.getSaveFileName(this);
+	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".txt";
 
     if (Env->Statist.SaveActAgrStatist(ActualFN.toAscii().data(),Env->Time))
@@ -261,6 +263,7 @@ void MainWindow::saveTimeStats()
 	saveAggrDlg.setFilter("Text files (*.csv)");
 	saveAggrDlg.setFilter("All files (*.*)");
 	ActualFN = saveAggrDlg.getSaveFileName(this);
+	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
 
     if (Env->Statist.SaveTimeStatist_InColumnsAppend(ActualFN.toAscii().data()))
@@ -275,11 +278,13 @@ void MainWindow::saveHistStats()
 	saveHistDlg.setFilter("Text files (*.csv)");
 	saveHistDlg.setFilter("All files (*.*)");
 	ActualFN = saveHistDlg.getSaveFileName(this);
+	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
 	if (Env->Statist.SaveActHistStatist(ActualFN.toAscii().data(),Env->Time,&Env->Grid))
 		statusBar()->showMessage(tr("Histogram statistics saved."));
 	else
-		statusBar()->showMessage(tr("Histogram statistics were not saved."));}
+		statusBar()->showMessage(tr("Histogram statistics were not saved."));
+}
 /*
 void MainWindow::copy()
 {
@@ -607,9 +612,12 @@ void MainWindow::make1Step()
 
 void MainWindow::showCellDetails(int x,int y)
 {
-	CBeetle * beetle;
+	CBeetle * beetle=NULL;
 	if (Env->Grid.GetCellContent(x,y,&beetle) == BEETLE)
 	{
+		//QMessageBox::information(this,"","1");
+		if (beetle==NULL) QMessageBox::information(this,"","XX");
+		//QMessageBox::information(this,"","2");
 		BeetleDialog beetleDlq(beetle,this);
 		beetleDlq.exec();
 	}

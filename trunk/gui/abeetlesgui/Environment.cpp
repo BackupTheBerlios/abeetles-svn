@@ -16,12 +16,14 @@ CEnvironment::CEnvironment(void)
 	DisplayOn = true; 
 	LoadEnv();
 	//load function of Age and EnergyFromFlower from bmp file		
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE,&CBeetle::EffImg))
+	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
 	{
 		QErrorMessage errDlg;
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful."));
 		exit (EXIT_FAILURE);
 	}
+	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+
 }
 
 CEnvironment::CEnvironment(char * fname)
@@ -30,7 +32,7 @@ CEnvironment::CEnvironment(char * fname)
 	DisplayOn = true; 
 	LoadEnv(fname);	
 	//load function of Age and EnergyFromFlower from bmp file	
-	if (false == CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE,&CBeetle::EffImg))
+	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
 	{
 		QErrorMessage errDlg;
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful."));

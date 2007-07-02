@@ -12,7 +12,7 @@ public:
 	~CBeetle(void);
 	static int EnergyMax_C;
 	static int EFF_Age [EFF_BMP_X];
-	static 	QImage * EffImg;
+	static 	QImage EffImg;
 
 	int Id;
 	int Energy;// 0-100
@@ -22,6 +22,7 @@ public:
 	char Brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];//Decision table - if hunger, what is on left, in front, on right
 													//Indexes: 0-nothing, 1-wall, 2-flower, 3-beetle
 													//Values: A_step, A_rotateleft,rotateright,wait, copulate
+	char GetBrainItemShortcut(int H,int L,int F, int R);
 	
 	int ExpectOnPartner[6]; 
 	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner

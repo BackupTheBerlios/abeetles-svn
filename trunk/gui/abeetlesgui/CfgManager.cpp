@@ -308,15 +308,17 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 
 
 
-bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename, QImage ** image)
+QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, QImage img)
 {
 //1. Read the bmp file
 	QImage img (filename);
+	//img.load(filename);
+	
 	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img.width())+", "+QString::number(img.height()));
 	if ((img.isNull())||(img.width()< EFF_BMP_X) ||( img.height()< EFF_BMP_Y))
 	{
 		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
-		return false;
+		return QImage();
 	}
 
 //2.Fill EnergyFromFlower array with information from the image
@@ -342,14 +344,14 @@ bool CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * fil
 			}
 		}
 	}
-	if (NULL!= image) 
-	{
-		//CBeetle::EffImg=img;
-		//QMessageBox::information(NULL,"MyApp","Is eff img");
-		*image = &img;
-	}
+	 
+	
+	//CBeetle::EffImg=img;
+	//QMessageBox::information(NULL,"MyApp","Is eff img");
+	//image = img;
+	
 
-	return true;
+	return img;
 }
 
 

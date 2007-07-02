@@ -39,6 +39,6 @@ protected:
 	QLabel * LearnAbilityLabel;
 	QLabel * NumChildrenLabel;
 
-	QTableWidget * BrainTables [BRAIN_D1][BRAIN_D2];
+	QTableWidget * BrainTables [BRAIN_D1][BRAIN_D3];
 
 };
