@@ -155,18 +155,18 @@ QImage CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeVi
 					255,
 					255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(x,y))/(double)100*255) );
 			
-//	QMessageBox::information(this,"MyApp","Color: "+QString::number(newBackClr));
-	change1ImgColor(img,qRgb(255,255,255),newBackClr);
+	//QMessageBox::information(this,"MyApp","Color: "+QString::number(newBackClr));
+	change1ImgColor(&img,qRgb(255,255,255),newBackClr);
 	return img;
 
 }
-bool CField::change1ImgColor(QImage img, QRgb origColor, QRgb desiredColor)
+bool CField::change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor)
 {
 	int I,J;
-	for (I=0;I<img.width();I++)
-		for (J=0;J<img.height();J++)		
-			if (img.pixel(I, J) == origColor)
-				img.setPixel( I, J, desiredColor);
+	for (I=0;I<img->width();I++)
+		for (J=0;J<img->height();J++)		
+			if (img->pixel(I, J) == origColor)
+				img->setPixel( I, J, desiredColor);
 	return true;
 }
 
@@ -247,3 +247,6 @@ void CField::setZoom(int zoom)
 	}
 
 }
+
+
+

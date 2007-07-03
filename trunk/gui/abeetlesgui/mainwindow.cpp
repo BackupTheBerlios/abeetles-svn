@@ -40,7 +40,7 @@ MainWindow::MainWindow()
     setCentralWidget(mainWidget);
 
 	//non-gui attributes:
-	Env=NULL;
+	Env=NULL;emit envRefIsNull(true);
 	NumSteps=-1;
 	
 	Timer = new QTimer(this);
@@ -85,6 +85,12 @@ MainWindow::MainWindow()
 	ZoomSlid = new ZoomSlider(tr("Zoom: "));
 	connect(ZoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
 	
+	//CheckBox for display
+	DisplayCheck = new QCheckBox(tr("Display On"));
+	//DisplayCheck->resize(100,30);
+	//DisplayCheck->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+	connect(DisplayCheck, SIGNAL(stateChanged(int)),this,SLOT(DisplayChanged(int)));
+
 	//Time LCD
 	
      TimeLCD = new LabeledLCD(tr("Time"));
@@ -99,6 +105,8 @@ MainWindow::MainWindow()
 	 MakeNStepsBut = new QPushButton(tr("Make steps"));
 	 MakeNStepsBut-> setCheckable(true);
 
+	 runBut->setDisabled(true);MakeNStepsBut->setDisabled(true);NumStepsSpin->setDisabled(true);
+
 	 if (false ==connect(runBut,SIGNAL(toggled(bool)),MakeNStepsBut,SLOT(setDisabled(bool))))
 		 QMessageBox::information(this,"MyApp","not connected: runBut,MakeNStepsBut");
 	 if (false ==connect(MakeNStepsBut,SIGNAL(toggled(bool)),runBut,SLOT(setDisabled(bool))))
@@ -106,9 +114,15 @@ MainWindow::MainWindow()
 
 	if (false ==connect(runBut,SIGNAL(toggled(bool)),NumStepsSpin,SLOT(setDisabled(bool))))
 		 QMessageBox::information(this,"MyApp","not connected: runBut,NumStepsSpin");
+	
+	connect(MakeNStepsBut,SIGNAL(toggled(bool)),this,SLOT(runNSteps(bool)));
+	connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
 
-	 connect(MakeNStepsBut,SIGNAL(toggled(bool)),this,SLOT(runNSteps(bool)));
-	 connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
+	//If there is no environment opened, all buttons are disabled
+	connect(this, SIGNAL(envRefIsNull(bool)),runBut,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envRefIsNull(bool)),NumStepsSpin,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envRefIsNull(bool)),MakeNStepsBut,SLOT(setDisabled(bool)));
+
 
 	
 	 //Legend Field:
@@ -143,11 +157,12 @@ MainWindow::MainWindow()
 //	QMessageBox::information(this,"MyApp","7");
     QGridLayout * gridLayout = new QGridLayout;
     //gridLayout->setMargin(5);
-	gridLayout->addWidget(scrollArea,0,0);
-	gridLayout->addLayout(typeViewLayout,1,1);
+	gridLayout->addWidget(scrollArea,0,0,1,2);
+	gridLayout->addLayout(typeViewLayout,1,2);
 	gridLayout->addWidget(ZoomSlid,1,0);
-	gridLayout->addLayout(rightLayout,0,1);
-	gridLayout->addLayout(bottomLayout,2,0,1,2);
+	gridLayout->addWidget(DisplayCheck,1,1,Qt::AlignHCenter);
+	gridLayout->addLayout(rightLayout,0,2);
+	gridLayout->addLayout(bottomLayout,2,0,1,3);
 	//gridLayout->addLayout(
 	gridLayout->setRowStretch(0, 1);
    /* layout->addWidget(topFiller);
@@ -190,6 +205,7 @@ void MainWindow::newEnv()
 	if (Env == 0) Env = new CEnvironment();
 	Env->CreateRandomEnv();
 	emit envRefChanged(Env);//uprav tak, aby to nastalo jen if Env was 0
+	if (Env)emit envRefIsNull(false); else emit envRefIsNull(true);
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
@@ -208,6 +224,7 @@ void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ul
 		if (Env == 0) Env = new CEnvironment();
         Env->LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
 		emit envRefChanged(Env); //uprav tak, aby to nastalo jen if Env was 0
+		if (Env)emit envRefIsNull(false); else emit envRefIsNull(true);
 		renewAllChildren();
 		statusBar()->showMessage(tr("Environment opened."));
 	}
@@ -250,7 +267,8 @@ void MainWindow::saveAggrStats()
 	ActualFN = saveAggrDlg.getSaveFileName(this);
 	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".txt";
-
+	
+	Env->CountStatistics();
     if (Env->Statist.SaveActAgrStatist(ActualFN.toAscii().data(),Env->Time))
 		statusBar()->showMessage(tr("Aggregated statistics saved."));
 	else
@@ -528,10 +546,11 @@ void MainWindow::renewAllChildren()
 	TimeLCD->setValue(Env->Time);
 	//QMessageBox::information(this,"MyApp","1");
 	if (Field == NULL){
-		QMessageBox::information(this,"MyApp","Field is not created");
+		QMessageBox::information(this,"MyApp","Field was not created");
 		return;
 	}
-	Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
+	if (DisplayCheck->checkState() == Qt::Checked)
+		Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
 }
 
 void MainWindow::run(bool bStart)
@@ -624,3 +643,21 @@ void MainWindow::showCellDetails(int x,int y)
 	else
 		QMessageBox::information(this,"Cell details","Coords: "+QString::number(x)+", "+QString::number(y));
 }
+
+void MainWindow::DisplayChanged(int value)//Qt values: Qt::Checked, Qt::Unchecked
+{
+	if (value==Qt::Unchecked)
+	{
+		TypeViewCombo->setDisabled(true);
+		ZoomSlid->setDisabled(true);
+		Field->setDisabled(true);
+	}
+	if (value==Qt::Checked)
+	{
+		TypeViewCombo->setDisabled(false);
+		ZoomSlid->setDisabled(false);
+		Field->setDisabled(false);
+	}
+
+}
+

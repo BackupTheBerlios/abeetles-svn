@@ -17,6 +17,7 @@ class ZoomSlider : public QWidget
 
 	public  slots:
 	void setValue(int newValue);
+	void setDisabled(bool isDis);
 
 	signals:    //are alway protected
 	void valueChanged(int newValue);

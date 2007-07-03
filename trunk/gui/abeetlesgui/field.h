@@ -36,7 +36,7 @@ protected:
 	QPoint * getCellFromPoint(int x, int y, int zoom);
 	virtual void mousePressEvent ( QMouseEvent * evnt );
 	bool loadBeetleImages();
-	bool change1ImgColor(QImage img, QRgb origColor, QRgb desiredColor);
+	bool change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor);
 
 private:
 	int TypeView;

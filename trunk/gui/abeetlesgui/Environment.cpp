@@ -12,8 +12,7 @@ extern int RandInBound (int bound);
 
 CEnvironment::CEnvironment(void)
 {
-	Time=0; //Remake to load it from some save file of the environment!
-	DisplayOn = true; 
+	Time=0; //Remake to load it from some save file of the environment!	
 	LoadEnv();
 	//load function of Age and EnergyFromFlower from bmp file		
 	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
@@ -29,7 +28,6 @@ CEnvironment::CEnvironment(void)
 CEnvironment::CEnvironment(char * fname)
 {	
 	Time=0; //Remake to load it from some save file of the environment!
-	DisplayOn = true; 
 	LoadEnv(fname);	
 	//load function of Age and EnergyFromFlower from bmp file	
 	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
@@ -442,10 +440,13 @@ bool CEnvironment::CreateRandomEnv(void)
 	{
 		I=RandInBound(Grid_Past.G_Width);
 		J=RandInBound(Grid_Past.G_Height);
-		beetle=CreateRandomBeetle();
-		if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
-			Statist.NumBeetles++;
-		assert(beetle->GetEnergy()>0);
+		if (Grid_Past.GetCellContent(I,J)==NOTHING)
+		{
+			beetle=CreateRandomBeetle();
+			if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
+				Statist.NumBeetles++;
+			assert(beetle->GetEnergy()>0);
+		}
 		//printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
 
 	}
@@ -574,6 +575,13 @@ char CEnvironment::RotateDirection(char direction, char L_R_F)
 	//if (L_R_F== 'F') ;
 	return direction;
 }
+
+/**
+* Public method <br>
+* Description: Counts Statistics of two kinds: NumFlower, NumBeetles and NumBirths (useful after loading of environment) and counts Sums of features of beetles(necessary before call to Statist->SaveAggrStatistics())<br>
+* System dependence: no.<br>
+* Usage comments: Two different cases of usage. View description part.<br>
+*/
 
 void CEnvironment::CountStatistics(void)
 {

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'zoomslider.h'
 **
-** Created: Wed 27. Jun 13:27:50 2007
+** Created: Tue 3. Jul 13:29:37 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ static const uint qt_meta_data_ZoomSlider[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   10, // methods
+       3,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
@@ -31,13 +31,14 @@ static const uint qt_meta_data_ZoomSlider[] = {
 
  // slots: signature, parameters, type, tag, flags
       39,   12,   11,   11, 0x0a,
+      59,   53,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ZoomSlider[] = {
     "ZoomSlider\0\0newValue\0valueChanged(int)\0"
-    "setValue(int)\0"
+    "setValue(int)\0isDis\0setDisabled(bool)\0"
 };
 
 const QMetaObject ZoomSlider::staticMetaObject = {
@@ -67,8 +68,9 @@ int ZoomSlider::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 1: setValue((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 2: setDisabled((*reinterpret_cast< bool(*)>(_a[1]))); break;
         }
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }

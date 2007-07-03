@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed 27. Jun 13:27:47 2007
+** Created: Tue 3. Jul 13:29:34 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,37 +22,40 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   10, // methods
+      15,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
  // signals: signature, parameters, type, tag, flags
       16,   12,   11,   11, 0x05,
+      52,   45,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      45,   11,   11,   11, 0x08,
-      54,   11,   11,   11, 0x08,
-      64,   11,   11,   11, 0x08,
-      74,   11,   11,   11, 0x08,
-      93,   86,   11,   11, 0x08,
-     103,   86,   11,   11, 0x08,
-     119,   11,   11,   11, 0x08,
-     131,   11,   11,   11, 0x08,
-     147,   11,   11,   11, 0x08,
-     163,   11,   11,   11, 0x08,
-     183,  179,   11,   11, 0x08,
-     208,   11,   11,   11, 0x08,
+      71,   11,   11,   11, 0x08,
+      80,   11,   11,   11, 0x08,
+      90,   11,   11,   11, 0x08,
+     100,   11,   11,   11, 0x08,
+     119,  112,   11,   11, 0x08,
+     129,  112,   11,   11, 0x08,
+     145,   11,   11,   11, 0x08,
+     163,  157,   11,   11, 0x08,
+     183,   11,   11,   11, 0x08,
+     199,   11,   11,   11, 0x08,
+     215,   11,   11,   11, 0x08,
+     235,  231,   11,   11, 0x08,
+     260,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0env\0envRefChanged(CEnvironment*)\0"
-    "newEnv()\0openEnv()\0saveEnv()\0saveEnvAs()\0"
-    "bStart\0run(bool)\0runNSteps(bool)\0"
-    "make1Step()\0saveAggrStats()\0saveTimeStats()\0"
-    "saveHistStats()\0x,y\0showCellDetails(int,int)\0"
-    "about()\0"
+    "isNull\0envRefIsNull(bool)\0newEnv()\0"
+    "openEnv()\0saveEnv()\0saveEnvAs()\0bStart\0"
+    "run(bool)\0runNSteps(bool)\0make1Step()\0"
+    "value\0DisplayChanged(int)\0saveAggrStats()\0"
+    "saveTimeStats()\0saveHistStats()\0x,y\0"
+    "showCellDetails(int,int)\0about()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -81,20 +84,22 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: envRefChanged((*reinterpret_cast< CEnvironment*(*)>(_a[1]))); break;
-        case 1: newEnv(); break;
-        case 2: openEnv(); break;
-        case 3: saveEnv(); break;
-        case 4: saveEnvAs(); break;
-        case 5: run((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 6: runNSteps((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 7: make1Step(); break;
-        case 8: saveAggrStats(); break;
-        case 9: saveTimeStats(); break;
-        case 10: saveHistStats(); break;
-        case 11: showCellDetails((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 12: about(); break;
+        case 1: envRefIsNull((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 2: newEnv(); break;
+        case 3: openEnv(); break;
+        case 4: saveEnv(); break;
+        case 5: saveEnvAs(); break;
+        case 6: run((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: runNSteps((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: make1Step(); break;
+        case 9: DisplayChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: saveAggrStats(); break;
+        case 11: saveTimeStats(); break;
+        case 12: saveHistStats(); break;
+        case 13: showCellDetails((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 14: about(); break;
         }
-        _id -= 13;
+        _id -= 15;
     }
     return _id;
 }
@@ -104,4 +109,11 @@ void MainWindow::envRefChanged(CEnvironment * _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void MainWindow::envRefIsNull(bool _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }

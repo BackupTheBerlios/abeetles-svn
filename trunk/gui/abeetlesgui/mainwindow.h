@@ -58,6 +58,8 @@ private slots:
 	void run(bool bStart);
 	void runNSteps(bool bStart);
 	void make1Step();
+
+	void DisplayChanged(int value);//Qt values: Qt::checked, Qt::unchecked
 	
     void saveAggrStats();
     void saveTimeStats();
@@ -79,6 +81,7 @@ private slots:
 
 signals:
 	void envRefChanged(CEnvironment * env);
+	void envRefIsNull(bool isNull);
 
 private:
 	LabeledLCD * NumFlowersLCD;
@@ -91,6 +94,7 @@ private:
 	QSpinBox * NumStepsSpin;
 	QPushButton * MakeNStepsBut;
 	ZoomSlider * ZoomSlid;
+	QCheckBox * DisplayCheck;
 
 	QTimer * Timer;
 

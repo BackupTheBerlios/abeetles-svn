@@ -63,3 +63,8 @@ int ZoomSlider::value() const
 {
   return Slider->value();
 }
+
+void ZoomSlider::setDisabled(bool isDis)
+{
+	Slider->setDisabled(isDis);
+}

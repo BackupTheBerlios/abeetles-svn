@@ -17,7 +17,7 @@
 #define EFF_BMP_Y 20
 #define EFF_BMP_FILE "EnergyFromFlower.bmp"
 
-#define MAXTIME 20000
+#define MAXTIME 200000 
 
 #define NUM_ACTIONS 3	//changed 26.5. - beforehead: 5, including A_COPULATE
 
@@ -32,10 +32,11 @@
 
 #define HA_COPULATE 3	//hardwired action - copulate
 
+//!!!remake to const attributes of CEnvironment
 #define A_STEP_COSTS 2
 #define A_ROTATION_COSTS 2
 #define A_COPULATION_COSTS 3
-#define A_WAIT_COSTS 1
+#define A_WAIT_COSTS 1 //used when chosen action cannot be performed
 
 
 #define NOT_HUNGRY 1
@@ -98,7 +99,7 @@
 #define MAX_INT 2147483647
 
 //statistics concerned:
-#define BUF_SIZE 10
+#define BUF_SIZE 500
 #define STAT_AGR_FILE "statAgr.txt"
 #define STAT_TIME_FILE "statTime.csv"
 #define STAT_TIME_FILE_OLD "statTime_old.csv"

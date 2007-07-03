@@ -1,0 +1,12 @@
+ ---------- 
+Time=15100
+NumBeetles=220;
+NumBirths=4;
+NumFlowers=128;
+AvgAge=41.672727;
+AvgEnergy=25.140909;
+AvgHungryThreshold=28.963636;
+AvgInvInChild=9.050000;
+AvgLearnAbility=22.804545;
+AvgNumChildren=2.859091;
+ ---------- 
