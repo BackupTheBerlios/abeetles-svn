@@ -3,18 +3,22 @@
 #include "Grid.h"
 #include "CfgManager.h"
 #include "StatisticsEnv.h"
+#include <QWidget>
 
 //make globals visible
 extern CfgManager CfgMng;
 class QImage;
 
-class CEnvironment
+class CEnvironment: public QObject
 {
+	Q_OBJECT
 public:
 	CEnvironment(void);
-	CEnvironment(char * fname);
+	//CEnvironment(char * fname);//constructor for loading environment from file
+	//CEnvironment::CEnvironment(int seed); // creation of random environment
 	~CEnvironment(void);
 	
+	bool IsEmpty;
 	CGrid Grid_Past; //actual grid
 	CGrid Grid; //grid for the following time value
 	int Time;
@@ -25,15 +29,13 @@ public:
 	int GetBeetleNeighborCell(int x, int y, char direction, char L_R_F, CBeetle ** beetle =0);
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);
+	bool CleanEnv();
 
 
 	bool LoadEnv(char * filename=0);
 	bool SaveEnv(char * filename);
 	bool CreateDefaultEnv(void);
-
-	CBeetle * CreateRandomBeetle();
-	bool CreateRandomEnv(void);
-
+	
 	bool MakeFlowerGrow(int x, int y);
 	bool A_Copulate(int x, int y, CBeetle * beetle);
 	bool A_Step(int x, int y, char direction);
@@ -47,5 +49,6 @@ public:
 	char * getBeetlesFileName(char *fname);
 	char * getTimeStatsFileName(char *fname);
 
-
+	CBeetle * CreateRandomBeetle();
+	bool FillEmptyEnvRandomly(int seed);
 };

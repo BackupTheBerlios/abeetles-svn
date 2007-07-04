@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'LabeledLCD.h'
 **
-** Created: Wed 27. Jun 13:27:46 2007
+** Created: Wed 4. Jul 14:38:06 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!

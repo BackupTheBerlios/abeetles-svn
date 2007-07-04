@@ -216,10 +216,11 @@ QPoint * CField::getCellFromPoint(int x, int y, int zoom)
 
 }
 
-
+/*
 void CField::setEnvRef(CEnvironment *env)
 {
 	Env=env;
+	QMessageBox::information(NULL,"MyApp","Reference is assigned"); //ch1
 
 	int fieldWidth=EMPTY_FIELD_SIZE;
 	if (Env) fieldWidth= ZoomToGapSize[Zoom]+((Env->Grid.G_Width)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
@@ -229,7 +230,7 @@ void CField::setEnvRef(CEnvironment *env)
 	setFixedSize(QSize(fieldWidth,fieldHeight));
 	
 	update();
-}
+}*/
 
 void CField::setZoom(int zoom)
 {

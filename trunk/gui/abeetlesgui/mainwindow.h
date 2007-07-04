@@ -25,6 +25,7 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include "Environment.h"
 
 class QAction;
 class QActionGroup;
@@ -42,6 +43,8 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow();
+
+	CEnvironment Env;	
 
 //Context menu - not used now.
 /* 
@@ -81,7 +84,7 @@ private slots:
 
 signals:
 	void envRefChanged(CEnvironment * env);
-	void envRefIsNull(bool isNull);
+	void envIsEmpty(bool isNull);
 
 private:
 	LabeledLCD * NumFlowersLCD;
@@ -99,9 +102,9 @@ private:
 	QTimer * Timer;
 
 	CField * Field;
-	CEnvironment * Env;	
 	int NumSteps;
 
+	
 	
 	QString ActualFN;
 	//QString mapFN;

@@ -33,14 +33,16 @@
 #include "BeetleDialog.h"
 #include "Legend.h"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow():Env()
 {
+	//Env=new CEnvironment();
+
 	//setting of central widget of the window
     QWidget *mainWidget = new QWidget;
     setCentralWidget(mainWidget);
 
 	//non-gui attributes:
-	Env=NULL;emit envRefIsNull(true);
+//	Env=NULL;emit envIsEmpty(true); Env is now non dynamic attribute.
 	NumSteps=-1;
 	
 	Timer = new QTimer(this);
@@ -66,7 +68,7 @@ MainWindow::MainWindow()
 	 //typeViewLayout->addStretch(1);
 
 	//Field
-	Field= new CField(Env);
+	Field= new CField(&Env);
 
     connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
 	connect(this,SIGNAL(envRefChanged(CEnvironment *)),Field,SLOT(setEnvRef(CEnvironment *)));
@@ -119,9 +121,9 @@ MainWindow::MainWindow()
 	connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
 
 	//If there is no environment opened, all buttons are disabled
-	connect(this, SIGNAL(envRefIsNull(bool)),runBut,SLOT(setDisabled(bool)));
-	connect(this, SIGNAL(envRefIsNull(bool)),NumStepsSpin,SLOT(setDisabled(bool)));
-	connect(this, SIGNAL(envRefIsNull(bool)),MakeNStepsBut,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envIsEmpty(bool)),runBut,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envIsEmpty(bool)),NumStepsSpin,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envIsEmpty(bool)),MakeNStepsBut,SLOT(setDisabled(bool)));
 
 
 	
@@ -202,10 +204,15 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::newEnv()
 {
    //Preliminarily:
-	if (Env == 0) Env = new CEnvironment();
-	Env->CreateRandomEnv();
-	emit envRefChanged(Env);//uprav tak, aby to nastalo jen if Env was 0
-	if (Env)emit envRefIsNull(false); else emit envRefIsNull(true);
+	Env.CleanEnv();
+	QMessageBox::information(NULL,"MyApp","Env is cleaned");
+	Env.FillEmptyEnvRandomly(100);	
+	QMessageBox::information(NULL,"MyApp","Env is filled"); //ch1
+	//emit envRefChanged(Env);//uprav tak, aby to nastalo jen if Env was 0
+	//Field->setEnvRef(Env);
+	
+	if (Env.IsEmpty)emit envIsEmpty(false); else emit envIsEmpty(true);
+	QMessageBox::information(NULL,"MyApp","Message is emited"); //ch1
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
@@ -221,10 +228,10 @@ void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ul
 
     if (!ActualFN.isEmpty()) 
 	{
-		if (Env == 0) Env = new CEnvironment();
-        Env->LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
-		emit envRefChanged(Env); //uprav tak, aby to nastalo jen if Env was 0
-		if (Env)emit envRefIsNull(false); else emit envRefIsNull(true);
+		Env.CleanEnv();
+		Env.LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
+		//emit envRefChanged(Env); 
+		if (Env.IsEmpty)emit envIsEmpty(false); else emit envIsEmpty(true);
 		renewAllChildren();
 		statusBar()->showMessage(tr("Environment opened."));
 	}
@@ -236,7 +243,7 @@ void MainWindow::saveEnv()//pozor! tahle funkce ulozi jenom broucky - chybi: ulo
 		saveEnvAs();
 	else
 	{
-		if (Env->SaveEnv(ActualFN.toAscii().data()))
+		if (Env.SaveEnv(ActualFN.toAscii().data()))
 			statusBar()->showMessage(tr("Environment saved."));
 		else statusBar()->showMessage(tr("Environment was not successfully saved."));
 	}
@@ -253,7 +260,7 @@ void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: u
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
     if (ActualFN.isEmpty())return;
 
-	if (Env->SaveEnv(ActualFN.toAscii().data()))
+	if (Env.SaveEnv(ActualFN.toAscii().data()))
 		statusBar()->showMessage(tr("Environment saved."));
 	else statusBar()->showMessage(tr("Environment was not successfully saved."));
 	
@@ -268,8 +275,8 @@ void MainWindow::saveAggrStats()
 	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".txt";
 	
-	Env->CountStatistics();
-    if (Env->Statist.SaveActAgrStatist(ActualFN.toAscii().data(),Env->Time))
+	Env.CountStatistics();
+    if (Env.Statist.SaveActAgrStatist(ActualFN.toAscii().data(),Env.Time))
 		statusBar()->showMessage(tr("Aggregated statistics saved."));
 	else
 		statusBar()->showMessage(tr("Aggregated statistics were not saved."));
@@ -284,7 +291,7 @@ void MainWindow::saveTimeStats()
 	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
 
-    if (Env->Statist.SaveTimeStatist_InColumnsAppend(ActualFN.toAscii().data()))
+    if (Env.Statist.SaveTimeStatist_InColumnsAppend(ActualFN.toAscii().data()))
 		statusBar()->showMessage(tr("Time statistics saved."));
 	else
 		statusBar()->showMessage(tr("Time statistics were not saved."));
@@ -298,7 +305,7 @@ void MainWindow::saveHistStats()
 	ActualFN = saveHistDlg.getSaveFileName(this);
 	if (ActualFN.isEmpty())return;
 	ActualFN=ActualFN.left(ActualFN.lastIndexOf("."))+".csv";
-	if (Env->Statist.SaveActHistStatist(ActualFN.toAscii().data(),Env->Time,&Env->Grid))
+	if (Env.Statist.SaveActHistStatist(ActualFN.toAscii().data(),Env.Time,&Env.Grid))
 		statusBar()->showMessage(tr("Histogram statistics saved."));
 	else
 		statusBar()->showMessage(tr("Histogram statistics were not saved."));
@@ -540,10 +547,10 @@ void MainWindow::createMenus()
 */
 void MainWindow::renewAllChildren()
 {
-	NumBeetlesLCD->setValue(Env->Statist.NumBeetles);
-	NumFlowersLCD->setValue(Env->Statist.NumFlowers);
-	NumBirthsLCD->setValue(Env->Statist.NumBirths);
-	TimeLCD->setValue(Env->Time);
+	NumBeetlesLCD->setValue(Env.Statist.NumBeetles);
+	NumFlowersLCD->setValue(Env.Statist.NumFlowers);
+	NumBirthsLCD->setValue(Env.Statist.NumBirths);
+	TimeLCD->setValue(Env.Time);
 	//QMessageBox::information(this,"MyApp","1");
 	if (Field == NULL){
 		QMessageBox::information(this,"MyApp","Field was not created");
@@ -599,31 +606,31 @@ void MainWindow::make1Step()
 		MakeNStepsBut->toggle();
 		return;
 	}
-	if (Env->Time>=MAXTIME) 
+	if (Env.Time>=MAXTIME) 
 	{
 		QMessageBox::information(this,"MyApp","Maximum of time reached. Start a new environment.");
 		Timer->stop();
 		NumSteps=-1;
 	}
 
-	for(I=0;I<Env->Grid_Past.G_Width;I++)
-		for(J=0;J<Env->Grid_Past.G_Height;J++)
+	for(I=0;I<Env.Grid_Past.G_Width;I++)
+		for(J=0;J<Env.Grid_Past.G_Height;J++)
 		{
-			if (Env->Grid_Past.GetCellContent(I,J)==BEETLE) Env->MakeBeetleAction(I,J);
-			if (Env->Grid_Past.GetCellContent(I,J)==NOTHING) Env->MakeFlowerGrow(I,J);
+			if (Env.Grid_Past.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
+			if (Env.Grid_Past.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
 			//if there is a wall, flower of something bad, do nothing
 		}
 
 		//output 
 		/*
-		if (Env->DisplayOn)
+		if (Env.DisplayOn)
 		{
-			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env->Statist.NumBeetles,Env->Statist.NumBirths,Env->Statist.NumFlowers);		
-			Env->PrintEnv();	
+			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
+			Env.PrintEnv();	
 		}*/
 	if (NumSteps>0) NumSteps--;
 			
-	Env->NextTime();
+	Env.NextTime();
 	renewAllChildren();
 
 
@@ -632,7 +639,7 @@ void MainWindow::make1Step()
 void MainWindow::showCellDetails(int x,int y)
 {
 	CBeetle * beetle=NULL;
-	if (Env->Grid.GetCellContent(x,y,&beetle) == BEETLE)
+	if (Env.Grid.GetCellContent(x,y,&beetle) == BEETLE)
 	{
 		//QMessageBox::information(this,"","1");
 		if (beetle==NULL) QMessageBox::information(this,"","XX");

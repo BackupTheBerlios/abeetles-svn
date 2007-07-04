@@ -6,10 +6,11 @@
 #define WALL 2
 #define NOTHING 1
 
-#define G_WIDTH_MAX 50 
+#define G_WIDTH_MAX 50 //maximum of content of the grid, without borders
 #define G_WIDTH_MIN 5
 #define G_HEIGHT_MAX 50
-#define G_HEIGHT_MIN 5
+#define G_HEIGHT_MIN  5
+#define G_FIRST_INDEX_MAX 1
 #define DEFAULT_GRID_WIDTH 30
 #define DEFAULT_GRID_HEIGHT 30
 
@@ -121,6 +122,6 @@
 #define COLOR_WALL	"black"
 #define COLOR_FLOWER "yellow"
 
-#define EMPTY_FIELD_SIZE 200
+#define EMPTY_FIELD_SIZE 30
 
 

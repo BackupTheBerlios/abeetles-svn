@@ -53,13 +53,13 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 
 
 /**
-* Protected method
-* Desc:  Loads bmp file of environment and fills the grid's first layer according to it. Only environ without beetles.
-* System dependence: windows specific (windows.h)
+* Public method
+* Desc:  Loads bmp file of environment sets width and height and fills the grid's first layer according to it. Only environ without beetles.<br>
+* System dependence: OS:no, lib: qt <br>
 * Usage comments: 
-* @return (Return values - meaning) :
-* @param name [ descrip](Parameters - meaning):
-* @throws name [descrip](Exceptions - meaning)
+* @return (true - if loaded, false if not successful. The content of the Grid stays then unchanged.)<br>
+* @param grid [Reference to the grid object]<br>
+* @param filename [Complete name of the file of the grid. Can have any extension. Checked only for bmp.]<br>
 */
 //
 bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
@@ -67,12 +67,21 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 //1. Read the bmp file
 	QImage * img = new QImage (filename);
 	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
-	if ((img==NULL)||(img->width()< grid->G_Width) ||( img->height()< grid->G_Height))
+	if (img==NULL)
 	{
-		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: "+QString::number( grid->G_Width)+", "+QString::number(grid->G_Height));
+		QMessageBox::information(NULL,"MyApp","No file "+QString::fromAscii(filename)+" found."); 
 		return false;
 	}
-
+	if ((img->width()<= G_WIDTH_MAX) && (img->width()>= G_WIDTH_MIN) && (img->height()<= G_HEIGHT_MAX)&&(img->height()>= G_HEIGHT_MIN))
+	{
+		grid->G_Width = img->width();
+		grid->G_Height = img->height();
+	}
+	else
+	{
+		QMessageBox::information(NULL,"MyApp","Bitmap "+QString::fromAscii(filename)+" has not correct size. Correct size is from "+QString::number(G_WIDTH_MIN)+"x"+QString::number(G_HEIGHT_MIN)+" to "+QString::number(G_WIDTH_MAX)+"x"+QString::number(G_HEIGHT_MAX)+".");
+		return false;
+	}
 //2.Fill grid with information from the image
 	
 	QRgb color;	
@@ -120,7 +129,7 @@ bool CfgManager::SaveMapToBmp(CGrid * grid, char * filename)
 										ColorFromFlowerProbability(grid->GetCellGrowingProbability(I,J)),
 										0));
 		}
-	return img.save(filename,"BMP");
+	return img.save(filename,"bmp");
 }
 
 
@@ -201,6 +210,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	if (NULL==(btlFile= fopen(filename,"r"))) 
 	{
 		printf("%d",errno);
+		QMessageBox::information(NULL,"MyApp","Loading of file of beetles "+QString::fromAscii(filename)+" was not successful."); 
 		return false;
 	}
 
@@ -278,7 +288,10 @@ bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
 	int x,y;
 	QFile flwFile (filename);
 	 if (!flwFile.open(QIODevice::ReadOnly | QIODevice::Text))
+	 {
+		 QMessageBox::information(NULL,"MyApp","Loading of file of flowers "+QString::fromAscii(filename)+" was not successful.");
          return false;
+	 }
 	while (!flwFile.atEnd())
 	{
 		QByteArray line = flwFile.readLine();

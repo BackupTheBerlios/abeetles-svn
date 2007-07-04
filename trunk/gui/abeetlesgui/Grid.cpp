@@ -6,22 +6,29 @@
 CGrid::CGrid(void)
 {
 	int I,J;
-	G_Width=G_WIDTH_MAX;
-	G_Height=G_HEIGHT_MAX;
-	G_FirstIndex=0;
+	G_Width=DEFAULT_GRID_WIDTH;
+	G_Height=DEFAULT_GRID_HEIGHT;
+	G_FirstIndex=1;
 	//init all Grid to zero values.. include borders!
-	for (I=0;I< (G_FirstIndex+G_Width+1);I++)
-		for (J=0;J< (G_FirstIndex+G_Height+1);J++)
+	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
+		for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
 		{
-			SetCellContent(NOTHING,I,J);
-			SetCellGrowingProbability(0,I,J);
+			GridMatrix[I][J][0]=NOTHING;
+			GridMatrix[I][J][1]=0;
+			GridMatrix[I][J][2]=0;
 		}
-
 }
 
 
 CGrid::~CGrid(void)
 {
+	int I,J;
+	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
+			for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
+			{
+				if (GridMatrix[I][J][0]==BEETLE) delete ((CBeetle*)GridMatrix[I][J][1]);	
+			}
+			
 }
 
 /**
@@ -136,13 +143,21 @@ bool CGrid::SetGridShape(int FI,int W,int H)
 * System dependence:no<br>
 * Usage comments:<br>
 */
-void CGrid::CleanGrid()
+
+void CGrid::CleanGridAndBeetles()
 {
-	int I,J,K;
-	for (I=0;I<G_WIDTH_MAX;I++)//colls
-		for (J=0;J<G_HEIGHT_MAX;J++)//rows
-			for (K=0;K<3;K++)
-				GridMatrix[I][J][K]=0;
+	int I,J;
+	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
+			for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
+			{
+				if (GridMatrix[I][J][0]==BEETLE) delete ((CBeetle*)GridMatrix[I][J][1]);
+				GridMatrix[I][J][0]=NOTHING;
+				GridMatrix[I][J][1]=0;
+				GridMatrix[I][J][2]=0;
+			}
+	G_Width=DEFAULT_GRID_WIDTH;
+	G_Height=DEFAULT_GRID_HEIGHT;
+	G_FirstIndex=1;
 }
 
 

@@ -13,6 +13,7 @@ INPUT(
 ./debug\zoomslider.o
 ./debug\moc_Legend.o
 ./debug\moc_BeetleDialog.o
+./debug\moc_Environment.o
 ./debug\moc_field.o
 ./debug\moc_LabeledLCD.o
 ./debug\moc_mainwindow.o

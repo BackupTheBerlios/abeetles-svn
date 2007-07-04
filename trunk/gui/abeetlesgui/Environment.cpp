@@ -12,19 +12,40 @@ extern int RandInBound (int bound);
 
 CEnvironment::CEnvironment(void)
 {
-	Time=0; //Remake to load it from some save file of the environment!	
-	LoadEnv();
+	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
+	Time=0; 
+	IsEmpty=true;
+	
+
 	//load function of Age and EnergyFromFlower from bmp file		
 	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
 	{
 		QErrorMessage errDlg;
-		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful."));
+		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful. Application will terminate."));
 		exit (EXIT_FAILURE);
 	}
-	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
-
+	QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+	
 }
+/*
+CEnvironment::CEnvironment(int seed)
+{
+	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
 
+	Time=0; 
+
+	//load function of Age and EnergyFromFlower from bmp file		
+	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
+	{
+		QErrorMessage errDlg;
+		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful. Application will terminate."));
+		exit (EXIT_FAILURE);
+	}
+	QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+	
+	this->FillEmptyEnvRandomly(seed);
+	QMessageBox::information(NULL,"MyApp","Filled Randomly"); //ch1
+}
 CEnvironment::CEnvironment(char * fname)
 {	
 	Time=0; //Remake to load it from some save file of the environment!
@@ -36,7 +57,7 @@ CEnvironment::CEnvironment(char * fname)
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful."));
 		exit (EXIT_FAILURE);
 	}
-}
+}*/
 
 CEnvironment::~CEnvironment(void)
 {
@@ -373,18 +394,13 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 bool CEnvironment::LoadEnv(char * fname) 
 {
 	int res = true;
-	Grid_Past.SetDefaultGridShape();
-
-	if (fname==0) 
-	{
-		Grid_Past.CleanGrid();
-		return false;
-	}
+	
+	if (fname==0) return false;
+	
 
 	//1st part - init environment: Loads map of environment
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,getMapFileName(fname)))
 	{
-		Grid_Past.CleanGrid();
 		res=false;
 	}
 
@@ -401,6 +417,7 @@ bool CEnvironment::LoadEnv(char * fname)
 	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname),&Time))
 	{ res=false; Time=0;}
 
+	IsEmpty=false;
 	return res;
 }
 
@@ -424,16 +441,18 @@ bool CEnvironment::SaveEnv(char * fname)
 	return res;
 }
 
-bool CEnvironment::CreateRandomEnv(void)
+bool CEnvironment::FillEmptyEnvRandomly(int seed)
 {
-
-	Grid_Past.SetDefaultGridShape();
+	//Grid_Past.SetDefaultGridShape();
+	//Grid and Grid_Past now have old or default values.
 
 	//First part - init environment: Loads environment without beetles
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE))return false;
 
+	QMessageBox::information(NULL,"MyApp","Map is loaded"); //ch1
+
 	//Second part - create beetles and add them to half finished environment
-	srand( 100);//(unsigned)time( NULL ) );
+	srand( seed);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
 	for (K=0;K<150;K++)
@@ -454,7 +473,8 @@ bool CEnvironment::CreateRandomEnv(void)
 	Grid=Grid_Past;
 	Time=0;
 	CountStatistics();
-
+	IsEmpty=false;
+	QMessageBox::information(NULL,"MyApp","Statistics Counted"); //ch1
 	return true;
 }
 
@@ -649,3 +669,12 @@ char * CEnvironment::getTimeStatsFileName(char *fname)
 	qFN+="_tst.csv";
 	return qFN.toAscii().data();
 }
+
+bool CEnvironment::CleanEnv()
+{
+	IsEmpty=true;
+	Grid.CleanGridAndBeetles();
+	Grid_Past.CleanGridAndBeetles();
+	Time=0;
+}
+

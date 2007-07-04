@@ -22,7 +22,7 @@ public:
 public slots:
 	void setTypeView(const QString& type);
 	void renewField();
-	void setEnvRef(CEnvironment * env);
+	//void setEnvRef(CEnvironment * env);
 	void setZoom(int);
 
 //signals:

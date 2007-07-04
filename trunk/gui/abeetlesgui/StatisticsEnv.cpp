@@ -7,6 +7,9 @@
 #include "assert.h"
 //#include <QMessageBox>
 #include <QFile>
+#include <QString>
+#include <QMessageBox>
+
 
 
 
@@ -305,6 +308,7 @@ bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
 
 	if ((stTF= fopen(tst_filename,"r"))==0) 
 	{
+		QMessageBox::information(NULL,"MyApp","Loading of file of time statistics "+QString::fromAscii(tst_filename)+" was not successful."); 
 		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
 		return false;
 	}
