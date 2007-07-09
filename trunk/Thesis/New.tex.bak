@@ -31,7 +31,7 @@ These contain organisms with a complex DNA language, usually Turing complete. Th
 \section {Program-based}
 \begin{itemize}
     \item  Artificial Planet
-    \item  Avida 
+    \item  Avida
 		Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
     \item  Breve
     \item  DarwinHom
@@ -41,7 +41,7 @@ These contain organisms with a complex DNA language, usually Turing complete. Th
     \item  Grey Thumb Society Simulators
           (Archis, Nanopond)
     \item  Physis (software)
-    \item  Tierra 
+    \item  Tierra
 			Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite{Tierra}
 \end{itemize}
 
@@ -142,10 +142,10 @@ commercial game based on evolution of creatures.
 \end{itemize}
 
 \chapter{Model of Abeetles}
-Abeetles would like to contribute to the set of artificial life applications. Its predecesor is the program Broucci developed at the Faculty of Mathematic and Physis at Charles University by RNDr.Tomas Holan Phd. as a  sample program for teaching purposes. Its source code is available at \url{http://ksvi.mff.cuni.cz/\~holan/jinak/}.
+Abeetles would like to contribute to the set of artificial life applications. Its predecesor is the program Broucci developed at the Faculty of Mathematic and Physics at Charles University in Prague by RNDr.Tomas Holan Phd. as a  sample program for teaching purposes. The source code of Broucci is available at \url{http://ksvi.mff.cuni.cz/\~holan/jinak/}.
 
 Program Broucci implements interesting ideas - evolution of strategy of motion of simple beetles in a grid with obstacles or in case when beetles eat each other. Closer description of this application can be found in chapter Survey of existing artificial life applications. Abeetle overtook some of these ideas and strives to apply them in new ways.\\
-On the whole, there are quite a few artificial life applications. This topic became famous in past decade and encouraged this field of knowledge to considerable development. Existing applications cover wide range of interesting features and access the problematics from different points of view. Some of these applications and articles on this topic work are accessible completely, with all documentation, other are poorly documented or without source code and some are even not accessible freely at all. For example the website of International Society of Artificial Life demands membership fees for access to presented information. Therefore the objective to allocate a set of features and attitudes for a new artifical life system that would be verifiably original is hardly reachable. 
+On the whole, there are quite a few artificial life applications. This topic became famous in past decade and encouraged this field of knowledge to considerable development. Existing applications cover wide range of interesting features and access the problematics from different points of view. Some of these applications and articles on this topic work are accessible completely, with all documentation, other are poorly documented or without source code and some are even not accessible freely at all. For example the website of International Society of Artificial Life demands membership fees for access to presented information. Therefore the objective to allocate a set of features and attitudes for a new artifical life system that would be verifiably original is hardly reachable.
 
 Accordingly Abeetles only strive to present an original set of features and attitudes among well-described parts of free and accesible implementations of artificial life.
 

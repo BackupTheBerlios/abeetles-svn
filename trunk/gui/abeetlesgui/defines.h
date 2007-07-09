@@ -100,7 +100,7 @@
 #define MAX_INT 2147483647
 
 //statistics concerned:
-#define BUF_SIZE 500
+#define BUF_SIZE 1000
 #define STAT_AGR_FILE "statAgr.txt"
 #define STAT_TIME_FILE "statTime.csv"
 #define STAT_TIME_FILE_OLD "statTime_old.csv"

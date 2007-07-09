@@ -254,12 +254,18 @@ void MainWindow::saveEnv()//pozor! tahle funkce ulozi jenom broucky - chybi: ulo
 void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
     QFileDialog saveDlg;
-	saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
+	//saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	saveDlg.setFilter("All files (*.*)");
 	ActualFN = saveDlg.getSaveFileName(this);
+	QMessageBox::information(NULL,"MyApp",ActualFN); 
     if (ActualFN.isEmpty())return;
+		//if the filename already contains the suffix, I want to remove it
+	if ( (-1!=ActualFN.lastIndexOf("_btl.txt"))||(-1!=ActualFN.lastIndexOf("_flw.txt"))||(-1!=ActualFN.lastIndexOf("_map.bmp"))||(-1!=ActualFN.lastIndexOf("_tst.csv")) )
+		ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
+	else	//otherwise I remove only the ending
+		ActualFN=ActualFN.left(ActualFN.lastIndexOf("."));
 
-	ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
+	QMessageBox::information(NULL,"MyApp",ActualFN);
     if (ActualFN.isEmpty())return;
 
 	if (Env.SaveEnv(ActualFN.toAscii().data()))

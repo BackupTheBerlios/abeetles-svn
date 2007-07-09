@@ -1,3 +1,47 @@
+%Analýza a návrh øešení konkrétního problému
+
+%Analýza a návrh øešení problému z oblasti úzce související se
+%softwarovým èi datovým inženýrstvím nebo systémovým prostøedím.
+%Výsledkem je výzkumná zpráva a prototypové øešení.
+
+
+
+%Vypracování musí demonstrovat pochopení problému. Tedy práce by
+%nemìla pouze slepì následovat první zjevnou cestu k øešení, èi
+%cestu naznaèenou v zadání. Autor musí ze všeho nejdøíve ukázat, že
+%chápe, jaký problém má øešit, a že je schopen vysvìtlit, èeho a
+%proè chce dosáhnout.
+
+%Text práce má dokumentovat postup vypracování øešení tak, aby bylo
+%možné posoudit, zda si autor poèínal vhodnì, a zda si byl vìdom
+%souvislostí, které jeho vypracování ovlivòují. Tedy je tøeba
+%systematicky a pøehlednì vysvìtlit a zdùvodnit dùležitá rozhodnutí
+%uèinìná pøi vypracování práce. Text práce má popisovat zvolené
+%øešení strukturovanì shora dolù, a zabíhat do detailu pouze v
+%pøípadech nestandardních postupù nebo rozhodnutí.
+
+%Pokud práce z prostorových èi kapacitních dùvodù neobsahuje
+%nejlepší možné øešení problému, mìla by vysvìtlit, jak by
+%optimální øešení mohlo vypadat.
+
+%Hrubá osnova výzkumné zprávy:
+
+%1.         Úvod charakterizující kontext problému - introduction
+%2.         Pøesné vymezení problému 
+%3.         Pøesné vymezení cílù návrhu
+%4.         Struktura práce ve vztahu k vytyèeným cílùm
+%5.         Analýza problému z rùzných hledisek
+%6.         Návrh øešení s diskusí alternativ
+%7.         Rozpracování vybraného pøístupu
+%8.         Popis prototypové implementace
+%9.         Zhodnocení splnìní cílù a srovnání s jinými známými pøístupy
+%10.        Závìr se struèným shrnutím výsledkù a pøínosu
+%11.        Seznam citované literatury
+
+%Implementace musí být odevzdána jednak v podobì zdrojových souborù a všech dat potøebných k jejímu pøekladu a spuštìní, jednak v již pøeložené a spustitelné podobì. Na zdrojových souborech musí být jasnì patrné, které èásti implementace jsou autorovým pùvodním dílem, a které jsou pøevzaté (generovaný kód, knihovny ...).
+
+%Spustitelná podoba práce musí demonstrovat funkènost implementace. Pokud je k takové demonstraci potøeba netriviální prostøedí èi nastavení, autor práce jí musí na požádání pøedvést vedoucímu a oponentovi, pøípadnì také hodnotící komisi.
+
 \documentclass [10pt]{report}
 
 \title{The Tool for Modeling of Evolution of the Artificial Life}
@@ -12,9 +56,9 @@
 Software tool allowing experiments with the evolution of simple organisms.
 \end{abstract}
 
-\chapter{Artificial life}
+\chapter{Introduction}
 
-% *************2 pages about Artificial life - definition, history, contemporary course********************************
+% *************3 pages about 1.Artificial life - definition, history, contemporary course 2. Brief context of my thesis********************************
 
 %******************Definition of Artificial life*********************
 Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}).
@@ -25,14 +69,18 @@ Artificial life compliments traditional Biology by trying to recreate biological
 
 Related term to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are mostly focused on evolution of motion, shape, visual art and music. In my work I've used the Genetic Programming technique which allows the evolution of parameter based organisms.
 
+%******************Context of my thesis - cathegories of Alife and ranking of my work. Short about existing brother programs and programs that inspired me.
+
+
 \chapter{Survey of existing artificial life applications}
+%*************************5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
 
 These contain organisms with a complex DNA language, usually Turing complete. This language is more often in the form of a computer program than actual biological DNA. Assembly derivatives are the most common languages used. Use of cellular automata is common but not required.
 \section {Program-based}
 \begin{itemize}
     \item  Artificial Planet
     \item  Avida
-		Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
+        Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
     \item  Breve
     \item  DarwinHom
     \item  Darwinbots
@@ -42,7 +90,7 @@ These contain organisms with a complex DNA language, usually Turing complete. Th
           (Archis, Nanopond)
     \item  Physis (software)
     \item  Tierra
-			Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite{Tierra}
+            Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite{Tierra}
 \end{itemize}
 
 
@@ -61,13 +109,13 @@ Organisms are generally constructed with pre defined and fixed behaviors that ar
             Darwin Pond is older version of the newer system Gene Pool. This system is an imaginary pool, where live swimbots. Swimbots move by swimming, eat food growing in the pool and reproduce sexually. This system was designed to explore topics of relations between natural and sexual selection.
 Their Darwinian fitness is how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots. So they evolve their swimming techniques and features that might be attractive to other swimbots. Author of this program published interesting discoveries about results of setting various attraction criteria. Criterion "still" (i.e., swimbots exhibiting the least amount of motion become the most attractive) causes swimbots to converge on distinct bifurcation among body types resembling sexual dimorphism.
 
-				Model of the system: Swimbots consist of mouth, genitals and 2-10 parts,  which rotate and let the swimbot move. Parameters of this parts are coded in genes. Each swimbot has its current level of energy, which is used for moving, obtained from food and 50\% of it gives parent swimbot to its offspring. Amount of energy in all system is constant, changing in the way: food->swimbots->pool->food.
+                Model of the system: Swimbots consist of mouth, genitals and 2-10 parts,  which rotate and let the swimbot move. Parameters of this parts are coded in genes. Each swimbot has its current level of energy, which is used for moving, obtained from food and 50\% of it gives parent swimbot to its offspring. Amount of energy in all system is constant, changing in the way: food->swimbots->pool->food.
 Swimbot chooses its mate for reproduction in its "view horizon" at one snapshot. It chooses one mate which most satisfied attractiveness criterion. Swimbots mate when at least one of them is pursuing the other, and the distance between their genitals is less than the length of the genital vector) one offspring
 appears in-between them, which inherits genetic building blocks from both parents. A standard genetic-algorithm crossover technique is used, and some random mutation occurs in random genes.
 
-				Settings of the program: The program avails to set the attraction criterion (big, similar color, long, still, crooked,... ). Swimbots can be moved by user, cloned or killed.
+                Settings of the program: The program avails to set the attraction criterion (big, similar color, long, still, crooked,... ). Swimbots can be moved by user, cloned or killed.
 
-				Future development: Recursive embryology, Parental investment and gender.
+                Future development: Recursive embryology, Parental investment and gender.
 
     \item  Evolites (No official article, no precise information)
           Graphical game with creatures called evolites swimming in the sea.
@@ -105,27 +153,27 @@ and lastly, the death of individuals.
 
   \item Primordial life\\
 
-	\item  Broucci - \url{http://ksvi.mff.cuni.cz/~holan/jinak/}
+    \item  Broucci - \url{http://ksvi.mff.cuni.cz/~holan/jinak/}
 Broucci is a program, where beetles move in a toroid-shape area. Every time slot the worst beetle in the population is arbitrarily replaced by a new one, created as a crossover son of the best two ones.
 
     \item  "Cell Based" - Parameters control the expression of "genes" or "proteins" which can themselves interact in complex ways. The resulting organism's properties are largely emergent, but are still encoded in the genome with a finite number of parameters.
        \begin{itemize}
           \item  Cell-O-Sim (\url{http://mbi.dkfz-heidelberg.de/projects/cellsim/cellosim/index.html})
-				 Organisms: cells,
-          	 Features:
-	          Reproduction: division
-	          Environment: tissue of cells
-	          Possibilities:
-	          Multicomp: ??
-				 Under development
+                 Organisms: cells,
+             Features:
+              Reproduction: division
+              Environment: tissue of cells
+              Possibilities:
+              Multicomp: ??
+                 Under development
           \item  Gardens of Kyresoo
-				 Organisms: cells of flowers
-          	 Features: ??
-	          Reproduction: division
-	          Environment: garden for flowers
-	          Possibilities: seeding plants
-	          Multicomp: Yes, more player, cooperation
-				 Under development
+                 Organisms: cells of flowers
+             Features: ??
+              Reproduction: division
+              Environment: garden for flowers
+              Possibilities: seeding plants
+              Multicomp: Yes, more player, cooperation
+                 Under development
        \end{itemize}
 \end{itemize}
 
@@ -142,6 +190,7 @@ commercial game based on evolution of creatures.
 \end{itemize}
 
 \chapter{Model of Abeetles}
+%*******************1-2 pages about choice of my objectives according to previous chapter. I will use Porovnani.xls
 Abeetles would like to contribute to the set of artificial life applications. Its predecesor is the program Broucci developed at the Faculty of Mathematic and Physics at Charles University in Prague by RNDr.Tomas Holan Phd. as a  sample program for teaching purposes. The source code of Broucci is available at \url{http://ksvi.mff.cuni.cz/\~holan/jinak/}.
 
 Program Broucci implements interesting ideas - evolution of strategy of motion of simple beetles in a grid with obstacles or in case when beetles eat each other. Closer description of this application can be found in chapter Survey of existing artificial life applications. Abeetle overtook some of these ideas and strives to apply them in new ways.\\
@@ -152,7 +201,7 @@ Accordingly Abeetles only strive to present an original set of features and atti
 
 
 \section{Chosen features}
-	All the evaluated artificial life applications were compared in 33(TO CHECK) cathegories. For Abeetles four were chosen as the key ones. The following table compares Abeetles with other solutions specificaly in this cathegories.
+    All the evaluated artificial life applications were compared in 33(TO CHECK) cathegories. For Abeetles four were chosen as the key ones. The following table compares Abeetles with other solutions specificaly in this cathegories.
 
 \begin{tabular}{lcccccc}
  & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\
@@ -169,7 +218,22 @@ S-static
 G-genetically evolved
 x-Not present
 \indent
-\subsection{Description of the model of a beetle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Structure of the thesis in relation to chosen objectives}
+%4.         Struktura práce ve vztahu k vytyèeným cílùm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Analysis of the problem from different aspects}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Proposal of solution with discussion of alternatives}
+%***********Návrh øešení s diskusí alternativ
+%*******1. volba modelu a diskuse moznosti (vetsi nastavitelnost, co je geneticky vyvijeno a co je pevne dano, co je mozno v prubehu menit)
+%*******2. volba implementacniho reseni - konzole, paralelizace, gui, davkove reseni
+
+
+\section{Description of the model of a beetle}
 Representation of an agent(beetle) in Abeetles from genetical point of view:
 Chromosome of a beetle includes following genes:\\
 \\
@@ -177,10 +241,6 @@ Brain [2][4][4][4] - Set of actions, each of them is chosen by the beetle in the
 Actions, for which the beetle can decide in this situations are chosen from the following set: make one step, turn right, turn left.\\
 Originally there were five actions: these three and copulation and waiting. Decision for copulation has sense only in situations, where is another beetle in front of the beetle and when the beetle is not hungry. And, furthemore, it these situations the beetle should always or almost always copulate (add here more rigorous explanation)when he meets another beetle. As a result, it is compulsory action in case a beetle sees another beetle in front of him.\\
  The action waiting was omitted - it gets beetles into deadlock situation. They should never decide for waiting, when they are hungry, because there cannot grow any flower on the spot, where they are staying. And when they are not hungry, it might be useful only as waiting for somebody to come and make child with him. But even in this situation it is not clever - beetle cannot finish it, because it has no memory. So it waits until it gets hungry or situation around changes.\\
-
-
-
-
 ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
 ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
 ExpectOnPartner - InvInChild = 1B how much more than InvInChild
@@ -194,8 +254,28 @@ LearningAbility = 1B
 \subsubsection{Motion strategy}
 The predecessor of Abeetles, Broucci, evolved
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Detailed design of chosen solution}
+% Detailni rozpracování modelu reseni - tj. datove struktury k implementaci
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Description of prototype implementation}
+%Detailed description of both prototypes - GUI version and console application  - from technical point of view.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Resume of fullfiling of objectives and other known attitudes}
+%******************Comparison of result with brother programs from 3rd chapter
+%9.         Zhodnocení splnìní cílù a srovnání s jinými známými pøístupy
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Resume with brief summon of results and contribution}
+%10.         Závìr se struèným shrnutím výsledkù a pøínosu
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{References to related web pages}
+
+
 \url{http://myxo.css.msu.edu/cgi-bin/lenski/prefman.pl?group=al} - Evolution experiments with digital organisms
 
 
@@ -218,28 +298,28 @@ Abeetles should exploit ideas presented in the article about Avida, follow sugge
 \subsection Choice of tool for Abeetles:
 There are two main tools used for paralelisation of computation. PVM(Paralel virtual Machine) and MPI(Message Passing Interface). Comparison of features has been published in an article \cite {PVM versus MPI}
 
-	\subsubsection {Topology:}
-	MPI provides higher level of the message-passing topology. In MPI a group of tasks can be arranged in a specific logical interconnection topology. PVM does not support such an abstraction, the programmer is to manually arrange tasks into groups with the desired communication organization.
-	For Abeetles the concept of MPI would be more convenient. But the organization of squares as parts of a toroid should be simple enough to realize using PVM.
+    \subsubsection {Topology:}
+    MPI provides higher level of the message-passing topology. In MPI a group of tasks can be arranged in a specific logical interconnection topology. PVM does not support such an abstraction, the programmer is to manually arrange tasks into groups with the desired communication organization.
+    For Abeetles the concept of MPI would be more convenient. But the organization of squares as parts of a toroid should be simple enough to realize using PVM.
 
-	\subsubsection {Fault Tolerance:}
-	Fault tolerance is important for any long-running simulation.  PVM has supported a basic fault notification scheme. Using this scheme individual tasks can inform other tasks about faults and respond to faults without hanging or failing.
-	
-	\subsubsection {Resource Control:}
-	PVM is inherently dynamic in nature. Computing resources can be added or deleted any time. In a long­running application in which the user occasionally wishes to attach a graphical front­end to view the computation's progress. Without virtual machine dynamics, the graphical workstation would have to be allocated during the entire computation. MPI lacks such dynamics and is, in fact, specifically designed to be static in nature to improve performance.
-	Abeetles intends to be such an application - fast running, with rare user requests for graphical view of progress (possibly) or graphs and metrics of the course of the computation. Thus PVM should serve better for the case of Abeetles.
-	
-	\subsubsection {Process Control:}
-	Ability to stop and start tasks in included both in MPI(v.2.0) and PVM.
+    \subsubsection {Fault Tolerance:}
+    Fault tolerance is important for any long-running simulation.  PVM has supported a basic fault notification scheme. Using this scheme individual tasks can inform other tasks about faults and respond to faults without hanging or failing.
 
-	\subsubsection {Portability versus Interoperability:}
-	MPI programs are only portable, which means that they can be ported from one architecture to another, compiled and executed without modification. PVM programs can be dealt in the same way, but moreover can also communicate with each other.
+    \subsubsection {Resource Control:}
+    PVM is inherently dynamic in nature. Computing resources can be added or deleted any time. In a long­running application in which the user occasionally wishes to attach a graphical front­end to view the computation's progress. Without virtual machine dynamics, the graphical workstation would have to be allocated during the entire computation. MPI lacks such dynamics and is, in fact, specifically designed to be static in nature to improve performance.
+    Abeetles intends to be such an application - fast running, with rare user requests for graphical view of progress (possibly) or graphs and metrics of the course of the computation. Thus PVM should serve better for the case of Abeetles.
 
-	\subsubsection{Context for Safe Communication:}
-	Offered by both MPI and PVM (v.3.4.)
+    \subsubsection {Process Control:}
+    Ability to stop and start tasks in included both in MPI(v.2.0) and PVM.
 
-	\subsubsection{Speed:}
-	MPI is expected to be faster within a large multiprocessor. Reason is MPI's simplicity.
+    \subsubsection {Portability versus Interoperability:}
+    MPI programs are only portable, which means that they can be ported from one architecture to another, compiled and executed without modification. PVM programs can be dealt in the same way, but moreover can also communicate with each other.
+
+    \subsubsection{Context for Safe Communication:}
+    Offered by both MPI and PVM (v.3.4.)
+
+    \subsubsection{Speed:}
+    MPI is expected to be faster within a large multiprocessor. Reason is MPI's simplicity.
 
 \section {Genetical Algorithm}
 
@@ -285,14 +365,14 @@ Generally:
 
 Sources:
 \begin{itemize}
-	\item \url{http://en.wikipedia.org/wiki/Crossover_\%28genetic_algorithm\%29}
-	\item \url{http://www.springerlink.com/content/b67qv704abd9mtgt/fulltext.pdf}	
-	\item \url{http://www.springerlink.com/content/b67qv704abd9mtgt/}
-	\item \url{http://www.cs.cas.cz/~roman/ea.html}
-	\item \url{http://wiki.matfyz.cz/wiki/AIL025}
-	\item \url{http://en.wikipedia.org/wiki/Swarm_intelligence}
-	\end{itemize}
-	
+    \item \url{http://en.wikipedia.org/wiki/Crossover_\%28genetic_algorithm\%29}
+    \item \url{http://www.springerlink.com/content/b67qv704abd9mtgt/fulltext.pdf}
+    \item \url{http://www.springerlink.com/content/b67qv704abd9mtgt/}
+    \item \url{http://www.cs.cas.cz/~roman/ea.html}
+    \item \url{http://wiki.matfyz.cz/wiki/AIL025}
+    \item \url{http://en.wikipedia.org/wiki/Swarm_intelligence}
+    \end{itemize}
+
 \section {Statistics and overviews offered by Abeetles}
 GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
 Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
@@ -334,17 +414,17 @@ b) remember n past actions - a beetle which does some other action than the step
 
 \url{http://www.scs.carleton.ca/\~soma/biosec/readings/spafford-viruses.pdf} - Interesting essay about considerations whether viruses are forms of artificial life or not. Result: No.
 Paper includes a worthwhile definition of life:
-	\begin{itemize}
-	\item Life is a pattern in space-time rather than a specific material object.
-	\item Self-reproduction, in itself or in a related organism.
-	\item Information storage of a self-representation.
-	\item A metabolism that converts matter/energy.
-	\item Functional interactions with the environment.
-	\item Interdependence of parts.
-	\item Stability under perturbations of the environment.
-	\item The ability to evolve.
-	\item Growth or expansion
-	\end{itemize}
+    \begin{itemize}
+    \item Life is a pattern in space-time rather than a specific material object.
+    \item Self-reproduction, in itself or in a related organism.
+    \item Information storage of a self-representation.
+    \item A metabolism that converts matter/energy.
+    \item Functional interactions with the environment.
+    \item Interdependence of parts.
+    \item Stability under perturbations of the environment.
+    \item The ability to evolve.
+    \item Growth or expansion
+    \end{itemize}
 
 \chapter {Ideas}
 \begin {itemize}
