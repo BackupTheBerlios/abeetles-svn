@@ -45,7 +45,7 @@ private:
 
 	int ZoomToSqSize[NUM_ZOOM] ;
 	int ZoomToGapSize[NUM_ZOOM];
-	QImage * ImgBeetle[NUM_ZOOM][4/*number of directions:W,N,E,S*/];//[NUM_TYPE_VIEW];
+	QImage ImgBeetle[NUM_ZOOM][4/*number of directions:W,N,E,S*/];//[NUM_TYPE_VIEW];
 
 	
 };

@@ -22,13 +22,14 @@ CGrid::CGrid(void)
 
 CGrid::~CGrid(void)
 {
+	/*
 	int I,J;
 	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
 			for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
 			{
 				if (GridMatrix[I][J][0]==BEETLE) delete ((CBeetle*)GridMatrix[I][J][1]);	
 			}
-			
+	*/			
 }
 
 /**

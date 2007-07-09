@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Wed 4. Jul 17:31:40 2007
+** Created: Mon 9. Jul 17:29:26 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -27,33 +27,33 @@ static const uint qt_meta_data_MainWindow[] = {
        0,    0, // enums/sets
 
  // signals: signature, parameters, type, tag, flags
-      16,   12,   11,   11, 0x05,
-      52,   45,   11,   11, 0x05,
+      12,   11,   11,   11, 0x05,
+      32,   25,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      69,   11,   11,   11, 0x08,
+      49,   11,   11,   11, 0x08,
+      58,   11,   11,   11, 0x08,
+      68,   11,   11,   11, 0x08,
       78,   11,   11,   11, 0x08,
-      88,   11,   11,   11, 0x08,
-      98,   11,   11,   11, 0x08,
-     117,  110,   11,   11, 0x08,
-     127,  110,   11,   11, 0x08,
-     143,   11,   11,   11, 0x08,
-     161,  155,   11,   11, 0x08,
-     181,   11,   11,   11, 0x08,
-     197,   11,   11,   11, 0x08,
-     213,   11,   11,   11, 0x08,
-     233,  229,   11,   11, 0x08,
-     258,   11,   11,   11, 0x08,
+      97,   90,   11,   11, 0x08,
+     107,   90,   11,   11, 0x08,
+     123,   11,   11,   11, 0x08,
+     141,  135,   11,   11, 0x08,
+     161,   11,   11,   11, 0x08,
+     177,   11,   11,   11, 0x08,
+     193,   11,   11,   11, 0x08,
+     213,  209,   11,   11, 0x08,
+     238,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
-    "MainWindow\0\0env\0envRefChanged(CEnvironment*)\0"
-    "isNull\0envIsEmpty(bool)\0newEnv()\0"
-    "openEnv()\0saveEnv()\0saveEnvAs()\0bStart\0"
-    "run(bool)\0runNSteps(bool)\0make1Step()\0"
-    "value\0DisplayChanged(int)\0saveAggrStats()\0"
+    "MainWindow\0\0envChanged()\0isNull\0"
+    "envIsEmpty(bool)\0newEnv()\0openEnv()\0"
+    "saveEnv()\0saveEnvAs()\0bStart\0run(bool)\0"
+    "runNSteps(bool)\0make1Step()\0value\0"
+    "DisplayChanged(int)\0saveAggrStats()\0"
     "saveTimeStats()\0saveHistStats()\0x,y\0"
     "showCellDetails(int,int)\0about()\0"
 };
@@ -83,7 +83,7 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: envRefChanged((*reinterpret_cast< CEnvironment*(*)>(_a[1]))); break;
+        case 0: envChanged(); break;
         case 1: envIsEmpty((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 2: newEnv(); break;
         case 3: openEnv(); break;
@@ -105,10 +105,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void MainWindow::envRefChanged(CEnvironment * _t1)
+void MainWindow::envChanged()
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 
 // SIGNAL 1

@@ -71,7 +71,7 @@ MainWindow::MainWindow():Env()
 	Field= new CField(&Env);
 
     connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
-	connect(this,SIGNAL(envRefChanged(CEnvironment *)),Field,SLOT(setEnvRef(CEnvironment *)));
+	connect(this,SIGNAL(envChanged(CEnvironment *)),Field,SLOT(renewField()));
 	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
 
 	//Legend
@@ -92,6 +92,7 @@ MainWindow::MainWindow():Env()
 	//DisplayCheck->resize(100,30);
 	//DisplayCheck->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 	connect(DisplayCheck, SIGNAL(stateChanged(int)),this,SLOT(DisplayChanged(int)));
+	DisplayCheck->setCheckState(Qt::Checked);
 
 	//Time LCD
 	
@@ -204,15 +205,16 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::newEnv()
 {
    //Preliminarily:
+	//1QMessageBox::information(NULL,"MyApp","Before cleaning");
 	Env.CleanEnv();
-	QMessageBox::information(NULL,"MyApp","Env is cleaned");
+	//1QMessageBox::information(NULL,"MyApp","Env is cleaned");
 	Env.FillEmptyEnvRandomly(100);	
-	QMessageBox::information(NULL,"MyApp","Env is filled"); //ch1
-	//emit envRefChanged(Env);//uprav tak, aby to nastalo jen if Env was 0
-	//Field->setEnvRef(Env);
+	//1QMessageBox::information(NULL,"MyApp","Env is filled"); //ch1
+	//emit envChanged();//uprav tak, aby to nastalo jen if Env was 0
+	//Field->setEnvRef(Env);	
+	emit envIsEmpty(Env.IsEmpty);
+	//QMessageBox::information(NULL,"MyApp","Message is emited"); //ch1
 	
-	if (Env.IsEmpty)emit envIsEmpty(false); else emit envIsEmpty(true);
-	QMessageBox::information(NULL,"MyApp","Message is emited"); //ch1
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
 
@@ -230,8 +232,8 @@ void MainWindow::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ul
 	{
 		Env.CleanEnv();
 		Env.LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
-		//emit envRefChanged(Env); 
-		if (Env.IsEmpty)emit envIsEmpty(false); else emit envIsEmpty(true);
+		//emit envChanged(); 
+		emit envIsEmpty(Env.IsEmpty);
 		renewAllChildren();
 		statusBar()->showMessage(tr("Environment opened."));
 	}
@@ -310,68 +312,14 @@ void MainWindow::saveHistStats()
 	else
 		statusBar()->showMessage(tr("Histogram statistics were not saved."));
 }
-/*
-void MainWindow::copy()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Copy</b>"));
-}
 
-void MainWindow::paste()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Paste</b>"));
-}
-
-void MainWindow::bold()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Bold</b>"));
-}
-
-void MainWindow::italic()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Italic</b>"));
-}
-
-void MainWindow::leftAlign()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Left Align</b>"));
-}
-
-void MainWindow::rightAlign()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Right Align</b>"));
-}
-
-void MainWindow::justify()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Justify</b>"));
-}
-
-void MainWindow::center()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Center</b>"));
-}
-
-void MainWindow::setLineSpacing()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Set Line Spacing</b>"));
-}
-
-void MainWindow::setParagraphSpacing()
-{
-    //infoLabel->setText(tr("Invoked <b>Statistics|Format|Set Paragraph Spacing</b>"));
-}
-*/
 void MainWindow::about()
 {
     //infoLabel->setText(tr("Invoked <b>Help|Aboutp</b>"));
     QMessageBox::about(this, tr("About Menu"),
             tr("The application Abeetles."));
 }
-/*
-void MainWindow::aboutQt()
-{
-    //infoLabel->setText(tr("Invoked <b>Help|About Qt</b>"));
-}*/
+
 
 void MainWindow::createActions()
 {
@@ -415,87 +363,13 @@ void MainWindow::createActions()
     saveHistStatsAct->setStatusTip(tr("Saves data for view in histogram graph."));
     connect(saveHistStatsAct, SIGNAL(triggered()), this, SLOT(saveHistStats()));
 
- /*   copyAct = new QAction(tr("&Copy"), this);
-    copyAct->setShortcut(tr("Ctrl+C"));
-    copyAct->setStatusTip(tr("Copy the current selection's contents to the "
-                             "clipboard"));
-    connect(copyAct, SIGNAL(triggered()), this, SLOT(copy()));
 
-    pasteAct = new QAction(tr("&Paste"), this);
-    pasteAct->setShortcut(tr("Ctrl+V"));
-    pasteAct->setStatusTip(tr("Paste the clipboard's contents into the current "
-                              "selection"));
-    connect(pasteAct, SIGNAL(triggered()), this, SLOT(paste()));
-
-    boldAct = new QAction(tr("&Bold"), this);
-    boldAct->setCheckable(true);
-    boldAct->setShortcut(tr("Ctrl+B"));
-    boldAct->setStatusTip(tr("Make the text bold"));
-    connect(boldAct, SIGNAL(triggered()), this, SLOT(bold()));
-
-    QFont boldFont = boldAct->font();
-    boldFont.setBold(true);
-    boldAct->setFont(boldFont);
-
-    italicAct = new QAction(tr("&Italic"), this);
-    italicAct->setCheckable(true);
-    italicAct->setShortcut(tr("Ctrl+I"));
-    italicAct->setStatusTip(tr("Make the text italic"));
-    connect(italicAct, SIGNAL(triggered()), this, SLOT(italic()));
-
-    QFont italicFont = italicAct->font();
-    italicFont.setItalic(true);
-    italicAct->setFont(italicFont);
-
-    setLineSpacingAct = new QAction(tr("Set &Line Spacing..."), this);
-    setLineSpacingAct->setStatusTip(tr("Change the gap between the lines of a "
-                                       "paragraph"));
-    connect(setLineSpacingAct, SIGNAL(triggered()), this, SLOT(setLineSpacing()));
-
-    setParagraphSpacingAct = new QAction(tr("Set &Paragraph Spacing..."), this);
-    setLineSpacingAct->setStatusTip(tr("Change the gap between paragraphs"));
-    connect(setParagraphSpacingAct, SIGNAL(triggered()),
-            this, SLOT(setParagraphSpacing()));*/
 
     aboutAct = new QAction(tr("&About"), this);
     aboutAct->setStatusTip(tr("Show the application's About box"));
     connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-    /*aboutQtAct = new QAction(tr("About &Qt"), this);
-    aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
-    connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect(aboutQtAct, SIGNAL(triggered()), this, SLOT(aboutQt()));*/
-/*
-    leftAlignAct = new QAction(tr("&Left Align"), this);
-    leftAlignAct->setCheckable(true);
-    leftAlignAct->setShortcut(tr("Ctrl+L"));
-    leftAlignAct->setStatusTip(tr("Left align the selected text"));
-    connect(leftAlignAct, SIGNAL(triggered()), this, SLOT(leftAlign()));
-
-    rightAlignAct = new QAction(tr("&Right Align"), this);
-    rightAlignAct->setCheckable(true);
-    rightAlignAct->setShortcut(tr("Ctrl+R"));
-    rightAlignAct->setStatusTip(tr("Right align the selected text"));
-    connect(rightAlignAct, SIGNAL(triggered()), this, SLOT(rightAlign()));
-
-    justifyAct = new QAction(tr("&Justify"), this);
-    justifyAct->setCheckable(true);
-    justifyAct->setShortcut(tr("Ctrl+J"));
-    justifyAct->setStatusTip(tr("Justify the selected text"));
-    connect(justifyAct, SIGNAL(triggered()), this, SLOT(justify()));
-
-    centerAct = new QAction(tr("&Center"), this);
-    centerAct->setCheckable(true);
-    centerAct->setShortcut(tr("Ctrl+E"));
-    centerAct->setStatusTip(tr("Center the selected text"));
-    connect(centerAct, SIGNAL(triggered()), this, SLOT(center()));
-
-    alignmentGroup = new QActionGroup(this);
-    alignmentGroup->addAction(leftAlignAct);
-    alignmentGroup->addAction(rightAlignAct);
-    alignmentGroup->addAction(justifyAct);
-    alignmentGroup->addAction(centerAct);
-    leftAlignAct->setChecked(true);*/
+    
 }
 
 void MainWindow::createMenus()
@@ -513,26 +387,7 @@ void MainWindow::createMenus()
     statistsMenu->addAction(saveAggrStatsAct);
     statistsMenu->addAction(saveTimeStatsAct);
     statistsMenu->addAction(saveHistStatsAct);
-   /* statistsMenu->addAction(copyAct);
-     statistsMenu->addSeparator();
-   statistsMenu->addAction(pasteAct);
-    statistsMenu->addSeparator();
-
-    helpMenu = menuBar()->addMenu(tr("&Help"));
-    helpMenu->addAction(aboutAct);
-    helpMenu->addAction(aboutQtAct);
-
-    formatMenu = editMenu->addMenu(tr("&Format"));
-    formatMenu->addAction(boldAct);
-    formatMenu->addAction(italicAct);
-    formatMenu->addSeparator()->setText(tr("Alignment"));
-    formatMenu->addAction(leftAlignAct);
-    formatMenu->addAction(rightAlignAct);
-    formatMenu->addAction(justifyAct);
-    formatMenu->addAction(centerAct);
-    formatMenu->addSeparator();
-    formatMenu->addAction(setLineSpacingAct);
-    formatMenu->addAction(setParagraphSpacingAct);*/
+   
 }
 /**
 * Public method <br>

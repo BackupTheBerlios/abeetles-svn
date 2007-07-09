@@ -83,7 +83,7 @@ private slots:
     //void aboutQt();
 
 signals:
-	void envRefChanged(CEnvironment * env);
+	void envChanged();
 	void envIsEmpty(bool isNull);
 
 private:

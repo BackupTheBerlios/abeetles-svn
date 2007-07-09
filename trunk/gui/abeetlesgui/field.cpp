@@ -2,6 +2,9 @@
 #include "Environment.h"
 #include "Beetle.h"
 #include <QtGui>
+#include <QTimer>
+#include <QDir>
+
 
 
 CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
@@ -33,10 +36,11 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 }
 CField::~CField(void)
 {
+	/*
 	int z,d; //,v;
 	for(z=0;z<NUM_ZOOM;z++)
 			for(d=WEST;d<=SOUTH;d++)
-			if (ImgBeetle[z][d]!=NULL) delete ImgBeetle[z][d];	
+			if (ImgBeetle[z][d]!=NULL) delete ImgBeetle[z][d];	*/
 
 }
 
@@ -135,7 +139,7 @@ QImage CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeVi
 {
 	QRgb newBackClr=qRgb(255,255,255);
 	//QImage * img = new QImage (*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
-	QImage img(*(ImgBeetle[zoom][(int)beetle->Direction])); //[typeView];
+	QImage img(ImgBeetle[zoom][(int)beetle->Direction]); //[typeView];
 	QPainter painter(&img);
 	if (typeView==0);//"normal"
 		//nothing
@@ -175,7 +179,7 @@ bool CField::loadBeetleImages()
 {
 	int z,d; //,v;
 	QString fname;
-	QImage * img;
+	//QImage * img;
 	for(z=0;z<NUM_ZOOM;z++)
 		for(d=WEST;d<=SOUTH;d++)
 			//for (v=0;v<NUM_TYPE_VIEW;v++)
@@ -186,9 +190,10 @@ bool CField::loadBeetleImages()
 					fname+=QString::number(d);
 					fname+=".gif";
 					QDir::setCurrent ("imgs");
-					if (0== (img= new QImage(fname))) return false;
+					if (false==ImgBeetle[z][d].load(fname)) return false;
+					//if (0== (img= new QImage(fname))) return false;
 					QDir::setCurrent ("..");
-					ImgBeetle[z][d]=img;
+					//ImgBeetle[z][d]=img;
 			}
 	//if (img==0) QMessageBox::information(this,"MyApp","No image");
 	return true;

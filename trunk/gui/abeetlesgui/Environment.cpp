@@ -24,7 +24,7 @@ CEnvironment::CEnvironment(void)
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful. Application will terminate."));
 		exit (EXIT_FAILURE);
 	}
-	QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+	//1QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	
 }
 /*
@@ -449,7 +449,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed)
 	//First part - init environment: Loads environment without beetles
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE))return false;
 
-	QMessageBox::information(NULL,"MyApp","Map is loaded"); //ch1
+	//1QMessageBox::information(NULL,"MyApp","Map is loaded"); //ch1
 
 	//Second part - create beetles and add them to half finished environment
 	srand( seed);//(unsigned)time( NULL ) );
@@ -474,7 +474,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed)
 	Time=0;
 	CountStatistics();
 	IsEmpty=false;
-	QMessageBox::information(NULL,"MyApp","Statistics Counted"); //ch1
+	//1QMessageBox::information(NULL,"MyApp","Statistics Counted"); //ch1
 	return true;
 }
 
@@ -673,8 +673,12 @@ char * CEnvironment::getTimeStatsFileName(char *fname)
 bool CEnvironment::CleanEnv()
 {
 	IsEmpty=true;
+	//1QMessageBox::information(NULL,"MyApp","Before cleaning of Grid");
 	Grid.CleanGridAndBeetles();
-	Grid_Past.CleanGridAndBeetles();
+	//1QMessageBox::information(NULL,"MyApp","Grid is cleaned");
+	//Alert! I cannot clean beetles here! - they were already deleted in previous function. So I make shallow copy.
+	Grid_Past=Grid;
+	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
 }
 
