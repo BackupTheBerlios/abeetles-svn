@@ -1,6 +1,6 @@
 %Analýza a návrh øešení konkrétního problému
 
-%Analýza a návrh øešení problému z oblasti úzce související se
+%Analýza a návrh øešení problému z oblasti úzce související se 
 %softwarovým èi datovým inženýrstvím nebo systémovým prostøedím.
 %Výsledkem je výzkumná zpráva a prototypové øešení.
 
@@ -47,6 +47,7 @@
 \title{The Tool for Modeling of Evolution of the Artificial Life}
 \author{Iva Bartunkova}
 
+\usepackage{url}
 
 \begin{document}
 
@@ -58,22 +59,33 @@ Software tool allowing experiments with the evolution of simple organisms.
 
 \chapter{Introduction}
 
-% *************3 pages about 1.Artificial life - definition, history, contemporary course 2. Brief context of my thesis********************************
+%*************3 pages about 1.Artificial life - definition, history, contemporary course 2. Brief context of my thesis*******************************
 
 %******************Definition of Artificial life*********************
 Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}).
 
 The term Artificial life was first coined by Christopher Langton in the late 1980s at the first "International Conference on the Synthesis and Simulation of Living Systems" (otherwise known as Artificial Life I) at the Los Alamos National Laboratory in 1987. He envisioned a study of life as it could be in any possible setting \cite{Langton}.
 
-Artificial life compliments traditional Biology by trying to recreate biological phenomena rather than take them apart.[\url{http://zooland.alife.org/}] Because of its predominance within the field, the term "Artificial Life" is often used to specifically refer to soft alife.
+Artificial Life is the name given to the discipline that studies "natural" life by attempting to recreate biological phenomena from scratch within computers and other "artificial" media. Alife complements the traditional analytic approach of traditional biology with a synthetic approach in which, rather than studying biological phenomena by taking apart living organisms to see how they work, one attempts to put together systems that behave like living organisms.
+
+The process of synthesis has been an extremely important tool in many disciplines. Synthetic chemistry - the ability to put together new chemical compounds not found in nature - has not only contributed enormously to our theoretical understanding of chemical phenomena, but has also allowed us to fabricate new materials and chemicals that are of great practical use for industry and technology.
+
+Artificial life amounts to the practice of "synthetic biology" and, by analogy with synthetic chemistry, the attempt to recreate biological phenomena in alternative media will result in not only better theoretical understanding of the phenomena under study, but also in practical applications of biological principles in the technology of computer hardware and software.
+\cite{Langton} 
+
+Because of its predominance within the field, the term "Artificial Life" is often used to specifically refer to soft alife.%source??
 
 Related term to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are mostly focused on evolution of motion, shape, visual art and music. In my work I've used the Genetic Programming technique which allows the evolution of parameter based organisms.
 
-%******************Context of my thesis - cathegories of Alife and ranking of my work. Short about existing brother programs and programs that inspired me.
+%******************Context of my thesis - cathegories of Alife simulators and ranking of my work. Short about existing brother programs and programs that inspired me.
 
 
-\chapter{Survey of existing artificial life applications}
-%*************************5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Survey of existing artificial life applications} 
+%Pøesné vymezení problému
+%5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
+
 
 These contain organisms with a complex DNA language, usually Turing complete. This language is more often in the form of a computer program than actual biological DNA. Assembly derivatives are the most common languages used. Use of cellular automata is common but not required.
 \section {Program-based}
@@ -188,6 +200,8 @@ commercial game based on evolution of creatures.
     \item  Polyworld
     \item  Bitozoa - focuses more on natural selection, no learning. \url{http://www.alcyone.com/max/links/alife.html\#Simulations\_amp\_systems}
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Model of Abeetles}
 %*******************1-2 pages about choice of my objectives according to previous chapter. I will use Porovnani.xls
@@ -437,7 +451,7 @@ Paper includes a worthwhile definition of life:
 Mark A. Bedau (November 2003). Artificial life: organization, adaptation and complexity from the bottom up. TRENDS in Cognitive Sciences. \url{http://www.reed.edu/\~mab/publications/papers/BedauTICS03.pdf}
 
 \bibitem{Langton}
-Langton, C. ed. (1989) Artificial Life Addison-Wesley
+Chris G. Langton(1989) Artificial Life Addison-Wesley. \url{http://zooland.alife.org/}
 
 \bibitem{Avida}
 Avida: A Software Platform for Research in Computational Evolutionary Biology;
