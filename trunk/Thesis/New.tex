@@ -81,19 +81,36 @@ Artificial life can be split into various subfields according to chosen substrat
 %*************Evolutionary computation: if we choose evolution of biological life as the topic of our artificial life exploration.
 One of these subfields is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world and simulated using computers. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are mostly focused on evolution of motion, shape, visual art and music. 
 
-In the field of Evolutionary computation simulators play an important part. Artificial life simulators can be ranked in many ways. In this work the organisation according to creature definition will be used.
 
-In my work I've used the Genetic Programming technique which allows the evolution of parameter based organisms.
  
 %************History of Alife as a science
 %The only source: Wikipedia - History of artificial life. However, citations are poor in this article. 
+%Exists:Artificial Life and the Sciences of Complexity: History and Future, 	Jean-Claude Heudin. But it is not accessible for free.
+%1hour of searching. Lets stop it.
 
 %************Contemporary course of this science
 
 
-
-
 %******************Context of my thesis - cathegories of Alife simulators and ranking of my work. Short about existing brother programs and programs that inspired me.
+
+In the field of Evolutionary computation simulators play an important part. Artificial life simulators can be ranked in many ways. First, cathegorisation according to the method of creature definition will be used.
+\begin{itemize}
+    \item \textbf{Program Based} - In program based simulators an individual is represented by a program, which substitutes biological DNA. Language of the program is usually Turing complete. Assembly derivatives are the most common languages used. Tom Ray's Tierra is the most famous example of a program based simulator.
+    \item \textbf{Module Based} - An agent in a module based system is a composition of individual modules. These modules modify the creature's behaviors and characteristics either directly, by hard coding into the simulation (leg type A increases speed and metabolism), or indirectly, through the emergent interactions between a creature's modules (leg type A moves up and down with a frequency of X, which interacts with other legs to create motion). Generally these are simulators which emphasize user creation and accessibility over mutation and evolution.  
+    \item \textbf{Parameter Based} - If an organism is generally constructed with defined and fixed behavior, that is controlled by various parameters that mutate, the system is referred as a parameter based. hat is, each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of an organism in a well defined way.
+    \item \textbf{Neural Network Based} - These simulations have creatures that learn and grow using neural networks or a close derivative. Emphasis is often, although not always, more on learning than on natural selection.
+\end{itemize}
+
+Another attitude to simulators can be taken according to phenomenon, that they try to simulate. \url{http://vlab.infotech.monash.edu.au/}
+\begin{itemize}
+  \item \textbf{Networks} - Complex natural systems are simulated according to network theory (or diktyology) as networks or graphs and their statistical and topological properties are analyzed. 
+  \item \textbf{Non-linear} - Non-linear systems are systems that cannot be mathematically described as the sum of their components. While certain assumptions can be made for linear systems, that often make the mathematical modelling of such systems easy, mathematical modelling of non-linear systems is often very difficult or impossible. As a result, non-linear systems are often studies through use of simulations.
+  \item \textbf{Swarms} - A swarm is a group of independent agents that gather together in order to collectively carry out a certain task. Typically, each agent exhibits a very simple behaviour pattern that is influenced by direct or indirect interactions with other swarm members. As a result, the swarm as a whole may exhibit complex and intelligent behaviour patterns. In nature, swarms can be observed in social insects, fish schools, but also in primitive single cell organisms.
+  \item \textbf{Evolution} - Evolution is the process of development or grows by accumulation of small advantageous changes. The study of all forms of evolutionary processes is one of the primary goals of ALife. This includes the study of biological evolution of species as well as other evolutionary processes in natural, artificial and social systems.
+  \item \textbf{Cellular Automata} - A cellular automaton (CA) is a discrete model that consists of a cell-grid, where each cell is in one of a number of well-defined states. The grid can be in any finite number of dimensions, though the mostly studied CAs have one or two dimensions. The time in the model is discrete and the state of each cell C at time t depends only on the cell-states within some well-defined neighbourhood of C at time t-1. The update function (also called the update rule) is a table that defines the state for each cell at time t as a function of the state of the neighbourhood of C at time t-1.
+\end{itemize}  
+
+Target of this thesis is to create a system, simulating life of parameter based organisms and focus on evolution of their features and behavior. The system should availe experiments with evolution of the organisms under different conditions. Furthemore, several experiments performed with the system are described and a few other proposed.
 
 
 
@@ -104,7 +121,6 @@ In my work I've used the Genetic Programming technique which allows the evolutio
 %5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
 
 
-These contain organisms with a complex DNA language, usually Turing complete. This language is more often in the form of a computer program than actual biological DNA. Assembly derivatives are the most common languages used. Use of cellular automata is common but not required.
 \section {Program-based}
 \begin{itemize}
     \item  Artificial Planet
