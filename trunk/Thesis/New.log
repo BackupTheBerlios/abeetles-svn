@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  10 JUL 2007 11:39
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  10 JUL 2007 16:00
 entering extended mode
 **New.tex
 (New.tex
@@ -52,122 +52,123 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 [1]
 Chapter 1.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 69.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 69.
 [1
 
-]
+] [2]
 Chapter 2.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 86.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 110.
+
 ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 86.
- [2
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 110.
+ [3
 
-] [3]
+] [4]
 Missing character: There is no ’ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--158
+Underfull \hbox (badness 10000) in paragraph at lines 169--182
 
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 183--184
 
  []
 
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 185.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 185.
 
-Overfull \hbox (3.69241pt too wide) in paragraph at lines 166--174
+Overfull \hbox (3.69241pt too wide) in paragraph at lines 190--198
 []\OT1/cmr/m/n/10 Cell-O-Sim ($\OT1/cmtt/m/n/10 http : / / mbi . dkfz-[]heidelb
 erg . de / projects / cellsim /
  []
 
-[5] [6]
+[6] [7]
 Chapter 3.
 
-Overfull \hbox (42.95905pt too wide) in paragraph at lines 213--221
+Overfull \hbox (42.95905pt too wide) in paragraph at lines 237--245
 [][] 
  []
 
-[7
+[8
 
-] [8]
+] [9]
 Chapter 4.
-[9
+[10
 
 ]
 Chapter 5.
-[10
+[11
 
 ]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 244--258
+Underfull \hbox (badness 10000) in paragraph at lines 268--282
 
  []
 
-[11
+[12
 
-] [12]
+] [13]
 Chapter 7.
-[13
-
-]
-Chapter 8.
 [14
 
 ]
-Chapter 9.
+Chapter 8.
 [15
 
 ]
-Chapter 10.
+Chapter 9.
 [16
 
 ]
-Chapter 11.
+Chapter 10.
 [17
 
 ]
-Chapter 12.
+Chapter 11.
 [18
+
+]
+Chapter 12.
+[19
 
 ]
 Missing character: There is no ­ in font cmr10!
 Missing character: There is no ­ in font cmr10!
- [19]
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 375--376
+ [20]
+Overfull \hbox (0.24724pt too wide) in paragraph at lines 399--400
 []$\OT1/cmtt/m/n/10 http : / / en . wikipedia . org / wiki / Crossover _ \ % 28
 genetic _ algorithm \
  []
 
-[20]
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 376--377
+[21]
+Overfull \hbox (5.4972pt too wide) in paragraph at lines 400--401
 []$\OT1/cmtt/m/n/10 http : / / www . springerlink . com / content / b67qv704abd
 9mtgt / fulltext .
  []
 
-New.tex:408: Missing $ inserted
+New.tex:432: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-New.tex:409: Missing $ inserted
+New.tex:433: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (173.03458pt too wide) in paragraph at lines 407--409
+Overfull \hbox (173.03458pt too wide) in paragraph at lines 431--433
 \OT1/cmr/m/n/10 A$[]\OML/cmm/m/it/10 OPULATEPostreh\OT1/cmr/m/n/10 2 : \OML/cmm
 /m/it/10 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/10 )\OML/cmm/m/it/10 Solution \OT1/cmr/m/n/10 :
  []
 
 
-Overfull \hbox (1188.35458pt too wide) in paragraph at lines 407--409
+Overfull \hbox (1188.35458pt too wide) in paragraph at lines 431--433
 \OML/cmm/m/it/10 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/10 "\OML/cmm/m/it/10 hardwired\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -176,54 +177,54 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 beetleinthe
 front\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 willbemadeaccordingtotheBraintable:$ 
  []
 
-[21] [22]
+[22] [23]
 Chapter 13.
 
-Overfull \hbox (22.24693pt too wide) in paragraph at lines 422--424
+Overfull \hbox (22.24693pt too wide) in paragraph at lines 446--448
 []$\OT1/cmtt/m/n/10 http : / / www . scs . carleton . ca / \[]soma / biosec / r
 eadings / spafford-[]viruses .
  []
 
-[23
-
-]
-Chapter 14.
 [24
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 457--460
+Chapter 14.
+[25
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 484--487
 []\OT1/cmr/m/n/10 Attractiveness vs. Ef-fi-ciency 1998 "How Mate Pref-er-ence A
 f-
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 457--460
+Underfull \hbox (badness 2503) in paragraph at lines 484--487
 \OT1/cmr/m/n/10 fects Lo-co-mo-tion in the Evo-lu-tion of Ar-ti-fi-cial Swim-mi
 ng Or-gan-
  []
 
 
-Underfull \hbox (badness 4752) in paragraph at lines 457--460
+Underfull \hbox (badness 4752) in paragraph at lines 484--487
 \OT1/cmr/m/n/10 isms" pub-lished in "Ar-ti-fi-cial Life VI Pro-ceed-ings" MIT P
 ress)
  []
 
 
-Underfull \hbox (badness 3098) in paragraph at lines 457--460
+Underfull \hbox (badness 3098) in paragraph at lines 484--487
 \OT1/cmr/m/n/10 Gene Pool: Ex-plor-ing the In-ter-ac-tion Be-tween Nat-u-ral Se
 -lec-tion
  []
 
-[25
+[26
 
 ] (New.aux) ) 
 Here is how much of TeX's memory you used:
- 373 strings out of 95389
- 3792 string characters out of 1186903
+ 374 strings out of 95389
+ 3804 string characters out of 1186903
  51514 words of memory out of 1050960
- 3590 multiletter control sequences out of 60000
+ 3591 multiletter control sequences out of 60000
  10038 words of font info for 34 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
  23i,6n,19p,921b,281s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (27 pages, 40540 bytes).
+Output written on New.dvi (28 pages, 43376 bytes).
