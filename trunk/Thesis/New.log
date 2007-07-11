@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  10 JUL 2007 23:09
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  11 JUL 2007 16:05
 entering extended mode
 **New.tex
 (New.tex
@@ -52,179 +52,276 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 [1]
 Chapter 1.
+
+LaTeX Warning: Citation `BornhoffenLataud' on page 1 undefined on input line 77
+.
+
 [1
 
-]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 98.
- ("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
+] [2]
+Chapter 2.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 114.
+
+("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 98.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 104.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 104.
- [2] [3]
-Chapter 2.
-[4
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 114.
+ [3
 
-] [5]
+]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 121.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 121.
+ [4] [5]
+Chapter 3.
+
+New.tex:135: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+New.tex:135: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+New.tex:137: LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.69498pt too wide) in paragraph at lines 149--151
+[]\OT1/cmr/m/n/10 Tierra Tierra is a com-puter sim-u-la-tion de-vel-oped by eco
+l-o-gist Thomas
+ []
+
+[6
+
+] [7]
 Missing character: There is no ’ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--198
+Underfull \hbox (badness 10000) in paragraph at lines 197--210
 
  []
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 199--200
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 211--212
 
  []
 
 
-Overfull \hbox (3.69241pt too wide) in paragraph at lines 206--214
+Overfull \hbox (22.39238pt too wide) in paragraph at lines 218--226
 []\OT1/cmr/m/n/10 Cell-O-Sim ($\OT1/cmtt/m/n/10 http : / / mbi . dkfz-[]heidelb
 erg . de / projects / cellsim /
  []
 
-[7]
-Chapter 3.
 
-Overfull \hbox (42.95905pt too wide) in paragraph at lines 253--261
-[][] 
+Overfull \hbox (32.74715pt too wide) in paragraph at lines 246--247
+\OT1/cmtt/m/n/10 www . alcyone . com / max / links / alife . html \ #Simulation
+s \ _amp \ _systems$ 
  []
 
-[8
-
-] [9]
+[9]
 Chapter 4.
+
+Overfull \hbox (11.6662pt too wide) in paragraph at lines 263--264
+\OT1/cmr/m/n/10 All the eval-u-ated ar-ti-fi-cial life ap-pli-ca-tions were com
+-pared in 33(TO CHECK)
+ []
+
 [10
 
 ]
+Overfull \hbox (52.95908pt too wide) in paragraph at lines 265--273
+[][] 
+ []
+
+[11]
 Chapter 5.
-[11
+[12
 
 ]
 Chapter 6.
+[13
 
-Underfull \hbox (badness 10000) in paragraph at lines 284--298
+]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--310
 
  []
 
-[12
-
-] [13]
-Chapter 7.
 [14
 
-]
+] [15]
 Chapter 8.
-[15
-
-]
-Chapter 9.
 [16
 
 ]
-Chapter 10.
+Chapter 9.
 [17
 
 ]
-Chapter 11.
+Chapter 10.
 [18
 
 ]
-Chapter 12.
+Chapter 11.
 [19
+
+]
+Chapter 12.
+
+Overfull \hbox (12.91406pt too wide) in paragraph at lines 338--339
+$\OT1/cmtt/m/n/10 http : / / myxo . css . msu . edu / cgi-[]bin / lenski / pref
+man . pl ? group = al$ \OT1/cmr/m/n/10 - Evo-
+ []
+
+[20
+
+]
+Chapter 13.
+[21
 
 ]
 Missing character: There is no ­ in font cmr10!
 Missing character: There is no ­ in font cmr10!
- [20]
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 415--416
+ [22] [23]
+Overfull \hbox (22.24724pt too wide) in paragraph at lines 427--428
 []$\OT1/cmtt/m/n/10 http : / / en . wikipedia . org / wiki / Crossover _ \ % 28
 genetic _ algorithm \
  []
 
-[21]
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 416--417
+
+Overfull \hbox (27.4972pt too wide) in paragraph at lines 428--429
 []$\OT1/cmtt/m/n/10 http : / / www . springerlink . com / content / b67qv704abd
 9mtgt / fulltext .
  []
 
-New.tex:448: Missing $ inserted
+
+Overfull \hbox (8.83635pt too wide) in paragraph at lines 435--435
+[]\OT1/cmr/bx/n/14.4 Statistics and overviews of-fered by Abee-
+ []
+
+[24]
+New.tex:460: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-New.tex:449: Missing $ inserted
+New.tex:461: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
+New.tex:461: Missing } inserted
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
-Overfull \hbox (173.03458pt too wide) in paragraph at lines 447--449
-\OT1/cmr/m/n/10 A$[]\OML/cmm/m/it/10 OPULATEPostreh\OT1/cmr/m/n/10 2 : \OML/cmm
-/m/it/10 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
-1/cmr/m/n/10 )\OML/cmm/m/it/10 Solution \OT1/cmr/m/n/10 :
+
+Overfull \hbox (217.47908pt too wide) in paragraph at lines 459--461
+\OT1/cmr/m/n/10 akci A$[]\OML/cmm/m/it/10 OPULATEPostreh\OT1/cmr/m/n/10 2 : \OM
+L/cmm/m/it/10 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULA
+TE\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 Solution \OT1/cmr/m/n/10 :
  []
 
 
-Overfull \hbox (1188.35458pt too wide) in paragraph at lines 447--449
+Overfull \hbox (1213.35461pt too wide) in paragraph at lines 459--461
 \OML/cmm/m/it/10 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/10 "\OML/cmm/m/it/10 hardwired\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
 llbemadeinthiscase:Incasethecopulationdidnotcreateachildbeetle; e:a:expectation
 swerenotmet; thedecisionforthecase\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 beetleinthe
-front\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 willbemadeaccordingtotheBraintable:$ 
+front\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 willbemadeaccordingtotheBraintable:[]$ 
  []
 
-[22] [23]
-Chapter 13.
+New.tex:461: Extra }, or forgotten \endgroup
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
 
-Overfull \hbox (22.24693pt too wide) in paragraph at lines 462--464
+[25]
+Chapter 14.
+
+Overfull \hbox (7.24693pt too wide) in paragraph at lines 474--476
 []$\OT1/cmtt/m/n/10 http : / / www . scs . carleton . ca / \[]soma / biosec / r
 eadings / spafford-[]viruses .
  []
 
-[24
+[26
 
 ]
-Chapter 14.
-[25
+Chapter 15.
+[27
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 500--503
+Underfull \hbox (badness 1314) in paragraph at lines 496--497
+\OT1/cmr/m/n/10 adap-ta-tion and com-plex-ity from the bot-tom up. TRENDS in
+ []
+
+
+Underfull \hbox (badness 1365) in paragraph at lines 496--497
+\OT1/cmr/m/n/10 Cog-ni-tive Sci-ences. $\OT1/cmtt/m/n/10 http : / / www . reed 
+. edu / \[]mab / publications /
+ []
+
+
+Underfull \hbox (badness 2334) in paragraph at lines 515--518
 []\OT1/cmr/m/n/10 Attractiveness vs. Ef-fi-ciency 1998 "How Mate Pref-er-ence A
 f-
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 500--503
-\OT1/cmr/m/n/10 fects Lo-co-mo-tion in the Evo-lu-tion of Ar-ti-fi-cial Swim-mi
-ng Or-gan-
+Underfull \hbox (badness 1259) in paragraph at lines 520--521
+[]\OT1/cmr/m/n/10 The book of the mi-to-zoos. ($\OT1/cmtt/m/n/10 http : / / bes
+tiario . org / mitozoos /
  []
 
 
-Underfull \hbox (badness 4752) in paragraph at lines 500--503
-\OT1/cmr/m/n/10 isms" pub-lished in "Ar-ti-fi-cial Life VI Pro-ceed-ings" MIT P
-ress)
- []
+New.tex:527: LaTeX Error: \begin{itemize} on input line 132 ended by \end{docum
+ent}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[28
+
+] [29] (New.aux)
+
+LaTeX Warning: There were undefined references.
 
 
-Underfull \hbox (badness 3098) in paragraph at lines 500--503
-\OT1/cmr/m/n/10 Gene Pool: Ex-plor-ing the In-ter-ac-tion Be-tween Nat-u-ral Se
--lec-tion
- []
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-[26
+ )
+(\end occurred inside a group at level 1)
 
-] (New.aux) ) 
+### semi simple group (level 1) entered at line 132 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 374 strings out of 95389
- 3804 string characters out of 1186903
- 51514 words of memory out of 1050960
- 3591 multiletter control sequences out of 60000
+ 376 strings out of 95389
+ 3846 string characters out of 1186903
+ 51002 words of memory out of 1050960
+ 3593 multiletter control sequences out of 60000
  10038 words of font info for 34 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
- 23i,6n,19p,921b,281s stack positions out of 5000i,500n,10000p,200000b,32768s
+ 23i,6n,19p,921b,355s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (28 pages, 48240 bytes).
+Output written on New.dvi (31 pages, 50848 bytes).
