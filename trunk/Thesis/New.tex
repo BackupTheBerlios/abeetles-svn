@@ -106,7 +106,7 @@ Target of this thesis is to introduce a simulator named Abeetles, that mimics li
 %Pøesné vymezení problému
 %5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
 %******************Context of my thesis - cathegories of Alife simulators and ranking of my work. Short about existing brother programs and programs that inspired me.
-Software simulators of Artificial life can be ranked in many ways. This thesis will expand on three classification possibilities. First, cathegorisation according to the method of creature definition will be used. Second, simulators will be distinguished with respect to the feature or features of Artificial life, that they attempt to simulate. Third, the criterion of purpose of the simulator and target group of users will be used.
+Software simulators of Artificial life can be ranked in many ways. This thesis will expand on three classification possibilities. First, cathegorisation according to the method of creature definition will be used. Second, simulators will be distinguished with respect to the feature or features of Artificial life, that they attempt to simulate. Third, the criterion of purpose of the simulator and target group of users will be used. Four section places Abeetles into thse classification systems and thereby specifies sphere of Artificial life that will be dealt in this thesis
 
 \section{Classification by creature definition}
 Individual agents are in existing systems modeled and constructed in many different ways. Most of them can be classified in the following way:
@@ -130,13 +130,22 @@ Another grouping of simulators can be done according to phenomenon, that they tr
 \section{Classification by purpose}
 Apparently, the main purpose of Artificial life simulators is to simulate artificial life. The target can be the complexity of simulation as well as the concentration on a small selection of its attributes. As the simulator is a software system, it is designed for a certain group of users and expected usage. And decision in this field influence interface, adjustability and output of the program. Also availability of the system is related to the purpose. 
 \begin{itemize}
-  \item \textbf{Games} Frequent purpose of simulators is entertainment, because game industry is constantly researching for new ideas to animate artificial characters. Simulators from this class are usually supplied with attractive user interface, but artificial life techniques and settings are not accessible to a user. The game Creatures is a well-known example of an artificial life computer program series, created in the mid-1990s by English computer scientist Steve Grand. The program is regarded as an important breakthrough in the advancement of artificial life research.
-  \item \textbf{Scientific simulators} A simulator can be designed primarily for use as a platform in Artificial Life research. Such programs allow to perform experiments in certain subfields of Alife, e.g. evolutionary dynamics, theoretical biology etc. They are usually highly adjustable and configurable and afford opportunities to gather high-quality statistics. The grafical output is not expected to be the most important feature, in comparison with games. Tom Ray's system Tierra and Avida from Devolab are such simulations. 
+  \item \textbf{Games} Frequent purpose of simulators is entertainment, because game industry is constantly researching for new ideas to animate artificial characters. Simulators from this class are usually supplied with attractive user interface, but neither artificial life techniques and settings nor source corde are accessible to examination. The game Creatures is a well-known example of an artificial life computer program series, created in the mid-1990s by English computer scientist Steve Grand. The program is regarded as an important breakthrough in the advancement of artificial life research.
+  \item \textbf{Scientific simulators} A simulator can be designed primarily for use as a platform in Artificial Life research. Such programs allow to perform experiments in certain subfields of Alife, e.g. evolutionary dynamics, theoretical biology etc. They are usually highly adjustable and configurable and afford opportunities to gather high-quality statistics. The grafical output is not expected to be the most important feature, in comparison with games. They are often open source. Tom Ray's system Tierra and Avida from Devolab are such simulations. 
   \item \textbf{Simulators for teaching purposes}
-Efforts of creators of a simulator can be also concencentrated on an idea of demonstration of natural life processes using computer with the objective that through experimentation and interactive play users learn underlying patterns. Intriguing example is the simulator Mitozoos, where through mutation of spider-like agents can anybody explore relationship between genetic code and life.
+Efforts of creators of a simulator can be also concencentrated on an idea of demonstration of natural life processes using computer with the objective that through experimentation and interactive play users learn underlying patterns of life. Intriguing example is the simulator Mitozoos, where through mutation of spider-like agents can anybody explore relationship between genetic code and life. 
 \item \textbf{Related systems}
 Many systems are closely related to Artificial life simulators, but they are not considered as Artificial life systems, because they only use techniques, that originate from Alife like genetic algorithms or ant colony optimization. Their purpose can be various. The primary difference lies in the fact that these simulators explicitly define the fitness of an agent by its ability to solve a problem, instead of its ability to find food, reproduce, or avoid death. 
 \end{itemize}
+
+\section{Classification of Abeetles}
+As far as definition of agents is concerned, target class of Abeetles are parameter based systems. Space of possibilities of Abeetles is bounded by finite number of parameters and Abeetles avails to explore what implies which setting of parameters in the world of this system.
+
+In classification by simulated phenomenon Abeetles can be ranked among systems concerned with evolution. But the field of evolution is too wide and features that Abeetles examines will be described later. %Add in which section!!
+
+The purpose of Abeetles is to be a prototype of scientific simulator. But not only for users from comunity of computer scientists, but also for those, who appreciate user friendly interface, even if it decreases performance of the system. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Presne vymezeni cilu navrhu}
