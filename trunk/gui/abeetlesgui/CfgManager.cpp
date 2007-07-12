@@ -66,7 +66,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 {
 //1. Read the bmp file
 	QImage * img = new QImage (filename);
-	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
+	//1QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
 	if (img==NULL)
 	{
 		QMessageBox::information(NULL,"MyApp","No file "+QString::fromAscii(filename)+" found."); 

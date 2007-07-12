@@ -427,7 +427,7 @@ bool CEnvironment::SaveEnv(char * fname)
 	if (false==CfgMng.SaveBeetles(&Grid,getBeetlesFileName(fname)))res = false;
 	if (false==CfgMng.SaveFlowers(&Grid,getFlowersFileName(fname))) res = false;
 
-	QMessageBox::information(NULL,"MyApp",getMapFileName(fname));
+	//1QMessageBox::information(NULL,"MyApp",getMapFileName(fname));
 
 	if (false==CfgMng.SaveMapToBmp(&Grid,getMapFileName(fname)))
 	{
@@ -447,8 +447,12 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed)
 	//Grid and Grid_Past now have old or default values.
 
 	//First part - init environment: Loads environment without beetles
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE))return false;
-
+	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,MAP_BMP_FILE))
+	{
+		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(MAP_BMP_FILE)+" was not successful. Check, whether it is present in current directory.");
+		return false;
+	}
+	
 	//1QMessageBox::information(NULL,"MyApp","Map is loaded"); //ch1
 
 	//Second part - create beetles and add them to half finished environment
@@ -469,9 +473,12 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed)
 		//printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
 
 	}
-			
+
+	//1QMessageBox::information(NULL,"MyApp","Beetles are set."); //ch1
+
 	Grid=Grid_Past;
 	Time=0;
+	//1QMessageBox::information(NULL,"MyApp","Grid_Past is copied to Grid."); //ch1
 	CountStatistics();
 	IsEmpty=false;
 	//1QMessageBox::information(NULL,"MyApp","Statistics Counted"); //ch1

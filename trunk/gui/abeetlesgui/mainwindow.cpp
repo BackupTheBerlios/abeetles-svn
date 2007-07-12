@@ -32,6 +32,8 @@
 #include "StatisticsEnv.h"
 #include "BeetleDialog.h"
 #include "Legend.h"
+#include <QTimer>
+#include <QString>
 
 MainWindow::MainWindow():Env()
 {
@@ -71,7 +73,7 @@ MainWindow::MainWindow():Env()
 	Field= new CField(&Env);
 
     connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
-	connect(this,SIGNAL(envChanged(CEnvironment *)),Field,SLOT(renewField()));
+	connect(this,SIGNAL(envChanged()),Field,SLOT(renewField()));
 	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
 
 	//Legend
@@ -186,6 +188,7 @@ MainWindow::MainWindow():Env()
     setWindowTitle(tr("Abeetles"));
     setMinimumSize(300, 400);
     resize(480, 500);
+	renewAllChildren();
 	
 	
 //	QMessageBox::information(this,"MyApp","10");
@@ -205,15 +208,15 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::newEnv()
 {
    //Preliminarily:
-	//1QMessageBox::information(NULL,"MyApp","Before cleaning");
+	//1QMessage::information(NULL,"MyApp","Before cleaning");
 	Env.CleanEnv();
-	//1QMessageBox::information(NULL,"MyApp","Env is cleaned");
+	//1QMessage::information(NULL,"MyApp","Env is cleaned");
 	Env.FillEmptyEnvRandomly(100);	
-	//1QMessageBox::information(NULL,"MyApp","Env is filled"); //ch1
+	//1QMessage::information(NULL,"MyApp","Env is filled"); //ch1
 	//emit envChanged();//uprav tak, aby to nastalo jen if Env was 0
 	//Field->setEnvRef(Env);	
 	emit envIsEmpty(Env.IsEmpty);
-	//QMessageBox::information(NULL,"MyApp","Message is emited"); //ch1
+	//1QMessage::information(NULL,"MyApp","Message is emited"); //ch1
 	
 	renewAllChildren();
 	statusBar()->showMessage(tr("Random Env made."));
@@ -257,7 +260,7 @@ void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: u
 	//saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	saveDlg.setFilter("All files (*.*)");
 	ActualFN = saveDlg.getSaveFileName(this);
-	QMessageBox::information(NULL,"MyApp",ActualFN); 
+	//1QMessage::information(NULL,"MyApp",ActualFN); 
     if (ActualFN.isEmpty())return;
 		//if the filename already contains the suffix, I want to remove it
 	if ( (-1!=ActualFN.lastIndexOf("_btl.txt"))||(-1!=ActualFN.lastIndexOf("_flw.txt"))||(-1!=ActualFN.lastIndexOf("_map.bmp"))||(-1!=ActualFN.lastIndexOf("_tst.csv")) )
@@ -265,7 +268,7 @@ void MainWindow::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: u
 	else	//otherwise I remove only the ending
 		ActualFN=ActualFN.left(ActualFN.lastIndexOf("."));
 
-	QMessageBox::information(NULL,"MyApp",ActualFN);
+	//1QMessage::information(NULL,"MyApp",ActualFN);
     if (ActualFN.isEmpty())return;
 
 	if (Env.SaveEnv(ActualFN.toAscii().data()))
@@ -418,7 +421,10 @@ void MainWindow::renewAllChildren()
 		return;
 	}
 	if (DisplayCheck->checkState() == Qt::Checked)
+	{
+		//1QMessageBox::information(this,"MyApp","Field is gonna be renewed.");
 		Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
+	}
 }
 
 void MainWindow::run(bool bStart)

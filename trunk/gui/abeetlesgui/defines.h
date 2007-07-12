@@ -11,8 +11,8 @@
 #define G_HEIGHT_MAX 50
 #define G_HEIGHT_MIN  5
 #define G_FIRST_INDEX_MAX 1
-#define DEFAULT_GRID_WIDTH 30
-#define DEFAULT_GRID_HEIGHT 30
+#define DEFAULT_GRID_WIDTH 30 //should be same as EMPTY_FIELD_SIZE !!
+#define DEFAULT_GRID_HEIGHT 30 //should be same as EMPTY_FIELD_SIZE !!
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 20
@@ -100,7 +100,7 @@
 #define MAX_INT 2147483647
 
 //statistics concerned:
-#define BUF_SIZE 1000
+#define BUF_SIZE 500
 #define STAT_AGR_FILE "statAgr.txt"
 #define STAT_TIME_FILE "statTime.csv"
 #define STAT_TIME_FILE_OLD "statTime_old.csv"
@@ -122,6 +122,6 @@
 #define COLOR_WALL	"black"
 #define COLOR_FLOWER "yellow"
 
-#define EMPTY_FIELD_SIZE 30
+#define EMPTY_FIELD_SIZE 30 //should be same as DEFAULT_GRID_WIDTH!!
 
 

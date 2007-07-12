@@ -9,11 +9,12 @@
 
 CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 {
+	//1QMessageBox::information(NULL,"Field","Field is constructed");
 	setPalette(QPalette(QColor(250, 250, 200)));
     setAutoFillBackground(true);
 
 	Env = env;
-	
+	//1QMessageBox::information(NULL,"FIELD",QString::number(Env->Grid.G_Width));
 	
 	ZoomToSqSize[0]=1;ZoomToGapSize[0]=0;
 	ZoomToSqSize[1]=3;ZoomToGapSize[1]=1;
@@ -54,7 +55,7 @@ void CField::mousePressEvent ( QMouseEvent * evnt )
 
 void CField::renewField()
 {
-	//QMessageBox::information(this,"MyApp","2");
+	//1QMessageBox::information(this,"MyApp","In function renew field");
 	update();
 }
 
@@ -72,7 +73,7 @@ void CField::paintEvent(QPaintEvent *evnt)
 	}
 	else
 	{
-		//QMessageBox::information(this,"MyApp","3 - Drawing field");
+		//QMessageBox::information(this,"MyApp","Drawing field");
 
 		QPainter painter(this);
 		

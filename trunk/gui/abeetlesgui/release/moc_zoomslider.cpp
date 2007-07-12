@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'zoomslider.h'
 **
-** Created: Wed 4. Jul 14:38:15 2007
+** Created: Thu 12. Jul 16:31:55 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!

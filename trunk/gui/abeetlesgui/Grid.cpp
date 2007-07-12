@@ -2,6 +2,7 @@
 #include "Grid.h"
 #include "defines.h"
 #include <assert.h>
+#include <QMessageBox>
 
 CGrid::CGrid(void)
 {
@@ -9,14 +10,15 @@ CGrid::CGrid(void)
 	G_Width=DEFAULT_GRID_WIDTH;
 	G_Height=DEFAULT_GRID_HEIGHT;
 	G_FirstIndex=1;
-	//init all Grid to zero values.. include borders!
-	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
-		for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
+	//init all Grid to zero values.. all the allocated memory, not only within default grid and height!
+	for (I=0;I<(G_WIDTH_MAX+ (2* G_FIRST_INDEX_MAX));I++ )//((2*G_FirstIndex)+G_Width);I++)
+		for (J=0;J<(G_HEIGHT_MAX+ (2* G_FIRST_INDEX_MAX));J++ )//((2*G_FirstIndex)+G_Height);J++)
 		{
 			GridMatrix[I][J][0]=NOTHING;
 			GridMatrix[I][J][1]=0;
 			GridMatrix[I][J][2]=0;
 		}
+	//1QMessageBox::information(NULL,"Grid","Grid is in constructor");
 }
 
 
@@ -140,7 +142,7 @@ bool CGrid::SetGridShape(int FI,int W,int H)
 
 /**
 * Public method <br>
-* Desc: Puts zero to all cells of matrix of the grid<br>
+* Desc: Puts zero to all cells of matrix of the grid and delete beetles. Beware, beetles are cleaned after one clean of Grid<br>
 * System dependence:no<br>
 * Usage comments:<br>
 */
