@@ -148,7 +148,57 @@ The purpose of Abeetles is to be a prototype of scientific simulator. But not on
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Presne vymezeni cilu navrhu}
+\chapter{Precise definition of targets of this thesis}
+
+Objectives of this thesis have already been briefly mentioned in the first chapter. This chapter has for its objective precise description of these targets and explanation of context of individual bullets where necessary.
+
+%First, swift enumeration: Targets of this thesis are to design the simulator Abeetles, implement it and  introduce several experiments to be run on the simulator. %This is just shortcut of paragraph from the first chapter
+
+Being only one simulator in the row of other artificial life simulators, it is necessary to define clearly, which features of natural life will Abeetles examine. For this purpose will serve five existing simulators chosen to be an important example. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely accesible. Abeetles is also free software and is intended to examine original set of features of natural life only within free software. Features of selected simulators will be described and on their base will be chosen the set of features of nature Abeetles will focus on  and other attributes of the simulator.
+
+\section {Avida}
+Avida is often presented example of a program based simulator. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well.
+
+\begin{tabular}{p{150}p{220}}
+Individual&code strings\\
+body&each string is a segment of computer code written in a simple language running on a configurable virtual computer. It take s up 1 cell in grid of environment.\\
+motion&no\\
+behavior&\\
+features&fitness, code size, children code size, the code, stack and registers, gestation time\\
+Life span&not restricted\\
+Genes&string is itself a genome\\
+Relation between genotype and phenotype&equal\\
+phenotypic space&any string (of specified length - ?)\\
+mems, learning&no\\
+&\\
+Mating&\\
+Number of parents&1\\
+Number of offspring in one reproduction&1\\
+Creation of genotype of child&Poisson-random mutation\\
+Choice of possible partner&no\\
+Conditions of copulation&no\\
+Investment in offspring&no\\
+&\\
+Fitness function&\\
+&\\
+Environment&\\
+features&task, whose completion gives bonus to the string\\
+description&grid of cells of the shape of torus\\
+inhabitants&strings\\
+&\\
+UI settings&\\
+mating&mutation rate according to types of mutation ( 3 types)\\
+life of individual&initial genomes of initial individuals\\
+environment&resources and tasks of the environment\\
+overviews&instruction viewer, string details, graphs of \\
+&\\
+Implementation features&\\
+Distribution of computation&yes\\
+Speed settings&view:textual/graphical\\
+sources available&yes\\
+accesibility of exe&yes\\
+\end{tabular}
+
 \section {Program-based}
 \begin{itemize}
     \item  Artificial Planet
