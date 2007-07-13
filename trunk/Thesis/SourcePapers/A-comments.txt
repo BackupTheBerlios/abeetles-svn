@@ -1,0 +1,1 @@
+Paper about development of models. Will be of use for chapter 6. Navrh reseni s diskusi alternativ. Especially for discussion of alternatives and reasons fot its usage.

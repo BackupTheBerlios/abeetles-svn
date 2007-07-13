@@ -121,10 +121,10 @@ Individual agents are in existing systems modeled and constructed in many differ
 Another grouping of simulators can be done according to phenomenon, that they try to simulate. \url{http://vlab.infotech.monash.edu.au/}
 \begin{itemize}
   \item \textbf{Networks} - Complex natural systems are simulated according to network theory (or diktyology) as networks or graphs and their statistical and topological properties are analyzed. 
-  \item \textbf{Nonlineal} - Nonlineal systems are systems that cannot be mathematically described as the sum of their components. While certain assumptions can be made for linear systems, that often make the mathematical modelling of such systems easy, mathematical modelling of nonlineal systems is often very difficult or impossible. As a result, nonlineal systems are often studies through use of simulations.
+  \item \textbf{Nonlineality} - Nonlineal systems are systems that cannot be mathematically described as the sum of their components. While certain assumptions can be made for linear systems, that often make the mathematical modelling of such systems easy, mathematical modelling of nonlineal systems is often very difficult or impossible. As a result, nonlineal systems are often studies through use of simulations.
   \item \textbf{Swarms} - A swarm is a group of independent agents that gather together in order to collectively carry out a certain task. Typically, each agent exhibits a very simple behaviour pattern that is influenced by direct or indirect interactions with other swarm members. As a result, the swarm as a whole may exhibit complex and intelligent behaviour patterns. In nature, swarms can be observed in social insects, fish schools, but also in primitive single cell organisms.
   \item \textbf{Evolution} - Evolution is the process of development or grows by accumulation of small advantageous changes. The study of all forms of evolutionary processes is one of the primary goals of ALife. This includes the study of biological evolution of species as well as other evolutionary processes in natural, artificial and social systems.
-  \item \textbf{Cellular Automata} - A cellular automaton (CA) is a discrete model that consists of a cell-grid, where each cell is in one of a number of well-defined states. The grid can be in any finite number of dimensions, though the mostly studied CAs have one or two dimensions. The time in the model is discrete and the state of each cell C at time t depends only on the cell-states within some well-defined neighbourhood of C at time t-1. The update function (also called the update rule) is a table that defines the state for each cell at time t as a function of the state of the neighbourhood of C at time t-1.
+  \item \textbf{Cellular Automata} - A cellular automaton (CA) is a discrete model that consists of a cell-grid, where each cell is in one of a number of well-defined states. The grid can be in any finite number of dimensions, though the mostly studied CAs have one or two dimensions. The time in the model is discrete and the state of each cell C at time t depends only on the cell-states within some well-defined neighbourhood of C at time t-1. The update function (also called the update rule) is a table that defines the state for each cell at time t as a function of the state of the neighbourhood of C at time t-1. Cellular automaton is not really phenomenon of the natural life, it is a  discrete model of mutual influence of neighboring elements, which can be in the nature observed. 
 \end{itemize}  
 
 \section{Classification by purpose}
@@ -154,50 +154,94 @@ Objectives of this thesis have already been briefly mentioned in the first chapt
 
 %First, swift enumeration: Targets of this thesis are to design the simulator Abeetles, implement it and  introduce several experiments to be run on the simulator. %This is just shortcut of paragraph from the first chapter
 
-Being only one simulator in the row of other artificial life simulators, it is necessary to define clearly, which features of natural life will Abeetles examine. For this purpose will serve five existing simulators chosen to be an important example. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely accesible. Abeetles is also free software and is intended to examine original set of features of natural life only within free software. Features of selected simulators will be described and on their base will be chosen the set of features of nature Abeetles will focus on  and other attributes of the simulator.
+Being only one simulator in the row of other artificial life simulators, it is necessary to define clearly, which features of natural life will Abeetles examine. For this purpose will serve five existing simulators chosen to be an important example. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely accesible. Abeetles is also free software and is intended to examine original set of features of natural life only within free software. Features of selected simulators will be described and on their base will be chosen the set of features of the nature Abeetles will focus on and other attributes of the simulator.
+
+The number of presented features is 31.
 
 \section {Avida}
-Avida is often presented example of a program based simulator. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well.
+Avida is often presented example of a program based simulator. It studies evolution of programs. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well.
 
-\begin{tabular}{p{150}p{220}}
-Individual&code strings\\
-body&each string is a segment of computer code written in a simple language running on a configurable virtual computer. It take s up 1 cell in grid of environment.\\
-motion&no\\
-behavior&\\
-features&fitness, code size, children code size, the code, stack and registers, gestation time\\
-Life span&not restricted\\
-Genes&string is itself a genome\\
-Relation between genotype and phenotype&equal\\
-phenotypic space&any string (of specified length - ?)\\
-mems, learning&no\\
-&\\
-Mating&\\
-Number of parents&1\\
-Number of offspring in one reproduction&1\\
-Creation of genotype of child&Poisson-random mutation\\
-Choice of possible partner&no\\
-Conditions of copulation&no\\
-Investment in offspring&no\\
-&\\
-Fitness function&\\
-&\\
-Environment&\\
-features&task, whose completion gives bonus to the string\\
-description&grid of cells of the shape of torus\\
-inhabitants&strings\\
-&\\
-UI settings&\\
-mating&mutation rate according to types of mutation ( 3 types)\\
-life of individual&initial genomes of initial individuals\\
-environment&resources and tasks of the environment\\
-overviews&instruction viewer, string details, graphs of \\
-&\\
-Implementation features&\\
-Distribution of computation&yes\\
-Speed settings&view:textual/graphical\\
-sources available&yes\\
-accesibility of exe&yes\\
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline
+Agents&segments of code in simple language\\ \hline
+Body& one cell in the grid of the environment\\ \hline
+Motion&no\\ \hline
+Behavior&semantics of the code\\ \hline
+Features& code size, size of code of a child, stack and registers, gestation time\\ \hline
+Life span&not restricted\\ \hline
+Genes&string is itself a genome\\ \hline
+Relation between genotype and phenotype&equal\\ \hline
+Phenotypic space&any string of code in the language\\ \hline
+Learning&no\\ \hline
+textbf{Reproduction}&\\ \hline
+Mating&no\\ \hline
+Number of parents&1\\ \hline
+Number of offspring in one reproduction&1\\ \hline
+Creation of genotype of child&Poisson-random mutation\\ \hline
+Choice of possible partner&no\\ \hline
+Conditions of copulation&no\\ \hline
+Investment in offspring&no\\ \hline
+&\\ \hline
+Fitness function&\\ \hline
+&\\ \hline
+\textbf{Environment}&\\ \hline
+Features&tasks, whose completion gives bonus to the string\\ \hline
+Description&grid of cells of the shape of torus\\ \hline
+Inhabitants& only agents\\ \hline
+&\\ \hline
+textbf{UI settings}&\\ \hline
+Reproduction&mutation rate according to types of mutation ( 3 types)\\ \hline
+life of individual&initial genomes of initial individuals\\ \hline
+environment&resources and tasks of the environment\\ \hline
+overviews&instruction viewer, string details, graphs of \\ \hline
+&\\ \hline
+Implementation features&\\ \hline
+Distribution of computation&yes\\ \hline
+Speed settings&view:textual/graphical\\ \hline
+sources available&yes\\ \hline
+accesibility of exe&yes\\ \hline
 \end{tabular}
+
+\section {Bitozoa}
+Bitozoa
+
+\begin{tabular}{p{150pt}p{220pt}}
+&Bitozoa\\
+&Neural networks\\
+Individual&Bitozoa - herbivora/carnivora\\
+body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\
+motion&use flagella\\
+behavior&\\
+features&energy level - for motion and work of neurons, burned with speed according to age \\
+Life span&(?)\\
+Genes&(?)\\
+Relation between genotype and phenotype&direct\\
+phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, distance sensitivity and angular sensitivity of eyes\\
+mems, learning&no\\
+Mating&\\
+Number of parents&2 nebo 1\\
+Number of offspring in one reproduction&1-n (2parents) nebo 1(1parent)\\
+Creation of genotype of child&random number of genes from both parents + mutation\\
+Choice of possible partner&any met bitozoa of the same species with high enough stamina\\
+Conditions of copulation& meeting of two bitozoa with high enough stamina level and from the same species\\
+Investment in offspring&30(*) stamina inherited - 2 parents, 50% - 1 parent\\
+Fitness function&\\
+Environment&\\
+features&number of spots, where food grows\\
+description&toroid\\
+inhabitants&world consist of food growing on special spots, herbivores eating plants, and carnivores eating herbivores\\
+UI settings&\\
+mating&breed distance, breed level of stamina, inherited stamina\\
+life of individual&asexual reproduction allowed, burned stamina per movement, per neuron, stamina at start, flagella angle, initial eye sensitivity, stamina gained from eaten herbivore, strength of carnivore, life cost per time step, stamina level for asexual reproduction, killing of bitozoa, number of neurons at start, eat distance, flagella efficiency, sight distance\\
+environment&no. of bitozoa and food spots at start, adding or killing of bitozoa, time increment, viscosity, random numbers generator seed\\
+overviews&graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file\\
+Implementation features&\\
+Distribution of computation&no\\
+Speed settings&animation on-off, pause\\
+sources available&only light version\\
+accesibility of exe&allowed by author\\
+\end{tabular}
+
 
 \section {Program-based}
 \begin{itemize}
