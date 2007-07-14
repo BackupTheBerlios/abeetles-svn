@@ -1,16 +1,15 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  13 JUL 2007 14:48
-entering extended mode
+This is TeX, Version 3.14159 (MiKTeX 2.2) (preloaded format=latex 2000.11.28)  14 JUL 2007 18:26
 **New.tex
 (New.tex
-LaTeX2e <2005/12/01>
+LaTeX2e <2001/06/01>
 Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
 Loading SK hyphenation patterns: Jana Chlebikova, 1992
-Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, cz
-ech, slovak, german, ngerman, french, loaded.
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\report.cls"
-Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\size10.clo"
-File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+Babel <v3.7h> and hyphenation patterns for english, french, german, ngerman, cz
+ech, slovak, dumylang, nohyphenation, loaded.
+(C:\TeX\texmf\tex\latex\base\report.cls
+Document Class: report 2001/04/21 v1.4e Standard LaTeX document class
+(C:\TeX\texmf\tex\latex\base\size10.clo
+File: size10.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -25,9 +24,9 @@ File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files\MiKTeX 2.5\tex\latex\ltxmisc\url.sty"
+(C:\TeX\texmf\tex\latex\ltxmisc\url.sty
 \Urlmuskip=\muskip10
-Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
+Package: url 1999/03/28  ver 1.5x  Verb mode for urls, etc.
 ) (New.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
 LaTeX Font Info:    ... okay on input line 52.
@@ -49,8 +48,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 54.
  [1
 
-]
-[1]
+] [1]
 Chapter 1.
 [1
 
@@ -58,7 +56,7 @@ Chapter 1.
 Chapter 2.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 114.
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
+(C:\TeX\texmf\tex\latex\base\omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
@@ -72,137 +70,145 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 121.
  [4] [5] [6]
 Chapter 3.
-
-Underfull \hbox (badness 1609) in paragraph at lines 171--171
-[]\OT1/cmr/m/n/10 Relation be-tween geno-type and
- []
-
-
-Overfull \hbox (64.0pt too wide) in paragraph at lines 162--202
-[][] 
- []
-
 [7
 
-] [8]
-Underfull \hbox (badness 1609) in paragraph at lines 216--216
-[]\OT1/cmr/m/n/10 Relation be-tween geno-type and
+]
+Overfull \hbox (64.0pt too wide) in paragraph at lines 211--248
+[][] 
  []
 
-New.tex:226: Extra alignment tab has been changed to \cr
-You have given more \span or & marks than there were
-in the preamble to the \halign or \valign now in progress.
-So I'll assume that you meant to type \cr instead.
-
-
-Overfull \hbox (64.0pt too wide) in paragraph at lines 206--242
-[][] 
+[8]
+Overfull \hbox (49.0pt too wide) in paragraph at lines 252--291
+[] 
  []
 
 [9]
-Overfull \vbox (141.0pt too high) has occurred while \output is active []
+Overfull \vbox (102.30254pt too high) has occurred while \output is active []
 
- [10]
-[11] [12]
-Missing character: There is no ’ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 305--318
-
+[10]
+Underfull \hbox (badness 1377) in paragraph at lines 311--311
+[]\OT1/cmr/m/n/10 "in round ""view hori-zon"" at one snap-shot.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
-
+Underfull \hbox (badness 2005) in paragraph at lines 320--320
+[]\OT1/cmr/m/n/10 location in en-vi-ron-ment, cre-ation a swim-bot,
  []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 322--322
+\OT1/cmr/m/n/10 tures of in-di-vid-ual, the best one in at-trac-
+ []
+
+
+Overfull \hbox (49.0pt too wide) in paragraph at lines 294--333
+[] 
+ []
+
+
+Overfull \vbox (78.30254pt too high) has occurred while \output is active []
+
+
+[11]
+Overfull \hbox (49.0pt too wide) in paragraph at lines 336--372
+[] 
+ []
+
+
+Overfull \vbox (5.50255pt too high) has occurred while \output is active []
+
+
+[12]
+New.tex:411: Extra alignment tab has been changed to \cr
+? 
+
+Overfull \hbox (49.0pt too wide) in paragraph at lines 375--413
+[] 
+ []
+
+
+Overfull \vbox (222.30254pt too high) has occurred while \output is active []
+
 
 [13]
-Overfull \hbox (3.69241pt too wide) in paragraph at lines 326--334
-[]\OT1/cmr/m/n/10 Cell-O-Sim ($\OT1/cmtt/m/n/10 http : / / mbi . dkfz-[]heidelb
-erg . de / projects / cellsim /
- []
-
-[14]
 Chapter 4.
 
-Overfull \hbox (42.95905pt too wide) in paragraph at lines 373--381
+Overfull \hbox (42.95905pt too wide) in paragraph at lines 433--441
 [][] 
  []
 
-[15
+[14
 
-] [16]
+] [15]
 Chapter 5.
-[17
+[16
 
 ]
 Chapter 6.
-[18
+[17
 
 ]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 404--418
+Underfull \hbox (badness 10000) in paragraph at lines 464--478
 
  []
 
-[19
+[18
 
-] [20]
+] [19]
 Chapter 8.
-[21
+[20
 
 ]
 Chapter 9.
-[22
+[21
 
 ]
 Chapter 10.
-[23
+[22
 
 ]
 Chapter 11.
-[24
+[23
 
 ]
 Chapter 12.
-[25
+[24
 
 ]
 Chapter 13.
-[26
+[25
 
 ]
 Missing character: There is no ­ in font cmr10!
 Missing character: There is no ­ in font cmr10!
- [27]
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 535--536
+ [26]
+Overfull \hbox (0.24724pt too wide) in paragraph at lines 595--596
 []$\OT1/cmtt/m/n/10 http : / / en . wikipedia . org / wiki / Crossover _ \ % 28
 genetic _ algorithm \
  []
 
-[28]
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 536--537
+[27]
+Overfull \hbox (5.4972pt too wide) in paragraph at lines 596--597
 []$\OT1/cmtt/m/n/10 http : / / www . springerlink . com / content / b67qv704abd
 9mtgt / fulltext .
  []
 
-New.tex:568: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+New.tex:628: Missing $ inserted
+? 
+New.tex:629: Missing $ inserted
+? 
 
-New.tex:569: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (173.03458pt too wide) in paragraph at lines 567--569
+Overfull \hbox (173.03458pt too wide) in paragraph at lines 627--629
 \OT1/cmr/m/n/10 A$[]\OML/cmm/m/it/10 OPULATEPostreh\OT1/cmr/m/n/10 2 : \OML/cmm
 /m/it/10 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/10 )\OML/cmm/m/it/10 Solution \OT1/cmr/m/n/10 :
  []
 
 
-Overfull \hbox (1188.35458pt too wide) in paragraph at lines 567--569
+Overfull \hbox (1188.35458pt too wide) in paragraph at lines 627--629
 \OML/cmm/m/it/10 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/10 "\OML/cmm/m/it/10 hardwired\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -211,54 +217,57 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 beetleinthe
 front\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 willbemadeaccordingtotheBraintable:$ 
  []
 
-[29] [30]
+[28] [29]
 Chapter 14.
 
-Overfull \hbox (22.24693pt too wide) in paragraph at lines 582--584
-[]$\OT1/cmtt/m/n/10 http : / / www . scs . carleton . ca / \[]soma / biosec / r
-eadings / spafford-[]viruses .
+Overfull \hbox (22.24693pt too wide) in paragraph at lines 642--644
+[]$\OT1/cmtt/m/n/10 http : / / www . scs . carleton . ca / \~soma / biosec / re
+adings / spafford-[]viruses .
  []
 
-[31
+[30
 
 ]
 Chapter 15.
-[32
+[31
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 623--626
+Underfull \hbox (badness 1496) in paragraph at lines 676--677
+[]\OT1/cmr/m/n/10 Gene. (n.d.). Columbia Elec-tronic En-cy-clo-pe-dia. Re-triev
+ed July 14,
+ []
+
+
+Underfull \hbox (badness 1137) in paragraph at lines 679--680
+\OT1/cmr/m/n/10 ford En-cy-clo-pe-dia of Phi-los-o-phy (Spring 2007 Edi-tion), 
+Ed-ward N.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 692--695
 []\OT1/cmr/m/n/10 Attractiveness vs. Ef-fi-ciency 1998 "How Mate Pref-er-ence A
 f-
  []
 
 
-Underfull \hbox (badness 2503) in paragraph at lines 623--626
+Underfull \hbox (badness 2503) in paragraph at lines 692--695
 \OT1/cmr/m/n/10 fects Lo-co-mo-tion in the Evo-lu-tion of Ar-ti-fi-cial Swim-mi
 ng Or-gan-
  []
 
 
-Underfull \hbox (badness 4752) in paragraph at lines 623--626
+Underfull \hbox (badness 4752) in paragraph at lines 692--695
 \OT1/cmr/m/n/10 isms" pub-lished in "Ar-ti-fi-cial Life VI Pro-ceed-ings" MIT P
 ress)
  []
 
 
-Underfull \hbox (badness 3098) in paragraph at lines 623--626
+Underfull \hbox (badness 3098) in paragraph at lines 692--695
 \OT1/cmr/m/n/10 Gene Pool: Ex-plor-ing the In-ter-ac-tion Be-tween Nat-u-ral Se
 -lec-tion
  []
 
-[33
+[32
 
-] (New.aux) ) 
-Here is how much of TeX's memory you used:
- 375 strings out of 95389
- 3822 string characters out of 1186903
- 55610 words of memory out of 1050960
- 3592 multiletter control sequences out of 60000
- 10038 words of font info for 34 fonts, out of 1000000 for 2000
- 19 hyphenation exceptions out of 8191
- 23i,8n,19p,921b,281s stack positions out of 5000i,500n,10000p,200000b,32768s
-
-Output written on New.dvi (35 pages, 65260 bytes).
+] [33] (New.aux) )
+Output written on New.dvi (35 pages, 77116 bytes).

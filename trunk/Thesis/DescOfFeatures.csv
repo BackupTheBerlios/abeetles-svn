@@ -1,0 +1,36 @@
+Agents(=objects of the environment of the simulator, who are subject to a life cycle and evolution.)
+Body
+Motion
+Behavior(=what they do besides motion, mating,eating)
+Features(=features that change during life)
+Life-span
+Genes(=representation of genes)
+Phenotypic space(=space of all possible phenotypes of agents)
+Learning(=whether some ability to learn is included in model of agents)
+
+
+
+Number of offsprings in one reproduction
+Algorithm used for creation of genes of an offspring
+Choice of partner(=features that a partner must have to be chosen for mating)
+Conditions of mating(=what conditions must be satisfied before mating)
+Investment in offspring(=the amount of some resource, usually energy, that is given to an offspring by its parents at its birth)
+
+
+Description(=what does the environment look like)
+Features(=parameters of the environment, that are not represented by objects contained in the environment)
+Inhabitants(=objects, that inhabit the environment together with agents)
+
+UI settings(=attributes, in which can a user influence the artificial life run by the simulator. They are sorted in 3 cathegories)
+Mating
+Life of individual
+Environment
+
+Statistics(=output of summary information about a run of the simulator)
+
+Implementation(=features of implementation of the simulator)
+Distribution of computation(=whether and how it is possible to distribute the computation of the artificial life in the simulator to more computers)
+Speed settings(=whether and how it is possible to influence the speed of computation)
+Available sources(= whether source file of the simulator are available)
+Availability of binaries(=under what conditions are binaries available, e.g. on registration, free, ect.)
+Programming language(=programming language used and key libraries)

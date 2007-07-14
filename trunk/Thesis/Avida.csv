@@ -1,0 +1,42 @@
+;Avida (tierra's devivative)
+;program based, evolution+celular automata, scientific simulator
+Agents;segments of code in a simple language called strings 
+Body;one cell in the grid of the environment
+Motion;no
+Behavior;execution of the code
+Features;content of stack and registers
+Life-span;not restricted
+Genes;string is itself a genome
+Phenotypic space;any finite string constructed of instruction of the language.
+Learning;no
+
+Mating;
+Number of parents;1
+Number of offsprings;1
+Genetic algorith;Poisson-random mutation
+Choice of partner;no
+Conditions of mating;no
+Investment in offspring;no
+
+Environment;
+Description;a grid of cells in the form of torus
+Features;resources and tasks, completion of a task gives a bonus to the string
+Inhabitants;strings
+
+UI settings;
+Mating;mutation rate
+Life of individual;initial genomes of initial individuals
+Environment;resources and tasks of the environment
+;
+Statistics;instruction viewer, string details, etc.
+
+Implementation;
+Distribution of computation;no
+Speed settings;console version versus gui version 
+Available sources;yes
+Availability of binaries;free
+Programming language;C++
+;
+
+
+;

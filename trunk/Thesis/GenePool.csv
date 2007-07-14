@@ -1,0 +1,37 @@
+;Gene Pool
+;Parameter based
+Agents;swimbot
+Body;mouth, genitals and 2-10 parts for moving
+Motion;swimming using parts, algorithm common for all swimbots
+Behavior;nothing
+Features;energy
+Life-span;not restricted
+Genes;(?)
+Phenotypic space;length, width, system of attachment, phases and amplitudes of every part
+Learning;no
+Mating;
+Number of parents;2
+Number of offsprings;1
+Genetic algorithm;crossover algorithm with mutation
+Choice of partner;"in round ""view horizon"" at one snapshot. Swimbot chooses at one snapshot in his ""view horizon"" one mate, that most satisfies his attractiveness criterion"
+Conditions of mating;swimbots mate when at least one of them is pursuing the other and the distance between their genitals is less than the length of the genital vector
+Investment in offspring;50% of actual energy
+Environment;
+Description;rectangular pool
+Features;constant amount of energy in environment, cyling: food->swimbots->pool->food
+Inhabitants;food bits, swimbots
+UI settings;
+Mating;attraction criterion
+Life of individual;location in environment, creation a swimbot, hunger threshold, energy for offspring
+Environment;food growth - birth delay, spread radius, energy from 1 piece
+Statistics;graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating
+Implementation;
+Distribution of computation;no
+Speed settings;no
+Available sources;no
+Availability of binaries;yes
+Programming language;(?)
+;
+do uvodu:;how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots
+;
+;

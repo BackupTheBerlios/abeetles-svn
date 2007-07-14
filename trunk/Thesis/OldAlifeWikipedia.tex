@@ -1,0 +1,112 @@
+\section {Program-based}
+\begin{itemize}
+    \item  Artificial Planet
+    \item  Avida
+        Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
+    \item  Breve
+    \item  DarwinHom
+    \item  Darwinbots
+    \item  Evolve4.0
+    \item  Framsticks
+    \item  Grey Thumb Society Simulators
+          (Archis, Nanopond)
+    \item  Physis (software)
+    \item  Tierra
+            Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite{Tierra}
+\end{itemize}
+
+
+\section {Module Based}
+Individual modules are added to a creature. These modules modify the creature's behaviors and characteristics either directly, by hard coding into the simulation (leg type A increases speed and metabolism), or indirectly, through the emergent interactions between a creature's modules (leg type A moves up and down with a frequency of X, which interacts with other legs to create motion). Generally these are simulators which emphasize user creation and accessibility over mutation and evolution.
+\begin{itemize}
+    \item  Spore (video game)
+    \item  TechnoSphere
+\end{itemize}
+
+\section { Parameter Based }
+Organisms are generally constructed with pre defined and fixed behaviors that are controlled by various parameters that mutate. That is, each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of an organism in a well defined way.
+
+\begin{itemize}
+    \item  \textbf{Jeffrey Ventrella programs: Darwin Pond and Gene Pool }
+            Darwin Pond is older version of the newer system Gene Pool. This system is an imaginary pool, where live swimbots. Swimbots move by swimming, eat food growing in the pool and reproduce sexually. This system was designed to explore topics of relations between natural and sexual selection.
+Their Darwinian fitness is how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots. So they evolve their swimming techniques and features that might be attractive to other swimbots. Author of this program published interesting discoveries about results of setting various attraction criteria. Criterion "still" (i.e., swimbots exhibiting the least amount of motion become the most attractive) causes swimbots to converge on distinct bifurcation among body types resembling sexual dimorphism.
+
+                Model of the system: Swimbots consist of mouth, genitals and 2-10 parts,  which rotate and let the swimbot move. Parameters of this parts are coded in genes. Each swimbot has its current level of energy, which is used for moving, obtained from food and 50\% of it gives parent swimbot to its offspring. Amount of energy in all system is constant, changing in the way: food->swimbots->pool->food.
+Swimbot chooses its mate for reproduction in its "view horizon" at one snapshot. It chooses one mate which most satisfied attractiveness criterion. Swimbots mate when at least one of them is pursuing the other, and the distance between their genitals is less than the length of the genital vector) one offspring
+appears in-between them, which inherits genetic building blocks from both parents. A standard genetic-algorithm crossover technique is used, and some random mutation occurs in random genes.
+
+                Settings of the program: The program avails to set the attraction criterion (big, similar color, long, still, crooked,... ). Swimbots can be moved by user, cloned or killed.
+
+                Future development: Recursive embryology, Parental investment and gender.
+
+    \item  Evolites (No official article, no precise information)
+          Graphical game with creatures called evolites swimming in the sea.
+          Organisms: round creatures, different colors
+          Features: Energy, Hunger
+          Reproduction: ??
+          Environment: Sea with pieces of food
+          Possibilities: Mutation blobs, food rate, ...
+
+    \item \textbf{Mitozoos} \cite{Mitozoos}
+Th e Mitozoos World is a model of artificial life calculated and generated graphically on a computer. It is is an educational and recreational
+project to support study of evolution and genetics. It consists of two modules - the world and coders, which avail user to create their own mitozoos and send them to the running world. These modules can be deployed on different computers, world on one and coder on a number of other computers. Connection to internet is the only condition for them to cooperate.
+Description of the model:
+Organisms in this model are spider-like mitozoos with 2 eyes, body in shape of tetrahydron and four bent legs that inhabit a simulated threedimensional world. So as to move around, they must move their legs in sequence. The genome of a mitozoos consists of ten genes, each gene has four bases (four possible colors).
+Relation between genome and phenome(graphic appearance and behavior) is determined by large set of rules. These rules are designed in such
+a way that each element of the code is related to various aspects of the phenotype. The related traits simply depend on similar genes and rules, in other words, there is no such thing as a one-to-one relationship between the gene and the phenotype.
+Each mitozoos has its energy level, varying durig its life, and procreation threshold stating, how much energy allows it to reproduce. Mitozoos moves in the 3D world, consumes its energy on it, eats food bits growing in the world and gets energy from them.
+Individual physical features of each mitozoos are length of parts of its legs determining moving possibilities and procreation threshold. Next to it every mitozoos has behavior given by strategy of retrieving meal (up to which distance it walks rather then waits for one to appear closer, whether there are not too many other mitozoos nearby the food bit) and frequency and duration of resting periods.
+
+
+
+the birth of individuals; the
+existence of a genetic code that determines individuals’
+appearance and behaviour; feeding (energy gain); the
+dissipation of energy through activity; reproduction,
+in which two individuals combine their genetic code in
+order to give birth to a third individual (sexual reproduction);
+and lastly, the death of individuals.
+          Organisms: spider-like mitozoos, different colors, \\
+          Features: Energy, copulation and risk threshold(?)\\
+          Reproduction: sexual\\
+          Environment: earth with pieces of food\\
+          Possibilities: creation of new creatures with user affected genes.\\
+          Multicomp: YES: One world, more creators of creatures\\
+
+  \item Primordial life\\
+
+    \item  Broucci - \url{http://ksvi.mff.cuni.cz/~holan/jinak/}
+Broucci is a program, where beetles move in a toroid-shape area. Every time slot the worst beetle in the population is arbitrarily replaced by a new one, created as a crossover son of the best two ones.
+
+    \item  "Cell Based" - Parameters control the expression of "genes" or "proteins" which can themselves interact in complex ways. The resulting organism's properties are largely emergent, but are still encoded in the genome with a finite number of parameters.
+       \begin{itemize}
+          \item  Cell-O-Sim (\url{http://mbi.dkfz-heidelberg.de/projects/cellsim/cellosim/index.html})
+                 Organisms: cells,
+             Features:
+              Reproduction: division
+              Environment: tissue of cells
+              Possibilities:
+              Multicomp: ??
+                 Under development
+          \item  Gardens of Kyresoo
+                 Organisms: cells of flowers
+             Features: ??
+              Reproduction: division
+              Environment: garden for flowers
+              Possibilities: seeding plants
+              Multicomp: Yes, more player, cooperation
+                 Under development
+       \end{itemize}
+\end{itemize}
+
+\section {Neural Net Based}
+These simulations have creatures that learn and grow using neural nets or a close derivative. Emphasis is often, although not always, more on learning than on natural selection.
+\begin{itemize}
+    \item  Creatures (a game)
+commercial game based on evolution of creatures.
+    \item  Evolutionz
+    \item  NERO - Neuro Evolving Robotic Operatives(a game)
+    \item  Noble Ape
+    \item  Polyworld
+    \item  Bitozoa - focuses more on natural selection, no learning. \url{http://www.alcyone.com/max/links/alife.html\#Simulations\_amp\_systems}
+\end{itemize}

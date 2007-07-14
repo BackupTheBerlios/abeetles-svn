@@ -1,0 +1,37 @@
+&Primordial life 3.21
+&parameter based, evolution, game
+Agents&biot
+Body&pattern of vectors of different colors, color of a part determines its special function.
+Motion&moved by environment or by its motor (light blue parts)
+Behavior&fighting with each other
+Features&energy level
+Life-span&restricted, constitution of body
+Genes&64 numbers, describe lines color, orientation and length. Certain genes have special meaning detailing how many lines a biot has, its symmetry, whether it has mirrored or radial symmetry, how many children it should have and whether or not it should disperse its children after they are born. Complete description available.
+Phenotypic space&number and symmetry of vectors, color, orientation and length of each vector, number and dispersion of offspring in a birth
+Learning&learn from collision with other biots - change body accordingly
+Mating&
+Number of parents&2 nebo 1
+Number of offsprings&1-n
+Genetic algorith&genetic crossover with mutation(2 parents), mutation (1 parent)
+Choice of partner&no
+Conditions of mating&collision of two biots, one of them with white parts
+Investment in offspring&yes
+Environment&
+Description&rectangular space
+Features& mixing of biots continuely up and providing of light, absorbable by green parts of biots and used up as energy
+Inhabitants&biots
+UI settings&
+Mating&mutation rate, sexual/asexual/ both reproduction
+Life of individual&life span, speed, regeneration rate and cost, attacking of child, battle of sibblings, level of selfchange thanks to collision
+Environment&solar intensity, friction, starting population, plague - its duration and lethality
+Statistics&ecosystem status (population, death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)
+Implementation&
+Distribution of computation&automatically connecting ecosystems together over the Internet.
+Speed settings&no
+Available sources&no
+Availability of binaries&register
+&
+&
+do uvodu:&"  A Primordial Life Server provides lists of available ecosystems you can connect with.   Ecosystems still connect peer to peer& the server just provides addresses of other ecosystems willing to let you connect with them. Advanced setting available !!"
+&
+&

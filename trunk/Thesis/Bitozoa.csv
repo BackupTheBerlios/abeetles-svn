@@ -1,0 +1,37 @@
+&Bitozoa
+&Neural networks, evolution, ?
+Agents&Bitozoa - herbivora(eats plants) or carnivora(eats herbivora)
+Body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.
+Motion&moves using flagella
+Behavior&no
+Features&energy level - for motion and work of neurons, burned with speed according to age 
+Life-span&(?)
+Genes&(?)
+Phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, sensitivity of eyes
+Learning&no
+Mating&
+Number of parents&2 or 1
+Number of offsprings&1-n (2parents) nebo 1(1parent)
+Genetic algorithm&random number of genes from both parents + mutation
+Choice of partner&same species and high enough stamina
+Conditions of mating&meeting of two bitozoa 
+Investment in offspring&both parents give the same fixed amount
+Environment&
+Description&space in form of toroid
+Features&number of spots, where food grows
+Inhabitants&food growing on special spots, herbivores and carnivores
+UI settings&
+Mating&breed distance, breed level of stamina, inherited stamina
+Life of individual&asexual reproduction allowed, costs of an action, flagella angle and efficiency, view of bitozoa, adding or killing of a bitozoa, stamina from food, strength of carnivore, initial values of: eye sensitivity, number of neurons and stamina
+Environment&number of bitozoa and food spots at the beginning, time increment, viscosity, random numbers generator seed
+Statistics&graph of population, energy flow and energy flow averaged, simulation description
+Implementation&
+Distribution of computation&no
+Speed settings&animation on-off
+Available sources&partial
+Availability of binaries&permission from author
+Programming language&C++ Win32API
+&
+do uvodu:&energy level - for motion and work of neurons, burned with speed according to age 
+&
+&

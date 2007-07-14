@@ -145,216 +145,274 @@ In classification by simulated phenomenon Abeetles can be ranked among systems c
 
 The purpose of Abeetles is to be a prototype of scientific simulator. But not only for users from comunity of computer scientists, but also for those, who appreciate user friendly interface, even if it decreases performance of the system. 
 
+\section{Term related to fields of concern of Abeetles}
+%dopis, docisti!
+Abeetles concerns with evolution. For writing about matters, that are concerned with it, several key terms should be included. Gene is a structural unit of inheritance in living organisms. A gene is, in essence, a segment of DNA that has a particular purpose, i.e., that codes for (contains the chemical information necessary for the creation of) a specific enzyme or other protein.\cite{GeneDic}
+The distinction between phenotype and genotype is fundamental to the understanding of heredity and development of organisms. The genotype of an organism is the class to which that organism belongs as determined by the description of the actual physical material made up of DNA that was passed to the organism by its parents at the organism's conception. For sexually reproducing organisms that physical material consists of the DNA contributed to the fertilized egg by the sperm and egg of its two parents. For asexually reproducing organisms, for example bacteria, the inherited material is a direct copy of the DNA of its parent. The phenotype of an organism is the class to which that organism belongs as determined by the description of the physical and behavioral characteristics of the organism, for example its size and shape, its metabolic activities and its pattern of movement.
+\cite{GenPhen}
+In biology the genome of an organism is its whole hereditary information and is encoded in the DNA (or, for some viruses, RNA). This includes both the genes and the non-coding sequences of the DNA. The term was coined in 1920 by Hans Winkler, Professor of Botany at the University of Hamburg, Germany, as a portmanteau of the words gene and chromosome.\cite{GenomeDef}
+%Furthemore should be explained: genome
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Precise definition of targets of this thesis}
+\chapter{Precise definition of targets of the system Abeetles}
 
-Objectives of this thesis have already been briefly mentioned in the first chapter. This chapter has for its objective precise description of these targets and explanation of context of individual bullets where necessary.
+%Objectives of this thesis have already been briefly mentioned in the first chapter. This chapter has for its objective precise description of these targets and explanation of context of individual bullets where necessary. 
+%no.. these are targets of all thesis, but this chapter is about targets of simulator Abeetles.
 
 %First, swift enumeration: Targets of this thesis are to design the simulator Abeetles, implement it and  introduce several experiments to be run on the simulator. %This is just shortcut of paragraph from the first chapter
 
-Being only one simulator in the row of other artificial life simulators, it is necessary to define clearly, which features of natural life will Abeetles examine. For this purpose will serve five existing simulators chosen to be an important example. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely accesible. Abeetles is also free software and is intended to examine original set of features of natural life only within free software. Features of selected simulators will be described and on their base will be chosen the set of features of the nature Abeetles will focus on and other attributes of the simulator.
+%Abeetles: simulates evolution of agents in environment
+The main target of Abeetles, as well as of other similar programs, is to simulate artificial life. But artificial life is rather a general idea, because to simulate all natural life as we know it on the Earth is with contemporary means impossible. Therefore every simulator chooses just a restricted subset. As stated above, Abeetles is concerned with evolution. But even this field is too wide. The next step is thus to specify what will be evolved and how will look like the world, where it will be evolved. In the following text the subject of evolution will be called agents and the world will be called environment. 
 
-The number of presented features is 31.
+%Target of this kind of simulation: models not like anything natural, but despite it search for features, that would bring them closer to natural ones. 
+Abeetles is one of simulators, where both environment and agents are very simplyfied abstractions that do not have any concrete model in the nature. Abeetles does not endeavor to simulate any existing organisms, but to explore features of natural processes like evolution or natural selection and others on organisms that are from their basis virtual. Interesting question, that arises from this kind of simulation of evolutional processes is, what should parameters of agents and environment, whose models have little in common with real life, look like, so as to cause, that the results and course of evolution would resemble patterns of natural organisms in their environment.  
 
+%with specific features and in This chapter will focus on more detailed features of the system Abeetles, will explain their context and outline their targets.%The third - is it true?
+
+Browsing in the Internet, one easily ascertains, that there are already many simulators of artificial life. Therefore it is necessary to define targets of Abeetles in the context of other artificial life simulators. Attributes of several of these "brother programs" will be described in details and afterwards features of environment and agents of Abeetles will be chosen through careful comparison. For this purpose will serve five existing simulators, that should exemplify: Avida, Bitozoa, Gene Pool, Mitozoos and Primordial life. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely or almost freely accesible. Abeetles is also free software and is intended to examine contributing set of features of natural life only within free software.
+
+%Already written at the beginning of the paragraph:
+% Features of selected simulators will be described and on their base will be chosen the set of features of the nature Abeetles will focus on and other attributes of the simulator.
+
+The simulators are classified by twenty-seven features. Features are sorted into   
+six cathegories: Agents, Mating, Environment, User interface settings and implementation.
+
+Cathegory Agents contains following features: Body(=description of body of agents), Motion(=how do agents move), Behavior(=what they do besides basic activities of life - motion, mating and eating), Features(=features that change during life), Life-span, Genes(=representation of genes), Phenotypic space(=space of all possible phenotypes of agents), Learning(=whether some ability to learn is included in model of agents)
+
+Cathegory Mating comprises: Number of offspring in one reproduction, (Genetic algorithm(=algorithm used for creation of genes of a descendant), Choice of partner(=features that a partner must have to be chosen for mating), Conditions of mating(=what conditions must be satisfied before mating), Investment in offspring(=the amount of some resource, usually energy, that is given to a descendant by its parents at its birth)
+
+Cathegory Environment includes:
+Description(=what does the environment look like)
+Features(=parameters of the environment, that are not represented by objects contained in the environment)
+Inhabitants(=objects, that inhabit the environment together with agents)
+
+Cathegory User Interface Settings  encompasses:UI settings(=attributes, in which can a user influence the artificial life run by the simulator. They are sorted in 3 cathegories)
+Mating
+Life of individual
+Environment
+
+Cathegory Statistics is alone.
+
+Cathegory Implementation holds:
+Implementation(=features of implementation of the simulator)
+Distribution of computation(=whether and how it is possible to distribute the computation of the artificial life in the simulator to more computers)
+Speed settings(=whether and how it is possible to influence the speed of computation)
+Available sources(= whether source file of the simulator are available)
+Availability of binaries(=under what conditions are binaries available, e.g. on registration, free, ect.)
+Programming language(=programming language used and key libraries)
+
+ 
 \section {Avida}
 Avida is often presented example of a program based simulator. It studies evolution of programs. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well.
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
-Agents&segments of code in simple language\\ \hline
-Body& one cell in the grid of the environment\\ \hline
-Motion&no\\ \hline
-Behavior&semantics of the code\\ \hline
-Features& code size, size of code of a child, stack and registers, gestation time\\ \hline
-Life span&not restricted\\ \hline
-Genes&string is itself a genome\\ \hline
-Relation between genotype and phenotype&equal\\ \hline
-Phenotypic space&any string of code in the language\\ \hline
-Learning&no\\ \hline
-textbf{Reproduction}&\\ \hline
-Mating&no\\ \hline
-Number of parents&1\\ \hline
-Number of offspring in one reproduction&1\\ \hline
-Creation of genotype of child&Poisson-random mutation\\ \hline
-Choice of possible partner&no\\ \hline
-Conditions of copulation&no\\ \hline
-Investment in offspring&no\\ \hline
-&\\ \hline
-Fitness function&\\ \hline
-&\\ \hline
-\textbf{Environment}&\\ \hline
-Features&tasks, whose completion gives bonus to the string\\ \hline
-Description&grid of cells of the shape of torus\\ \hline
-Inhabitants& only agents\\ \hline
-&\\ \hline
-textbf{UI settings}&\\ \hline
-Reproduction&mutation rate according to types of mutation ( 3 types)\\ \hline
-life of individual&initial genomes of initial individuals\\ \hline
-environment&resources and tasks of the environment\\ \hline
-overviews&instruction viewer, string details, graphs of \\ \hline
-&\\ \hline
-Implementation features&\\ \hline
-Distribution of computation&yes\\ \hline
-Speed settings&view:textual/graphical\\ \hline
-sources available&yes\\ \hline
-accesibility of exe&yes\\ \hline
+
+&program based, evolution+celular automata, scientific simulator \\ \hline
+textbf{Agents}&segments of code in a simple language called strings  \\ \hline
+Body&one cell in the grid of the environment \\ \hline
+Motion&no \\ \hline
+Behavior&execution of the code \\ \hline
+Features&content of stack and registers \\ \hline
+Life-span&not restricted \\ \hline
+Genes&string is itself a genome \\ \hline
+Phenotypic space&any finite string constructed of instruction of the language. \\ \hline
+Learning&no \\ \hline \hline
+\textbf{Mating}& \\ \hline
+Number of parents&1 \\ \hline
+Number of offsprings&1 \\ \hline
+Genetic algorith&Poisson-random mutation \\ \hline
+Choice of partner&no \\ \hline
+Conditions of mating&no \\ \hline
+Investment in offspring&no \\ \hline \hline
+\textbf{Environment}& \\ \hline
+Description&a grid of cells in the form of torus \\ \hline
+Features&resources and tasks, completion of a task gives a bonus to the string \\ \hline
+Inhabitants&strings \\ \hline \hline
+\textbf{UI settings}& \\ \hline
+Mating&mutation rate \\ \hline
+Life of individual&initial genomes of initial individuals \\ \hline
+Environment&resources and tasks of the environment \\ \hline \hline
+\textbf{Statistics}&instruction viewer, string details, etc. \\ \hline \hline
+\textbf{Implementation}& \\ \hline
+Distribution of computation&no \\ \hline
+Speed settings&console version versus gui version  \\ \hline
+Available sources&yes \\ \hline
+Availability of binaries&free \\ \hline
+Programming language&C++ \\ \hline
+
 \end{tabular}
+
 
 \section {Bitozoa}
-Bitozoa
 
-\begin{tabular}{p{150pt}p{220pt}}
-&Bitozoa\\
-&Neural networks\\
-Individual&Bitozoa - herbivora/carnivora\\
-body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\
-motion&use flagella\\
-behavior&\\
-features&energy level - for motion and work of neurons, burned with speed according to age \\
-Life span&(?)\\
-Genes&(?)\\
-Relation between genotype and phenotype&direct\\
-phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, distance sensitivity and angular sensitivity of eyes\\
-mems, learning&no\\
-Mating&\\
-Number of parents&2 nebo 1\\
-Number of offspring in one reproduction&1-n (2parents) nebo 1(1parent)\\
-Creation of genotype of child&random number of genes from both parents + mutation\\
-Choice of possible partner&any met bitozoa of the same species with high enough stamina\\
-Conditions of copulation& meeting of two bitozoa with high enough stamina level and from the same species\\
-Investment in offspring&30(*) stamina inherited - 2 parents, 50% - 1 parent\\
-Fitness function&\\
-Environment&\\
-features&number of spots, where food grows\\
-description&toroid\\
-inhabitants&world consist of food growing on special spots, herbivores eating plants, and carnivores eating herbivores\\
-UI settings&\\
-mating&breed distance, breed level of stamina, inherited stamina\\
-life of individual&asexual reproduction allowed, burned stamina per movement, per neuron, stamina at start, flagella angle, initial eye sensitivity, stamina gained from eaten herbivore, strength of carnivore, life cost per time step, stamina level for asexual reproduction, killing of bitozoa, number of neurons at start, eat distance, flagella efficiency, sight distance\\
-environment&no. of bitozoa and food spots at start, adding or killing of bitozoa, time increment, viscosity, random numbers generator seed\\
-overviews&graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file\\
-Implementation features&\\
-Distribution of computation&no\\
-Speed settings&animation on-off, pause\\
-sources available&only light version\\
-accesibility of exe&allowed by author\\
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline
+&Bitozoa\\ \hline
+&Neural networks, evolution, ?\\ \hline
+textbf{Agents}&Bitozoa - herbivora(eats plants) or carnivora(eats herbivora)\\ \hline
+Body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\ \hline
+Motion&moves using flagella\\ \hline
+Behavior&no\\ \hline
+Features&energy level - for motion and work of neurons, burned with speed according to age \\ \hline
+Life-span&(?)\\ \hline
+Genes&(?)\\ \hline
+Phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, sensitivity of eyes\\ \hline
+Learning&no\\ \hline
+\hline \textbf{Mating}&\\ \hline
+Number of parents&2 or 1\\ \hline
+Number of offsprings&1-n (2parents) nebo 1(1parent)\\ \hline
+Genetic algorithm&random number of genes from both parents + mutation\\ \hline
+Choice of partner&same species and high enough stamina\\ \hline
+Conditions of mating&meeting of two bitozoa \\ \hline
+Investment in offspring&both parents give the same fixed amount\\ \hline
+\hline \textbf{Environment}&\\ \hline
+Description&space in form of toroid\\ \hline
+Features&number of spots, where food grows\\ \hline
+Inhabitants&food growing on special spots, herbivores and carnivores\\ \hline
+\hline \textbf{UI settings}&\\ \hline
+Mating&breed distance, breed level of stamina, inherited stamina\\ \hline
+Life of individual&asexual reproduction allowed, costs of an action, flagella angle and efficiency, view of bitozoa, adding or killing of a bitozoa, stamina from food, strength of carnivore, initial values of: eye sensitivity, number of neurons and stamina\\ \hline
+Environment&number of bitozoa and food spots at the beginning, time increment, viscosity, random numbers generator seed\\ \hline
+\hline \textbf{Statistics}&graph of population, energy flow and energy flow averaged, simulation description\\ \hline
+\hline \textbf{Implementation}&\\ \hline
+Distribution of computation&no\\ \hline
+Speed settings&animation on-off\\ \hline
+Available sources&partial\\ \hline
+Availability of binaries&permission from author\\ \hline
+Programming language&C++ Win32API\\ \hline
+&\\ \hline
+do uvodu:&energy level - for motion and work of neurons, burned with speed according to age \\ \hline
+
+\end{tabular}
+
+\section {GenePool}
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline
+&Gene Pool\\ \hline
+&Parameter based\\ \hline
+textbf{Agents}&swimbot\\ \hline
+Body&mouth, genitals and 2-10 parts for moving\\ \hline
+Motion&swimming using parts, algorithm common for all swimbots\\ \hline
+Behavior&nothing\\ \hline
+Features&energy\\ \hline
+Life-span&not restricted\\ \hline
+Genes&(?)\\ \hline
+Phenotypic space&length, width, system of attachment, phases and amplitudes of every part\\ \hline
+Learning&no\\ \hline
+\hline \textbf{Mating}&\\ \hline
+Number of parents&2\\ \hline
+Number of offsprings&1\\ \hline
+Genetic algorithm&crossover algorithm with mutation\\ \hline
+Choice of partner&"in round ""view horizon"" at one snapshot. Swimbot chooses at one snapshot in his ""view horizon"" one mate, that most satisfies his attractiveness criterion"\\ \hline
+Conditions of mating&swimbots mate when at least one of them is pursuing the other and the distance between their genitals is less than the length of the genital vector\\ \hline
+Investment in offspring&50\% of actual energy\\ \hline
+\hline \textbf{Environment}&\\ \hline
+Description&rectangular pool\\ \hline
+Features&constant amount of energy in environment, cyling: food->swimbots->pool->food\\ \hline
+Inhabitants&food bits, swimbots\\ \hline
+\hline \textbf{UI settings}&\\ \hline
+Mating&attraction criterion\\ \hline
+Life of individual&location in environment, creation a swimbot, hunger threshold, energy for offspring\\ \hline
+Environment&food growth - birth delay, spread radius, energy from 1 piece\\ \hline
+\hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating\\ \hline
+\hline \textbf{Implementation}&\\ \hline
+Distribution of computation&no\\ \hline
+Speed settings&no\\ \hline
+Available sources&no\\ \hline
+Availability of binaries&yes\\ \hline
+Programming language&(?)\\ \hline
+&\\ \hline
+do uvodu:&how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots\\ \hline
+
+\end{tabular}
+
+\section {Mitozoos}
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline
+&Mitozoos \\ \hline
+&Parameter based \\ \hline
+textbf{Agents}&mitozoos \\ \hline
+Body&spider-like, with 2 eyes, body in shape of tetrahydron and four bent legs \\ \hline
+Motion&walking using legs, algorithm common for all mitozoos \\ \hline
+Behavior&strategy of eating, frequency and duration of resting periods \\ \hline
+Features&energy \\ \hline
+Life-span&not restricted \\ \hline
+Genes&ten genes, each gene has four bases (= colors) \\ \hline
+Phenotypic space&length of parts of legs, procreation threshold, eating strategy \\ \hline
+Learning&no \\ \hline
+\hline \textbf{Mating}& \\ \hline
+Number of parents&2 \\ \hline
+Number of offsprings&1 \\ \hline
+Genetic algorithm&crossover algorithm with mutation \\ \hline
+Choice of partner&no \\ \hline
+Conditions of mating&meeting of two mitozoos with energy higher than procreation threshold \\ \hline
+Investment in offspring&a fixed amount of energy \\ \hline
+\hline \textbf{Environment}& \\ \hline
+Description&space in form of a circle \\ \hline
+Features&rate of food growth \\ \hline
+Inhabitants&mitozoos, food bits \\ \hline
+\hline \textbf{UI settings}& \\ \hline
+Mating&no \\ \hline
+Life of individual&special application, which avails user to create a mitozoos by setting its genes and add it to running life. \\ \hline
+Environment&initial number of mitozoos and food pieces, food growing rate, mutation rate \\ \hline
+\hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown \\ \hline
+\hline \textbf{Implementation}& \\ \hline
+Distribution of computation&no, but coders can run on different computers. \\ \hline
+Speed settings&no \\ \hline
+Available sources&no \\ \hline
+Availability of binaries&yes \\ \hline
+Programming language&Flash, (?) \\ \hline
+\end{tabular}
+
+\section {Primordial Life}
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline
+&Primordial life 3.21\\ \hline
+&parameter based, evolution, game\\ \hline
+textbf{Agents}&biots\\ \hline
+Body&pattern of vectors of different colors, color of a part determines its special function.\\ \hline
+Motion&moved by environment or by its motor (light blue parts)\\ \hline
+Behavior&fighting with each other\\ \hline
+Features&energy level\\ \hline
+Life-span&restricted, constitution of body\\ \hline
+Genes&64 numbers, describe lines color, orientation and length. Certain genes have special meaning detailing how many lines a biot has, its symmetry, whether it has mirrored or radial symmetry, how many children it should have and whether or not it should disperse its children after they are born. Complete description available.\\ \hline
+Phenotypic space&number and symmetry of vectors, color, orientation and length of each vector, number and dispersion of offspring in a birth\\ \hline
+Learning&learn from collision with other biots - change body accordingly\\ \hline
+\hline \textbf{Mating}&\\ \hline
+Number of parents&2 nebo 1\\ \hline
+Number of offsprings&1-n\\ \hline
+Genetic algorith&genetic crossover with mutation(2 parents), mutation (1 parent)\\ \hline
+Choice of partner&no\\ \hline
+Conditions of mating&collision of two biots, one of them with white parts\\ \hline
+Investment in offspring&yes\\ \hline
+\hline \textbf{Environment}&\\ \hline
+Description&rectangular space\\ \hline
+Features& mixing of biots continuely up and providing of light, absorbable by green parts of biots and used up as energy\\ \hline
+Inhabitants&biots\\ \hline
+\hline \textbf{UI settings}&\\ \hline
+Mating&mutation rate, sexual/asexual/ both reproduction\\ \hline
+Life of individual&life span, speed, regeneration rate and cost, attacking of child, battle of sibblings, level of selfchange thanks to collision\\ \hline
+Environment&solar intensity, friction, starting population, plague - its duration and lethality\\ \hline
+\hline \textbf{Statistics}&ecosystem status (population, death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)\\ \hline
+\hline \textbf{Implementation}&\\ \hline
+Distribution of computation&automatically connecting ecosystems together over the Internet.\\ \hline
+Speed settings&no\\ \hline
+Available sources&no\\ \hline
+Availability of binaries&register\\ \hline
+&\\ \hline
+&\\ \hline
+do uvodu:&"  A Primordial Life Server provides lists of available ecosystems you can connect with.   Ecosystems still connect peer to peer& the server just provides addresses of other ecosystems willing to let you connect with them. Advanced setting available !!"\\ \hline
 \end{tabular}
 
 
-\section {Program-based}
-\begin{itemize}
-    \item  Artificial Planet
-    \item  Avida
-        Avida is a digital world in which simple computer programs mutate and evolve. Each organism has its own virtual CPU and adapts to landscape and external fitness functions.\cite {Avida}
-    \item  Breve
-    \item  DarwinHom
-    \item  Darwinbots
-    \item  Evolve4.0
-    \item  Framsticks
-    \item  Grey Thumb Society Simulators
-          (Archis, Nanopond)
-    \item  Physis (software)
-    \item  Tierra
-            Tierra is a computer simulation developed by ecologist Thomas S. Ray in the early 1990s in which computer programs compete for central processing unit (CPU) time and access to main memory. The computer programs in Tierra are evolvable and can mutate, self-replicate and recombine. Tierra is a frequently cited example of an artificial life model; in the metaphor of the Tierra, the evolvable computer programs can be considered as digital organisms which compete for energy (CPU time) and resources (main memory).\cite{Tierra}
-\end{itemize}
 
-
-\section {Module Based}
-Individual modules are added to a creature. These modules modify the creature's behaviors and characteristics either directly, by hard coding into the simulation (leg type A increases speed and metabolism), or indirectly, through the emergent interactions between a creature's modules (leg type A moves up and down with a frequency of X, which interacts with other legs to create motion). Generally these are simulators which emphasize user creation and accessibility over mutation and evolution.
-\begin{itemize}
-    \item  Spore (video game)
-    \item  TechnoSphere
-\end{itemize}
-
-\section { Parameter Based }
-Organisms are generally constructed with pre defined and fixed behaviors that are controlled by various parameters that mutate. That is, each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of an organism in a well defined way.
-
-\begin{itemize}
-    \item  \textbf{Jeffrey Ventrella programs: Darwin Pond and Gene Pool }
-            Darwin Pond is older version of the newer system Gene Pool. This system is an imaginary pool, where live swimbots. Swimbots move by swimming, eat food growing in the pool and reproduce sexually. This system was designed to explore topics of relations between natural and sexual selection.
-Their Darwinian fitness is how good is a swimbot in reproducing, which means either being good at swimming or being attractive to other swimbots. So they evolve their swimming techniques and features that might be attractive to other swimbots. Author of this program published interesting discoveries about results of setting various attraction criteria. Criterion "still" (i.e., swimbots exhibiting the least amount of motion become the most attractive) causes swimbots to converge on distinct bifurcation among body types resembling sexual dimorphism.
-
-                Model of the system: Swimbots consist of mouth, genitals and 2-10 parts,  which rotate and let the swimbot move. Parameters of this parts are coded in genes. Each swimbot has its current level of energy, which is used for moving, obtained from food and 50\% of it gives parent swimbot to its offspring. Amount of energy in all system is constant, changing in the way: food->swimbots->pool->food.
-Swimbot chooses its mate for reproduction in its "view horizon" at one snapshot. It chooses one mate which most satisfied attractiveness criterion. Swimbots mate when at least one of them is pursuing the other, and the distance between their genitals is less than the length of the genital vector) one offspring
-appears in-between them, which inherits genetic building blocks from both parents. A standard genetic-algorithm crossover technique is used, and some random mutation occurs in random genes.
-
-                Settings of the program: The program avails to set the attraction criterion (big, similar color, long, still, crooked,... ). Swimbots can be moved by user, cloned or killed.
-
-                Future development: Recursive embryology, Parental investment and gender.
-
-    \item  Evolites (No official article, no precise information)
-          Graphical game with creatures called evolites swimming in the sea.
-          Organisms: round creatures, different colors
-          Features: Energy, Hunger
-          Reproduction: ??
-          Environment: Sea with pieces of food
-          Possibilities: Mutation blobs, food rate, ...
-
-    \item \textbf{Mitozoos} \cite{Mitozoos}
-Th e Mitozoos World is a model of artificial life calculated and generated graphically on a computer. It is is an educational and recreational
-project to support study of evolution and genetics. It consists of two modules - the world and coders, which avail user to create their own mitozoos and send them to the running world. These modules can be deployed on different computers, world on one and coder on a number of other computers. Connection to internet is the only condition for them to cooperate.
-Description of the model:
-Organisms in this model are spider-like mitozoos with 2 eyes, body in shape of tetrahydron and four bent legs that inhabit a simulated threedimensional world. So as to move around, they must move their legs in sequence. The genome of a mitozoos consists of ten genes, each gene has four bases (four possible colors).
-Relation between genome and phenome(graphic appearance and behavior) is determined by large set of rules. These rules are designed in such
-a way that each element of the code is related to various aspects of the phenotype. The related traits simply depend on similar genes and rules, in other words, there is no such thing as a one-to-one relationship between the gene and the phenotype.
-Each mitozoos has its energy level, varying durig its life, and procreation threshold stating, how much energy allows it to reproduce. Mitozoos moves in the 3D world, consumes its energy on it, eats food bits growing in the world and gets energy from them.
-Individual physical features of each mitozoos are length of parts of its legs determining moving possibilities and procreation threshold. Next to it every mitozoos has behavior given by strategy of retrieving meal (up to which distance it walks rather then waits for one to appear closer, whether there are not too many other mitozoos nearby the food bit) and frequency and duration of resting periods.
-
-
-
-the birth of individuals; the
-existence of a genetic code that determines individuals’
-appearance and behaviour; feeding (energy gain); the
-dissipation of energy through activity; reproduction,
-in which two individuals combine their genetic code in
-order to give birth to a third individual (sexual reproduction);
-and lastly, the death of individuals.
-          Organisms: spider-like mitozoos, different colors, \\
-          Features: Energy, copulation and risk threshold(?)\\
-          Reproduction: sexual\\
-          Environment: earth with pieces of food\\
-          Possibilities: creation of new creatures with user affected genes.\\
-          Multicomp: YES: One world, more creators of creatures\\
-
-  \item Primordial life\\
-
-    \item  Broucci - \url{http://ksvi.mff.cuni.cz/~holan/jinak/}
-Broucci is a program, where beetles move in a toroid-shape area. Every time slot the worst beetle in the population is arbitrarily replaced by a new one, created as a crossover son of the best two ones.
-
-    \item  "Cell Based" - Parameters control the expression of "genes" or "proteins" which can themselves interact in complex ways. The resulting organism's properties are largely emergent, but are still encoded in the genome with a finite number of parameters.
-       \begin{itemize}
-          \item  Cell-O-Sim (\url{http://mbi.dkfz-heidelberg.de/projects/cellsim/cellosim/index.html})
-                 Organisms: cells,
-             Features:
-              Reproduction: division
-              Environment: tissue of cells
-              Possibilities:
-              Multicomp: ??
-                 Under development
-          \item  Gardens of Kyresoo
-                 Organisms: cells of flowers
-             Features: ??
-              Reproduction: division
-              Environment: garden for flowers
-              Possibilities: seeding plants
-              Multicomp: Yes, more player, cooperation
-                 Under development
-       \end{itemize}
-\end{itemize}
-
-\section {Neural Net Based}
-These simulations have creatures that learn and grow using neural nets or a close derivative. Emphasis is often, although not always, more on learning than on natural selection.
-\begin{itemize}
-    \item  Creatures (a game)
-commercial game based on evolution of creatures.
-    \item  Evolutionz
-    \item  NERO - Neuro Evolving Robotic Operatives(a game)
-    \item  Noble Ape
-    \item  Polyworld
-    \item  Bitozoa - focuses more on natural selection, no learning. \url{http://www.alcyone.com/max/links/alife.html\#Simulations\_amp\_systems}
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -613,7 +671,16 @@ Chris Adami and Titus Brown (2000) "What is Artificial Life?" The Seventh Intern
 
 \bibitem{BornhoffenLataud}
 Stefan Bornhofen and Claude Lattaud (2006) Artificial Evolution, chapter Outlines of Artificial Life: A Brief History of Evolutionary Individual Based Models, pages 226-237, Springer, April 2006
- 
+
+\bibitem{GeneDic}
+Gene. (n.d.). Columbia Electronic Encyclopedia. Retrieved July 14, 2007, from Reference.com website: \url{http://www.reference.com/browse/columbia/gene-ent}
+
+\bibitem{GenPhen}
+Lewontin, Richard, "The Genotype/Phenotype Distinction", The Stanford Encyclopedia of Philosophy (Spring 2007 Edition), Edward N. Zalta (ed.), \url{http://plato.stanford.edu/archives/spr2007/entries/genotype-phenotype/}.
+
+\bibitem{GenomeDef}
+Joshua Lederberg and Alexa T. McCray (2001). "'Ome Sweet 'Omics -- A Genealogical Treasury of Words". The Scientist 15 (7). \url{http://lhncbc.nlm.nih.gov/lhc/docs/published/2001/pub2001047.pdf}
+
 \bibitem{Avida}
 Avida: A Software Platform for Research in Computational Evolutionary Biology;
 C. Ofria and C.O. Wilke, Artif. Life 10 (2004) 191-229.

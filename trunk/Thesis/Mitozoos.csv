@@ -1,0 +1,33 @@
+&Mitozoos \\ \hline
+&Parameter based \\ \hline
+Agents&mitozoos \\ \hline
+Body&spider-like, with 2 eyes, body in shape of tetrahydron and four bent legs \\ \hline
+Motion&walking using legs, algorithm common for all mitozoos \\ \hline
+Behavior&strategy of eating, frequency and duration of resting periods \\ \hline
+Features&energy \\ \hline
+Life-span&not restricted \\ \hline
+Genes&ten genes, each gene has four bases (= colors) \\ \hline
+Phenotypic space&length of parts of legs, procreation threshold, eating strategy \\ \hline
+Learning&no \\ \hline
+Mating& \\ \hline
+Number of parents&2 \\ \hline
+Number of offsprings&1 \\ \hline
+Genetic algorithm&crossover algorithm with mutation \\ \hline
+Choice of partner&no \\ \hline
+Conditions of mating&meeting of two mitozoos with energy higher than procreation threshold \\ \hline
+Investment in offspring&a fixed amount of energy \\ \hline
+Environment& \\ \hline
+Description&space in form of a circle \\ \hline
+Features&rate of food growth \\ \hline
+Inhabitants&mitozoos, food bits \\ \hline
+UI settings& \\ \hline
+Mating&no \\ \hline
+Life of individual&special application, which avails user to create a mitozoos by setting its genes and add it to running life. \\ \hline
+Environment&initial number of mitozoos and food pieces, food growing rate, mutation rate \\ \hline
+Statistics&graph of number of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown \\ \hline
+Implementation& \\ \hline
+Distribution of computation&no, but coders can run on different computers. \\ \hline
+Speed settings&no \\ \hline
+Available sources&no \\ \hline
+Availability of binaries&yes \\ \hline
+Programming language&Flash, (?) \\ \hline
