@@ -1,9 +1,15 @@
 1. Pridej MikTex do promenne Path
-set Path=%Path%c:\Program Files\MikTex 2.5\miktex\bin;
+set Path=%Path%c:\Program Files\MikTex 2.5\miktex\bin; (MS)
+nebo
+set Path=%Path%;c:\tex\texmf\miktex\bin;
 
 2. Jdi do prislusneho adresare
 d:
 cd \temp\abeetles\thesis
+
+nebo
+
+cd \Documents and Settings\student\desktop\_I\abeetles\thesis
 
 3. Spust latex
 latex -c-style-errors New.tex

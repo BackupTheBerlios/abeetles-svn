@@ -1,0 +1,211 @@
+Used to set off three or more elements of a series:
+
+    The flag was red, white, and blue.
+
+Note: Some writers prefer to omit the final comma. This is optional, at best, but beware that you do not stumble into a sentence like the following:
+
+    The two-toned balloons were blue and red, yellow and purple and black and white.
+
+Used to set off asides, or nonrestrictive clauses:
+
+    The car, which happened to be red, drove through the kitchen.
+
+Used to separate introductory and transitional words and phrases:
+
+    However, all is not lost.
+
+Used to separate clauses in a compound sentence:
+
+    The task was great, but the rewards were even greater.
+
+Used to separate quoted matter from the rest of the sentence:
+
+    The instructor said, "Take a break."
+
+*******************************************************************
+Article2
+
+se a comma
+between a list of three or more words
+
+To replace the word and for all but the last instance.
+Up, down, left and right.
+before a conjunction
+
+1) When but or for are used.
+I did my best to protect the camp, but the bears were too aggressive.
+
+2) When and or or are used the comma is optional.
+The flag is red, white, and blue. [known as the Oxford comma]
+The sizes are small, medium or large.
+to give additional information
+
+1) To indicate contrast.
+The snake was brown, not green, and it was quite small.
+
+2) Where the phrase could be in brackets.
+The recipe, which we hadn't tried before, is very easy to follow.
+
+3) Where the phrase adds relevant information.
+Mr Hardy, 68, ran his first marathon five years ago.
+
+4) Where the addition is not necessary to the meaning of the sentence.
+Mr Hardy, who enjoys bird watching, ran his first marathon five years ago.
+
+5) Where the main clause of the sentence is dependent on the preceding clause.
+If at first you don't succeed, give up.
+Though the snake was small, I still feared for my life.
+
+or opening phrases, conjunctive verbs, etc.
+
+1) Introductory or opening phrases.
+In general, sixty-eight is quite old to run a marathon.
+On the whole, snakes only attack when riled.
+
+2) Conjunctive verbs.
+Unfortunately, the bear was already in a bad mood
+and, furthermore, pink wasn't its colour.
+
+3) Following for example, that is, etc
+You should use commas, for example, around 'for example'.
+There are some exceptions: namely, when using abbreviations.
+where a pause is required
+
+1) To make the reading more natural.
+Whatever happens, don't panic.
+
+2) To avoid confusion.
+To Margaret, Jenny left her favourite book.
+in address or quotation
+
+1) When addressing someone by name.
+So, Murray, I'm sending you to Outer Mongolia.
+
+2) When quoting direct speech.
+And then the boss said, "I'm sending you to Outer Mongolia."
+to indicate the ommission of a word or phrase
+
+Use too much sugar and the mixture will be sweet, [use] too little and it will be sour.
+
+A group of words containing a subject and a verb and expressing a complete thought is called a sentence or an independent clause. Sometimes, an independent clause stands alone as a sentence, and sometimes two independent clauses are linked together into what is called a compound sentence. Depending on the circumstances, one of two different punctuation marks can be used between the independent clauses in a compound sentence: a comma or a semicolon. The choice is yours.
+
+Comma (,)
+
+Use a comma after the first independent clause when you link two independent clauses with one of the following coordinating conjunctions: and, but, for, or, nor, so, yet. For example:
+
+    I am going home, and I intend to stay there.
+
+    It rained heavily during the afternoon, but we managed to have our picnic anyway.
+
+    They couldn't make it to the summit and back before dark, so they decided to camp for the night.
+
+
+Compound Sentence Commas
+
+1. Skim your paper, looking only for the seven coordinating conjunctions:
+
+    and, nor, but, so, for, or, and yet.
+
+2. Stop at each of these words to see whether there is an independent clause (a complete sentence), on both sides of it. (For more help, see our handout on independent clauses.)
+
+3. If so, place a comma before the coordinating conjunction. Examples:
+
+    She wanted to buy a new car, but she didn't have enough money to do so.
+    The wind blew fiercely, and the rain poured down.
+    Alaska was not the last state admitted into the US, nor does it have the lowest total population.
+
+Comma Splices
+
+1. Skim your paper, stopping at every comma.
+
+2. See whether you have an independent clause (a sentence) on both sides of the comma.
+
+3. If so, change the sentence in one of the following ways:
+
+    * reword the sentence to change one clause into a subordinate (or dependent) clause (see our handout on dependent clauses)
+    * add a coordinating conjunction after the comma
+    * replace the comma with a semicolon
+    * replace the comma with a period, question mark, or exclamation point, and capitalize the first word of the second clause
+
+      comma splice: Americans speak too rapidly, this is a common complaint by foreign visitors.
+      correct: Americans speak too rapidly; this is a common complaint by foreign visitors.
+      correct: Foreign visitors commonly complain that Americans speak too rapidly.
+
+Introductory Commas
+Introductory commas after dependent clauses
+
+    1. Skim your paper, looking only at the first two or three words of each sentence.
+
+    2. Stop if one of these words is a dependent marker such as while, because, when, if, after, when, etc. (see our Commas After Introductions).
+
+    3. If necessary, place a comma at the end of the introductory dependent clause. Examples:
+
+        While I was writing, the phone rang.
+        Because the weather was bad, we decided to cancel our planned picnic.
+        After the last guests left the party, we had to begin cleaning the house.
+
+Other introductory commas
+
+    1. Skim your paper, looking only at the first word or two of each sentence.
+
+    2. Stop if the word or phrase . . .
+
+        * ends in -ing
+        * is an infinitive (to + verb)
+        * is an introductory word (well, yes, moreover, etc.)
+
+    3. Place a comma at the end of the introductory phrase. Examples:
+
+        To get a good grade, you must turn in all your homework problems.
+        Walking to work, Jim stopped for coffee at the diner.
+        Yes, I agree that the exam was difficult.
+
+    4. If the sentence begins with a prepositional phrase (a phrase beginning with in, at, on, between, with, etc.), place a comma after the prepositional phrase if it is longer than three words or suggests a distinct pause before the main clause. Examples:
+
+        On his way to work, Jim stopped for coffee at the diner.
+        In those days we wrote with a pen and paper.
+        Across the street from the library, an old man waited for a bus.
+
+Disruptive Commas
+General guidelines
+
+    1. Go through the paper, stopping at each comma.
+
+    2. If the comma isn't necessary for clarity or called for by a rule, get rid of it.
+
+For disruptive commas between compound verbs or objects
+
+    1. Skim your paper, stopping only at the coordinating conjunctions: and, or, nor, but, so, for, or, and yet.
+
+    2. Check to see whether there is an independent clause (sentence) on both sides of the conjunction. If so, place a comma before the conjunction. If not, do not place a comma before the conjunction.
+
+        disruptive comma: They bought two pizzas, but ate only one.
+        correct: They bought two pizzas but ate only one.
+
+For disruptive commas between subjects and verbs
+
+    1. Find the subject and verb in each of your sentences.
+
+    2. Make sure that you have not separated the subject from the verb with one comma. It's often all right to have a pair of commas between a subject and verb for nonessential clauses and phrases that might be added there, but rarely is a single comma acceptable.
+
+        disruptive comma: That man sitting in the train station, is the person I'm supposed to meet.
+
+        correct: That man sitting in the train station is the person I'm supposed to meet.
+
+ 
+Series Commas
+1. Skim your paper, stopping at the conjunctions.
+2. Check to see if these conjunctions link words, phrases, or clauses written in a series.
+3. If so, place commas after each word, phrase, or clause in the series (except the last one, as demonstrated in this sentence: no comma after the word clause). Examples:
+    People who are trying to reduce saturated fat in their diets should avoid eggs, meat, and tropical oils.
+    The candidate promised to lower taxes, protect the environment, reduce crime, and end unemployment.
+
+ 
+Commas with Nonessential Elements
+
+1. Skim your paper, looking for a phrase or clause in each sentence that explains or gives more information about a word or phrase that comes before it. (See also our handout, Commas With Nonessential Elements.)
+2. If you can delete the phrase or clause and still keep the meaning, the phrase or clause is probably nonessential and needs two commas, one before and one after (unless the phrase or clause is at the end of the sentence).
+3. As an alternate test for a nonessential phrase or clause, try saying "by the way" before it. If that seems appropriate to the meaning, the phrase or clause is probably nonessential. To understand the essential vs. nonessential distinction, compare the following sentences. In the first, the clause who cheat is essential; in the second, the clause who often cheats is nonessential.
+
+    Students who cheat only harm themselves.
+    Fred, who often cheats, is just harming himself.

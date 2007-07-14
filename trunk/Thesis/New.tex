@@ -173,6 +173,7 @@ Abeetles is one of simulators, where both environment and agents are very simply
 %with specific features and in This chapter will focus on more detailed features of the system Abeetles, will explain their context and outline their targets.%The third - is it true?
 
 Browsing in the Internet, one easily ascertains, that there are already many simulators of artificial life. Therefore it is necessary to define targets of Abeetles in the context of other artificial life simulators. Attributes of several of these "brother programs" will be described in details and afterwards features of environment and agents of Abeetles will be chosen through careful comparison. For this purpose will serve five existing simulators, that should exemplify: Avida, Bitozoa, Gene Pool, Mitozoos and Primordial life. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely or almost freely accesible. Abeetles is also free software and is intended to examine contributing set of features of natural life only within free software.
+%Alternative:Accordingly Abeetles only strive to present an original set of features and attitudes among well-described parts of free and accesible implementations of artificial life.
 
 %Already written at the beginning of the paragraph:
 % Features of selected simulators will be described and on their base will be chosen the set of features of the nature Abeetles will focus on and other attributes of the simulator.
@@ -184,29 +185,23 @@ Cathegory Agents contains following features: Body(=description of body of agent
 
 Cathegory Mating comprises: Number of offspring in one reproduction, (Genetic algorithm(=algorithm used for creation of genes of a descendant), Choice of partner(=features that a partner must have to be chosen for mating), Conditions of mating(=what conditions must be satisfied before mating), Investment in offspring(=the amount of some resource, usually energy, that is given to a descendant by its parents at its birth)
 
-Cathegory Environment includes:
-Description(=what does the environment look like)
-Features(=parameters of the environment, that are not represented by objects contained in the environment)
-Inhabitants(=objects, that inhabit the environment together with agents)
+Cathegory Environment includes: Description(=what does the environment look like), Features(=parameters of the environment, that are not represented by objects contained in the environment),Elements(=objects, that inhabit or are placed in the environment together with agents)
 
-Cathegory User Interface Settings  encompasses:UI settings(=attributes, in which can a user influence the artificial life run by the simulator. They are sorted in 3 cathegories)
-Mating
-Life of individual
-Environment
+Cathegory User Interface Settings  encompasses attributes, by which can a user influence the artificial life run by the simulator. They are sorted in 3 cathegories, Mating, Life of individual and Environment.
 
 Cathegory Statistics is alone.
 
-Cathegory Implementation holds:
-Implementation(=features of implementation of the simulator)
-Distribution of computation(=whether and how it is possible to distribute the computation of the artificial life in the simulator to more computers)
-Speed settings(=whether and how it is possible to influence the speed of computation)
-Available sources(= whether source file of the simulator are available)
-Availability of binaries(=under what conditions are binaries available, e.g. on registration, free, ect.)
-Programming language(=programming language used and key libraries)
+Cathegory Implementation holds: Implementation(=features of implementation of the simulator), Distribution of computation(=whether and how it is possible to distribute the computation of the artificial life in the simulator to more computers), Speed settings(=whether and how it is possible to influence the speed of computation), Available sources(= whether source file of the simulator are available), Availability of binaries(=under what conditions are binaries available, e.g. on registration, free, ect.), Programming language(=programming language used and key libraries)
 
+ %*****Opening paragraph about every simulator: 
+ %Name and version that I examined, 
+ %url address
+ %author
+ %cathegorisation into 3 systems
  
 \section {Avida}
-Avida is often presented example of a program based simulator. It studies evolution of programs. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well.
+
+Avida is an often presented example of a program based simulator. It studies evolution of programs. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well. Examined release was Avida version 2.0b7 2003 for OS Windows. Avida is a joint project of the Digital Life Laboratory at the California Institute of Technology, \url{http://dllab.caltech.edu/}, (headed by Chris Adami) and the Digital Evolution Group, \url{http://devolab.cse.msu.edu/}, at Michigan State University. Web page of the project is \url{http://dllab.caltech.edu/avida/}.
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
@@ -246,14 +241,21 @@ Programming language&C++ \\ \hline
 
 \end{tabular}
 
+%*****Opening paragraph about every simulator: 
+ %Name and version that I examined, 
+ %url address
+ %author
+ %cathegorisation into 3 systems
 
 \section {Bitozoa}
+Bitozoa is a simulator created by M. Borkowski, that uses for representation of agents neural network in combination with a set of parameters. It evolves two types of agents, herbivores and carnivores. It was created for purpose of amusement and education. 
+Used version is Bitozoa 2 - artificial life & artficial intelligence simulation, 2000. Web page of the project is \url{http://www.bpp.com.pl/bitozoa2/bitozoa2.html}.
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 &Bitozoa\\ \hline
 &Neural networks, evolution, ?\\ \hline
-textbf{Agents}&Bitozoa - herbivora(eats plants) or carnivora(eats herbivora)\\ \hline
+textbf{Agents}&Bitozoa - herbivores(eat plants) and carnivores(eat herbivora)\\ \hline
 Body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\ \hline
 Motion&moves using flagella\\ \hline
 Behavior&no\\ \hline
@@ -272,7 +274,7 @@ Investment in offspring&both parents give the same fixed amount\\ \hline
 \hline \textbf{Environment}&\\ \hline
 Description&space in form of toroid\\ \hline
 Features&number of spots, where food grows\\ \hline
-Inhabitants&food growing on special spots, herbivores and carnivores\\ \hline
+Elements&food growing on special spots, herbivores and carnivores\\ \hline
 \hline \textbf{UI settings}&\\ \hline
 Mating&breed distance, breed level of stamina, inherited stamina\\ \hline
 Life of individual&asexual reproduction allowed, costs of an action, flagella angle and efficiency, view of bitozoa, adding or killing of a bitozoa, stamina from food, strength of carnivore, initial values of: eye sensitivity, number of neurons and stamina\\ \hline
@@ -289,8 +291,9 @@ do uvodu:&energy level - for motion and work of neurons, burned with speed accor
 
 \end{tabular}
 
-\section {GenePool}
-
+\section {Gene Pool}
+Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parameter based simulator, dealing with evolution of swimming creatures in a virtual Darwinian aquarium. It is a game with intriguing graphical interface, san serve as an entertaining learning tool, but author demonstrated with it also several interesting results concerning influence of atractiveness of partners on  results of evolution.\cite{GenePool1} \cite{GenePool2}
+  
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 &Gene Pool\\ \hline
@@ -314,7 +317,7 @@ Investment in offspring&50\% of actual energy\\ \hline
 \hline \textbf{Environment}&\\ \hline
 Description&rectangular pool\\ \hline
 Features&constant amount of energy in environment, cyling: food->swimbots->pool->food\\ \hline
-Inhabitants&food bits, swimbots\\ \hline
+Elements&food bits, swimbots\\ \hline
 \hline \textbf{UI settings}&\\ \hline
 Mating&attraction criterion\\ \hline
 Life of individual&location in environment, creation a swimbot, hunger threshold, energy for offspring\\ \hline
@@ -332,6 +335,7 @@ do uvodu:&how good is a swimbot in reproducing, which means either being good at
 \end{tabular}
 
 \section {Mitozoos}
+Author of project Mitozoos is Spanish software company Bestiario, \url{http://www.bestiario.org/}. Its purpose is educational, as author states "Mitozoos is an interactive artificial life model created with the objective that through experimentation and play participants will understand the relationship between genetic code and life." The web presentation of the project can be found at \url{http://bestiario.org/mitozoos/english/index.html}.
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
@@ -356,7 +360,7 @@ Investment in offspring&a fixed amount of energy \\ \hline
 \hline \textbf{Environment}& \\ \hline
 Description&space in form of a circle \\ \hline
 Features&rate of food growth \\ \hline
-Inhabitants&mitozoos, food bits \\ \hline
+Elements&mitozoos, food bits \\ \hline
 \hline \textbf{UI settings}& \\ \hline
 Mating&no \\ \hline
 Life of individual&special application, which avails user to create a mitozoos by setting its genes and add it to running life. \\ \hline
@@ -371,6 +375,7 @@ Programming language&Flash, (?) \\ \hline
 \end{tabular}
 
 \section {Primordial Life}
+For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can be downloaded at \url{http://www.io.com/~spofford/prim30.html}. Primordial life is a shareware parameter based artificial life screen saver writen for purpose to capture the principles of evolution in an interestion and visual way.
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
@@ -395,7 +400,7 @@ Investment in offspring&yes\\ \hline
 \hline \textbf{Environment}&\\ \hline
 Description&rectangular space\\ \hline
 Features& mixing of biots continuely up and providing of light, absorbable by green parts of biots and used up as energy\\ \hline
-Inhabitants&biots\\ \hline
+Elements&biots\\ \hline
 \hline \textbf{UI settings}&\\ \hline
 Mating&mutation rate, sexual/asexual/ both reproduction\\ \hline
 Life of individual&life span, speed, regeneration rate and cost, attacking of child, battle of sibblings, level of selfchange thanks to collision\\ \hline
@@ -408,9 +413,26 @@ Available sources&no\\ \hline
 Availability of binaries&register\\ \hline
 &\\ \hline
 &\\ \hline
-do uvodu:&"  A Primordial Life Server provides lists of available ecosystems you can connect with.   Ecosystems still connect peer to peer& the server just provides addresses of other ecosystems willing to let you connect with them. Advanced setting available !!"\\ \hline
+do porovnaniu:&"  A Primordial Life Server provides lists of available ecosystems you can connect with.   Ecosystems still connect peer to peer& the server just provides addresses of other ecosystems willing to let you connect with them. Advanced setting available !!"\\ \hline
 \end{tabular}
 
+\section{Features of Abeetles}
+"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, four were chosen as the key ones: motion, learning, choice of partner, distribution of computation and elements of environment. The following table compares Abeetles with other solutions specificaly in this cathegories.
+
+\begin{tabular}{lcccccc}
+ & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\ \hline
+Motion: strategy&x&x&G&G&S&G\\
+Learning&x&O&x&x&x&G/O\\
+Choice of partner&x&x&x&x&O&G/O\\
+Distribution of computation&x&Y&x&x&x&Y\\.
+Elements of environmet: obstacles&x&x&x&x&x&O
+\end{tabular}
+
+Motion strategy is function of an organism, where input is the view and output is decision where to move.
+O - optional (user can influence it)
+S - static (fixed)
+G - genetically evolved
+x - not present
 
 
 
@@ -428,7 +450,7 @@ Accordingly Abeetles only strive to present an original set of features and atti
 
 
 \section{Chosen features}
-    All the evaluated artificial life applications were compared in 33(TO CHECK) cathegories. For Abeetles four were chosen as the key ones. The following table compares Abeetles with other solutions specificaly in this cathegories.
+    All the evaluated artificial life applications were compared in 27(TO CHECK) cathegories. For Abeetles four were chosen as the key ones. The following table compares Abeetles with other solutions specificaly in this cathegories.
 
 \begin{tabular}{lcccccc}
  & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\
@@ -688,10 +710,11 @@ C. Ofria and C.O. Wilke, Artif. Life 10 (2004) 191-229.
 \bibitem{Tierra}
 Ray, T. S. 1991, "Evolution and optimization of digital organisms", in Billingsley K.R. et al (eds), Scientific Excellence in Supercomputing: The IBM 1990 Contest Prize Papers, Athens, GA, 30602: The Baldwin Press, The University of Georgia. Publication date: December 1991, pp. 489-531.
 
-\bibitem{GenePool}
-Attractiveness vs. Efficiency 1998
-"How Mate Preference Affects Locomotion in the Evolution of Artificial Swimming Organisms" published in "Artificial Life VI Proceedings" MIT Press) \linebreak
-Gene Pool: Exploring the Interaction Between Natural Selection and Sexual Selection published as Chapter 4 in Artificial Life Models in Software, edited by Andrew Adamatzky and Maciej Komosinski, Springer, 2005
+\bibitem{GenePool1}
+Jeffrey Ventrella 1998, "Attractiveness vs. Efficiency: How Mate Preference Affects Locomotion in the Evolution of Artificial Swimming Organisms", Artificial Life VI 1998, MIT Press. \url{http://www.ventrella.com/Alife/Attractiveness/attractiveness_0.html}
+ 
+\bibitem{GenePool2}
+Jeffrey Ventrella, "Gene Pool: Exploring the Interaction Between Natural Selection and Sexual Selection", Chapter 4 in Artificial Life Models in Software, edited by Andrew Adamatzky and Maciej Komosinski, Springer, 2005
 
 \bibitem{Mitozoos}
 The book of the mitozoos. (\url{http://bestiario.org/mitozoos/english/pdf/mitozoos\_en.pdf}). Mitozoos World is a project created and developed by Bestiario [www.bestiario.org]. Website of the project (\url{http://bestiario.org/mitozoos/english/index.html}).
