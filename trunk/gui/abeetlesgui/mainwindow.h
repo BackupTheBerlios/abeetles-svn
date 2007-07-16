@@ -117,9 +117,7 @@ private:
 
     QMenu *fileMenu;
     QMenu *statistsMenu;
-    //QMenu *formatMenu;
     QMenu *helpMenu;
-    //QActionGroup *alignmentGroup;
 
 	//Menu "File"
 		QAction *newEnvAct;
@@ -133,16 +131,7 @@ private:
 		QAction *saveAggrStatsAct;
 		QAction *saveTimeStatsAct;
 		QAction *saveHistStatsAct;
-	/*	QAction *copyAct;
-		QAction *pasteAct;
-		QAction *boldAct;
-		QAction *italicAct;
-		QAction *leftAlignAct;
-		QAction *rightAlignAct;
-		QAction *justifyAct;
-		QAction *centerAct;
-		QAction *setLineSpacingAct;
-		QAction *setParagraphSpacingAct;*/
+
 
 	//Menu "Help"
 		QAction *aboutAct;

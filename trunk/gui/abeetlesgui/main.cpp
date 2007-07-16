@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <QMessageBox>
+//#include <QStringList>
 
 #include "mainwindow.h"
 #include "CfgManager.h"
@@ -34,6 +35,7 @@
 
 //Global variables
 CfgManager CfgMng; 
+QString ScriptFN;
 
 int RandInBound (int bound)
 {
@@ -56,7 +58,33 @@ int RandInBound (int bound)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow window;
-    window.show();
+	
+	int i;
+	bool isScript=false;
+	for (i=0;i<app.arguments().size();i++)
+	{
+		
+		if (isScript==true) 
+		{
+			QMessageBox::information(NULL,"",QString::number(i)+" "+app.arguments().at(i));
+			ScriptFN=app.arguments().at(i);
+			break;
+		}
+			
+		if (app.arguments().at(i) =="-s") isScript=true;
+
+	}
+	if (isScript) 
+	{
+
+		QMessageBox::information(NULL,"","Script will be executed.");
+		app.quit();
+		return (0);
+
+	}
+	
+	MainWindow window;
+	window.show();
+	
     return app.exec();
 }

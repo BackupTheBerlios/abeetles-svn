@@ -1,7 +1,10 @@
 #pragma once
 #include "Beetle.h"
 #include "Grid.h"
-//	#include <windows.h>
+#include <QList>
+#include <QString>
+#include "COneRun.h"
+
 
 class QImage;
 
@@ -23,6 +26,7 @@ public:
 	bool LoadFlowers(CGrid * grid, char * filename);
 	QImage LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename); //, QImage image);
 	int ColorFromFlowerProbability(int prob);
+	QList<COneRun*> LoadScript(QString scriptFN);
 
 protected:
 	int FlowerProbabilityFromColor(int colorNum);

@@ -6,6 +6,9 @@ class CRunLife
 public:
 	CRunLife(void);
 	~CRunLife(void);
-	static int run(void);
+
+	CEnvironment Env;
+
+	int run(void);
 	static bool DialogWithUser(CEnvironment * Env, int* jumpTime);
 };

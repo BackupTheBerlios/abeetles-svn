@@ -1,4 +1,5 @@
 INPUT(
+./debug\COneRun.o
 ./debug\Legend.o
 ./debug\BeetleDialog.o
 ./debug\Beetle.o

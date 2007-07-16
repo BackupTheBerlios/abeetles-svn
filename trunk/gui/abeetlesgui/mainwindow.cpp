@@ -432,7 +432,7 @@ void MainWindow::run(bool bStart)
 	if (bStart == true)
 	{
 		NumSteps=-1;
-		Timer->start(TIME_STEP);
+		Timer->start();//TIME_STEP); // interval is now set as set at DisplayChanged() function.
 		//QMessageBox::information(this,"MyApp","Run infinitely.");
 		
 	}
@@ -451,7 +451,7 @@ void MainWindow::runNSteps(bool bStart)
 	if (bStart == true)
 	{
 		NumSteps=NumStepsSpin->value();
-		Timer->start(TIME_STEP);
+		Timer->start(); // interval is now set as set at DisplayChanged() function.
 		//QMessageBox::information(this,"MyApp","Start "+QString::number(NumStepsSpin->value())+" steps.");
 				
 	}
@@ -520,17 +520,19 @@ void MainWindow::showCellDetails(int x,int y)
 
 void MainWindow::DisplayChanged(int value)//Qt values: Qt::Checked, Qt::Unchecked
 {
-	if (value==Qt::Unchecked)
+	if (value==Qt::Unchecked)//Displaying stops
 	{
 		TypeViewCombo->setDisabled(true);
 		ZoomSlid->setDisabled(true);
 		Field->setDisabled(true);
+		Timer->setInterval(0);
 	}
-	if (value==Qt::Checked)
+	if (value==Qt::Checked)//Displaying starts
 	{
 		TypeViewCombo->setDisabled(false);
 		ZoomSlid->setDisabled(false);
 		Field->setDisabled(false);
+		Timer->setInterval(TIME_STEP);
 	}
 
 }

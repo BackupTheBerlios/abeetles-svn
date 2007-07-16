@@ -8,7 +8,8 @@ DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
 
 # Input
-HEADERS += Legend.h\
+HEADERS += COneRun.h\
+	   Legend.h\
 	   BeetleDialog.h\
 	   Beetle.h \
            CfgManager.h \
@@ -21,7 +22,8 @@ HEADERS += Legend.h\
            StatisticsEnv.h \
            stdafx.h \
            zoomslider.h
-SOURCES += Legend.cpp\
+SOURCES += COneRun.cpp\
+	   Legend.cpp\
            BeetleDialog.cpp\
 	   Beetle.cpp \
            CfgManager.cpp \

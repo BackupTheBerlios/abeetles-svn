@@ -9,6 +9,9 @@
 //#include <direct.h>
 //#include <winuser.h>
 #include <QtGui>
+#include <QList>
+#include <QString>
+#include "COneRun.h"
 
 
 
@@ -367,5 +370,49 @@ QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * f
 	return img;
 }
 
+QList<COneRun*> LoadScript(QString scriptFN)
+{
+	QList <COneRun *>list;
+	COneRun* oneRun = NULL;
+	QFile scrFile (scriptFN);
+	if (!scrFile.open(QIODevice::ReadOnly | QIODevice::Text))
+         return list;
+
+	while (!scrFile.atEnd()) 
+	{
+         QByteArray line = scrFile.readLine();
+         if (line.startsWith("run"))
+		 {
+			 //previous oneRun is added to QList
+			 if (oneRun) 
+			 {
+				 list.append(oneRun);
+				 oneRun=NULL;
+			 }
+
+			 if (!oneRun) oneRun= new COneRun();
+			 oneRun->setDirName(line.right(line.size()-line.indexOf("=")-1).trimmed());
+		 }
+		 //if no oneRun exists, I search for next line beginning with "run"
+		 if (!oneRun) continue;
+
+		 if (line.startsWith("map"))
+			 oneRun->setMapFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
+
+		 if (line.startsWith("eff"))
+			 oneRun->setEffFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
+
+		 if (line.startsWith("beetles"))
+		 {
+			 QByteArray pom = line.right(line.size()-line.indexOf("=")-1).trimmed();
+			 if (pom.startsWith("random"))
+			 {
+				 pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
+			 }
+		 }
+
+     } 
+		      
+}
 
 

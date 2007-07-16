@@ -19,6 +19,15 @@ CRunLife::~CRunLife(void)
 
 int CRunLife::run(void)
 {
+	//1.
+	//QList <CARun> listRuns CfgMng.readScript(scriptFN);
+
+	//2.
+	//for (i=0;i<listRuns.size();i++)
+	//{
+	//	aktRun = listRuns.at(i);
+		env.CreateR
+
 	int I,J;
 	CEnvironment env;
 	if (false == env.CreateRandomEnv()) return EXIT_FAILURE ;

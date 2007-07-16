@@ -190,6 +190,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\COneRun.h"
+				>
+			</File>
+			<File
 				RelativePath="..\defines.h"
 				>
 			</File>
@@ -241,6 +245,10 @@
 			</File>
 			<File
 				RelativePath="..\CfgManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\COneRun.cpp"
 				>
 			</File>
 			<File
