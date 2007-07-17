@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFile>
 #include "COneRun.h"
+#include "defines.h"
 
 COneRun::COneRun()
 {
@@ -11,7 +12,7 @@ COneRun::COneRun()
 bool COneRun::setDirName (QString dirName)
 {
 	if (dirName.isNull()) return false;
-	if (QDir::mkdir(dirName)==true)
+	if (QDir::current().mkdir(dirName)==true)
 	{
 		DirName=dirName;
 		return true;
@@ -26,32 +27,32 @@ bool COneRun::setMapFN(QString mapFN)
 	return true;
 }
 
-void COneRun::setRandom(int seed=-1, int numRandBeetles=-1)
+void COneRun::setRandom(int seed, int numRandBeetles)
 {
 	if (seed==-1) 
-		seed=( QTime::currentTime().msec() * QTime::currentTime().min() ) % MAX_INT;
+		seed=( QTime::currentTime().msec() * QTime::currentTime().minute() ) % MAX_INT;
 	else Seed=seed;
 	NumRandBeetles=numRandBeetles;
-	isBtlRandom=true;
+	IsBtlRandom=true;
 }
 
-void COneRun::setBeetlesFN(QString beetlesFN)
+bool COneRun::setBeetlesFN(QString beetlesFN)
 {
 	if (false==QFile::exists(beetlesFN)) return false;
 	BeetlesFN=beetlesFN;
-	isBtlRandom=false;
+	IsBtlRandom=false;
 	return true;
 }
 
 void COneRun::setEndTime(int endTime)
 {
-	if (endTime>0) && (endTime<MAXTIME)
+	if ( (endTime>0) && (endTime<MAXTIME))
 		EndTime=endTime;
 	else 
 		EndTime=MAXTIME;
 		
 }
-void COneRun::setEffFN (QString effFN)
+bool COneRun::setEffFN (QString effFN)
 {
 	if (false==QFile::exists(effFN)) return false;
 	EffFN=effFN;
@@ -93,25 +94,25 @@ void COneRun::setSaveTimeHistReg (int time)
 	SaveTimeHistReg=time;
 }
 
-void COneRun::setSaveTimeAggr (int * timeArray)
+void COneRun::setSaveTimesAggr (int * timeArray)
 {
 	int i=0;
 	while (timeArray[i]!=-1)
 	{
-		SaveTimeAggr[i]=timeArray[i];
+		SaveTimesAggr[i]=timeArray[i];
 		i++;
 	}
-	SaveTimeAggr[i]=timeArray[i]; //the copy of ending -1 value
+	SaveTimesAggr[i]=timeArray[i]; //the copy of ending -1 value
 }
 
-void COneRun::setSaveTimeHist(int * timeArray)
+void COneRun::setSaveTimesHist(int * timeArray)
 {
 	int i=0;
 	while (timeArray[i]!=-1)
 	{
-		SaveTimeHist[i]=timeArray[i];
+		SaveTimesHist[i]=timeArray[i];
 		i++;
 	}
-	SaveTimeHist[i]=timeArray[i]; //the copy of ending -1 value
+	SaveTimesHist[i]=timeArray[i]; //the copy of ending -1 value
 }
 	

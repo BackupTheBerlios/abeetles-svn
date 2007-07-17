@@ -27,6 +27,8 @@
 
 #include "mainwindow.h"
 #include "CfgManager.h"
+#include "RunScript.h"
+#include "COneRun.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -35,7 +37,7 @@
 
 //Global variables
 CfgManager CfgMng; 
-QString ScriptFN;
+
 
 int RandInBound (int bound)
 {
@@ -66,8 +68,7 @@ int main(int argc, char *argv[])
 		
 		if (isScript==true) 
 		{
-			QMessageBox::information(NULL,"",QString::number(i)+" "+app.arguments().at(i));
-			ScriptFN=app.arguments().at(i);
+			QMessageBox::information(NULL,"",QString::number(i)+" "+app.arguments().at(i));			
 			break;
 		}
 			
@@ -78,6 +79,9 @@ int main(int argc, char *argv[])
 	{
 
 		QMessageBox::information(NULL,"","Script will be executed.");
+		QString scriptFN;=app.arguments().at(i);
+		CRunScript runSript(CfgMng.LoadScript(scriptFN));
+		runScript.run();
 		app.quit();
 		return (0);
 

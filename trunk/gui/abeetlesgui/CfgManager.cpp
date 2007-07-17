@@ -11,6 +11,7 @@
 #include <QtGui>
 #include <QList>
 #include <QString>
+#include <QByteArray>
 #include "COneRun.h"
 
 
@@ -370,7 +371,7 @@ QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * f
 	return img;
 }
 
-QList<COneRun*> LoadScript(QString scriptFN)
+QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 {
 	QList <COneRun *>list;
 	COneRun* oneRun = NULL;
@@ -378,9 +379,13 @@ QList<COneRun*> LoadScript(QString scriptFN)
 	if (!scrFile.open(QIODevice::ReadOnly | QIODevice::Text))
          return list;
 
+	QByteArray line;
+	QByteArray pom;
+	int timeArray[50]; 
+
 	while (!scrFile.atEnd()) 
 	{
-         QByteArray line = scrFile.readLine();
+         line = scrFile.readLine();
          if (line.startsWith("run"))
 		 {
 			 //previous oneRun is added to QList
@@ -396,20 +401,113 @@ QList<COneRun*> LoadScript(QString scriptFN)
 		 //if no oneRun exists, I search for next line beginning with "run"
 		 if (!oneRun) continue;
 
-		 if (line.startsWith("map"))
+		 if (line.startsWith("map")) //map=mapa.bmp
 			 oneRun->setMapFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
 
-		 if (line.startsWith("eff"))
+		 if (line.startsWith("eff"))//eff=energyfce.bmp
 			 oneRun->setEffFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
 
-		 if (line.startsWith("beetles"))
+		 if (line.startsWith("beetles"))//beetles=random,200,50
 		 {
-			 QByteArray pom = line.right(line.size()-line.indexOf("=")-1).trimmed();
-			 if (pom.startsWith("random"))
+			 pom = line.right(line.size()-line.indexOf("=")-1).trimmed();
+			 
+			 if (! oneRun->setBeetlesFN(pom)) // is it an existing filename?
 			 {
-				 pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
+				 if (pom.startsWith("random"))	//or is it description of random start?
+				 {
+					 pom = pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
+					 oneRun->setRandom(pom.left(pom.indexOf(",")).trimmed(),pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+				 }
+				 else
+				 {
+					 //chyba, nepodarilo se precist
+				 }
 			 }
 		 }
+
+		 if (line.startsWith("costs")) //costs=1,1,2,2
+		 {
+			 QString pom[3];
+			 for (i=0;i<3;i++) 
+			 {
+				 pom[i]=pom.left(pom.indexOf(",")).trimmed();
+				 pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+			 }
+			 oneRun->setCostsOfActions(pom[0].toInt(),pom[1].toInt(),pom[2].toInt(), pom.toInt());
+		 }
+
+		 if (line.startsWith("endtime"))
+		 {
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setEndTime(pom.toInt());
+		 }
+
+		 if (line.startsWith("aggrstatfn"))
+		 {
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setAggrStatFN(pom);
+		 }
+		if (line.startsWith("histstatfn"))
+		 {
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setHistStatFN(pom);
+		 }
+		if (line.startsWith("timestatfn"))
+		 {
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setTimeStatFN(pom);
+		 }
+		if(line.startsWith("savetimeaggrreg")
+		{
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setSaveTimeAggrReg(pom.toInt());
+
+		}
+		if(line.startsWith("savetimehistreg")
+		{
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setSaveTimeHistReg(pom.toInt());
+		}
+		if(line.startsWith("savetimesaggr")
+		{
+			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			i=0;
+			 timeArray[i]=-1;
+			while (pom.contains(","))
+			{
+				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
+				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+				i++;
+				timeArray[i]=-1;
+				if (i==49) break; //so as not to overflow the size of the array
+			}
+			if(! pom.trimmed().isNull())
+			{
+				timeArray[i]=pom.trimmed().toInt();
+				timeArray[i+1]=-1;
+			}
+			oneRun->SaveTimesAggr(timeArray);
+		}
+		if(line.startsWith("savetimeshist")
+		{
+			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			i=0;
+			timeArray[i]=-1;
+			while (pom.contains(","))
+			{
+				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
+				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+				i++;
+				timeArray[i]=-1;
+				if (i==49) break; //so as not to overflow the size of the array
+			}
+			if(! pom.trimmed().isNull())
+			{
+				timeArray[i]=pom.trimmed().toInt();
+				timeArray[i+1]=-1;
+			}
+			oneRun->SaveTimesHist(timeArray);
+		}
 
      } 
 		      

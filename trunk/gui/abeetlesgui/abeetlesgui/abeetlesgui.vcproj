@@ -222,6 +222,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\RunScript.h"
+				>
+			</File>
+			<File
 				RelativePath="..\StatisticsEnv.h"
 				>
 			</File>
@@ -281,6 +285,10 @@
 			</File>
 			<File
 				RelativePath="..\RunLife.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\RunScript.cpp"
 				>
 			</File>
 			<File

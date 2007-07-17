@@ -9,7 +9,7 @@ public:
 
 	QString DirName;
 	QString MapFN;
-	bool isBtlRandom;
+	bool IsBtlRandom;
 	QString BeetlesFN;
 	int Seed;
 	int NumRandBeetles;
@@ -33,16 +33,16 @@ public:
 	bool setDirName (QString dirName);
 	bool setMapFN(QString mapFN);
 	void setRandom(int seed=-1, int numRandBeetles=-1);
-	void setBeetlesFN(QString beetlesFN);
+	bool setBeetlesFN(QString beetlesFN);
 	void setEndTime(int endTime);
-	void setEffFN (QString effFN);
+	bool setEffFN (QString effFN);
 	void setCostsOfActions( int step, int rot, int copul, int wait);
 	void setAggrStatFN( QString aggrStatFN);
 	void setHistStatFN( QString histStatFN);
 	void setTimeStatFN( QString timeStatFN);
 	void setSaveTimeAggrReg (int time);
 	void setSaveTimeHistReg (int time);
-	void setSaveTimeAggr (int * timeArray);
-	void setSaveTimeHist(int * timeArray);
+	void setSaveTimesAggr (int * timeArray);
+	void setSaveTimesHist(int * timeArray);
 
 };
