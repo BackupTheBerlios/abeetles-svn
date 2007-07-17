@@ -425,7 +425,13 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			 //previous oneRun is added to QList
 			 if (oneRun) 
 			 {
-				 list.append(oneRun);
+				 if (!err.isNull()) 
+				 {
+					 fprintf(stdout,("Errors parsing script, run "+oneRun->DirName+" is not correct: \n"+err.trimmed()+"\n").toAscii().data());
+					 delete(oneRun);
+				 }
+				 else
+					list.append(oneRun);
 				 oneRun=NULL;
 			 }
 
@@ -551,11 +557,17 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 		
 	 if (oneRun) 
 	 {
-		 list.append(oneRun);
+		 if (!err.isNull()) 
+		 {
+			 fprintf(stdout,("Errors parsing script, run "+oneRun->DirName+" is not correct: \n"+err.trimmed()+"\n").toAscii().data());
+			 delete(oneRun);
+		 }
+		 else
+			list.append(oneRun);
 		 oneRun=NULL;
+		 
 	 }
 
-	 if (!err.isNull()) QMessageBox::information(NULL,"Errors parsing script", err.trimmed());
 	
 	 return list;
 }

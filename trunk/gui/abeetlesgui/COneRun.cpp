@@ -5,8 +5,16 @@
 #include "COneRun.h"
 #include "defines.h"
 
+extern int RandInBound (int bound);
+
 COneRun::COneRun()
 {
+	DirName = "newdir"+QString::number(RandInBound(20));
+	MapFN = MAP_BMP_FILE;
+	EffFN = EFF_BMP_FILE;
+	AggrStatFN="aggr.txt";
+	HistStatFN="hist.txt";
+	TimeStatFN="time.txt";
 	IsBtlRandom=true;
 	Seed=-1;
 	NumRandBeetles=-1;

@@ -20,25 +20,25 @@ int CRunScript::run()
 	int l;
 	for (l=0;l<ListRuns.size();l++)
 	{
-		QMessageBox::information (NULL,"Script",QString::fromAscii("Size: ")+QString::number(ListRuns.size())+", "+
-										ListRuns.at(l)->DirName+" "+
-										ListRuns.at(l)-> MapFN+" "+
-										ListRuns.at(l)-> BeetlesFN+" "+
-										QString::number(ListRuns.at(l)-> Seed)+" "+
-										QString::number(ListRuns.at(l)-> NumRandBeetles)+" "+
-										QString::number(ListRuns.at(l)-> EndTime)+" "+
-										ListRuns.at(l)->EffFN+" "+										
-										QString::number(ListRuns.at(l)-> StepCost)+" "+
-										QString::number(ListRuns.at(l)-> RotCost)+" "+
-										QString::number(ListRuns.at(l)-> CopulCost)+" "+
-										QString::number(ListRuns.at(l)-> WaitCost)+" "+										
-										ListRuns.at(l)-> AggrStatFN+" "+
-										ListRuns.at(l)-> HistStatFN+" "+
-										ListRuns.at(l)-> TimeStatFN+" "+
-										QString::number(ListRuns.at(l)-> SaveTimeAggrReg)+" "+ 
-										QString::number(ListRuns.at(l)-> SaveTimeHistReg)+" "+ 
-										QString::number(ListRuns.at(l)-> SaveTimesAggr[0]) +" "+
-										QString::number(ListRuns.at(l)-> SaveTimesHist[0]) );
+		fprintf(stdout,("Script "+
+					ListRuns.at(l)->DirName+" - configuration: \n "+
+					ListRuns.at(l)-> MapFN+" "+
+					ListRuns.at(l)-> BeetlesFN+" "+
+					QString::number(ListRuns.at(l)-> Seed)+" "+
+					QString::number(ListRuns.at(l)-> NumRandBeetles)+" "+
+					QString::number(ListRuns.at(l)-> EndTime)+" "+
+					ListRuns.at(l)->EffFN+" "+										
+					QString::number(ListRuns.at(l)-> StepCost)+" "+
+					QString::number(ListRuns.at(l)-> RotCost)+" "+
+					QString::number(ListRuns.at(l)-> CopulCost)+" "+
+					QString::number(ListRuns.at(l)-> WaitCost)+" "+										
+					ListRuns.at(l)-> AggrStatFN+" "+
+					ListRuns.at(l)-> HistStatFN+" "+
+					ListRuns.at(l)-> TimeStatFN+" "+
+					QString::number(ListRuns.at(l)-> SaveTimeAggrReg)+" "+ 
+					QString::number(ListRuns.at(l)-> SaveTimeHistReg)+" "+ 
+					QString::number(ListRuns.at(l)-> SaveTimesAggr[0]) +" "+
+					QString::number(ListRuns.at(l)-> SaveTimesHist[0])+"\n").toAscii().data() );
 		oneRun=	ListRuns.at(l);
 		//QMessageBox::information (NULL,"","1");
 		CEnvironment env (oneRun);
@@ -46,6 +46,7 @@ int CRunScript::run()
 		QDir::setCurrent(oneRun->DirName);
 		int time;
 		int I,J;
+		int i_agr=0,i_hist=0;
 		//QMessageBox::information (NULL,"","Life "+oneRun->DirName+" starts");
 		for(time=0;time<=oneRun->EndTime;time++)
 		{
@@ -57,14 +58,32 @@ int CRunScript::run()
 				//if there is a wall, flower of something bad, do nothing
 			}
 
-			env.NextTime();
-		
-			if (time%10==0) env.Statist.SaveActAgrStatist(oneRun->AggrStatFN.toAscii().data(),time);
-			/*
-			if (time==oneRun->SaveTimesAggr[])
+
+			
+			//if (time%10==0) env.Statist.SaveActAgrStatist(oneRun->AggrStatFN.toAscii().data(),time);
+			if (time==oneRun->SaveTimesAggr[i_agr])
 			{
-				
-			}*/
+				env.CountStatistics();
+				i_agr++;
+				env.Statist.SaveActAgrStatist((QString::number(time)+oneRun->AggrStatFN).toAscii().data(),time);
+			}
+			if (time==oneRun->SaveTimesHist[i_hist])
+			{
+				i_hist++;
+				env.Statist.SaveActHistStatist((QString::number(time)+oneRun->HistStatFN).toAscii().data(),time,&(env.Grid));
+			}
+			if ((oneRun->SaveTimeAggrReg!=0) &&(time % oneRun->SaveTimeAggrReg==0))		
+			{
+				env.CountStatistics();
+				env.Statist.SaveActAgrStatist((QString::number(time)+oneRun->AggrStatFN).toAscii().data(),time);
+			}
+
+			if ((oneRun->SaveTimeHistReg!=0) &&(time % oneRun->SaveTimeHistReg==0))		
+				env.Statist.SaveActHistStatist((QString::number(time)+oneRun->HistStatFN).toAscii().data(),time,&(env.Grid));
+
+
+			env.NextTime();
+
 		}
 		env.Statist.SaveTimeStatist_InColumnsAppend(oneRun->TimeStatFN.toAscii().data());
 		QDir::setCurrent("..");

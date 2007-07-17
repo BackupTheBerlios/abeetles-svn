@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
+CONFIG += console
 
 # Input
 HEADERS += RunScript.h\

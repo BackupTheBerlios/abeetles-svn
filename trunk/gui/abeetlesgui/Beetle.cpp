@@ -287,7 +287,7 @@ CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 	beetle_child->Age=0;
 	beetle_child->Energy= beetle1->InvInChild + beetle2->InvInChild;	
 	if (beetle_child->Energy > MAX_ENERGY)beetle_child->Energy= MAX_ENERGY;
-	assert (beetle_child->Energy>0); 
+	//assert (beetle_child->Energy>0); 
 	beetle_child->Direction = RandInBound(4);
 	beetle_child->NumChildren=0;
 	beetle_child->Id=CBeetle::CreateNewId();
@@ -337,9 +337,9 @@ void CBeetle::Mutation(CBeetle * beetle)
 									{beetle->Brain [M][N][K][L]= RandInBound(NUM_ACTIONS); isChange=true;}
 				for (M=1;M<EXPECT_ON_PARTNER_D;M++)
 					if (RandInBound(100)<MUTATION_PROB){beetle->ExpectOnPartner[M]= RandInBound(GetExpectOnPartnerMax(M));isChange=true;}
-				if (RandInBound(100)<MUTATION_PROB){beetle->HungryThreshold= RandInBound(MAX_ENERGY);isChange=true;}
-				if (RandInBound(100)<MUTATION_PROB){beetle->InvInChild= RandInBound(MAX_INV_IN_CHILD);isChange=true;}
-				if (RandInBound(100)<MUTATION_PROB){beetle->LearnAbility= RandInBound(MAX_LEARN_ABILITY);	isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->HungryThreshold= 1+RandInBound(MAX_ENERGY);isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->InvInChild= 1+ RandInBound(MAX_INV_IN_CHILD);isChange=true;}
+				if (RandInBound(100)<MUTATION_PROB){beetle->LearnAbility= 1+RandInBound(MAX_LEARN_ABILITY);	isChange=true;}
 }
 
 void CBeetle::LearnFrom(CBeetle* beetle2)

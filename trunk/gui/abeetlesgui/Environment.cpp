@@ -15,6 +15,7 @@ CEnvironment::CEnvironment(void)
 	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
 	Time=0; 
 	IsEmpty=true;
+	StepCost=A_STEP_COSTS;RotCost=A_ROTATION_COSTS;CopulCost=A_COPULATION_COSTS;WaitCost=A_WAIT_COSTS;
 	
 
 	//load function of Age and EnergyFromFlower from bmp file		
@@ -33,6 +34,12 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
 
 	Time=0; 
+	IsEmpty=false;
+	StepCost=oneRun->StepCost;
+	RotCost=oneRun->RotCost;
+	CopulCost=oneRun->CopulCost;
+	WaitCost=oneRun->WaitCost;
+
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
 	//load function of Age and EnergyFromFlower from bmp file		
@@ -99,16 +106,16 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	if (Front==BEETLE)
 	{
 		action=HA_COPULATE;
-		if (beetle->Energy > A_COPULATION_COSTS)
+		if (beetle->Energy > CopulCost)
 			{
 				if (true == A_Copulate(x,y,beetle))
 				{										
 					Statist.NumBeetles++;
 					Statist.NumBirths++;
-					beetle->ConsumeEnergy(A_COPULATION_COSTS);
+					beetle->ConsumeEnergy(CopulCost);
 					newChild = true;
 				}
-				//else beetle->ConsumeEnergy(A_WAIT_COSTS);
+				//else beetle->ConsumeEnergy(WaitCost);
 			}
 			else beetle->Energy =0;
 	}	
@@ -126,34 +133,34 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	switch (action) 
 	{
 		case A_STEP: 
-			if (beetle->Energy > A_STEP_COSTS)
+			if (beetle->Energy > StepCost)
 			{
 				if (true ==A_Step(x,y,beetle->GetDirection())) // check, whether the step was really made
-					beetle->ConsumeEnergy(A_STEP_COSTS);
-				else beetle->ConsumeEnergy(A_WAIT_COSTS);
+					beetle->ConsumeEnergy(StepCost);
+				else beetle->ConsumeEnergy(WaitCost);
 			}
 			else beetle->Energy =0;
 			break;			
 		case A_ROTATERIGHT: 
-			if (beetle->Energy > A_ROTATION_COSTS)
+			if (beetle->Energy > RotCost)
 			{ 
 				A_RotateRight(beetle);
-				beetle->ConsumeEnergy(A_ROTATION_COSTS);
+				beetle->ConsumeEnergy(RotCost);
 			}
 			else beetle->Energy =0;
 			break;
 		case A_ROTATELEFT: 
-			if (beetle->Energy > A_ROTATION_COSTS)
+			if (beetle->Energy > RotCost)
 			{
 				A_RotateLeft(beetle);
-				beetle->ConsumeEnergy(A_ROTATION_COSTS);
+				beetle->ConsumeEnergy(RotCost);
 			}
 			else beetle->Energy =0;
 			break;
 /*		case A_WAIT:		
-			if (beetle->Energy > A_WAIT_COSTS)
+			if (beetle->Energy > WaitCost)
 			{
-				beetle->ConsumeEnergy(A_WAIT_COSTS);
+				beetle->ConsumeEnergy(WaitCost);
 			}
 			else beetle->Energy =0;
 			break;*/

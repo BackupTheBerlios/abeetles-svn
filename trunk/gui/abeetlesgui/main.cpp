@@ -60,7 +60,8 @@ int RandInBound (int bound)
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-	
+	//fprintf(stdout,"Ahoj");
+
 	int i;
 	bool isScript=false;
 	for (i=0;i<app.arguments().size();i++)
@@ -77,9 +78,8 @@ int main(int argc, char *argv[])
 	}
 	if (isScript) 
 	{
-
-		QMessageBox::information(NULL,"","Script will be executed.");
 		QString scriptFN=app.arguments().at(i);
+		fprintf(stdout,("Script "+scriptFN+" starts execution.\n").toAscii().data());
 		CRunScript runScript(CfgMng.LoadScript(scriptFN));
 		runScript.run();
 		app.quit();
