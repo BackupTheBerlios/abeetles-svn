@@ -12,6 +12,7 @@
 #include <QList>
 #include <QString>
 #include <QByteArray>
+#include <QMessageBox>
 #include "COneRun.h"
 
 
@@ -66,6 +67,10 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 * @param filename [Complete name of the file of the grid. Can have any extension. Checked only for bmp.]<br>
 */
 //
+bool CfgManager::LoadMapFromBmp(CGrid * grid, QString filename)
+{
+	return LoadMapFromBmp(grid, filename.toAscii().data());
+}
 bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 {
 //1. Read the bmp file
@@ -118,6 +123,10 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 	return true;
 }
 
+bool CfgManager::SaveMapToBmp(CGrid * grid, QString filename)
+{
+	return SaveMapToBmp(grid,filename.toAscii().data());
+}
 bool CfgManager::SaveMapToBmp(CGrid * grid, char * filename)
 {
 	QImage img(grid->G_Width,grid->G_Height,QImage::Format_RGB32);
@@ -158,6 +167,10 @@ int CfgManager::ColorFromFlowerProbability(int prob)
 }
 
 
+bool CfgManager::SaveBeetles(CGrid * grid,QString filename)
+{
+	return SaveBeetles(grid,filename.toAscii().data());
+}
 bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 {
 	FILE * btlFile;
@@ -204,6 +217,10 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 	
 	fclose(btlFile);
 	return true;
+}
+bool CfgManager::LoadBeetles(CGrid * grid, QString filename)
+{
+	return LoadBeetles(grid,filename.toAscii().data());
 }
 bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 {
@@ -287,6 +304,10 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	return true;
 }
 
+bool CfgManager::LoadFlowers(CGrid * grid, QString filename)
+{
+	return LoadFlowers(grid,  filename.toAscii().data());
+}
 bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
 {
 	int x,y;
@@ -307,6 +328,10 @@ bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
 	return true;
 }
 
+bool CfgManager::SaveFlowers(CGrid * grid,QString filename)
+{
+	return SaveFlowers(grid,filename.toAscii().data());
+}
 bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 {
 	int I,J;
@@ -324,9 +349,15 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 }
 
 
+QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], QString filename) //, QImage img)
+{
+		//QMessageBox::information(NULL,"MyApp","4");
 
+	return LoadEnergyFromFlowerFromBmp(EFF_Age , filename.toAscii().data()) ;
+}
 QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, QImage img)
 {
+	//QMessageBox::information(NULL,"MyApp","3");
 //1. Read the bmp file
 	QImage img (filename);
 	//img.load(filename);
@@ -373,6 +404,7 @@ QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * f
 
 QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 {
+	QString err;
 	QList <COneRun *>list;
 	COneRun* oneRun = NULL;
 	QFile scrFile (scriptFN);
@@ -381,6 +413,8 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 
 	QByteArray line;
 	QByteArray pom;
+	int i;
+
 	int timeArray[50]; 
 
 	while (!scrFile.atEnd()) 
@@ -396,16 +430,19 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			 }
 
 			 if (!oneRun) oneRun= new COneRun();
-			 oneRun->setDirName(line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 if (false==oneRun->setDirName(line.right(line.size()-line.indexOf("=")-1).trimmed()))
+				 err+="Directory "+line.right(line.size()-line.indexOf("=")-1).trimmed()+" was not created.\n";
 		 }
 		 //if no oneRun exists, I search for next line beginning with "run"
 		 if (!oneRun) continue;
 
 		 if (line.startsWith("map")) //map=mapa.bmp
-			 oneRun->setMapFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 if ( false == oneRun->setMapFN(line.right(line.size()-line.indexOf("=")-1).trimmed()) )
+				err+=("File of map "+line.right(line.size()-line.indexOf("=")-1).trimmed()+" not found.\n");
 
 		 if (line.startsWith("eff"))//eff=energyfce.bmp
-			 oneRun->setEffFN(line.right(line.size()-line.indexOf("=")-1).trimmed());
+			  if (false==oneRun->setEffFN(line.right(line.size()-line.indexOf("=")-1).trimmed()))
+				  err+=("File of energy from flowers "+line.right(line.size()-line.indexOf("=")-1).trimmed()+" not found.\n");
 
 		 if (line.startsWith("beetles"))//beetles=random,200,50
 		 {
@@ -416,7 +453,7 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 				 if (pom.startsWith("random"))	//or is it description of random start?
 				 {
 					 pom = pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
-					 oneRun->setRandom(pom.left(pom.indexOf(",")).trimmed(),pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+					 oneRun->setRandom(pom.left(pom.indexOf(",")).trimmed().toInt(),pom.right(pom.size()-pom.indexOf(",")-1).trimmed().toInt());
 				 }
 				 else
 				 {
@@ -427,13 +464,14 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 
 		 if (line.startsWith("costs")) //costs=1,1,2,2
 		 {
-			 QString pom[3];
+			 pom = line.right(line.size()-line.indexOf("=")-1).trimmed();
+			 QByteArray poms[3];
 			 for (i=0;i<3;i++) 
 			 {
-				 pom[i]=pom.left(pom.indexOf(",")).trimmed();
-				 pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+				 poms[i]=pom.left(pom.indexOf(",")).trimmed();
+				 pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
 			 }
-			 oneRun->setCostsOfActions(pom[0].toInt(),pom[1].toInt(),pom[2].toInt(), pom.toInt());
+			 oneRun->setCostsOfActions(poms[0].toInt(),poms[1].toInt(),poms[2].toInt(), pom.toInt());
 		 }
 
 		 if (line.startsWith("endtime"))
@@ -457,38 +495,18 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setTimeStatFN(pom);
 		 }
-		if(line.startsWith("savetimeaggrreg")
+		if(line.startsWith("savetimeaggrreg"))
 		{
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setSaveTimeAggrReg(pom.toInt());
 
 		}
-		if(line.startsWith("savetimehistreg")
+		if(line.startsWith("savetimehistreg"))
 		{
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setSaveTimeHistReg(pom.toInt());
 		}
-		if(line.startsWith("savetimesaggr")
-		{
-			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
-			i=0;
-			 timeArray[i]=-1;
-			while (pom.contains(","))
-			{
-				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
-				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
-				i++;
-				timeArray[i]=-1;
-				if (i==49) break; //so as not to overflow the size of the array
-			}
-			if(! pom.trimmed().isNull())
-			{
-				timeArray[i]=pom.trimmed().toInt();
-				timeArray[i+1]=-1;
-			}
-			oneRun->SaveTimesAggr(timeArray);
-		}
-		if(line.startsWith("savetimeshist")
+		if(line.startsWith("savetimesaggr"))
 		{
 			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			i=0;
@@ -496,7 +514,7 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			while (pom.contains(","))
 			{
 				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
-				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed());
+				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
 				i++;
 				timeArray[i]=-1;
 				if (i==49) break; //so as not to overflow the size of the array
@@ -506,11 +524,40 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 				timeArray[i]=pom.trimmed().toInt();
 				timeArray[i+1]=-1;
 			}
-			oneRun->SaveTimesHist(timeArray);
+			oneRun->setSaveTimesAggr(timeArray);
+		}
+		if(line.startsWith("savetimeshist"))
+		{
+			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			i=0;
+			timeArray[i]=-1;
+			while (pom.contains(","))
+			{
+				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
+				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
+				i++;
+				timeArray[i]=-1;
+				if (i==49) break; //so as not to overflow the size of the array
+			}
+			if(! pom.trimmed().isNull())
+			{
+				timeArray[i]=pom.trimmed().toInt();
+				timeArray[i+1]=-1;
+			}
+			oneRun->setSaveTimesHist(timeArray);
 		}
 
-     } 
-		      
+     }
+		
+	 if (oneRun) 
+	 {
+		 list.append(oneRun);
+		 oneRun=NULL;
+	 }
+
+	 if (!err.isNull()) QMessageBox::information(NULL,"Errors parsing script", err.trimmed());
+	
+	 return list;
 }
 
 

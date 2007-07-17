@@ -7,17 +7,37 @@
 
 COneRun::COneRun()
 {
+	IsBtlRandom=true;
+	Seed=-1;
+	NumRandBeetles=-1;
+	EndTime=MAXTIME;
+	//cost of actions
+	StepCost=A_STEP_COSTS;
+	RotCost=A_ROTATION_COSTS;
+	CopulCost=A_COPULATION_COSTS;
+	WaitCost=A_WAIT_COSTS;
+	//Names of files of statistics... Time will be added
+
+	SaveTimeAggrReg=0; //if ==0, array saveTimesAggr is used
+	SaveTimeHistReg=0; // if ==0, array saveTimesHist is used
+	int i=0;
+	for(i=0;i<50;i++)
+	{
+		SaveTimesAggr[i]=-1 ;
+		SaveTimesHist[i]=-1 ;
+	}
 }
 
 bool COneRun::setDirName (QString dirName)
 {
 	if (dirName.isNull()) return false;
-	if (QDir::current().mkdir(dirName)==true)
+	if ((QDir::current().mkdir(dirName)==true) ||(QDir::current().exists(dirName)))
 	{
 		DirName=dirName;
 		return true;
 	}
-	return false;	
+
+	return false;	 
 }
 
 bool COneRun::setMapFN(QString mapFN)

@@ -83,8 +83,10 @@
 
 #define NUMOPTVARIABLES 1
 
+
 #define MAP_BMP_FILE "env_cfg.bmp"
 #define DEFAULT_FILE_NAME "default"
+#define DEFAULT_NUM_BEETLES 150
 
 //colors of the map of the environment
 #define CFG_CLR_FLOWER_BOTTOM   0	//= NOTHING

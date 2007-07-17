@@ -4,6 +4,7 @@
 #include "CfgManager.h"
 #include "StatisticsEnv.h"
 #include <QWidget>
+#include "defines.h"
 
 //make globals visible
 extern CfgManager CfgMng;
@@ -14,6 +15,7 @@ class CEnvironment: public QObject
 	Q_OBJECT
 public:
 	CEnvironment(void);
+	CEnvironment::CEnvironment(COneRun * oneRun);
 	//CEnvironment(char * fname);//constructor for loading environment from file
 	//CEnvironment::CEnvironment(int seed); // creation of random environment
 	~CEnvironment(void);
@@ -50,5 +52,5 @@ public:
 	char * getTimeStatsFileName(char *fname);
 
 	CBeetle * CreateRandomBeetle();
-	bool FillEmptyEnvRandomly(int seed);
+	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0);
 };

@@ -7,9 +7,9 @@
 class CRunScript
 {
 public:
-	CRunScript(QList<COneRun>);
+	CRunScript(QList<COneRun*>);
 
-	QList<COneRun> ListRuns;
+	QList<COneRun*> ListRuns;
 
 	//CEnvironment env;
 
