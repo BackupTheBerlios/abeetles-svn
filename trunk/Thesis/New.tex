@@ -472,8 +472,42 @@ x-Not present
 \chapter{Structure of the thesis in relation to chosen objectives}
 %4.         Struktura práce ve vztahu k vytyèeným cílùm
 
+Chosen objectives are: model of artificial life and implementation of simulator that will run the life and idea of possible experiments and their realization.
+
+The course of following chapters will be:
+
+\section {Analysis} %(=Co se ma udelat)projdu jednotlive cile a urcim jake (meritelne) vlastnosti musi program mit, aby cile splnoval.
+The first step will be specification of the model of artificial life that will Abeetles use. The model should conform to examination of chosen features of natural life that were described in the previous chapter.
+
+The second step will be description of requirements on the simulator. Which features it should have and which functionality it should offer to users.
+ 
+\section {Design} %(=Jak se to ma udelat)
+Design of Abeetles and discussion of alternatives.
+
+\section {Detailed design of Abeetles}
+
+\section {Implementation}
+
+\section {Experiments - description, course and results}
+
+\section {Review of completion of objectives in comparison with other attitudes}   
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Analysis of the problem from different aspects}
+
+%1.Datovy model Abeetles se vztahy a integritnimi omezenimi
+\section {Model of Abeetles}
+Artificial life in simulator Abeetles simulates natural life as environment where live agents. Agents element of environment that are subject to evolution and environment is all the world with other not evolved objects where agents live.
+
+Agents in Abeetles are called beetles and generally they all are of the same species as they can mate with each other and share the same static part of their behavior. Environment is a grid in form of toroid. In grid are placed three types of objects. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. In environment are also placed walls. Walls are static obstacles in cells that cause that no beetle can access that cell and therefore serve for forming of the shape of the environment.
+
+Beetles will contain static part, that can not be evolved, evolvable part and part that can be influenced during life by learning. Basic features will be level of energy, decision mechanism that takes as input what the beetle see and in which state he is and outputs a decision what to do and expectation on a partner for mating. 
+
+The simulator runs the artificial model described above. Objectives of the simulator imply requirements on the application. Which features it should have and which functionality it should offer to users.
+
+As the simulator should serve for 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Proposal of solution with discussion of alternatives}
@@ -483,6 +517,7 @@ x-Not present
 
 
 \section{Description of the model of a beetle}
+%This is 
 Representation of an agent(beetle) in Abeetles from genetical point of view:
 Chromosome of a beetle includes following genes:\\
 \\
