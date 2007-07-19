@@ -576,39 +576,65 @@ Design of Abeetles and discussion of alternatives.
 
 %1.Datovy model Abeetles se vztahy a integritnimi omezenimi
 \section {Model of artificial life of Abeetles}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.8]{AnalysisDataModel.eps} %
+  \caption{Conceptual data model of Abeetles}
+  \label{obr.graphicx}
+\end{center}
+\end{figure}
+
 Artificial life in simulator Abeetles simulates natural life as environment inhabited by agents. Agents are those elements of environment that are subject to evolution and environment is all the world with other not evolved objects where agents live.
 
-Agents in Abeetles are called beetles and generally they all are of the same species as they can mate with each other and share the same static part as well as constrains on the variable part of their behavior. Environment is a grid in form of toroid. In the grid  three types of objects are placed. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. Neither beetles nor flowers can occur in cells of the grid, where are walls. Walls are static obstacles that serve for forming of the shape of the environment.
+Agents in Abeetles are called beetles and generally they all are of the same species as they can mate with each other and bear descendants, and share the same static part as well as constrains on the variable part of their behavior. Environment is a grid in form of toroid. In the grid  three types of objects are placed. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. Neither beetles nor flowers can occur in cells of the grid, where are walls. Walls are static obstacles that serve for forming of the shape of the environment.
 
 Beetles contain static part, that can not be evolved, evolvable part and part that can be influenced during life by learning. Basic features are level of energy, decision mechanism that takes as input what the beetle see and in which state he is and outputs a decision what to do and expectation on a partner for mating. 
 
-\sections {Expectations on the simulator}
-The simulator runs the artificial model described above. It should serve for scientific purposes. The expectations on the system from this aspect are:
-%aspect of running of experiments
+% Nakresli a vloz Class diagram s entitami a jejich vztahy a integritnimi omezenimi.
+
+\section{Functionality of Abeetles}
+
+The simulator runs the artificial model described above. Scenarios of usage can be encapsulated in three particular cases of usage: Running of an experiment, view of an experiment, and learning of possibilities and the artificial life performed by the simulator.
+%A co soupnout napad tehle tri scenarii uz do Chapter 3?
+
+\subsection {Running of an experiment}
+The expectations on the system in this case are:
 \begin{itemize}
 \item Speed: Experiment run with the simulator should avail execution of thousands of turns so as to get interesting results of evolution. Also for statistical purposes high number of various inputs must be used when experimenting on random data. Therefore Abeetles should offer possibility to run very fast. 
 \item Input: Start of experiments can not be done manually one by one. Data entry should be read from a script. 
 \item Output data: Results of experiments should be possible to save in an interchangeable format and make their collection automatically.
-\item User interface: Interface should offer possibility to look at particular situation in the environment that cannot be logged in statistics, e.g. differences between beetles in separate parts of the environment. Interface should be able to visualize different aspects of beetles optionaly. Also details of individual beetles should be accessible. 
-\item Run of simulator: Run of the simulator step by step, run optional number of turns or run until stopped.
+\item Run of the simulator: Simulator should just obtain script at start and then run without need for any input from user. 
+
 \end{itemize}
 
+%Scenarion of running of an experiment - sequence diagram.
+
+\subsection{View of an experiment}
+\begin{itemize}
+\item User interface: Interface should offer possibility to look at the environment with all its object so as to see particular situation in the environment that cannot be logged in statistics, e.g. differences between beetles in separate parts of the environment. This could be realized by ability to visualize different aspects of the environment on demand and by ability to zoom various parts of the environment. Also details of individual beetles should be accessible in a concise form. 
+\item Run of simulator: Simulator should be capable of running step by step, of running optional number of turns or of running until being stopped.
+\end{itemize}
+
+%Scenario of view of an experiment
+
+\subsection{Learning about Abeetles}
 %aspect of understanding of the model and work of Abeetles.
 \begin{itemize}
-\item Speed: A slow run of the simulator helps to see what happens.
-\item User Interface: A zoom can make possible to see the situation in details as well as overlook the whole environment.
-\item Input: Possibility to start default interface with random beetles easily is necessary at the beginning of work with the simulator. Also to save and load the actual situation is of use.
-\item Output: To save statistics can be performed in any turn.  
+\item Speed: A slow run of the simulator helps to see what is happening and understand relationships between events.
+\item User Interface: The interface should show all the environment with clearly differentiated objects. Legend, explaining what is what, should be easily reachable. A zoom can make possible to see the situation in details as well as to overlook the whole environment.
+\item Input: Possibility to start default interface with random beetles easily is necessary at the beginning of work with the simulator. Also to save and continue to work with it later.
+\item Output: To view actual statistics can be performed in any turn.  
 \end{itemize}
 
-%A ted by mohl prijit Funkcni model: sluzby pro zaznam, udrzbu a vyuziti dat.
-\section{Functionality of Abeetles}
+%Scenario of Learning about Abeetles.
 
-Expectations on the simulator imply model of
+
 
 %Nelibi se mi: Objectives of the simulator imply requirements on the application: which features it should have and which functionality it should offer to users.
 
 
+%From chapter 1: Cathegorisation of Abeetles.
 
 %As far as definition of agents is concerned, target class of Abeetles are parameter based systems. Space of possibilities of Abeetles is bounded by finite number of parameters and Abeetles avails to explore what implies which setting of parameters in the world of this system.
 
@@ -617,10 +643,40 @@ Expectations on the simulator imply model of
 %The purpose of Abeetles is to be a prototype of scientific simulator. But not only for users from comunity of computer scientists, but also for those, who appreciate user friendly interface, even if it decreases performance of the system. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Proposal of solution with discussion of alternatives}
+\chapter{Design of Abeetles with discussion of alternatives}
 %***********Návrh øešení s diskusí alternativ
-%*******1. volba modelu a diskuse moznosti (vetsi nastavitelnost, co je geneticky vyvijeno a co je pevne dano, co je mozno v prubehu menit)
-%*******2. volba implementacniho reseni - konzole, paralelizace, gui, davkove reseni
+\section{Architecture}
+%Hardware architecture
+  %Single computer 
+  %Multiple computers
+    %server+clients
+    %peer to peer
+%Software architecture
+  %modules of application
+    %1 module
+    %2 applications
+    %1 module + 1 computational library
+  %language and gui libraries
+    % c++ 
+      % + qt lib
+      % + win32api
+      % + mfc    
+    % bytecode languages
+      % Java
+      % C#
+
+\section{Data model of Abeetles}
+%Beetle and its attributes
+%Environment and its attributes
+
+\section {Components}
+%Layout of functionality into classes CEnvironment, CRunScript, MainWindow, CGrid, CStatistics and CBeetle + alternatives.
+
+\section {User interface}
+\subsection {Graphical user interface}
+\subsection {Statistics}
+\subsection {Script}
+  
 
 
 \section{Description of the model of a beetle}
@@ -652,6 +708,9 @@ The predecessor of Abeetles, Broucci, evolved
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Description of prototype implementation}
 %Detailed description of both prototypes - GUI version and console application  - from technical point of view.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Experiments}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Resume of fullfiling of objectives and other known attitudes}
