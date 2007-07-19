@@ -209,7 +209,7 @@ Avida is an often presented example of a program based simulator. It studies evo
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{AvidaGUI.eps}
-  \caption{Avida - graphical viewer.}
+  \caption{Avida 2.0b7 - graphical viewer.}
   \label{obr.graphicx}
 \end{center}
 \end{figure}
@@ -275,16 +275,14 @@ Used version is Bitozoa 2 - artificial life & artficial intelligence simulation,
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{Bitozoa.eps}
-  \caption{simulator Bitozoa 2}
+  \caption{Bitozoa 2}
   \label{obr.graphicx}
 \end{center}
 \end{figure}
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
-&Bitozoa\\ \hline
-&Neural networks, evolution, ?\\ \hline
-textbf{Agents}&Bitozoa - herbivores(eat plants) and carnivores(eat herbivora)\\ \hline
+\textbf{Agents}&Bitozoa - herbivores(eat plants) and carnivores(eat herbivora)\\ \hline
 Body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\ \hline
 Motion&moves using flagella\\ \hline
 Behavior&no\\ \hline
@@ -293,31 +291,43 @@ Life-span&(?)\\ \hline
 Genes&(?)\\ \hline
 Phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, sensitivity of eyes\\ \hline
 Learning&no\\ \hline
-\hline \textbf{Mating}&\\ \hline
+\end{tabular} 
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline 	\textbf  {Mating}&\\ \hline
 Number of parents&2 or 1\\ \hline
 Number of offsprings&1-n (2parents) nebo 1(1parent)\\ \hline
 Genetic algorithm&random number of genes from both parents + mutation\\ \hline
 Choice of partner&same species and high enough stamina\\ \hline
 Conditions of mating&meeting of two bitozoa \\ \hline
 Investment in offspring&both parents give the same fixed amount\\ \hline
-\hline \textbf{Environment}&\\ \hline
+\end{tabular} 
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline 	\textbf  {Environment}&\\ \hline
 Description&space in form of toroid\\ \hline
 Features&number of spots, where food grows\\ \hline
 Elements&food growing on special spots, herbivores and carnivores\\ \hline
-\hline \textbf{UI settings}&\\ \hline
+\end{tabular}
+ 
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline 	\textbf  {UI settings}&\\ \hline
 Mating&breed distance, breed level of stamina, inherited stamina\\ \hline
 Life of individual&asexual reproduction allowed, costs of an action, flagella angle and efficiency, view of bitozoa, adding or killing of a bitozoa, stamina from food, strength of carnivore, initial values of: eye sensitivity, number of neurons and stamina\\ \hline
 Environment&number of bitozoa and food spots at the beginning, time increment, viscosity, random numbers generator seed\\ \hline
-\hline \textbf{Statistics}&graph of population, energy flow and energy flow averaged, simulation description\\ \hline
-\hline \textbf{Implementation}&\\ \hline
+\end{tabular} 
+
+\begin{tabular}{|p{150pt}|p{220pt}|}
+\hline 	\textbf  {Statistics}&graph of population, energy flow and energy flow averaged, simulation description\\ \hline
+\end{tabular} 
+
+\begin{tabular}{|p{150pt}|p{220pt}|}\hline 	
+\textbf  {Implementation}&\\ \hline
 Distribution of computation&no\\ \hline
 Speed settings&animation on-off\\ \hline
 Available sources&partial\\ \hline
 Availability of binaries&permission from author\\ \hline
 Programming language&C++ Win32API\\ \hline
-&\\ \hline
-do uvodu:&energy level - for motion and work of neurons, burned with speed according to age \\ \hline
-
 \end{tabular}
 
 \section {Gene Pool}
@@ -326,7 +336,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{GenePool.eps}
-  \caption{simulator Bitozoa 2}
+  \caption{Gene Pool 5}
   \label{obr.graphicx}
 \end{center}
 \end{figure}
@@ -344,23 +354,33 @@ Life-span&not restricted\\ \hline
 Genes&(?)\\ \hline
 Phenotypic space&length, width, system of attachment, phases and amplitudes of every part\\ \hline
 Learning&no\\ \hline
-\hline \textbf{Mating}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}&\\ \hline
 Number of parents&2\\ \hline
 Number of offsprings&1\\ \hline
 Genetic algorithm&crossover algorithm with mutation\\ \hline
 Choice of partner&"in round ""view horizon"" at one snapshot. Swimbot chooses at one snapshot in his ""view horizon"" one mate, that most satisfies his attractiveness criterion"\\ \hline
 Conditions of mating&swimbots mate when at least one of them is pursuing the other and the distance between their genitals is less than the length of the genital vector\\ \hline
 Investment in offspring&50\% of actual energy\\ \hline
-\hline \textbf{Environment}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}&\\ \hline
 Description&rectangular pool\\ \hline
 Features&constant amount of energy in environment, cyling: food->swimbots->pool->food\\ \hline
 Elements&food bits, swimbots\\ \hline
-\hline \textbf{UI settings}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}&\\ \hline
 Mating&attraction criterion\\ \hline
 Life of individual&location in environment, creation a swimbot, hunger threshold, energy for offspring\\ \hline
 Environment&food growth - birth delay, spread radius, energy from 1 piece\\ \hline
-\hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating\\ \hline
-\hline \textbf{Implementation}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}&\\ \hline
 Distribution of computation&no\\ \hline
 Speed settings&no\\ \hline
 Available sources&no\\ \hline
@@ -373,6 +393,14 @@ do uvodu:&how good is a swimbot in reproducing, which means either being good at
 
 \section {Mitozoos}
 Author of project Mitozoos is Spanish software company Bestiario, \url{http://www.bestiario.org/}. Its purpose is educational, as author states "Mitozoos is an interactive artificial life model created with the objective that through experimentation and play participants will understand the relationship between genetic code and life." The web presentation of the project can be found at \url{http://bestiario.org/mitozoos/english/index.html}.
+
+\begin{figure}
+\begin{center}
+  \includegraphics[scale=0.5]{Mitozoos.eps}
+  \caption{Mitozoos}
+  \label{obr.graphicx}
+\end{center}
+\end{figure}
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
@@ -387,23 +415,33 @@ Life-span&not restricted \\ \hline
 Genes&ten genes, each gene has four bases (= colors) \\ \hline
 Phenotypic space&length of parts of legs, procreation threshold, eating strategy \\ \hline
 Learning&no \\ \hline
-\hline \textbf{Mating}& \\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}& \\ \hline
 Number of parents&2 \\ \hline
 Number of offsprings&1 \\ \hline
 Genetic algorithm&crossover algorithm with mutation \\ \hline
 Choice of partner&no \\ \hline
 Conditions of mating&meeting of two mitozoos with energy higher than procreation threshold \\ \hline
 Investment in offspring&a fixed amount of energy \\ \hline
-\hline \textbf{Environment}& \\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}& \\ \hline
 Description&space in form of a circle \\ \hline
 Features&rate of food growth \\ \hline
 Elements&mitozoos, food bits \\ \hline
-\hline \textbf{UI settings}& \\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}& \\ \hline
 Mating&no \\ \hline
 Life of individual&special application, which avails user to create a mitozoos by setting its genes and add it to running life. \\ \hline
 Environment&initial number of mitozoos and food pieces, food growing rate, mutation rate \\ \hline
-\hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown \\ \hline
-\hline \textbf{Implementation}& \\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown \\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}& \\ \hline
 Distribution of computation&no, but coders can run on different computers. \\ \hline
 Speed settings&no \\ \hline
 Available sources&no \\ \hline
@@ -414,6 +452,16 @@ Programming language&Flash, (?) \\ \hline
 \section {Primordial Life}
 For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can be downloaded at \url{http://www.io.com/~spofford/prim30.html}. Primordial life is a shareware parameter based artificial life screen saver writen for purpose to capture the principles of evolution in an interestion and visual way.
 
+\begin{figure}
+\begin{center}
+  \includegraphics[scale=0.5]{PrimordialLife.eps}
+  \caption{Primordial Life 3.21}
+  \label{obr.graphicx}
+\end{center}
+\end{figure}
+
+
+ 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 &Primordial life 3.21\\ \hline
@@ -427,23 +475,33 @@ Life-span&restricted, constitution of body\\ \hline
 Genes&64 numbers, describe lines color, orientation and length. Certain genes have special meaning detailing how many lines a biot has, its symmetry, whether it has mirrored or radial symmetry, how many children it should have and whether or not it should disperse its children after they are born. Complete description available.\\ \hline
 Phenotypic space&number and symmetry of vectors, color, orientation and length of each vector, number and dispersion of offspring in a birth\\ \hline
 Learning&learn from collision with other biots - change body accordingly\\ \hline
-\hline \textbf{Mating}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}&\\ \hline
 Number of parents&2 nebo 1\\ \hline
 Number of offsprings&1-n\\ \hline
 Genetic algorith&genetic crossover with mutation(2 parents), mutation (1 parent)\\ \hline
 Choice of partner&no\\ \hline
 Conditions of mating&collision of two biots, one of them with white parts\\ \hline
 Investment in offspring&yes\\ \hline
-\hline \textbf{Environment}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}&\\ \hline
 Description&rectangular space\\ \hline
 Features& mixing of biots continuely up and providing of light, absorbable by green parts of biots and used up as energy\\ \hline
 Elements&biots\\ \hline
-\hline \textbf{UI settings}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}&\\ \hline
 Mating&mutation rate, sexual/asexual/ both reproduction\\ \hline
 Life of individual&life span, speed, regeneration rate and cost, attacking of child, battle of sibblings, level of selfchange thanks to collision\\ \hline
 Environment&solar intensity, friction, starting population, plague - its duration and lethality\\ \hline
-\hline \textbf{Statistics}&ecosystem status (population, death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)\\ \hline
-\hline \textbf{Implementation}&\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&ecosystem status (population, death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)\\ \hline
+\end{tabular} 
+
+ \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}&\\ \hline
 Distribution of computation&automatically connecting ecosystems together over the Internet.\\ \hline
 Speed settings&no\\ \hline
 Available sources&no\\ \hline
@@ -456,19 +514,26 @@ Availability of binaries&register\\ \hline
 %Abeetles is a successor of Broucci(bez pameti)
 The original idea of Abeetles is to create a successor of existing program Broucci (=Beetles) introduced by RNDr. Tomas Holan Phd. as an example of different attitude to solution of complex problems. It is not an artificial life simulator, but it could be classified as Related system. It uses genetic programming to solve a specifical problem. The assignment of Broucci is that there is a world where beetles live. Beetles can move - make a step, rotate left and rotate right. The step can go to an empty space or eat a beetle and occupy its place. They can see what is around them - in the front, on the left and on the right. Find an algorithm, that should a beetle use so as not to die of hunger and not be eaten up by another beetle. Solution described by the author is a console program where beetles are visualized as arrows turned in the direction of beetles sight. Beetles take turns regulary and alway when the number of beetles goes down under certain lever, new beetles are created from the most successful ones using genetic crossover algorithm. Parents do not meet.\cite{Broucci}
 
+\begin{figure}
+\begin{center}
+  \includegraphics[scale=0.5]{Broucci.eps}
+  \caption{Broucci}
+  \label{obr.graphicx}
+\end{center}
+\end{figure}
 
 Abeetles takes over following ideas of Broucci: beetles can move by sequence of steps and rotations. They see what is in the front, on the left and on the right.  
 %Jak propojit navaznost na broucky s vmezerenim se mezi existujici programy? Posloupnost je jasna: 1. urcit, v cem chci na predchozi program navazat. 2. Rozvinout ho tak, aby zajimave vplynul mezi existujici simulatory.
 
-"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, four were chosen as the key ones: motion, learning, choice of partner, distribution of computation and elements of environment. The following table compares Abeetles with other solutions specificaly in this cathegories.
+"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, four were chosen as the key ones: motion, learning, choice of partner, distribution of computation and elements of environment - obstacles. The following table compares Abeetles with other solutions specificaly in this cathegories.
 
 \begin{tabular}{lcccccc}
  & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\ \hline
 Motion: strategy&x&x&G&G&S&G\\
 Learning&x&O&x&x&x&G/O\\
 Choice of partner&x&x&x&x&O&G/O\\
-Distribution of computation&x&Y&x&x&x&Y\\.
-Elements of environmet: obstacles&x&x&x&x&x&O
+Distribution&x&Y&x&x&x&Y\\
+Obstacles&x&x&x&x&x&O
 \end{tabular}
 
 Motion strategy is function of an organism, where input is the view and output is decision where to move.
@@ -510,7 +575,7 @@ Design of Abeetles and discussion of alternatives.
 \chapter{Analysis of the problem from different aspects}
 
 %1.Datovy model Abeetles se vztahy a integritnimi omezenimi
-\section {Model of Abeetles}
+\section {Model of artificial life of Abeetles}
 Artificial life in simulator Abeetles simulates natural life as environment inhabited by agents. Agents are those elements of environment that are subject to evolution and environment is all the world with other not evolved objects where agents live.
 
 Agents in Abeetles are called beetles and generally they all are of the same species as they can mate with each other and share the same static part as well as constrains on the variable part of their behavior. Environment is a grid in form of toroid. In the grid  three types of objects are placed. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. Neither beetles nor flowers can occur in cells of the grid, where are walls. Walls are static obstacles that serve for forming of the shape of the environment.
@@ -519,6 +584,7 @@ Beetles contain static part, that can not be evolved, evolvable part and part th
 
 \sections {Expectations on the simulator}
 The simulator runs the artificial model described above. It should serve for scientific purposes. The expectations on the system from this aspect are:
+%aspect of running of experiments
 \begin{itemize}
 \item Speed: Experiment run with the simulator should avail execution of thousands of turns so as to get interesting results of evolution. Also for statistical purposes high number of various inputs must be used when experimenting on random data. Therefore Abeetles should offer possibility to run very fast. 
 \item Input: Start of experiments can not be done manually one by one. Data entry should be read from a script. 
@@ -527,10 +593,18 @@ The simulator runs the artificial model described above. It should serve for sci
 \item Run of simulator: Run of the simulator step by step, run optional number of turns or run until stopped.
 \end{itemize}
 
-
+%aspect of understanding of the model and work of Abeetles.
 \begin{itemize}
+\item Speed: A slow run of the simulator helps to see what happens.
+\item User Interface: A zoom can make possible to see the situation in details as well as overlook the whole environment.
+\item Input: Possibility to start default interface with random beetles easily is necessary at the beginning of work with the simulator. Also to save and load the actual situation is of use.
+\item Output: To save statistics can be performed in any turn.  
+\end{itemize}
 
-\end{itemize}  
+%A ted by mohl prijit Funkcni model: sluzby pro zaznam, udrzbu a vyuziti dat.
+\section{Functionality of Abeetles}
+
+Expectations on the simulator imply model of
 
 %Nelibi se mi: Objectives of the simulator imply requirements on the application: which features it should have and which functionality it should offer to users.
 
@@ -551,7 +625,7 @@ The simulator runs the artificial model described above. It should serve for sci
 
 \section{Description of the model of a beetle}
 %This is 
-Representation of an agent(beetle) in Abeetles from genetical point of view:
+ Representation of an agent(beetle) in Abeetles from genetical point of view:
 Chromosome of a beetle includes following genes:\\
 \\
 Brain [2][4][4][4] - Set of actions, each of them is chosen by the beetle in the proper situation. Situation is defined by the quaternion (hunger,what is in the left, the front, the right). Item "hunger" specifies whether or not is the beetle hungry. Values of what is in the three directions from the beetle are four: beetle, flower, wall or nothing. These four possibilities are precisely the four possible contents of cells of the environment.\\

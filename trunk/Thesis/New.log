@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  18 JUL 2007 23:31
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  19 JUL 2007 14:42
 entering extended mode
 **New.tex
 (New.tex
@@ -53,6 +53,15 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 ) (New.aux
+
+LaTeX Warning: Label `obr.graphicx' multiply defined.
+
+
+LaTeX Warning: Label `obr.graphicx' multiply defined.
+
+
+LaTeX Warning: Label `obr.graphicx' multiply defined.
+
 
 LaTeX Warning: Label `obr.graphicx' multiply defined.
 
@@ -143,146 +152,236 @@ might try typing `S' now just to see what is salvageable.
 
 File: Bitozoa.eps Graphic file (type eps)
 <Bitozoa.eps>
-Overfull \hbox (64.0pt too wide) in paragraph at lines 283--322
+Overfull \hbox (64.0pt too wide) in paragraph at lines 283--295
 [][] 
  []
 
 [10]
-Overfull \vbox (81.39978pt too high) has occurred while \output is active []
+Overfull \hbox (64.0pt too wide) in paragraph at lines 296--305
+[][] 
+ []
 
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 306--312
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 313--319
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 320--323
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 324--332
+[][] 
+ []
 
 [11]
-Underfull \hbox (badness 1377) in paragraph at lines 343--343
-[]\OT1/cmr/m/n/10 "in round ""view hori-zon"" at one snap-shot.
- []
-
-
-Underfull \hbox (badness 2005) in paragraph at lines 352--352
-[]\OT1/cmr/m/n/10 location in en-vi-ron-ment, cre-ation a swim-bot,
- []
-
-
-Underfull \hbox (badness 2564) in paragraph at lines 354--354
-\OT1/cmr/m/n/10 tures of in-di-vid-ual, the best one in at-trac-
- []
-
-
-Overfull \hbox (64.0pt too wide) in paragraph at lines 326--365
+File: GenePool.eps Graphic file (type eps)
+ <GenePool.eps>
+Overfull \hbox (64.0pt too wide) in paragraph at lines 344--358
 [][] 
  []
 
 [12]
-Overfull \vbox (57.39978pt too high) has occurred while \output is active []
+Underfull \hbox (badness 1377) in paragraph at lines 363--363
+[]\OT1/cmr/m/n/10 "in round ""view hori-zon"" at one snap-shot.
+ []
 
 
-[13]
-Overfull \hbox (64.0pt too wide) in paragraph at lines 369--405
+Overfull \hbox (64.0pt too wide) in paragraph at lines 359--367
 [][] 
  []
 
-[14] [15]
-Overfull \hbox (64.0pt too wide) in paragraph at lines 409--446
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 368--373
+[][] 
+ []
+
+
+Underfull \hbox (badness 2005) in paragraph at lines 376--376
+[]\OT1/cmr/m/n/10 location in en-vi-ron-ment, cre-ation a swim-bot,
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 374--379
+[][] 
+ []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 380--380
+\OT1/cmr/m/n/10 tures of in-di-vid-ual, the best one in at-trac-
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 380--382
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 383--393
+[][] 
+ []
+
+[13]
+File: Mitozoos.eps Graphic file (type eps)
+ <Mitozoos.eps>
+Overfull \hbox (64.0pt too wide) in paragraph at lines 405--419
+[][] 
+ []
+
+[14]
+Overfull \hbox (64.0pt too wide) in paragraph at lines 420--428
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 429--434
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 435--440
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 441--443
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 444--451
+[][] 
+ []
+
+[15]
+File: PrimordialLife.eps Graphic file (type eps)
+ <PrimordialLife.eps>
+Overfull \hbox (64.0pt too wide) in paragraph at lines 465--479
 [][] 
  []
 
 [16]
-Overfull \vbox (92.1998pt too high) has occurred while \output is active []
-
-
-[17]
-Overfull \hbox (76.95901pt too wide) in paragraph at lines 457--465
+Overfull \hbox (64.0pt too wide) in paragraph at lines 480--488
 [][] 
  []
 
-[18]
-Chapter 4.
-[19
 
-] [20]
+Overfull \hbox (64.0pt too wide) in paragraph at lines 489--494
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 495--500
+[][] 
+ []
+
+
+Overfull \hbox (64.0pt too wide) in paragraph at lines 501--503
+[][] 
+ []
+
+[17]
+Overfull \hbox (64.0pt too wide) in paragraph at lines 504--512
+[][] 
+ []
+
+File: Broucci.eps Graphic file (type eps)
+<Broucci.eps> [18] [19]
+Chapter 4.
+[20
+
+] [21]
 Chapter 5.
-New.tex:512: Undefined control sequence
+New.tex:585: Undefined control sequence
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[21
+[22
 
 ]
 
-New.tex:525: LaTeX Error: Something's wrong--perhaps a missing \item.
+New.tex:598: LaTeX Error: Something's wrong--perhaps a missing \item.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[22]
+[23]
 Chapter 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 546--560
+Underfull \hbox (badness 10000) in paragraph at lines 619--633
 
  []
 
-[23
+[24
 
-] [24]
+] [25]
 Chapter 7.
-[25
-
-]
-Chapter 8.
 [26
 
 ]
-Chapter 9.
+Chapter 8.
 [27
 
 ]
-Chapter 10.
+Chapter 9.
 [28
 
 ]
-Chapter 11.
+Chapter 10.
 [29
 
 ]
-Chapter 12.
+Chapter 11.
 [30
+
+]
+Chapter 12.
+[31
 
 ]
 Missing character: There is no ­ in font cmr10!
 Missing character: There is no ­ in font cmr10!
- [31]
-Overfull \hbox (0.24724pt too wide) in paragraph at lines 677--678
+ [32]
+Overfull \hbox (0.24724pt too wide) in paragraph at lines 750--751
 []$\OT1/cmtt/m/n/10 http : / / en . wikipedia . org / wiki / Crossover _ \ % 28
 genetic _ algorithm \
  []
 
-[32]
-Overfull \hbox (5.4972pt too wide) in paragraph at lines 678--679
+[33]
+Overfull \hbox (5.4972pt too wide) in paragraph at lines 751--752
 []$\OT1/cmtt/m/n/10 http : / / www . springerlink . com / content / b67qv704abd
 9mtgt / fulltext .
  []
 
-New.tex:710: Missing $ inserted
+New.tex:783: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-New.tex:711: Missing $ inserted
+New.tex:784: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (173.03458pt too wide) in paragraph at lines 709--711
+Overfull \hbox (173.03458pt too wide) in paragraph at lines 782--784
 \OT1/cmr/m/n/10 A$[]\OML/cmm/m/it/10 OPULATEPostreh\OT1/cmr/m/n/10 2 : \OML/cmm
 /m/it/10 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/10 )\OML/cmm/m/it/10 Solution \OT1/cmr/m/n/10 :
  []
 
 
-Overfull \hbox (1188.35458pt too wide) in paragraph at lines 709--711
+Overfull \hbox (1188.35458pt too wide) in paragraph at lines 782--784
 \OML/cmm/m/it/10 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/10 "\OML/cmm/m/it/10 hardwired\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -291,52 +390,52 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 beetleinthe
 front\OT1/cmr/m/n/10 "\OML/cmm/m/it/10 willbemadeaccordingtotheBraintable:$ 
  []
 
-[33] [34]
+[34] [35]
 Chapter 13.
 
-Overfull \hbox (22.24693pt too wide) in paragraph at lines 724--726
+Overfull \hbox (22.24693pt too wide) in paragraph at lines 797--799
 []$\OT1/cmtt/m/n/10 http : / / www . scs . carleton . ca / \[]soma / biosec / r
 eadings / spafford-[]viruses .
  []
 
-[35
-
-]
-Chapter 14.
 [36
 
 ]
-Underfull \hbox (badness 1496) in paragraph at lines 758--759
+Chapter 14.
+[37
+
+]
+Underfull \hbox (badness 1496) in paragraph at lines 831--832
 []\OT1/cmr/m/n/10 Gene. (n.d.). Columbia Elec-tronic En-cy-clo-pe-dia. Re-triev
 ed July 14,
  []
 
 
-Underfull \hbox (badness 1137) in paragraph at lines 761--762
+Underfull \hbox (badness 1137) in paragraph at lines 834--835
 \OT1/cmr/m/n/10 ford En-cy-clo-pe-dia of Phi-los-o-phy (Spring 2007 Edi-tion), 
 Ed-ward N.
  []
 
-[37
+[38
 
 ]
-Underfull \hbox (badness 1199) in paragraph at lines 783--784
+Underfull \hbox (badness 1199) in paragraph at lines 856--857
 []\OT1/cmr/m/n/10 Tomas Holan, "Dif-fer-ent Pro-gram-ming", $\OT1/cmtt/m/n/10 h
 ttp : / / ksvi . mff . cuni . cz /
  []
 
-[38] (New.aux)
+[39] (New.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 722 strings out of 95389
- 7732 string characters out of 1186903
- 64251 words of memory out of 1057041
- 3895 multiletter control sequences out of 60000
+ 742 strings out of 95389
+ 7907 string characters out of 1186903
+ 61179 words of memory out of 1057041
+ 3899 multiletter control sequences out of 60000
  10038 words of font info for 34 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
- 25i,8n,19p,9565b,287s stack positions out of 5000i,500n,10000p,200000b,32768s
+ 25i,8n,19p,13479b,287s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (40 pages, 86232 bytes).
+Output written on New.dvi (41 pages, 86672 bytes).
