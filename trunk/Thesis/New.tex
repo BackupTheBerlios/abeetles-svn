@@ -214,6 +214,7 @@ Avida is an often presented example of a program based simulator. It studies evo
 \end{center}
 \end{figure}
 
+
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 \textbf{Agents}&segments of code in a simple language called strings  \\ \hline
@@ -717,15 +718,24 @@ To sum up, Abeetles is an application that contains only one module, that serve 
       % Java
       % C#
 \subsubsection{Choice of platform and programming language}
-Speed was the leading criterion when the question of programming language was considered. Model of Abeetles invokes realization by a class based languages, the abstraction is intuitive. Abeetle needs graphical interface and to the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C# and C++. Both Java and C# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language of "higher" level than C++. C# applications can run only on Windows, but the future support will be only better. It is as slow as Java. The criterion of speed was considered more important for Abeetles that 
 
- 
- 
+Platform for Abeetles is MS Windows XP. %some reasons??
+
+Speed was the leading criterion when the question of programming language was considered. Model of Abeetles invokes realization by a class based languages, the abstraction is intuitive. Abeetle needs graphical interface and to the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C# and C++. Both Java and C# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language of "higher" level than C++. C# applications can run only on Windows, but the future support will be only better. It is as slow as Java. The criterion of speed was considered crucial for Abeetles and C++ was chosen.
+
+Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt.
+
+Other possibilities were Win32API and MFC. The first is not class based and difficult to use. MFC is a class based library, it is distributed freely with MS  Visual Studio, but the level of abstraction is lower then in Qt.
 
 
 \section{Data model of Abeetles}
-%Beetle and its attributes
-%Environment and its attributes
+%Beetle and its attributes, environment and its attributes
+The model of life in Abeetles is described in chapter Analysis. Now decomposition proceedes and data structures are designed.
+The key data structures of Abeetles are beetles and an environment.
+A beetle has following features:
+Direction - direction of his position.
+Brain - decision function  (situation) -> action. Situation is combination of what the beetle sees and his inner states. 
+  (if it is hungry, what is on the left,in the front and on the right)
 
 \section {Components}
 %Layout of functionality into classes CEnvironment, CRunScript, MainWindow, CGrid, CStatistics and CBeetle + alternatives.
