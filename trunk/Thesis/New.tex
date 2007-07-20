@@ -646,6 +646,20 @@ The expectations on the system in this case are:
 \chapter{Design of Abeetles with discussion of alternatives}
 %***********Návrh øešení s diskusí alternativ
 \section{Architecture}
+\subsection {Hardware architecture}
+First, it is necessary to decide, which targets of Abeetles and features recognized by analysis are key for design of architecture of the system. System should be as fast as possible when computing experiments. Simultaneously it should avail to go slowly and display the situation at every step.
+Speed can be from the point of view of hardware improved by distribution of computation. 
+
+But is the model of Abeetles suitable for parallelization of computation? The distribution speeds up the computation only if the task can be separated into independent subtasks and the costs of interchange of data after he completion of each subtask do not prevail the savings from paralel run of the subtasks.
+
+The first question is whether computation of artificial life of Abeetles can be split into independent subtasks. Generally, the run of an artificial life simulator is a sequnce of more or less detached updates. In each update each  object in the environment gets opportunity to make a small number of actions, usually one, with one input of information from the environment, e.g. snapshot of its surroundings. 
+
+One suitable possibility of division of the task is accordingly splitting of the environment into parts, that compute one update separately and after each update  interchange information about the edges that can be in view of object of other parts.
+
+An alternative of this attitude ...
+
+Environment is a grid in the form of a toroid. Interactions in the grid should be only local, so as to split the environment into several parts and each of them compute on a different machine. 
+
 %Hardware architecture
   %Single computer 
   %Multiple computers
