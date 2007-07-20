@@ -107,22 +107,22 @@ Target of this thesis is to introduce a simulator named Abeetles, that mimics li
 %Pøesné vymezení problému
 %5 pages about precise definition of the problem - description of chosen existing brother programs and comparison and choice of my objectives. I will use the Porovnani.xls 
 %******************Context of my thesis - cathegories of Alife simulators and ranking of my work. Short about existing brother programs and programs that inspired me.
-Software simulators of Artificial life can be ranked in many ways. This thesis will expand on three classification possibilities. First, cathegorisation according to the method of creature definition will be used. Second, simulators will be distinguished with respect to the feature or features of Artificial life, that they attempt to simulate. Third, the criterion of purpose of the simulator and target group of users will be used. Four section places Abeetles into thse classification systems and thereby specifies sphere of Artificial life that will be dealt in this thesis
+Software simulators of Artificial life can be ranked in many ways. This thesis will expand on three classification possibilities. First, cathegorisation according to the method of creature definition will be used. Second, simulators will be distinguished with respect to the feature or features of Artificial life, that they attempt to simulate. Third, the criterion of purpose of the simulator and target group of users will be used. The fourth section places Abeetles into these classification systems and thereby specifies sphere of Artificial life that will be dealt in this thesis.
 
 \section{Classification by creature definition}
 Individual agents are in existing systems modeled and constructed in many different ways. Most of them can be classified in the following way:
 \begin{itemize}
     \item \textbf{Program Based} - In program based simulators an individual is represented by a program, which substitutes biological DNA. Language of the program is usually Turing complete. Assembly derivatives are the most common languages used. Tom Ray's Tierra is the most famous example of a program based simulator.
     \item \textbf{Module Based} - An agent in a module based system is a composition of individual modules. These modules modify the creature's behaviors and characteristics either directly, by hard coding into the simulation (leg type A increases speed and metabolism), or indirectly, through the emergent interactions between a creature's modules (leg type A moves up and down with a frequency of X, which interacts with other legs to create motion). Generally these are simulators which emphasize user creation and accessibility over mutation and evolution.  
-    \item \textbf{Parameter Based} - If an organism is generally constructed with defined and fixed behavior, that is controlled by various parameters that mutate, the system is referred as a parameter based. hat is, each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of an organism in a well defined way.
+    \item \textbf{Parameter Based} - If an organism is generally constructed with defined and fixed behavior that is controlled by various parameters that mutate, the system is referred as a parameter based. That means that each organism contains a collection of numbers or other finite parameters. Each parameter controls one or several aspects of the organism in a well defined way.
     \item \textbf{Neural Network Based} - These simulations have creatures that learn and grow using neural networks or a close derivative. Emphasis is often, although not always, more on learning than on natural selection.
 \end{itemize}
 
 \section{Classification by simulated phenomenon}
-Another grouping of simulators can be done according to phenomenon, that they try to simulate. \url{http://vlab.infotech.monash.edu.au/}
+Another grouping of simulators can be done according to phenomenon, that they try to simulate. It is presented at the web page of Monash University’s Complexity Virtual Lab. \url{http://vlab.infotech.monash.edu.au/}
 \begin{itemize}
   \item \textbf{Networks} - Complex natural systems are simulated according to network theory (or diktyology) as networks or graphs and their statistical and topological properties are analyzed. 
-  \item \textbf{Nonlineality} - Nonlineal systems are systems that cannot be mathematically described as the sum of their components. While certain assumptions can be made for linear systems, that often make the mathematical modelling of such systems easy, mathematical modelling of nonlineal systems is often very difficult or impossible. As a result, nonlineal systems are often studies through use of simulations.
+  \item \textbf{Nonlineality} - Nonlineal systems are systems that cannot be mathematically described as a sum of their components. While certain assumptions can be made for linear systems, that often make the mathematical modelling of such systems easy, mathematical modelling of nonlineal systems is often very difficult or impossible. As a result, nonlineal systems are often studied through use of simulations.
   \item \textbf{Swarms} - A swarm is a group of independent agents that gather together in order to collectively carry out a certain task. Typically, each agent exhibits a very simple behaviour pattern that is influenced by direct or indirect interactions with other swarm members. As a result, the swarm as a whole may exhibit complex and intelligent behaviour patterns. In nature, swarms can be observed in social insects, fish schools, but also in primitive single cell organisms.
   \item \textbf{Evolution} - Evolution is the process of development or grows by accumulation of small advantageous changes. The study of all forms of evolutionary processes is one of the primary goals of ALife. This includes the study of biological evolution of species as well as other evolutionary processes in natural, artificial and social systems.
   \item \textbf{Cellular Automata} - A cellular automaton (CA) is a discrete model that consists of a cell-grid, where each cell is in one of a number of well-defined states. The grid can be in any finite number of dimensions, though the mostly studied CAs have one or two dimensions. The time in the model is discrete and the state of each cell C at time t depends only on the cell-states within some well-defined neighbourhood of C at time t-1. The update function (also called the update rule) is a table that defines the state for each cell at time t as a function of the state of the neighbourhood of C at time t-1. Cellular automaton is not really phenomenon of the natural life, it is a  discrete model of mutual influence of neighboring elements, which can be in the nature observed. 
@@ -646,25 +646,44 @@ The expectations on the system in this case are:
 \chapter{Design of Abeetles with discussion of alternatives}
 %***********Návrh øešení s diskusí alternativ
 \section{Architecture}
-\subsection {Hardware architecture}
-First, it is necessary to decide, which targets of Abeetles and features recognized by analysis are key for design of architecture of the system. System should be as fast as possible when computing experiments. Simultaneously it should avail to go slowly and display the situation at every step.
-Speed can be from the point of view of hardware improved by distribution of computation. 
 
-But is the model of Abeetles suitable for parallelization of computation? The distribution speeds up the computation only if the task can be separated into independent subtasks and the costs of interchange of data after he completion of each subtask do not prevail the savings from paralel run of the subtasks.
-
-The first question is whether computation of artificial life of Abeetles can be split into independent subtasks. Generally, the run of an artificial life simulator is a sequnce of more or less detached updates. In each update each  object in the environment gets opportunity to make a small number of actions, usually one, with one input of information from the environment, e.g. snapshot of its surroundings. 
-
-One suitable possibility of division of the task is accordingly splitting of the environment into parts, that compute one update separately and after each update  interchange information about the edges that can be in view of object of other parts.
-
-An alternative of this attitude ...
-
-Environment is a grid in the form of a toroid. Interactions in the grid should be only local, so as to split the environment into several parts and each of them compute on a different machine. 
 
 %Hardware architecture
   %Single computer 
   %Multiple computers
     %server+clients
     %peer to peer
+\subsection {Hardware architecture}
+First, it is necessary to decide, which targets of Abeetles and features recognized by analysis are key for design of architecture of the system. System should be as fast as possible when computing experiments. Simultaneously it should avail to go slowly and display the situation at every step.
+Speed can be from the point of view of hardware improved by distribution of computation. 
+
+But is the model of Abeetles suitable for parallelization of computation? The distribution speeds up the computation only if the task can be separated into independent subtasks and the costs of interchange of data after he completion of each subtask do not prevail the savings from paralel run of the subtasks.
+
+The first question is whether computation of artificial life of Abeetles can be split into independent subtasks. Generally, the run of an artificial life simulator is a sequence of more or less detached updates. In each update each  object in the environment gets opportunity to make a small number of actions, usually one, with one input of information from the environment, e.g. snapshot of its surroundings. Interactions in the environment should be only local, so as to split the environment into several parts and each of them compute on a different machine. 
+
+In Abeetles the environment is a grid in the form of a toroid. Beetles see only three neihbouring cells. As described later, growth of flowers is dependent only on a setting of each cell. Therefore interactions are only local and paralelization could be covenient. 
+
+A possibility of division of the task is splitting of the environment into parts that compute every update separately, run on different computers and after each update send and receive information about the edges that can be in view of objects in the neighboring parts of the environment. Two alternatives of realization of such distribution are: the first, The parts on individual machines are equal applications that communicate peer-to-peer. Each application knows only information about its part of environment and about the borders of neighbors. Despite the peer-to-peer character, this organization needs a server node that starts and stops the other nodes and collects results.
+
+% Deployment (?-nebyl by lepsi nejaky popis zprav?) diagram of this situation according to schema in notysek.
+
+The other one is that there is a central server that splits the environment, sends the parts to individual machines, all the machines compute one update and return the result to the server.
+
+%Deployment diagram of this situation according to schema in notysek.
+
+Be all the environment of the shape of a square, split into n smaller squares. Length of an edge of such a square is x. Radius of view of an object in the environment is v. Then in the first case the number of exchanged messages is 4n and each message carries information of size av. In the second case the number of messages is 2n and size of contained information is a^2. 
+
+%Pro co tedy vlastne tenhle agrument mluvi? Je posilani vetsich zprav alespon dvakrat pomalejsi? Ve chvili kdy se zprava musi rozdelit na dve mensi, tak urcite je.
+
+Advantage of the peer-to-peer attitude is that it is probably faster. Advantages of client - server attitude are possibility to see the all situation and save statistics of the environment without any additional costs. Also control and solving of unexpected situations is much easier.
+
+I would be very interesting to know, whether any of these methods of distribution be so effective would secure such considerable speed-up that would outweigh all the costs of the distribution.
+
+For Abeetles the distibution using peer-to-peer alternative was previously considered, but it would need a great deal of work that exceed the possibilities of this thesis. Nevertheless, implementation of data structure of the grid of the environment is prepared for usage in the peer-to-peer model. 
+
+Abeetles is now an application that runs on a single computer.  
+
+\subsection {Software architecture}
 %Software architecture
   %modules of application
     %1 module
@@ -678,6 +697,31 @@ Environment is a grid in the form of a toroid. Interactions in the grid should b
     % bytecode languages
       % Java
       % C#
+\subsubsection {Modules of Abeetles}
+Important facts from analysis that influnce choice of layout of modules are usage as a tool for experiments, which expect fast run without visualisation, and usage as a viewer and a learning tool, which expects slow run with elaborate graphical interface. Separation of these two attitudes therefore comes into consideration.
+
+Abeetles could be designed as a tool containing two separate application, that can only share the representation of data. First is a graphical viewer and second is a program run from command line of a console application. This attitude is used by simulator Avida. Avida contains even three kinds of applications: graphical viewer, console application and primitive run with only listing of updates in a console.
+
+Abeetles was first considered to be designed in this way, but paralel development of two applications with many functionality in common was abandoned. The reason is based also on fact, that for Abeetles the program language C++ together with graphical library QT by Trolltech was used, as described in following section. The console application could be, unlike the gui version, written without any gui concerned libraries. These libraries (e.g. QT by Trolltech, Win32API or MFC) contain useful tools for work with files and parsing of text, which are necessary operations in both versions. Develop these operations using non library construct would be more difficult and time consuming and the work does not bring anything new. Do it twice using different instruments would also not be effective. And when in simple application a gui library is also used, then there is no reason to separate the functionality connected with different cases of usage to two independent applications.
+
+Division of application into modules could also follow separation of computation of artificial life from all wrapping functionality. The computation could be called as a dynamical library. For reusage of the core of Abeetles with different interface it would be convenient and it would also be suitable for cooperation of more developers. Abeetles are planned to be prepared for transfer to other operation systems, unix based or MacOS. And dynamical libraries are only usable at one system.
+
+To sum up, Abeetles is an application that contains only one module, that serve for both purposes - running of experiments as well as overlooking individual situations in an environment and learning about Abeetles. Disadvantege lower reusability, but it simplified development and conforms to future compilation at different operation systems.
+
+%language and gui libraries
+    % c++ 
+      % + qt lib
+      % + win32api
+      % + mfc    
+    % bytecode languages
+      % Java
+      % C#
+\subsubsection{Choice of platform and programming language}
+Speed was the leading criterion when the question of programming language was considered. Model of Abeetles invokes realization by a class based languages, the abstraction is intuitive. Abeetle needs graphical interface and to the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C# and C++. Both Java and C# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language of "higher" level than C++. C# applications can run only on Windows, but the future support will be only better. It is as slow as Java. The criterion of speed was considered more important for Abeetles that 
+
+ 
+ 
+
 
 \section{Data model of Abeetles}
 %Beetle and its attributes
@@ -943,3 +987,8 @@ PVM and MPI: a Comparison of Features; G.A.Geist J.A.Kohl P.M. Papadopoulos
 \end{thebibliography}
 
 \end{document}
+
+%cau
+%takhle preklada cesky zdroj Vaclav Klimes
+
+% \bibitem{tectogramtic_annotation} Marie Mikulová, ... , Zdenìk Žabokrtský. Anotace Prazžského závislostního korpusu na tektogramatické rovinì: pokyny pro anotátory [A Manual for Tectogrammatical Layer Annotation of the Prague Dependency Treebank]. Technical report, ÚFAL, MFF UK, Prague, Czech Republic, 2005. URL http://ufal.mf\/f.cuni.cz/pdt2.0/doc/manuals/cz/t-layer/pdf/t-man-cz.pdf.
