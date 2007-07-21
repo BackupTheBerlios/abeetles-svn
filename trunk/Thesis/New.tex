@@ -42,6 +42,11 @@
 
 %Spustitelná podoba práce musí demonstrovat funkènost implementace. Pokud je k takové demonstraci potøeba netriviální prostøedí èi nastavení, autor práce jí musí na požádání pøedvést vedoucímu a oponentovi, pøípadnì také hodnotící komisi.
 
+%Branova varianta: 
+%\documentclass[a4paper,12pt]{report}
+%\usepackage[height=29.7cm, width=21cm, left=3cm, right=2cm, top=3cm, bottom=2cm, includefoot]{geometry}
+
+
 \documentclass [10pt]{report}
 
 \title{The Tool for Modeling of Evolution of the Artificial Life}
@@ -751,7 +756,7 @@ The key data structures of Abeetles are beetles and an environment.
 A beetle has following evolvable features:
 \begin {itemize}
 \item Brain - decision function (situation) -> action. The situation is combination of what the beetle sees and his inner states. States of a Beetle are whether he is hungyry or not. It sees what is on the left,in the front and on the right.
-\item Expectation on parter - A beetle check before mating, whether the parther is fullfils its expectations on amount of energy, investment in children, learning ability and age.
+\item Expectation on parter - A beetle check before mating, whether the partner is fullfils its expectations on amount of energy, investment in children, learning ability and age.
 \item Hungry threshold - Threshold defines whether the beetle is or is not hungry.  
 \item Investment in children - The beetle invest this amount of energy into its new born offspring.
 \item Learning Ability - The beetle expects certain level of learning ability from its partner.
@@ -770,9 +775,42 @@ Environment updates in turns. Therefore both last situation and current situatio
 \section {Components}
 %Layout of functionality into classes CEnvironment, CRunScript, MainWindow, CGrid, CStatistics and CBeetle + alternatives.
 
+Functionality of Abeetles is divided into following components: Environment, Run of Script, Run of Gui, Statistics and Configuration Manager. Configuration Manager encapsulates functions for saving and loading of an environment. In figure ... these components are represented by their key classes.
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.8]{ComponentModel.eps} %
+  \caption{Model of main classes of Abeetles}
+  \label{obr.graphicx}
+\end{center}
+\end{figure}
+
 \section {User interface}
 \subsection {Graphical user interface}
 \subsection {Statistics}
+
+GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
+Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
+Bitozoa: graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file
+Primordial life: ecosystem status (population, time death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)
+Avida: instruction viewer, string details, graphs of
+
+GenePool: graph of no. of swimbots vs. food,
+          features of individual,
+          the best one in attraction/mating/eating
+Mitozoos: genetic landscape,
+          log of events,
+          on reproduction join crossjoin of genotypes is shown
+Bitozoa:  graph of populations,
+          energy flow and energy flow averaged,
+          Save simulation description,
+          Collect information to .txt file
+Primordial life: ecosystem status (population, time death and birth rate numbers),
+          global status of all connected ecosystems(no. of connected ecosystems, population)
+Avida: instruction viewer,
+       string details,
+       graphs of
+       
 \subsection {Script}
   
 
@@ -921,28 +959,7 @@ Sources:
     \item \url{http://en.wikipedia.org/wiki/Swarm_intelligence}
     \end{itemize}
 
-\section {Statistics and overviews offered by Abeetles}
-GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
-Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
-Bitozoa: graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file
-Primordial life: ecosystem status (population, time death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)
-Avida: instruction viewer, string details, graphs of
 
-GenePool: graph of no. of swimbots vs. food,
-          features of individual,
-          the best one in attraction/mating/eating
-Mitozoos: genetic landscape,
-          log of events,
-          on reproduction join crossjoin of genotypes is shown
-Bitozoa:  graph of populations,
-          energy flow and energy flow averaged,
-          Save simulation description,
-          Collect information to .txt file
-Primordial life: ecosystem status (population, time death and birth rate numbers),
-          global status of all connected ecosystems(no. of connected ecosystems, population)
-Avida: instruction viewer,
-       string details,
-       graphs of
 
 \section {Memory of beetles}
 Beetles without memory have no chance to vary their decision, if the situation around them is constant. And if the decision is anything else than a step, their repeat this until they get hungry, die or the situation changes. But in case their are already hungry and the situation is a for long time constant, they are determined to die. And in the range of whole environment, if there are few beetles in the environment, they become extinct.
