@@ -84,7 +84,7 @@ Artificial life can be split into various subfields according to chosen substrat
 
 %replace this to another chapter!!
 %*************Evolutionary computation: if we choose evolution of biological life as the topic of our artificial life exploration and simulate it using computers.
-One of terms related to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world and simulated using computers. Evolutionary computation thus uses techniques of natural world and applies them using computers in other fields of interest. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are often focused on evolution of motion, shape, visual art and music. 
+One of terms related to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world and simulated using computers. Evolutionary computation thus uses techniques of natural world and applies them using computers in other fields of interest. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are often focused on evolution of moving, shape, visual art and music. 
  
 %************History of Alife as a science
 %The only source: Wikipedia - History of artificial life. However, citations are poor in this article. 
@@ -184,7 +184,7 @@ Browsing in the Internet, one easily ascertains, that there are already many sim
 The simulators are classified by twenty-seven features. Features are sorted into   
 six cathegories: Agents, Mating, Environment, User interface settings and implementation.
 
-Cathegory Agents contains following features: Body(=description of body of agents), Motion(=how do agents move), Behavior(=what they do besides basic activities of life - motion, mating and eating), Features(=features that change during life), Life-span, Genes(=representation of genes), Phenotypic space(=space of all possible phenotypes of agents), Learning(=whether some ability to learn is included in model of agents)
+Cathegory Agents contains following features: Body(=description of body of agents), Moving(=how do agents move), Behavior(=what they do besides basic activities of life - moving, mating and eating), Features(=features that change during life), Life-span, Genes(=representation of genes), Phenotypic space(=space of all possible phenotypes of agents), Learning(=whether some ability to learn is included in model of agents)
 
 Cathegory Mating comprises: Number of offspring in one reproduction, (Genetic algorithm(=algorithm used for creation of genes of a descendant), Choice of partner(=features that a partner must have to be chosen for mating), Conditions of mating(=what conditions must be satisfied before mating), Investment in offspring(=the amount of some resource, usually energy, that is given to a descendant by its parents at its birth)
 
@@ -219,7 +219,7 @@ Avida is an often presented example of a program based simulator. It studies evo
 \hline
 \textbf{Agents}&segments of code in a simple language called strings  \\ \hline
 Body&one cell in the grid of the environment \\ \hline
-Motion&no \\ \hline
+Moving&no \\ \hline
 Behavior&execution of the code \\ \hline
 Features&content of stack and registers \\ \hline
 Life-span&not restricted \\ \hline
@@ -285,9 +285,9 @@ Used version is Bitozoa 2 - artificial life & artficial intelligence simulation,
 \hline
 \textbf{Agents}&Bitozoa - herbivores(eat plants) and carnivores(eat herbivora)\\ \hline
 Body&ball with 5 eyes, 2 flagella, various number of neurons, neural network with various topology. Eyes see all object in the world.\\ \hline
-Motion&moves using flagella\\ \hline
+Moving&moves using flagella\\ \hline
 Behavior&no\\ \hline
-Features&energy level - for motion and work of neurons, burned with speed according to age \\ \hline
+Features&energy level - for moving and work of neurons, burned with speed according to age \\ \hline
 Life-span&(?)\\ \hline
 Genes&(?)\\ \hline
 Phenotypic space&angle of flagella connection to body, number of neurons, topology of neural network, sensitivity of eyes\\ \hline
@@ -348,7 +348,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 &Parameter based\\ \hline
 textbf{Agents}&swimbot\\ \hline
 Body&mouth, genitals and 2-10 parts for moving\\ \hline
-Motion&swimming using parts, algorithm common for all swimbots\\ \hline
+Moving&swimming using parts, algorithm common for all swimbots\\ \hline
 Behavior&nothing\\ \hline
 Features&energy\\ \hline
 Life-span&not restricted\\ \hline
@@ -409,7 +409,7 @@ Author of project Mitozoos is Spanish software company Bestiario, \url{http://ww
 &Parameter based \\ \hline
 textbf{Agents}&mitozoos \\ \hline
 Body&spider-like, with 2 eyes, body in shape of tetrahydron and four bent legs \\ \hline
-Motion&walking using legs, algorithm common for all mitozoos \\ \hline
+Moving&walking using legs, algorithm common for all mitozoos \\ \hline
 Behavior&strategy of eating, frequency and duration of resting periods \\ \hline
 Features&energy \\ \hline
 Life-span&not restricted \\ \hline
@@ -469,10 +469,10 @@ For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can
 &parameter based, evolution, game\\ \hline
 textbf{Agents}&biots\\ \hline
 Body&pattern of vectors of different colors, color of a part determines its special function.\\ \hline
-Motion&moved by environment or by its motor (light blue parts)\\ \hline
+Moving&moved by environment or by its motor (light blue parts)\\ \hline
 Behavior&fighting with each other\\ \hline
 Features&energy level\\ \hline
-Life-span&restricted, constitution of body\\ \hline
+Life-span&restricted\\ \hline
 Genes&64 numbers, describe lines color, orientation and length. Certain genes have special meaning detailing how many lines a biot has, its symmetry, whether it has mirrored or radial symmetry, how many children it should have and whether or not it should disperse its children after they are born. Complete description available.\\ \hline
 Phenotypic space&number and symmetry of vectors, color, orientation and length of each vector, number and dispersion of offspring in a birth\\ \hline
 Learning&learn from collision with other biots - change body accordingly\\ \hline
@@ -523,27 +523,43 @@ The original idea of Abeetles is to create a successor of existing program Brouc
 \end{center}
 \end{figure}
 
-Abeetles takes over following ideas of Broucci: beetles can move by sequence of steps and rotations. They see what is in the front, on the left and on the right.  
+Abeetles takes over following ideas of Broucci: beetles can move by sequence of steps and rotations. According to what they see is in the front, on the left and on the right do they decide which action to take. 
+ 
 %Jak propojit navaznost na broucky s vmezerenim se mezi existujici programy? Posloupnost je jasna: 1. urcit, v cem chci na predchozi program navazat. 2. Rozvinout ho tak, aby zajimave vplynul mezi existujici simulatory.
 
-"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, four were chosen as the key ones: motion, learning, choice of partner, distribution of computation and elements of environment - obstacles. The following table compares Abeetles with other solutions specificaly in this cathegories.
+"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, six were chosen as the key ones: moving, learning, choice of partner, distribution of computation, obstacles in environment and aging. The following table compares Abeetles with other solutions specificaly in this cathegories.
 
 \begin{tabular}{lcccccc}
  & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\ \hline
-Motion: strategy&x&x&G&G&S&G\\
+Moving: strategy&x&x&G&S&S&G\\
 Learning&x&O&x&x&x&G/O\\
-Choice of partner&x&x&x&x&O&G/O\\
-Distribution&x&Y&x&x&x&Y\\
-Obstacles&x&x&x&x&x&O
+Choice of partner&x&x&x&x&O&G\\
+Distribution&x&Y&x&x&x&x\\
+Obstacles&x&x&x&x&x&O\\
+Aging&x&x&x&x&x&O\\
 \end{tabular}
 
-Motion strategy is function of an organism, where input is the view and output is decision where to move.
 O - optional (user can influence it)
 S - static (fixed)
 G - genetically evolved
 x - not present
+Y - yes
 
+Moving strategy is a function of an organism, where input is the view and state of the organism and output is decision what to do. Bitozoa evolve such a function genetically, but bases it on neural networks. Mitozoos uses fixed strategy that is influences by several parameters. These parameters, e.g. maximal distance of a food bit in the view so as to head for it, are subject of evolution. Gene Pool has also fixed strategy. Abeetles overtake the idea of evolution of strategy of moving from its predecessor Broucci and intends to explore it.
 
+Learning is a feature that is usually connected with neural networs. Parameter based simulators generally do no not use it. But influence of simple learning on evolution of moving can be interesting, therefore it is placed among objectives of Abeetles. The term learning is very general, Abeetles inspired its view of learning with memetic theory. 
+
+The term meme was first coined by Richard Dawkins in 1976. Dawkins defined the meme as "a unit of cultural transmission, or a unit of imitation"\cite{SelfishGene}. Memes have as an important characteristic their propagation through imitation, a concept introduced by the French sociologist Gabriel Tarde. Imitation involves copying the observed behaviour of another individual. Researchers have observed memetic copying in just a few species on Earth, including hominids, dolphins and birds (which learn how to sing by imitating their parents). The technique of dissemination of mems in population can be formalized, as it is described e.g. in lectures of Vlado Kvasnicka from CHTF STU \url{ftp://math.chtf.stuba.sk/pub/vlado/Evol_alg_MFF/prednaska1_transp.pdf}.
+
+Abeetles uses imitation of behavior in the way that agents copy some patterns of behavior from other more successful beetles. It would be interesting to explore, to which extent is mutual learning convenient. Abeetle adds probability of learning from another beetle to features of agents and evolves it.
+
+Choice of partner for mating is the next idea Abeetles concens with. In Primordial Life, Bitozoa and Mitozoos choice of partner is restricted to demand on sufficient level of energy of both parents. Gene Pool is on the other hand interested in influence of criterion of choice of partner on results of evolution. \cite{GenePool2} In contrast to it Abeetles chooses fixed criteria and evolves their values.   
+
+Simulator Primordial life offers possiblity to connect simulators and in order to it connect environments together. Plan of Abeetles originally included computation distributed on more computers, but finally it is only single compute r application. Reasons are described later. 
+
+Obstacles are incomporated in none of the five simulators. But obstacles and consequenly the shape of the environment can be very interesting for Abeetles, which evolves strategy of motion.  
+
+Aging is generally meant as dependence of performance of an agent on age. None of the five simulators implement it. Abeetles make it possible for user to set amount of energy obtained from food according to age of a beetle.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -645,7 +661,7 @@ The expectations on the system in this case are:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Design of Abeetles with discussion of alternatives}
-%***********Návrh øešení s diskusí alternativ
+%******************Návrh øešení s diskusí alternativ******************
 \section{Architecture}
 
 
@@ -732,9 +748,24 @@ Other possibilities were Win32API and MFC. The first is not class based and diff
 %Beetle and its attributes, environment and its attributes
 The basic model of life in Abeetles is described in chapter Analysis. Now decomposition proceedes and data structures are designed.
 The key data structures of Abeetles are beetles and an environment.
-A beetle has following features:
-Direction - direction of his position in the environment, east, north, west and south. Brain - decision function  (situation) -> action. The situation is combination of what the beetle sees and his inner states. 
-  (if it is hungry, what is on the left,in the front and on the right)
+A beetle has following evolvable features:
+\begin {itemize}
+\item Brain - decision function (situation) -> action. The situation is combination of what the beetle sees and his inner states. States of a Beetle are whether he is hungyry or not. It sees what is on the left,in the front and on the right.
+\item Expectation on parter - A beetle check before mating, whether the parther is fullfils its expectations on amount of energy, investment in children, learning ability and age.
+\item Hungry threshold - Threshold defines whether the beetle is or is not hungry.  
+\item Investment in children - The beetle invest this amount of energy into its new born offspring.
+\item Learning Ability - The beetle expects certain level of learning ability from its partner.
+\end {itemize}
+
+Non evolvable features of beetles are current direction in environment, east, north, west or south and amount of energy.
+
+The Environment of Abeetles is a grid in shape of toroid. Every cell of the grid either contains a beetle, a flower, or a wall or it is empty.
+
+Flowers are objects in environment that serve as food for beetles. Similar source of energy for agents use Bitozoa, Gene Pool and Mitozoos. Gene Pool keeps a fixed amount of energy in environment, the less agents the more food and vice versa. This attitude prevents users from exploring, how would agents develop with higher of lower supplies of food. In contrast to Gene Pool, in abeetles can amount of food vary from zero to full grid of flowers. Due to demand on local interactions in the evironment for purposes of possible parallelization, growth of flower is an individual matter of every cell. Each cell has an optional probability of growth of a flower. If it happens, flower springs up in one update and occupies the cell until it is eaten.
+
+Environment updates in turns. Therefore both last situation and current situation must be stored. One update goes gradually, cell by cell, in lines. An update of a cell means that if the cell is empty, generator of random numbers decides according to probability of growth in the cell whether a flower springs up. If the cell is occupied by a beetle, the beetle takes a snapshot of three neigbor cells in last update. According to it and his hunger he decides what to do and acts, if possible. 
+
+%Alternatives
 
 \section {Components}
 %Layout of functionality into classes CEnvironment, CRunScript, MainWindow, CGrid, CStatistics and CBeetle + alternatives.
@@ -765,7 +796,7 @@ LearningAbility = 1B
 
 \subsection{Description of the model of the environment}
 
-\subsubsection{Motion strategy}
+\subsubsection{Moving strategy}
 The predecessor of Abeetles, Broucci, evolved
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -989,6 +1020,9 @@ The book of the mitozoos. (\url{http://bestiario.org/mitozoos/english/pdf/mitozo
 
 \bibitem{Broucci}
 Tomas Holan, "Different Programming", \url{http://ksvi.mff.cuni.cz/~holan/jinak/itat.pdf}, ITAT 2004
+
+\bibitem{SelfishGene}
+Richard Dawkins, The Selfish Gene, 11. Memes:the new replicators, Oxford University, 1976, second edition, December 1989, ISBN 0-19-217773-7; April 1992, ISBN 0-19-857519-X; trade paperback, September 1990, ISBN 0-19-286092-5
 
 \bibitem{PVM versus MPI}
 PVM and MPI: a Comparison of Features; G.A.Geist J.A.Kohl P.M. Papadopoulos
