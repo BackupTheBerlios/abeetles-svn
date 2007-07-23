@@ -43,11 +43,11 @@
 %Spustitelná podoba práce musí demonstrovat funkènost implementace. Pokud je k takové demonstraci potøeba netriviální prostøedí èi nastavení, autor práce jí musí na požádání pøedvést vedoucímu a oponentovi, pøípadnì také hodnotící komisi.
 
 %Branova varianta: 
-%\documentclass[a4paper,12pt]{report}
-%\usepackage[height=29.7cm, width=21cm, left=3cm, right=2cm, top=3cm, bottom=2cm, includefoot]{geometry}
+\documentclass[a4paper,12pt]{report}
+\usepackage[height=29.7cm, width=21cm, left=3cm, right=2cm, top=3cm, bottom=2cm, includefoot]{geometry}
 
 
-\documentclass [10pt]{report}
+%\documentclass [10pt]{report}
 
 \title{The Tool for Modeling of Evolution of the Artificial Life}
 \author{Iva Bartunkova}
@@ -215,7 +215,7 @@ Avida is an often presented example of a program based simulator. It studies evo
 \begin{center}
   \includegraphics[scale=0.5]{AvidaGUI.eps}
   \caption{Avida 2.0b7 - graphical viewer.}
-  \label{obr.graphicx}
+  \label{img.Avida}
 \end{center}
 \end{figure}
 
@@ -282,7 +282,7 @@ Used version is Bitozoa 2 - artificial life & artficial intelligence simulation,
 \begin{center}
   \includegraphics[scale=0.5]{Bitozoa.eps}
   \caption{Bitozoa 2}
-  \label{obr.graphicx}
+  \label{img.Bitozoa}
 \end{center}
 \end{figure}
 
@@ -343,7 +343,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 \begin{center}
   \includegraphics[scale=0.5]{GenePool.eps}
   \caption{Gene Pool 5}
-  \label{obr.graphicx}
+  \label{img.GenePool}
 \end{center}
 \end{figure}
   
@@ -404,7 +404,7 @@ Author of project Mitozoos is Spanish software company Bestiario, \url{http://ww
 \begin{center}
   \includegraphics[scale=0.5]{Mitozoos.eps}
   \caption{Mitozoos}
-  \label{obr.graphicx}
+  \label{img.Mitozoos}
 \end{center}
 \end{figure}
 
@@ -462,7 +462,7 @@ For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can
 \begin{center}
   \includegraphics[scale=0.5]{PrimordialLife.eps}
   \caption{Primordial Life 3.21}
-  \label{obr.graphicx}
+  \label{img.PrimordialLife}
 \end{center}
 \end{figure}
 
@@ -524,7 +524,7 @@ The original idea of Abeetles is to create a successor of existing program Brouc
 \begin{center}
   \includegraphics[scale=0.5]{Broucci.eps}
   \caption{Broucci}
-  \label{obr.graphicx}
+  \label{img.Broucci}
 \end{center}
 \end{figure}
 
@@ -787,32 +787,37 @@ Functionality of Abeetles is divided into following components: Environment, Run
 
 \section {User interface}
 \subsection {Graphical user interface}
+The idea of graphical user interface of Abeetles was inspired by interface of Broucci, see Figure \ref{img.Broucci} on page \pageref{img.Broucci}. In Abeetles agents are also represented by arrows showing their direction. %figure
+
+Layout of window of GUI of Abeetles has much in common with qt-view of Abeetles,  see Figure \ref{img.Avida} on page \pageref{img.Avida} . The reason is the similarity of grid base of the environment and intention to serve as a scientific tool. 
 \subsection {Statistics}
 
-GenePool: graph of no. of swimbots vs. food, features of individual, the best one in attraction/mating/eating
-Mitozoos: graph of no. of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown
-Bitozoa: graph of populations, energy flow and energy flow averaged, Save simulation description, Collect information to .txt file
-Primordial life: ecosystem status (population, time death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)
-Avida: instruction viewer, string details, graphs of
+Every artifical life simulator that endeavors after more that being just a game includes some kind of statistics. 
+Systems compared with Abeetles show information either graphicaly or output them to a file (indicated in brackets):
+\begin{itemize}
+\item Avida: instruction viewer, details of individual strings 
+\item Bitozoa: graph of populations, energy flow and energy flow averaged, information about environment (to file), details about an agent.
+ \item Gene Pool: graph of relationship between number of swimbots and amount of food, features of individual agents, to seek the best agent in chosen criteria.
+\item Mitozoos: genetic landscape, log of events, on reproduction the crossjoin of genotypes is shown graphicaly, details about an agent.
+\item Primordial life: information about environment (population, time death and birth rate numbers), global status of all connected ecosystems, information about an agent.
+\end {itemize}
 
-GenePool: graph of no. of swimbots vs. food,
-          features of individual,
-          the best one in attraction/mating/eating
-Mitozoos: genetic landscape,
-          log of events,
-          on reproduction join crossjoin of genotypes is shown
-Bitozoa:  graph of populations,
-          energy flow and energy flow averaged,
-          Save simulation description,
-          Collect information to .txt file
-Primordial life: ecosystem status (population, time death and birth rate numbers),
-          global status of all connected ecosystems(no. of connected ecosystems, population)
-Avida: instruction viewer,
-       string details,
-       graphs of
-       
-\subsection {Script}
+%Possible to add pictures of statistics from other programms.
+
+These simulators prefer to show statistics graphicaly or textualy in the program. But for further processing output to files in a standard format might be useful. Abeetles writes statistics into files, only several actual numbers shows in the graphical interface. Abeetles as well as all described simulators shows details of an individual. It counts actual information about environment like time, number of agents, some average values, etc. Graphs of development in time are offered by Bitozoa and Gene Pool. They are very useful for observation of what is going on in the simulator within time. Abeetles does not show graphs directly, but saves values into a file in comma separated value format. Graphs can be then drawn by a special program, e.g. MS Excel. In this format changes of number of beetles, number of flowers and number of births within time are stored. It is also used for graphs of frequency o distribution of values of age,  learning abilities, investment in children and energy.
+
   
+\subsection {Script}
+
+Script for Abeetles is intended to be easy to understand. It uses format
+"command = value" and avails to input any number of runs of the simulator. For each of them all necessary parameters can be defined.
+
+The alternative of usage of command line parameters instead of an Abeetles specific script was considered. One command could start one run of Abeetles and a set of runs could be created in a command line script. But the first alternative was chosen, because it makes it possible to write the script without knowledge of system commands.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Detailed design of chosen solution}
+% Detailni rozpracování modelu reseni - tj. datove struktury k implementaci
 
 
 \section{Description of the model of a beetle}
@@ -837,9 +842,6 @@ LearningAbility = 1B
 \subsubsection{Moving strategy}
 The predecessor of Abeetles, Broucci, evolved
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Detailed design of chosen solution}
-% Detailni rozpracování modelu reseni - tj. datove struktury k implementaci
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Description of prototype implementation}

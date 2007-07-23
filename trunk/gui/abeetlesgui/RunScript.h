@@ -7,7 +7,7 @@
 class CRunScript
 {
 public:
-	CRunScript(QList<COneRun*>);
+	CRunScript(QString script);
 
 	QList<COneRun*> ListRuns;
 

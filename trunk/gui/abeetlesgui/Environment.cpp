@@ -39,6 +39,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	RotCost=oneRun->RotCost;
 	CopulCost=oneRun->CopulCost;
 	WaitCost=oneRun->WaitCost;
+	LearningOn=oneRun->LearningOn;
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -190,7 +191,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 		Grid_Past.GetCellContent(b2_x,b2_y, &beetle2);
 		if (beetle2 != NULL)
 		{
-			if (beetle2->Energy > beetle->Energy)
+			if ((LearningOn)&&(beetle2->Energy > beetle->Energy))
 				beetle->LearnFrom(beetle2);
 		}
 	}

@@ -11,8 +11,8 @@
 #define G_HEIGHT_MAX 50
 #define G_HEIGHT_MIN  5
 #define G_FIRST_INDEX_MAX 1
-#define DEFAULT_GRID_WIDTH 30 //should be same as EMPTY_FIELD_SIZE !!
-#define DEFAULT_GRID_HEIGHT 30 //should be same as EMPTY_FIELD_SIZE !!
+#define DEFAULT_GRID_WIDTH 30 //should be same or bigger than EMPTY_FIELD_SIZE !!
+#define DEFAULT_GRID_HEIGHT 30 //should be same or bigger than EMPTY_FIELD_SIZE !!
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 20
@@ -124,6 +124,7 @@
 #define COLOR_WALL	"black"
 #define COLOR_FLOWER "yellow"
 
-#define EMPTY_FIELD_SIZE 30 //should be same as DEFAULT_GRID_WIDTH!!
+#define EMPTY_FIELD_SIZE 0 //should be same or smaller than DEFAULT_GRID_WIDTH!!
+#define INIT_ZOOM 0
 
 

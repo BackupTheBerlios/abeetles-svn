@@ -1,6 +1,7 @@
 #include "Field.h"
 #include "Environment.h"
 #include "Beetle.h"
+#include <assert.h>
 #include <QtGui>
 #include <QTimer>
 #include <QDir>
@@ -14,6 +15,7 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
     setAutoFillBackground(true);
 
 	Env = env;
+	Zoom=INIT_ZOOM;
 	//1QMessageBox::information(NULL,"FIELD",QString::number(Env->Grid.G_Width));
 	
 	ZoomToSqSize[0]=1;ZoomToGapSize[0]=0;
@@ -30,19 +32,21 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 		exit (EXIT_FAILURE);
 	}
 
-	int fieldWidth=EMPTY_FIELD_SIZE;
+	setZoom(Zoom);
+	/*
+	if (Env->IsEmpty)setFixedSize(QSize(0,0));
+	else setFixedSize(QSize(Env->Grid.G_Width,Env->Grid.G_Width));
+
+	/*int fieldWidth=EMPTY_FIELD_SIZE;
 	int fieldHeight=EMPTY_FIELD_SIZE;
 
-	setFixedSize(QSize(fieldWidth,fieldHeight));
+	setFixedSize(QSize(fieldWidth,fieldHeight));*/
+
+	update();
 }
 CField::~CField(void)
 {
-	/*
-	int z,d; //,v;
-	for(z=0;z<NUM_ZOOM;z++)
-			for(d=WEST;d<=SOUTH;d++)
-			if (ImgBeetle[z][d]!=NULL) delete ImgBeetle[z][d];	*/
-
+	
 }
 
 void CField::mousePressEvent ( QMouseEvent * evnt )
@@ -55,7 +59,11 @@ void CField::mousePressEvent ( QMouseEvent * evnt )
 
 void CField::renewField()
 {
-	//1QMessageBox::information(this,"MyApp","In function renew field");
+	//QMessageBox::information(this,"MyApp","In function renew field Zoom: "+QString::number(Zoom));
+	//fprintf(stdout,"\nIn Field::renewField ");
+	//if (updatesEnabled()) fprintf(stdout,"\nIn Field::updatesEnabled");
+	//if(isVisible())fprintf(stdout,"\nIn Field::isVisible");
+	setZoom(Zoom); //It must be here, otherwise update() does not work.
 	update();
 }
 
@@ -63,12 +71,12 @@ void CField::renewField()
 void CField::paintEvent(QPaintEvent *evnt)
 {
 
-
+	//fprintf(stdout,"\n In Field::paintEvent");
 	int I,J,what;
 	CBeetle * beetle;
 	if (Env==0) 
 	{
-		//QMessageBox::information(this,"MyApp","3 - No Env");
+		QMessageBox::information(this,"MyApp","3 - No Env");
 		return;
 	}
 	else
@@ -86,7 +94,8 @@ void CField::paintEvent(QPaintEvent *evnt)
 		{
 		for(I=0;I<Env->Grid.G_Width;I++)//cols
 		{
-			what = Env->Grid.GetCellContent(I,J,&beetle);
+			what = Env->Grid.GetCellContent(I,J,&beetle);			
+			assert ((what==BEETLE)||(what==FLOWER)||(what==NOTHING)||(what==WALL));
 			if (what==BEETLE)
 			{
 				painter.setBrush(QBrush(QColor("blue")));
@@ -179,6 +188,7 @@ bool CField::change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor)
 bool CField::loadBeetleImages()
 {
 	int z,d; //,v;
+
 	QString fname;
 	//QImage * img;
 	for(z=0;z<NUM_ZOOM;z++)
@@ -240,16 +250,17 @@ void CField::setEnvRef(CEnvironment *env)
 
 void CField::setZoom(int zoom)
 {
-	if ((zoom<0) || (zoom >=NUM_ZOOM) || (zoom==Zoom)) return;
+	if ((zoom<0) || (zoom >=NUM_ZOOM) ) return; //|| (zoom==Zoom)
 	else
 	{
 		Zoom=zoom;
-		int fieldWidth=EMPTY_FIELD_SIZE;
-		if (Env) fieldWidth= ZoomToGapSize[Zoom]+((Env->Grid.G_Width)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
-		int fieldHeight=EMPTY_FIELD_SIZE;
-		if (Env) fieldHeight= ZoomToGapSize[Zoom]+((Env->Grid.G_Height)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
-
-		setFixedSize(QSize(fieldWidth,fieldHeight));
+		if (Env->IsEmpty)setFixedSize(QSize(EMPTY_FIELD_SIZE,EMPTY_FIELD_SIZE));
+		else
+		{
+			int fieldWidth= ZoomToGapSize[Zoom]+((Env->Grid.G_Width)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+			int fieldHeight= ZoomToGapSize[Zoom]+((Env->Grid.G_Height)*(ZoomToSqSize[Zoom]+ZoomToGapSize[Zoom]));
+			setFixedSize(QSize(fieldWidth,fieldHeight));
+		}
 		update();
 	}
 

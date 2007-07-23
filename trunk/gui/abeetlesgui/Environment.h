@@ -25,6 +25,7 @@ public:
 	CGrid Grid; //grid for the following time value
 	int Time;
 	int StepCost;int RotCost;int CopulCost;int WaitCost;
+	bool LearningOn;
 	CStatisticsEnv Statist; //Statistics of the environment
 	//bool DisplayOn; removed to MainWindow
 				

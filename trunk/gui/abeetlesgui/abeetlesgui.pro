@@ -6,7 +6,9 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
-CONFIG += console
+CONFIG += console 
+
+QTPLUGIN    += qgif
 
 # Input
 HEADERS += RunScript.h\

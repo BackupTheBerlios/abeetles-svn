@@ -29,10 +29,11 @@ void ZoomSlider::init(const QString & labelText)
 	/*
 	QLCDNumber *lcd = new QLCDNumber(3);
   lcd->setSegmentStyle(QLCDNumber::Filled);*/
+  counterDisable=0;	//it was not disabled yet.
 
   Slider = new QSlider(Qt::Horizontal);
   Slider->setRange(0, NUM_ZOOM-1);
-  Slider->setValue(0);
+  Slider->setValue(INIT_ZOOM);
   Slider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
 
   Label=new QLabel(labelText);
@@ -66,5 +67,14 @@ int ZoomSlider::value() const
 
 void ZoomSlider::setDisabled(bool isDis)
 {
-	Slider->setDisabled(isDis);
+	if (isDis)
+	{
+		counterDisable++;
+		Slider->setDisabled(isDis);
+	}
+	else //isDis==false
+	{
+		counterDisable--;
+		if(counterDisable==0) Slider->setDisabled(isDis);
+	}
 }

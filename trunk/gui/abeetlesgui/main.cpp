@@ -35,6 +35,10 @@
 #include <limits.h>
 #include <time.h>
 
+//#include <QtPlugin>
+
+//Q_IMPORT_PLUGIN(qgif)
+
 //Global variables
 CfgManager CfgMng; 
 
@@ -81,7 +85,7 @@ int main(int argc, char *argv[])
 		QString scriptFN=app.arguments().at(i);
 		fprintf(stdout,("Script "+scriptFN+" starts execution.\n").toAscii().data());
 		//predelej: trida CRunScript dostane jako vstup konstruktoru jmeno skriptu, v konstruktoru zavola CfgMng.LoadScript. Zde nasledne prikazem spustim run().
-		CRunScript runScript(CfgMng.LoadScript(scriptFN));
+		CRunScript runScript(scriptFN);
 		runScript.run();
 		app.quit();
 		return (0);

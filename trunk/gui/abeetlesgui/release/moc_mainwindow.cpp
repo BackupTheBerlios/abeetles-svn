@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Tue 17. Jul 22:00:32 2007
+** Created: Mon 23. Jul 22:39:15 2007
 **      by: The Qt Meta Object Compiler version 59 (Qt 4.3.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -22,7 +22,7 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // revision
        0,       // classname
        0,    0, // classinfo
-      15,   10, // methods
+      16,   10, // methods
        0,    0, // properties
        0,    0, // enums/sets
 
@@ -39,11 +39,12 @@ static const uint qt_meta_data_MainWindow[] = {
      107,   90,   11,   11, 0x08,
      123,   11,   11,   11, 0x08,
      141,  135,   11,   11, 0x08,
-     161,   11,   11,   11, 0x08,
-     177,   11,   11,   11, 0x08,
-     193,   11,   11,   11, 0x08,
-     213,  209,   11,   11, 0x08,
-     238,   11,   11,   11, 0x08,
+     161,  135,   11,   11, 0x08,
+     182,   11,   11,   11, 0x08,
+     198,   11,   11,   11, 0x08,
+     214,   11,   11,   11, 0x08,
+     234,  230,   11,   11, 0x08,
+     259,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -53,9 +54,10 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "envIsEmpty(bool)\0newEnv()\0openEnv()\0"
     "saveEnv()\0saveEnvAs()\0bStart\0run(bool)\0"
     "runNSteps(bool)\0make1Step()\0value\0"
-    "DisplayChanged(int)\0saveAggrStats()\0"
-    "saveTimeStats()\0saveHistStats()\0x,y\0"
-    "showCellDetails(int,int)\0about()\0"
+    "DisplayChanged(int)\0LearningChanged(int)\0"
+    "saveAggrStats()\0saveTimeStats()\0"
+    "saveHistStats()\0x,y\0showCellDetails(int,int)\0"
+    "about()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -93,13 +95,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 7: runNSteps((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 8: make1Step(); break;
         case 9: DisplayChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 10: saveAggrStats(); break;
-        case 11: saveTimeStats(); break;
-        case 12: saveHistStats(); break;
-        case 13: showCellDetails((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 14: about(); break;
+        case 10: LearningChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: saveAggrStats(); break;
+        case 12: saveTimeStats(); break;
+        case 13: saveHistStats(); break;
+        case 14: showCellDetails((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 15: about(); break;
         }
-        _id -= 15;
+        _id -= 16;
     }
     return _id;
 }

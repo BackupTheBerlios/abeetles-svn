@@ -15,6 +15,8 @@ COneRun::COneRun()
 	AggrStatFN="aggr.txt";
 	HistStatFN="hist.txt";
 	TimeStatFN="time.txt";
+	EnvFN="env"; //without suffix!!
+	LearningOn=true;
 	IsBtlRandom=true;
 	Seed=-1;
 	NumRandBeetles=-1;
@@ -28,11 +30,14 @@ COneRun::COneRun()
 
 	SaveTimeAggrReg=0; //if ==0, array saveTimesAggr is used
 	SaveTimeHistReg=0; // if ==0, array saveTimesHist is used
+	SaveTimeEnvReg=0; // if ==0, array saveTimesEnv is used
+
 	int i=0;
 	for(i=0;i<50;i++)
 	{
 		SaveTimesAggr[i]=-1 ;
 		SaveTimesHist[i]=-1 ;
+		SaveTimesEnv[i]=-1 ;
 	}
 }
 
@@ -80,6 +85,12 @@ void COneRun::setEndTime(int endTime)
 		EndTime=MAXTIME;
 		
 }
+
+void COneRun::setLearningOn (bool learningOn)
+{
+	LearningOn=learningOn;
+}
+
 bool COneRun::setEffFN (QString effFN)
 {
 	if (false==QFile::exists(effFN)) return false;
@@ -111,6 +122,11 @@ void COneRun::setTimeStatFN( QString timeStatFN)
 	if (timeStatFN.contains(".")) TimeStatFN=timeStatFN;
 	else TimeStatFN= timeStatFN+".txt";
 }
+void COneRun::setEnvFN( QString envFN)
+{
+	if (envFN.contains(".")) EnvFN=envFN.left(envFN.indexOf(".")); //EnvFN must be without suffix
+	EnvFN= envFN;
+}
 
 void COneRun::setSaveTimeAggrReg (int time)
 {
@@ -121,6 +137,12 @@ void COneRun::setSaveTimeHistReg (int time)
 {
 	SaveTimeHistReg=time;
 }
+
+void COneRun::setSaveTimeEnvReg (int time)
+{
+	SaveTimeEnvReg=time;
+}
+
 
 void COneRun::setSaveTimesAggr (int * timeArray)
 {
@@ -143,4 +165,14 @@ void COneRun::setSaveTimesHist(int * timeArray)
 	}
 	SaveTimesHist[i]=timeArray[i]; //the copy of ending -1 value
 }
-	
+
+void COneRun::setSaveTimesEnv(int * timeArray)
+{
+	int i=0;
+	while (timeArray[i]!=-1)
+	{
+		SaveTimesEnv[i]=timeArray[i];
+		i++;
+	}
+	SaveTimesEnv[i]=timeArray[i]; //the copy of ending -1 value
+}

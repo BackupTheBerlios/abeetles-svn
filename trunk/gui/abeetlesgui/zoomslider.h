@@ -28,6 +28,7 @@ class ZoomSlider : public QWidget
 	private:
 	QSlider * Slider;
 	QLabel *Label; 
+	int counterDisable;
 
 
 };

@@ -485,7 +485,10 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setEndTime(pom.toInt());
 		 }
-
+		 if (line.startsWith("nolearning"))
+		 {			 
+			 oneRun->setLearningOn(false);
+		 }
 		 if (line.startsWith("aggrstatfn"))
 		 {
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
@@ -501,6 +504,11 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setTimeStatFN(pom);
 		 }
+		if (line.startsWith("envfn"))
+		 {
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setEnvFN(pom);
+		 }
 		if(line.startsWith("savetimeaggrreg"))
 		{
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
@@ -511,6 +519,11 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 		{
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
 			 oneRun->setSaveTimeHistReg(pom.toInt());
+		}
+		if(line.startsWith("savetimeenvreg"))
+		{
+			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			 oneRun->setSaveTimeEnvReg(pom.toInt());
 		}
 		if(line.startsWith("savetimesaggr"))
 		{
@@ -551,6 +564,26 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 				timeArray[i+1]=-1;
 			}
 			oneRun->setSaveTimesHist(timeArray);
+		}
+		if(line.startsWith("savetimesenv"))
+		{
+			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			i=0;
+			timeArray[i]=-1;
+			while (pom.contains(","))
+			{
+				timeArray[i]=pom.left(pom.indexOf(",")).trimmed().toInt();
+				pom=pom.right(pom.size()-pom.indexOf(",")-1).trimmed();
+				i++;
+				timeArray[i]=-1;
+				if (i==49) break; //so as not to overflow the size of the array
+			}
+			if(! pom.trimmed().isNull())
+			{
+				timeArray[i]=pom.trimmed().toInt();
+				timeArray[i+1]=-1;
+			}
+			oneRun->setSaveTimesEnv(timeArray);
 		}
 
      }

@@ -63,24 +63,14 @@ private slots:
 	void make1Step();
 
 	void DisplayChanged(int value);//Qt values: Qt::checked, Qt::unchecked
+	void LearningChanged(int value);
 	
     void saveAggrStats();
     void saveTimeStats();
     void saveHistStats();
 
-	void showCellDetails(int x,int y);
-  /*  void copy();
-    void paste();
-    void bold();
-    void italic();
-    void leftAlign();
-    void rightAlign();
-    void justify();
-    void center();
-    void setLineSpacing();
-    void setParagraphSpacing();*/
+	void showCellDetails(int x,int y);  
     void about();
-    //void aboutQt();
 
 signals:
 	void envChanged();
@@ -98,6 +88,7 @@ private:
 	QPushButton * MakeNStepsBut;
 	ZoomSlider * ZoomSlid;
 	QCheckBox * DisplayCheck;
+	QCheckBox * LearningCheck;
 
 	QTimer * Timer;
 

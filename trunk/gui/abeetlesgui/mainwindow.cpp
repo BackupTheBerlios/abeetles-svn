@@ -44,7 +44,8 @@ MainWindow::MainWindow():Env()
     setCentralWidget(mainWidget);
 
 	//non-gui attributes:
-//	Env=NULL;emit envIsEmpty(true); Env is now non dynamic attribute.
+//	Env=NULL;Env is now non dynamic attribute.
+//	emit envIsEmpty(true); No need
 	NumSteps=-1;
 	
 	Timer = new QTimer(this);
@@ -87,7 +88,10 @@ MainWindow::MainWindow():Env()
 
 	//Zoom
 	ZoomSlid = new ZoomSlider(tr("Zoom: "));
+	ZoomSlid->setDisabled(true);
 	connect(ZoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
+
+	//connect(this,SIGNAL(envIsEmpty(bool)),ZoomSlid,SLOT(setDisabled(bool)));
 	
 	//CheckBox for display
 	DisplayCheck = new QCheckBox(tr("Display On"));
@@ -95,6 +99,16 @@ MainWindow::MainWindow():Env()
 	//DisplayCheck->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 	connect(DisplayCheck, SIGNAL(stateChanged(int)),this,SLOT(DisplayChanged(int)));
 	DisplayCheck->setCheckState(Qt::Checked);
+	
+	//CheckBox for LearningOn
+	LearningCheck = new QCheckBox(tr("Learning On"));
+	connect(LearningCheck, SIGNAL(stateChanged(int)),this,SLOT(LearningChanged(int)));
+	if (Env.LearningOn) LearningCheck->setCheckState(Qt::Checked);
+	else LearningCheck->setCheckState(Qt::Unchecked);
+	
+	QVBoxLayout * checksLayout= new QVBoxLayout();
+	checksLayout->addWidget(DisplayCheck);
+	checksLayout->addWidget(LearningCheck);
 
 	//Time LCD
 	
@@ -165,7 +179,7 @@ MainWindow::MainWindow():Env()
 	gridLayout->addWidget(scrollArea,0,0,1,2);
 	gridLayout->addLayout(typeViewLayout,1,2);
 	gridLayout->addWidget(ZoomSlid,1,0);
-	gridLayout->addWidget(DisplayCheck,1,1,Qt::AlignHCenter);
+	gridLayout->addLayout(checksLayout,1,1,Qt::AlignHCenter);//DisplayCheck,1,1,Qt::AlignHCenter);
 	gridLayout->addLayout(rightLayout,0,2);
 	gridLayout->addLayout(bottomLayout,2,0,1,3);
 	//gridLayout->addLayout(
@@ -415,6 +429,10 @@ void MainWindow::renewAllChildren()
 	NumFlowersLCD->setValue(Env.Statist.NumFlowers);
 	NumBirthsLCD->setValue(Env.Statist.NumBirths);
 	TimeLCD->setValue(Env.Time);
+
+	if (Env.LearningOn) LearningCheck->setCheckState(Qt::Checked);
+	else LearningCheck->setCheckState(Qt::Unchecked);
+
 	//QMessageBox::information(this,"MyApp","1");
 	if (Field == NULL){
 		QMessageBox::information(this,"MyApp","Field was not created");
@@ -424,6 +442,7 @@ void MainWindow::renewAllChildren()
 	{
 		//1QMessageBox::information(this,"MyApp","Field is gonna be renewed.");
 		Field->renewField(); //Pozor! Tohle pusobilo padani aplikace v necekanych pripadech!
+		Field->update();
 	}
 }
 
@@ -535,5 +554,17 @@ void MainWindow::DisplayChanged(int value)//Qt values: Qt::Checked, Qt::Unchecke
 		Timer->setInterval(TIME_STEP);
 	}
 
+}
+
+void MainWindow::LearningChanged(int value)//Qt values: Qt::Checked, Qt::Unchecked
+{
+	if (value==Qt::Unchecked)//Learning stops
+	{
+		Env.LearningOn = false;
+	}
+	if (value==Qt::Checked)//Displaying starts
+	{
+		Env.LearningOn = true;
+	}
 }
 
