@@ -11,6 +11,7 @@ envfn=envv
 savetimeaggrreg=15000
 savetimehistreg=20000
 savetimeenvreg=50000
+nolearning
 
 run=env4
 map=env_cfg.bmp

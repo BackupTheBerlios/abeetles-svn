@@ -6,9 +6,9 @@
 #define WALL 2
 #define NOTHING 1
 
-#define G_WIDTH_MAX 50 //maximum of content of the grid, without borders
+#define G_WIDTH_MAX 100 //maximum of content of the grid, without borders
 #define G_WIDTH_MIN 5
-#define G_HEIGHT_MAX 50
+#define G_HEIGHT_MAX 100
 #define G_HEIGHT_MIN  5
 #define G_FIRST_INDEX_MAX 1
 #define DEFAULT_GRID_WIDTH 30 //should be same or bigger than EMPTY_FIELD_SIZE !!
@@ -19,6 +19,8 @@
 #define EFF_BMP_FILE "EnergyFromFlower.bmp"
 
 #define MAXTIME 200000 
+
+#define PROB_FLOWER_DIE 20 //probability of dying of a flower
 
 #define NUM_ACTIONS 3	//changed 26.5. - beforehead: 5, including A_COPULATE
 

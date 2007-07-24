@@ -28,7 +28,7 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 
 	QGridLayout * gridBrain =  new QGridLayout;
 	gridBrain->addWidget(frN,0,1);gridBrain->addWidget(frW,0,2);gridBrain->addWidget(frF,0,3);gridBrain->addWidget(frB,0,4);
-	gridBrain->addWidget(isHun,1,0);gridBrain->addWidget(notHun,2,0);
+	gridBrain->addWidget(notHun,1,0);gridBrain->addWidget(isHun,2,0);
 	QTableWidgetItem *newItem=NULL;
 	int left=0;int top=0;int right=0;int bottom=0; 
 

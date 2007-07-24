@@ -35,7 +35,7 @@
 #include <limits.h>
 #include <time.h>
 
-//#include <QtPlugin>
+#include <QtPlugin>
 
 //Q_IMPORT_PLUGIN(qgif)
 
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 	if (isScript) 
 	{
 		QString scriptFN=app.arguments().at(i);
-		fprintf(stdout,("Script "+scriptFN+" starts execution.\n").toAscii().data());
+		//fprintf(stdout,("Script "+scriptFN+" starts execution.\n").toAscii().data());
 		//predelej: trida CRunScript dostane jako vstup konstruktoru jmeno skriptu, v konstruktoru zavola CfgMng.LoadScript. Zde nasledne prikazem spustim run().
 		CRunScript runScript(scriptFN);
 		runScript.run();

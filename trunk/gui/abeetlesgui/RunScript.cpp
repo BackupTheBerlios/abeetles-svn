@@ -45,7 +45,7 @@ int CRunScript::run()
 					QString::number(ListRuns.at(l)-> SaveTimeHistReg)+" "+ 
 					QString::number(ListRuns.at(l)-> SaveTimeEnvReg)+" "+
 					QString::number(ListRuns.at(l)-> SaveTimesAggr[0]) +" "+
-					QString::number(ListRuns.at(l)-> SaveTimesHist[0])+"\n"+
+					QString::number(ListRuns.at(l)-> SaveTimesHist[0])+" "+
 					QString::number(ListRuns.at(l)-> SaveTimesEnv[0])+"\n").toAscii().data() );
 
 		oneRun=	ListRuns.at(l);
@@ -104,6 +104,7 @@ int CRunScript::run()
 		}
 		env.Statist.SaveTimeStatist_InColumnsAppend(oneRun->TimeStatFN.toAscii().data());
 		QDir::setCurrent("..");
+		fprintf(stdout,("\nScript "+oneRun->DirName+" finnished.\n\n").toAscii().data());
 
 	}
 	return 1;

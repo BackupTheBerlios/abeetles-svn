@@ -484,7 +484,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN)
 	srand( seed);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<150;K++)
+	for (K=0;K<(Grid_Past.G_Width*Grid_Past.G_Height)/4;K++)
 	{
 		I=RandInBound(Grid_Past.G_Width);
 		J=RandInBound(Grid_Past.G_Height);
@@ -521,6 +521,22 @@ bool CEnvironment::MakeFlowerGrow(int x, int y)
 		if (true == Grid.SetCellContent(FLOWER,x,y))
 		{
 			Statist.NumFlowers++;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CEnvironment::MakeFlowerDie(int x, int y)
+{
+	int prob = PROB_FLOWER_DIE;
+	if ((Grid.GetCellContent(x,y) == FLOWER) //a beetle might have made a step into this cell
+		&&(prob> RandInBound(100))) 
+	{
+		
+		if (true == Grid.SetCellContent(NOTHING,x,y))
+		{
+			Statist.NumFlowers--;
 			return true;
 		}
 	}

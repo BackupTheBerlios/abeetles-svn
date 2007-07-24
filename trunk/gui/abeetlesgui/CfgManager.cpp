@@ -409,7 +409,10 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 	COneRun* oneRun = NULL;
 	QFile scrFile (scriptFN);
 	if (!scrFile.open(QIODevice::ReadOnly | QIODevice::Text))
-         return list;
+	{
+		fprintf(stdout,("Opening of file "+scriptFN+" was not successful.").toAscii().data());		
+		return list;
+	}
 
 	QByteArray line;
 	QByteArray pom;

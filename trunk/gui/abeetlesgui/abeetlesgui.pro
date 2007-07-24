@@ -7,8 +7,8 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
 CONFIG += console 
+QTPLUGIN += qgif
 
-QTPLUGIN    += qgif
 
 # Input
 HEADERS += RunScript.h\

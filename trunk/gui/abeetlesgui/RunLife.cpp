@@ -56,7 +56,9 @@ int CRunLife::run(void)
 			for(J=0;J<env.Grid_Past.G_Height;J++)
 			{
 				if (env.Grid_Past.GetCellContent(I,J)==BEETLE) env.MakeBeetleAction(I,J);
-				if (env.Grid_Past.GetCellContent(I,J)==NOTHING) env.MakeFlowerGrow(I,J);
+				else
+					if (env.Grid_Past.GetCellContent(I,J)==NOTHING) env.MakeFlowerGrow(I,J);
+						else  if (env.Grid_Past.GetCellContent(I,J)==FLOWER) env.MakeFlowerDie(I,J);
 				//if there is a wall, flower of something bad, do nothing
 			}
 

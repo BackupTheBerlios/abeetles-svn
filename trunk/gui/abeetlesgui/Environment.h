@@ -41,6 +41,7 @@ public:
 	bool CreateDefaultEnv(void);
 	
 	bool MakeFlowerGrow(int x, int y);
+	bool MakeFlowerDie(int x, int y);
 	bool A_Copulate(int x, int y, CBeetle * beetle);
 	bool A_Step(int x, int y, char direction);
 	void A_RotateLeft(CBeetle * beetle);
