@@ -693,7 +693,7 @@ The other one is that there is a central server that splits the environment, sen
 
 %Deployment diagram of this situation according to schema in notysek.
 
-Be all the environment of the shape of a square, split into n smaller squares. Length of an edge of such a square is x. Radius of view of an object in the environment is v. Then in the first case the number of exchanged messages is 4n and each message carries information of size av. In the second case the number of messages is 2n and size of contained information is a^2. 
+Be all the environment of the shape of a square, split into $n$ smaller squares. Length of an edge of such a square is $x$. Radius of view of an object in the environment is $v$. Then in the first case the number of exchanged messages is $4n$ and each message carries information of size $av$. In the second case the number of messages is $2n$ and size of contained information is $a^2$. 
 
 %Pro co tedy vlastne tenhle agrument mluvi? Je posilani vetsich zprav alespon dvakrat pomalejsi? Ve chvili kdy se zprava musi rozdelit na dve mensi, tak urcite je.
 
@@ -742,7 +742,7 @@ To sum up, Abeetles is an application that contains only one module, that serve 
 
 Platform for Abeetles is MS Windows XP. %some reasons??
 
-Speed was the leading criterion when the question of programming language was considered. Model of Abeetles invokes realization by a class based languages, the abstraction is intuitive. Abeetle needs graphical interface and to the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C# and C++. Both Java and C# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language of "higher" level than C++. C# applications can run only on Windows, but the future support will be only better. It is as slow as Java. The criterion of speed was considered crucial for Abeetles and C++ was chosen.
+Speed was the leading criterion when the question of programming language was considered. Model of Abeetles invokes realization by a class based languages, the abstraction is intuitive. Abeetle needs graphical interface and to the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C\# and C++. Both Java and C\# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language of "higher" level than C++. C\# applications can run only on Windows, but the future support will be only better. It is as slow as Java. The criterion of speed was considered crucial for Abeetles and C++ was chosen.
 
 Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt.
 
@@ -758,7 +758,7 @@ A beetle has following evolvable features:
 \item Brain - decision function (situation) -> action. The situation is combination of what the beetle sees and his inner states. States of a Beetle are whether he is hungyry or not. It sees what is on the left,in the front and on the right.
 \item Expectation on parter - A beetle check before mating, whether the partner is fullfils its expectations on amount of energy, investment in children, learning ability and age.
 \item Hungry threshold - Threshold defines whether the beetle is or is not hungry.  
-\item Investment in children - The beetle invest this amount of energy into its new born offspring.
+\item Investment in children - The beetle invests this amount of energy into its new born offspring.
 \item Learning Ability - The beetle expects certain level of learning ability from its partner.
 \end {itemize}
 
@@ -766,7 +766,7 @@ Non evolvable features of beetles are current direction in environment, east, no
 
 The Environment of Abeetles is a grid in shape of toroid. Every cell of the grid either contains a beetle, a flower, or a wall or it is empty.
 
-Flowers are objects in environment that serve as food for beetles. Similar source of energy for agents use Bitozoa, Gene Pool and Mitozoos. Gene Pool keeps a fixed amount of energy in environment, the less agents the more food and vice versa. This attitude prevents users from exploring, how would agents develop with higher of lower supplies of food. In contrast to Gene Pool, in abeetles can amount of food vary from zero to full grid of flowers. Due to demand on local interactions in the evironment for purposes of possible parallelization, growth of flower is an individual matter of every cell. Each cell has an optional probability of growth of a flower. If it happens, flower springs up in one update and occupies the cell until it is eaten.
+Flowers are objects in environment that serve as food for beetles. Similar source of energy for agents use Bitozoa, Gene Pool and Mitozoos. Gene Pool keeps a fixed amount of energy in environment, the less agents the more food and vice versa. This attitude prevents users from exploring, how would agents develop with higher of lower supplies of food. In contrast to Gene Pool, in abeetles can amount of food vary from zero to full grid of flowers. Due to demand on local interactions in the evironment for purposes of possible parallelization, growth of flower is an individual matter of every cell. Each cell has an optional probability of growth of a flower. If it happens, flower springs up in one update and occupies the cell until it is eaten or dies. Flower can die in any turn with fixed probability. 
 
 Environment updates in turns. Therefore both last situation and current situation must be stored. One update goes gradually, cell by cell, in lines. An update of a cell means that if the cell is empty, generator of random numbers decides according to probability of growth in the cell whether a flower springs up. If the cell is occupied by a beetle, the beetle takes a snapshot of three neigbor cells in last update. According to it and his hunger he decides what to do and acts, if possible. 
 
@@ -849,6 +849,19 @@ The predecessor of Abeetles, Broucci, evolved
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Experiments}
+
+With Abeetles numerous experiments can be conducted. The space is set by possible values in cathegories size of map of environment, layout of walls in the map, probability of growth of flowers, initial	number and features of beetles,	availability of learning, function energy from flower - absolute values	as well as the course of the curve, and costs of actions and their ratio.
+
+Focus of experiments can be manifold. As mentioned above, such simulators are used for exploration of paralels between artificial and natural life. Parameters could be set to resemble some natural life feature and then examine what happens or search initial parameters that would cause development with some attributes of natural life. Often problem of artificial life simulators is that the evolution after starting development gets to a balanced point, aroud which it only oscilate but does not change essentialy any more. %I read it in some paper.. but which one?
+
+In this chapter .. experiments conducted with Abeetles will be introduced and described.
+
+
+
+ 
+
+	
+ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Resume of fullfiling of objectives and other known attitudes}
