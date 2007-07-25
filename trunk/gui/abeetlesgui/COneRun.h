@@ -10,6 +10,7 @@ public:
 	QString DirName;
 	QString MapFN;
 	bool IsBtlRandom;
+	bool IsStepOnFlower;
 	bool LearningOn;
 	QString BeetlesFN;
 	int Seed;
@@ -40,6 +41,7 @@ public:
 	bool setBeetlesFN(QString beetlesFN);
 	void setEndTime(int endTime);
 	void setLearningOn (bool learningOn);
+	void setIsStepOnFlower(bool isStepOnFlower);
 	bool setEffFN (QString effFN);
 	void setCostsOfActions( int step, int rot, int copul, int wait);
 	void setAggrStatFN( QString aggrStatFN);

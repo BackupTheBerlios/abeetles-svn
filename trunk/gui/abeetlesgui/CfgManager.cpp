@@ -492,6 +492,11 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 		 {			 
 			 oneRun->setLearningOn(false);
 		 }
+		 if (line.startsWith("nosteponflower"))
+		 {			 
+			 oneRun->setIsStepOnFlower(false);
+		 }
+
 		 if (line.startsWith("aggrstatfn"))
 		 {
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());

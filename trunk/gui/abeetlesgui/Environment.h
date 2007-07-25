@@ -54,6 +54,6 @@ public:
 	char * getBeetlesFileName(char *fname);
 	char * getTimeStatsFileName(char *fname);
 
-	CBeetle * CreateRandomBeetle();
-	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0);
+	CBeetle * CreateRandomBeetle(bool isStepOnFlower);
+	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0,bool isStepOnFlower=true);
 };

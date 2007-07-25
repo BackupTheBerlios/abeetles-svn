@@ -17,6 +17,7 @@ COneRun::COneRun()
 	TimeStatFN="time.txt";
 	EnvFN="env"; //without suffix!!
 	LearningOn=true;
+	IsStepOnFlower = true;
 	IsBtlRandom=true;
 	Seed=-1;
 	NumRandBeetles=-1;
@@ -89,6 +90,11 @@ void COneRun::setEndTime(int endTime)
 void COneRun::setLearningOn (bool learningOn)
 {
 	LearningOn=learningOn;
+}
+
+void COneRun::setIsStepOnFlower (bool isStepOnFlower)
+{
+	IsStepOnFlower=isStepOnFlower;
 }
 
 bool COneRun::setEffFN (QString effFN)

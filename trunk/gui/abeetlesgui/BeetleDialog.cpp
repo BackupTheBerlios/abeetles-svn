@@ -58,16 +58,17 @@ BeetleDialog::BeetleDialog( CBeetle * beetle,QWidget * parent, Qt::WindowFlags f
 
 		}
 
-	//  ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//  ExpectOnPartner - Age [2] = 2B how much   younger /old ercan be the partner
 	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much at least
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 		
 	QLabel * expLabel = new QLabel("Expectation on partner");
-	int num1=beetle->Age - beetle->ExpectOnPartner[1]; if (num1<0) num1=0;
-	int num2=beetle->Age + beetle->ExpectOnPartner[0];
+	int num1=(beetle->Age - beetle->ExpectOnPartner[0]); if (num1<0) num1=0;
+	int num2=beetle->Age + beetle->ExpectOnPartner[1];
 	QLabel * expAgeLabel = new QLabel("\tAge: "+QString::number(num1)+" - "+QString::number(num2));	
-	QLabel * expEnergyLabel = new QLabel("\tEnergy: "+QString::number(beetle->InvInChild+beetle->ExpectOnPartner[2]+beetle->ExpectOnPartner[3])+" - "+QString::number(MAX_ENERGY));
-	QLabel * expInvInChildLabel = new QLabel("\tInvestment in child: "+QString::number(beetle->InvInChild+beetle->ExpectOnPartner[3])+" - "+QString::number(MAX_ENERGY));
+	num1=beetle->ExpectOnPartner[2]+beetle->ExpectOnPartner[3]; if (num1>MAX_ENERGY) num1=MAX_ENERGY;
+	QLabel * expEnergyLabel = new QLabel("\tEnergy: "+QString::number(num1)+" - "+QString::number(MAX_ENERGY));
+	QLabel * expInvInChildLabel = new QLabel("\tInvestment in child: "+QString::number(beetle->ExpectOnPartner[3])+" - "+QString::number(MAX_ENERGY));
 	num1=beetle->LearnAbility-beetle->ExpectOnPartner[4];if (num1<0) num1=0;
 	num2=beetle->LearnAbility+beetle->ExpectOnPartner[5];if (num2>MAX_LEARN_ABILITY) num2=MAX_LEARN_ABILITY;
 	QLabel * expLearnAbilityLabel = new QLabel("\tLearning Ability: "+QString::number(num1)+" - "+QString::number(num2));

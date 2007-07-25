@@ -856,12 +856,88 @@ Focus of experiments can be manifold. As mentioned above, such simulators are us
 
 In this chapter .. experiments conducted with Abeetles will be introduced and described.
 
+\section{Experiment1 - Four Caves}
+
+Map of environment are four caves connected with narrow corridors. It contains 900 cells. Percentage of growth of flowers is 100\%.
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=1]{four_caves_map.eps}
+  \caption{Map of environment in Experiment1 - Four Caves.}
+  \label{img.four_caves_map}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.5]{four_caves_eff.eps}
+  \caption{Course of function Energy From Flower in Experiment1 - Four Caves. horizontal vertex = time: 0 .. 100th update, vertical vertex = energy: 0 - 20}
+  \label{img.four_caves_eff}
+\end{center}
+\end{figure}
+
+Initial number of beetles is 100, their features were chosen randomly with rule "step on flower". Costs of actions were set to 2 for a step, 2 for a turn, 3 for mating and 1 for waiting. 30,000 updates were made. Function of energy from flower is shown in figure \ref{img.four_caves_eff}. The EFF function restricts the age of beetle to approximately 100 years.
+
+
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_time.eps}
+  \caption{Run 1 Experiment1 - Four Caves.}
+  \label{img.four_caves_run1_time}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_2_time.eps}
+  \caption{Run 2 Experiment1 - Four Caves.}
+  \label{img.four_caves_run2_time}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_3_time.eps}
+  \caption{Run 3 Experiment1 - Four Caves.}
+  \label{img.four_caves_run3_time}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_4_time.eps}
+  \caption{Run 4 Experiment1 - Four Caves.}
+  \label{img.four_caves_run4_time}
+\end{center}
+\end{figure}
+
+The experiment contains four runs with seeds 300, 350, 400 and 450 for generator of pseudorandom numbers. Course of experiments are in figures \ref{img.four_caves_run1_time}, \ref{img.four_caves_run2_time}, \ref{img.four_caves_run3_time} and \ref{img.four_caves_run4_time}. Number of beetles, number of flowers and number on new born beetles is shown in figures. 
+
+
+%Development of number of beetles in time..extincion and inhabitation of a new cave
+Differences between courses show, that coincidence influences the course of matters to a great extent. The map of four caves causes that course of number of agents is not smooth. As a free cave is inhabited, the number of beetles jumps by about 50. Inhabitation means that the density of population in the cave is high enough to be independent on immigration from other caves. In other words there are enough beetles to meet, mate and thereby keep the population. On the other hand, if the population shinks under certain size, it becomes extinct in the cave. For example, in update 26,500 in run 1, \ref{img.four_caves_run1_time}, in top left hand corner beetles became extinct, while the other three caves are populated.  
 
 
  
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_hist0.eps}
+  \caption{Run 1 Experiment1 - Four Caves, histogram of features of beetles at the beginning.}
+  \label{img.four_caves_run1_hist0}
+\end{center}
+\end{figure}
 
-	
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_hist30000.eps}
+  \caption{Run 1 Experiment1 - Four Caves, histogram of features of beetles after 30,000th update.}
+  \label{img.four_caves_run1_hist30000}
+\end{center}
+\end{figure}
  
+ %Features of beetles.. initial and evolved.
+Initial features of beetles were random, histogram of run 1 at the beginning: \ref{img.four_caves_run1_hist0}. The Situation after 30,000 updates is in \ref{img.four_caves_run1_hist30000}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Resume of fullfiling of objectives and other known attitudes}

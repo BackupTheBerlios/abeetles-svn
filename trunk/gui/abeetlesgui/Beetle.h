@@ -27,7 +27,7 @@ public:
 	int ExpectOnPartner[6]; 
 	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
 	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much at least
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 	
 	int LearnAbility;

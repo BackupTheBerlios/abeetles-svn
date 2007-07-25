@@ -356,9 +356,23 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 	for (I=0;I<MAX_HIST;I++) InvInChilds[I]=0;
 	int	Energies[MAX_HIST];
 	for (I=0;I<MAX_HIST;I++) Energies[I]=0;
+	int NumsChildren[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) NumsChildren[I]=0;
+	int HungryThresholds[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) HungryThresholds[I]=0;
+	int AgeExpectations[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) AgeExpectations[I]=0;
+	int EnergyExpectations[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) EnergyExpectations[I]=0;
+	int InvInChildExpectations[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) InvInChildExpectations[I]=0;
+	int LearnAbilityExpectations[MAX_HIST];
+	for (I=0;I<MAX_HIST;I++) LearnAbilityExpectations[I]=0;
+
+
 
 	CBeetle * beetle=NULL;
-
+	int b1,b2,L;
 
 	for(I=0;I<grid->G_Width;I++)
 	for(J=0;J<grid->G_Height;J++)
@@ -375,6 +389,41 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 			InvInChilds[beetle->InvInChild]++;
 			assert(beetle->Energy<MAX_HIST);			
 			Energies[beetle->Energy]++;
+
+			if (beetle->NumChildren < MAX_HIST)
+				NumsChildren[beetle->NumChildren]++;
+
+			assert(beetle->HungryThreshold<MAX_HIST);			
+			HungryThresholds[beetle->HungryThreshold]++;
+			
+			//Age Expectations
+			b1=(beetle->Age - beetle->ExpectOnPartner[0]);
+			if (b1<0) b1=0;
+			b2=(beetle->Age + beetle->ExpectOnPartner[1]);
+			if (b2>=MAX_HIST) b2=MAX_HIST-1;
+			for (L=b1;L<=b2;L++)
+				AgeExpectations[L]++;
+
+			//Energy Expectations
+			b1=(beetle->ExpectOnPartner[2] + beetle->ExpectOnPartner[3]);
+			if (b1>MAX_ENERGY) b1=MAX_ENERGY;			
+			for (L=b1;L<=MAX_ENERGY;L++)
+				EnergyExpectations[L]++;
+
+			//InvInChild Expectations
+			b1=(beetle->ExpectOnPartner[3]);
+			if (b1>MAX_ENERGY) b1=MAX_ENERGY;			
+			for (L=b1;L<=MAX_ENERGY;L++)
+				InvInChildExpectations[L]++;
+
+			//LearnAbility Expectations
+			b1=(beetle->LearnAbility - beetle->ExpectOnPartner[4]);
+			if (b1<0) b1=0;
+			b2=(beetle->LearnAbility + beetle->ExpectOnPartner[5]);
+			if (b2>=MAX_LEARN_ABILITY) b2=MAX_LEARN_ABILITY-1;
+			for (L=b1;L<=b2;L++)
+				LearnAbilityExpectations[L]++;
+
 		}
 
 	}
@@ -385,10 +434,10 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 		return false;
 	}
 
-	fprintf(statFile,"Ages;LearnAbilities;InvInChilds;Energies\n");
+	fprintf(statFile,"Ages;LearnAbilities;InvInChilds;Energies;NumsChildren;HungryThresholds;AgeExpectations;EnergyExpectations;InvInChildExpectations;LearnAbilityExpectations\n");
 	for (I=0;I<MAX_HIST;I++)
 	{
-		fprintf(statFile,"%d;%d;%d;%d\n",Ages[I],LearnAbilities[I],InvInChilds[I],Energies[I]);
+		fprintf(statFile,"%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",Ages[I],LearnAbilities[I],InvInChilds[I],Energies[I],NumsChildren[I],HungryThresholds[I],AgeExpectations[I],EnergyExpectations[I],InvInChildExpectations[I],LearnAbilityExpectations[I]);
 	}
 	
 	fclose(statFile);

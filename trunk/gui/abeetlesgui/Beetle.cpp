@@ -141,7 +141,7 @@ int CBeetle::GetExpectOnPartnerMax(int which)
 {	
 	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
 	//	ExpectOnPartner - Energy = 1B how much more must at least have than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much at least
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
 	switch (which)
@@ -160,13 +160,13 @@ int CBeetle::GetExpectOnPartnerMax(int which)
 
 bool CBeetle::IsExpectOnPartnerSatisfied(CBeetle * beetle2)
 {
-	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//	ExpectOnPartner - Age [2] = 2B how much younger / older  can be the partner
 	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much should have at least
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
-	if (beetle2->Age < Age - ExpectOnPartner[0]) return false;
-	if (beetle2->Age > Age + ExpectOnPartner[1]) return false;
+	if (beetle2->Age < Age - ExpectOnPartner[1]) return false;
+	if (beetle2->Age > Age + ExpectOnPartner[0]) return false;
 	if (beetle2->Energy < ExpectOnPartner[3]+ExpectOnPartner[2])return false; 
 	if (beetle2->InvInChild< ExpectOnPartner[3])return false; 
 	if (beetle2->LearnAbility < LearnAbility - ExpectOnPartner[4]) return false;

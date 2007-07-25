@@ -52,7 +52,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	}
 	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	if (oneRun->BeetlesFN.isNull())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data());
+		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(), oneRun->IsStepOnFlower);
 	else
 	{
 		int res = true;	
@@ -329,7 +329,7 @@ bool CEnvironment::PrintEnv(void)
 * @throws name [descrip](Exceptions - meaning)
 */
 
-CBeetle * CEnvironment::CreateRandomBeetle()
+CBeetle * CEnvironment::CreateRandomBeetle(bool isStepOnFlower)
 {
 	int I,J,K,L;
 	//int a;
@@ -341,18 +341,23 @@ CBeetle * CEnvironment::CreateRandomBeetle()
 			for(K=0;K<BRAIN_D3;K++)
 				for(L=0;L<BRAIN_D4;L++)
 				{
-					//Special set for debugging:
+					if (isStepOnFlower) //if rule "Step On flower should be set for every beetle
+					{
 						if ((I==1)&&(K==(FLOWER-1))) brain[I][J][K][L]=A_STEP;
 						else
 							brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+					}
+					else //if brain of beetle should be totaly random
+						brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+
 				}
 	char direction = RandInBound(4);
-	int energy=10+RandInBound(MAX_ENERGY);
+	int energy=10+RandInBound(MAX_ENERGY-10);
 	
 	
-	//	ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
+	//	ExpectOnPartner - Age [2] = 2B how much younger/older  can be the partner
 	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much more than InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much at least
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
 	//for (M=0;M<EXPECT_ON_PARTNER_D;M++)
@@ -465,7 +470,7 @@ bool CEnvironment::SaveEnv(char * fname)
 	return res;
 }
 
-bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN)
+bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, bool isStepOnFlower)
 {
 	//Grid_Past.SetDefaultGridShape();
 	//Grid and Grid_Past now have old or default values.
@@ -484,15 +489,23 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN)
 	srand( seed);//(unsigned)time( NULL ) );
 	int I,J,K;
 	CBeetle * beetle;
-	for (K=0;K<(Grid_Past.G_Width*Grid_Past.G_Height)/4;K++)
+	int endCycle=0;
+	if (numBeetles==DEFAULT_NUM_BEETLES) endCycle=(Grid_Past.G_Width*Grid_Past.G_Height)/4;
+	//if number of beetles is set, I run cycle many times. cycle stops when number of really placedbeetles== numBeetles
+	else endCycle = MAX_INT; 
+	for (K=0;K<endCycle;K++)
 	{
 		I=RandInBound(Grid_Past.G_Width);
 		J=RandInBound(Grid_Past.G_Height);
 		if (Grid_Past.GetCellContent(I,J)==NOTHING)
 		{
-			beetle=CreateRandomBeetle();
+			beetle=CreateRandomBeetle(isStepOnFlower);
 			if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
+			{
 				Statist.NumBeetles++;
+				if ((numBeetles!=DEFAULT_NUM_BEETLES) && (Statist.NumBeetles>=numBeetles))
+					break;
+			}
 			assert(beetle->GetEnergy()>0);
 		}
 		//printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
@@ -534,7 +547,7 @@ bool CEnvironment::MakeFlowerDie(int x, int y)
 		&&(prob> RandInBound(100))) 
 	{
 		
-		if (true == Grid.SetCellContent(NOTHING,x,y))
+		if ((true == Grid.SetCellContent(NOTHING,x,y))&&(true==Grid_Past.SetCellContent(NOTHING,x,y)))
 		{
 			Statist.NumFlowers--;
 			return true;
