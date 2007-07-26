@@ -10,7 +10,7 @@ INPUT(
 ./release\Grid.o
 ./release\LabeledLCD.o
 ./release\main.o
-./release\mainwindow.o
+./release\CRunGui.o
 ./release\StatisticsEnv.o
 ./release\zoomslider.o
 ./release\moc_Legend.o
@@ -18,6 +18,6 @@ INPUT(
 ./release\moc_Environment.o
 ./release\moc_field.o
 ./release\moc_LabeledLCD.o
-./release\moc_mainwindow.o
+./release\moc_CRunGui.o
 ./release\moc_zoomslider.o
 );

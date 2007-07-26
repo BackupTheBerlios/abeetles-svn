@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  25 JUL 2007 18:16
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  26 JUL 2007 17:26
 entering extended mode
 **New.tex
 (New.tex
@@ -73,11 +73,7 @@ File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen107
 \Gin@req@width=\dimen108
-) (New.aux
-
-LaTeX Warning: Label `obr.graphicx' multiply defined.
-
-)
+) (New.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
 LaTeX Font Info:    ... okay on input line 58.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
@@ -133,7 +129,8 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 60.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 60.
- [1
+
+[1
 
 ] [1]
 Chapter 1.
@@ -220,23 +217,24 @@ Chapter 6.
 File: ComponentModel.eps Graphic file (type eps)
  <ComponentModel.eps> [27] [28] [29]
 Chapter 7.
+File: ClassDiagrAbeetlesAlife.eps Graphic file (type eps)
+<ClassDiagrAbeetlesAlife.eps> [30
 
-Underfull \hbox (badness 10000) in paragraph at lines 825--839
+]
+Underfull \hbox (badness 10000) in paragraph at lines 877--891
 
  []
 
-[30
-
-] [31]
+[31] [32]
 Chapter 8.
-[32
+[33
 
 ]
 Chapter 9.
 File: four_caves_map.eps Graphic file (type eps)
 <four_caves_map.eps>
 File: four_caves_eff.eps Graphic file (type eps)
- <four_caves_eff.eps> [33
+ <four_caves_eff.eps> [34
 
 ]
 File: Exp1_1_time.eps Graphic file (type eps)
@@ -252,43 +250,43 @@ File: Exp1_1_hist0.eps Graphic file (type eps)
  <Exp1_1_hist0.eps>
 File: Exp1_1_hist30000.eps Graphic file (type eps)
 
-<Exp1_1_hist30000.eps> [34] [35] [36] [37]
+<Exp1_1_hist30000.eps> [35] [36] [37] [38]
 Chapter 10.
-[38
-
-]
-Chapter 11.
 [39
 
 ]
-Chapter 12.
+Chapter 11.
 [40
 
 ]
-Chapter 13.
+Chapter 12.
 [41
+
+]
+Chapter 13.
+[42
 
 ]
 Missing character: There is no ­ in font cmr12!
 Missing character: There is no ­ in font cmr12!
- [42] [43]
-New.tex:1057: Missing $ inserted
+ [43] [44]
+New.tex:1109: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-New.tex:1058: Missing $ inserted
+New.tex:1110: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (151.00804pt too wide) in paragraph at lines 1056--1058
+Overfull \hbox (151.00804pt too wide) in paragraph at lines 1108--1110
 \OT1/cmr/m/n/12 A$[]\OML/cmm/m/it/12 OPULATEPostreh\OT1/cmr/m/n/12 2 : \OML/cmm
 /m/it/12 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/12 )\OML/cmm/m/it/12 Solution \OT1/cmr/m/n/12 :
  []
 
 
-Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1056--1058
+Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1108--1110
 \OML/cmm/m/it/12 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/12 "\OML/cmm/m/it/12 hardwired\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -297,46 +295,42 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 beetleinthe
 front\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 willbemadeaccordingtotheBraintable:$ 
  []
 
-[44]
+[45]
 Chapter 14.
 
-Overfull \hbox (1.65863pt too wide) in paragraph at lines 1071--1073
+Overfull \hbox (1.65863pt too wide) in paragraph at lines 1123--1125
 []$\OT1/cmtt/m/n/12 http : / / www . scs . carleton . ca / \[]soma / biosec / r
 eadings / spafford-[]viruses . pdf$ \OT1/cmr/m/n/12 -
  []
 
-[45
+[46
 
 ]
 Chapter 15.
-[46
+[47
 
-] [47
+] [48
 
 ]
-Underfull \hbox (badness 2269) in paragraph at lines 1127--1128
+Underfull \hbox (badness 2269) in paragraph at lines 1179--1180
 []\OT1/cmr/m/n/12 The book of the mi-to-zoos. ($\OT1/cmtt/m/n/12 http : / / bes
 tiario . org / mitozoos / english / pdf /
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 1130--1131
+Underfull \hbox (badness 2809) in paragraph at lines 1182--1183
 []\OT1/cmr/m/n/12 Tomas Holan, "Dif-fer-ent Pro-gram-ming", $\OT1/cmtt/m/n/12 h
 ttp : / / ksvi . mff . cuni . cz / []holan /
  []
 
-[48] (New.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+[49] (New.aux) ) 
 Here is how much of TeX's memory you used:
- 1139 strings out of 95389
- 13530 string characters out of 1186903
+ 1147 strings out of 95389
+ 13682 string characters out of 1186903
  68950 words of memory out of 1064812
- 4245 multiletter control sequences out of 60000
+ 4249 multiletter control sequences out of 60000
  10346 words of font info for 35 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
  25i,8n,19p,13479b,293s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (50 pages, 115104 bytes).
+Output written on New.dvi (51 pages, 118800 bytes).

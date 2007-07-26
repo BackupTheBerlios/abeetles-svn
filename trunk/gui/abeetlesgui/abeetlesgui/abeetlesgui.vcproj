@@ -168,7 +168,63 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\Beetle.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\BeetleDialog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\CfgManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\COneRun.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\CRunGui.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Environment.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\field.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Grid.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\LabeledLCD.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Legend.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\RunLife.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\RunScript.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\StatisticsEnv.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\zoomslider.cpp"
 				>
 			</File>
 		</Filter>
@@ -194,6 +250,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\CRunGui.h"
+				>
+			</File>
+			<File
 				RelativePath="..\defines.h"
 				>
 			</File>
@@ -211,10 +271,6 @@
 			</File>
 			<File
 				RelativePath="..\Legend.h"
-				>
-			</File>
-			<File
-				RelativePath="..\mainwindow.h"
 				>
 			</File>
 			<File
@@ -243,62 +299,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath="..\Beetle.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\CfgManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\COneRun.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Environment.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\field.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Grid.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\LabeledLCD.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\Legend.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\mainwindow.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\RunLife.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\RunScript.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\StatisticsEnv.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\zoomslider.cpp"
-				>
-			</File>
 		</Filter>
 		<File
 			RelativePath="..\cpp_rules.txt"

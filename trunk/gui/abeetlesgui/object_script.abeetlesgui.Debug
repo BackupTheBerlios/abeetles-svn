@@ -10,7 +10,7 @@ INPUT(
 ./debug\Grid.o
 ./debug\LabeledLCD.o
 ./debug\main.o
-./debug\mainwindow.o
+./debug\CRunGui.o
 ./debug\StatisticsEnv.o
 ./debug\zoomslider.o
 ./debug\moc_Legend.o
@@ -18,6 +18,6 @@ INPUT(
 ./debug\moc_Environment.o
 ./debug\moc_field.o
 ./debug\moc_LabeledLCD.o
-./debug\moc_mainwindow.o
+./debug\moc_CRunGui.o
 ./debug\moc_zoomslider.o
 );

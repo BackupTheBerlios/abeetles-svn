@@ -22,7 +22,7 @@ HEADERS += RunScript.h\
            field.h \
            Grid.h \
            LabeledLCD.h \
-           mainwindow.h \
+           CRunGui.h \
            StatisticsEnv.h \
            stdafx.h \
            zoomslider.h
@@ -37,6 +37,6 @@ SOURCES += RunScript.cpp\
            Grid.cpp \
            LabeledLCD.cpp \
            main.cpp \
-           mainwindow.cpp \
+           CRunGui.cpp \
            StatisticsEnv.cpp \
            zoomslider.cpp

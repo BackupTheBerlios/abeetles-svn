@@ -36,7 +36,7 @@ public:
 	static int LastId;
 
 	int AddEnergy(int HowMuch);
-	int GetAction(bool bHunger, char Left, char Front, char Right);	
+	//int GetAction(bool bHunger, char Left, char Front, char Right);	
 	bool IsHungry(void);	
 	int GetEnergy(void);
 	char GetDirection(void);
@@ -57,4 +57,6 @@ public:
 	void LearnFrom(CBeetle* beetle2);
 	
 	static int CreateNewId(void);
+	static CBeetle * CreateRandomBeetle(bool isStepOnFlower);
+
 };

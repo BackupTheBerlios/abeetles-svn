@@ -746,7 +746,7 @@ Speed was the leading criterion when the question of programming language was co
 
 Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt.
 
-Other possibilities were Win32API and MFC. The first is not class based and difficult to use. MFC is a class based library, it is distributed freely with MS  Visual Studio, but the level of abstraction is lower then in Qt.
+Other possibilities were Win32API and MFC. The first is not class based and difficult to use. MFC is a class based library, it is distributed freely with MS  Visual Studio, but the level of abstraction is lower then in Qt and future support of this library by Microsoft is not sure.
 
 
 \section{Data model of Abeetles}
@@ -762,6 +762,8 @@ A beetle has following evolvable features:
 \item Learning Ability - The beetle expects certain level of learning ability from its partner.
 \end {itemize}
 
+Evolvable features are concatenated into a chromosome. When two beetles mate, on their chromosomes is applied genetic algorithm with one-point crossover technique. The other considered alternatives were two-point crossover algorithm, which would be interesting to add to Abeetles and explore differences in results, and cut and splice algorithm, which is not suitable for case of Abeetles because generated chromosomes have different size. 
+
 Non evolvable features of beetles are current direction in environment, east, north, west or south and amount of energy.
 
 The Environment of Abeetles is a grid in shape of toroid. Every cell of the grid either contains a beetle, a flower, or a wall or it is empty.
@@ -775,21 +777,24 @@ Environment updates in turns. Therefore both last situation and current situatio
 \section {Components}
 %Layout of functionality into classes CEnvironment, CRunScript, MainWindow, CGrid, CStatistics and CBeetle + alternatives.
 
-Functionality of Abeetles is divided into following components: Environment, Run of Script, Run of Gui, Statistics and Configuration Manager. Configuration Manager encapsulates functions for saving and loading of an environment. In figure ... these components are represented by their key classes.
+
 
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.8]{ComponentModel.eps} %
   \caption{Model of main classes of Abeetles}
-  \label{obr.graphicx}
+  \label{img.ComponentModel}
 \end{center}
 \end{figure}
 
+Functionality of Abeetles is divided into following components: Environment, Run of Script, Run of Gui, Statistics and Configuration Manager. Configuration Manager encapsulates functions for saving and loading of an environment. In \ref {img.ComponentModel} these components are represented by their key classes.
+
 \section {User interface}
 \subsection {Graphical user interface}
-The idea of graphical user interface of Abeetles was inspired by interface of Broucci, see Figure \ref{img.Broucci} on page \pageref{img.Broucci}. In Abeetles agents are also represented by arrows showing their direction. %figure
+The idea of graphical user interface of Abeetles was inspired by interface of Broucci, see Figure \ref{img.Broucci} on page \pageref{img.Broucci}, in visualization of beetles. In Abeetles agents are also represented by arrows showing their direction. %figure
 
-Layout of window of GUI of Abeetles has much in common with qt-view of Abeetles,  see Figure \ref{img.Avida} on page \pageref{img.Avida} . The reason is the similarity of grid base of the environment and intention to serve as a scientific tool. 
+Layout of window of GUI of Abeetles resembles the qt-view of Avida,  see Figure \ref{img.Avida} on page \pageref{img.Avida} . The reason is the similarity of grid base of the environment and intention to serve as a scientific tool.
+ 
 \subsection {Statistics}
 
 Every artifical life simulator that endeavors after more that being just a game includes some kind of statistics. 
@@ -819,6 +824,53 @@ The alternative of usage of command line parameters instead of an Abeetles speci
 \chapter{Detailed design of chosen solution}
 % Detailni rozpracování modelu reseni - tj. datove struktury k implementaci
 
+\section{Data Model of Abeetles Alife}
+%1st - Data model of Alife in Abeetles - UML Class diagram of attributes and methods of Environment, Grid and Beetles
+
+Detailed design of life of Abeetles compounds three classes. CEnvironment, CGrid and CBeetle. UML Class diagram of all three classes and their relationships is in \ref{img.ClassDiagrAbeetlesAlife}. 
+
+Class CGrid represents the grid of the environment. It stores its size and contents. The most important operations are GetFlowerGrowingProbability and GetCellContent, which returns what is placed in certain cell and in case it is a beetle, it returns reference to it. This class is designed to encapsulate prospective paralelization.
+
+Class CBeetle represents a beetle with all respective features. The most interesting process connected with this class in mating of two beetles. First, demands of both beetles are checked by function IsExpOnPartnerSatisfied(). When beetles find themselves attracted in the other one, CreateChild() operation is called.  This method first applies Crossover1Point(),contains the genetic crossover algorithm, and generates two chromosomes. One of them is randomly chosen for the new-born descendant. The descendant then undergoes random changes in operation Mutation(). The new beetle is then placed in one of four cells that are neighboring for both parents. If none of them is empty, the beetle is immediately discarded. Afterwards it start to live its own life.
+
+Another important process in the environment is the run of life in the environment. Instance of class CEnvironment is called $env$. Its attributes Grid and Grid\_Past are of type CGrid. Grid\_Past represents the grid in previous update. Using following code the new env.Grid, representing the grid of the new update is created.
+
+
+
+\begin{verbatim}
+for(I=0;I<env.Grid\_Past.G\_Width;I++)
+  for(J=0;J<env.Grid\_Past.G\_Height;J++)	
+  {
+    if (env.Grid\_Past.GetCellContent(I,J)==BEETLE) 
+      env.MakeBeetleAction(I,J);	
+    else if (env.Grid\_Past.GetCellContent(I,J)==NOTHING) 
+            env.MakeFlowerGrow(I,J);
+         else if (env.Grid\_Past.GetCellContent(I,J)==FLOWER) 
+                env.MakeFlowerDie(I,J);	
+  }
+\end{verbatim}			
+  
+			
+Lorem ipsum dolor sit amet consectetuer mauris vitae urna malesuada condimentum. Accumsan sociis nec tristique ullamcorper facilisi.
+ 
+ 
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{ClassDiagrAbeetlesAlife.eps}
+  \caption{Class diagram of Alife in Abeetles}
+  \label{img.ClassDiagrAbeetlesAlife}
+\end{center}
+\end{figure}
+
+
+%2nd - Components of Abeetles - Class diagram of CRunScript(+COneRun), MainWindow(+CBeetleDlg,CNewEnvDlg), CStatistEnv, CEnvironment, CfgManager  ajejich detailnejsi pomocne tridy
+
+%3rd - Detailed GUI - picture and some description -  why and what
+
+%4th - Statistics - detailed list of types, what is included and how to use it.
+
+%5th - Script - What does it contain and how to write it.
 
 \section{Description of the model of a beetle}
 %This is 
@@ -940,7 +992,7 @@ Differences between courses show, that coincidence influences the course of matt
 Initial features of beetles were random, histogram of run 1 at the beginning: \ref{img.four_caves_run1_hist0}. The Situation after 30,000 updates is in \ref{img.four_caves_run1_hist30000}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Resume of fullfiling of objectives and other known attitudes}
+\chapter{Resume of fulfilling of objectives and other known attitudes}
 %******************Comparison of result with brother programs from 3rd chapter
 %9.         Zhodnocení splnìní cílù a srovnání s jinými známými pøístupy
 

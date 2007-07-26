@@ -25,7 +25,7 @@
 #include <QMessageBox>
 //#include <QStringList>
 
-#include "mainwindow.h"
+#include "CRunGui.h"
 #include "CfgManager.h"
 #include "RunScript.h"
 #include "COneRun.h"
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 
 	}
 	
-	MainWindow window;
+	CRunGui window;
 	window.show();
 	
     return app.exec();

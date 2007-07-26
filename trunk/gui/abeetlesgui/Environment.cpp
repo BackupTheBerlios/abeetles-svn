@@ -318,92 +318,7 @@ bool CEnvironment::PrintEnv(void)
 	
 	return true;
 }
-/**
-* Public method:
-* Desc: Creates a random beetle and places it on given coords
-* System dependence:
-* Usage comments:
-* Remarks: method sums up all restriction for beetles' genes, that exclude all genotype that are "non sense"
-* @return (Return values - meaning) :
-* @param name [ descrip](Parameters - meaning):
-* @throws name [descrip](Exceptions - meaning)
-*/
 
-CBeetle * CEnvironment::CreateRandomBeetle(bool isStepOnFlower)
-{
-	int I,J,K,L;
-	//int a;
-	char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];
-	int expectOnPartner [EXPECT_ON_PARTNER_D];
-	//children oriented Beetle
-	for (I=0;I<BRAIN_D1;I++)
-		for(J=0;J<BRAIN_D2;J++)
-			for(K=0;K<BRAIN_D3;K++)
-				for(L=0;L<BRAIN_D4;L++)
-				{
-					if (isStepOnFlower) //if rule "Step On flower should be set for every beetle
-					{
-						if ((I==1)&&(K==(FLOWER-1))) brain[I][J][K][L]=A_STEP;
-						else
-							brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
-					}
-					else //if brain of beetle should be totaly random
-						brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
-
-				}
-	char direction = RandInBound(4);
-	int energy=10+RandInBound(MAX_ENERGY-10);
-	
-	
-	//	ExpectOnPartner - Age [2] = 2B how much younger/older  can be the partner
-	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-	//	ExpectOnPartner - InvInChild = 1B how much at least
-	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
-
-	//for (M=0;M<EXPECT_ON_PARTNER_D;M++)
-	expectOnPartner [0]= CBeetle::GetExpectOnPartnerMax(0); 
-	expectOnPartner [1]= CBeetle::GetExpectOnPartnerMax(1); 
-	expectOnPartner [2]= 6; 
-	expectOnPartner [3]= 10; 
-	expectOnPartner [4]=30;
-	expectOnPartner [5]=30;
-				 		
-	
-	int hungryThreshold = 1+RandInBound(MAX_ENERGY);
-	int invInChild = 1+RandInBound(MAX_ENERGY);
-	int learnAbility= 1+RandInBound(MAX_LEARN_ABILITY);
-
-	//general Beetle
-	/*
-	for (I=0;I<BRAIN_D1;I++)
-		for(J=0;J<BRAIN_D2;J++)
-			for(K=0;K<BRAIN_D3;K++)
-				for(L=0;L<BRAIN_D4;L++)
-					//beetle tries to copulate only if there is a beetle in front of them
-					if (K==(BEETLE-1))brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
-					else brain [I][J][K][L]=RandInBound(NUM_ACTIONS-1); //A_COPULATE is the last action
-	char direction = RandInBound(4);
-	int energy=1+RandInBound(MAX_ENERGY);
-	
-	for (M=0;M<EXPECT_ON_PARTNER_D1;M++)
-	{			 
-		a=RandInBound(CBeetle::GetExpectOnPartnerMax(M));		
-		expectOnPartner [M]= a;
-	}
-	int hungryThreshold = RandInBound(MAX_ENERGY);
-	int invInChild = RandInBound(MAX_ENERGY);
-	int learnAbility= RandInBound(MAX_LEARN_ABILITY);
-	*/
-	CBeetle * beetle;
-	beetle = new CBeetle(CBeetle::CreateNewId(),0,brain,direction,energy,expectOnPartner,hungryThreshold,invInChild,learnAbility,0);
-	/* Removed to CountStatistics()
-	Statist.SumHungryThreshold+=hungryThreshold;
-	Statist.SumInvInChild+=invInChild;
-	Statist.SumLearnAbility+=learnAbility;*/
-
-
-	return beetle;
-}
 
 /**
 * Public method <br>
@@ -499,7 +414,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 		J=RandInBound(Grid_Past.G_Height);
 		if (Grid_Past.GetCellContent(I,J)==NOTHING)
 		{
-			beetle=CreateRandomBeetle(isStepOnFlower);
+			beetle=CBeetle::CreateRandomBeetle(isStepOnFlower);
 			if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
 			{
 				Statist.NumBeetles++;
@@ -690,7 +605,7 @@ void CEnvironment::CountStatistics(void)
 			}
 
 }
-
+/*
 bool CEnvironment::CreateDefaultEnv(void)
 {
 	Time=0;
@@ -704,7 +619,7 @@ bool CEnvironment::CreateDefaultEnv(void)
 		exit (EXIT_FAILURE);
 	}
 	return true;
-}
+}*/
 
 char * CEnvironment::getMapFileName(char *fname)
 {
