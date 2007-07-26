@@ -831,29 +831,31 @@ Detailed design of life of Abeetles compounds three classes. CEnvironment, CGrid
 
 Class CGrid represents the grid of the environment. It stores its size and contents. The most important operations are GetFlowerGrowingProbability and GetCellContent, which returns what is placed in certain cell and in case it is a beetle, it returns reference to it. This class is designed to encapsulate prospective paralelization.
 
-Class CBeetle represents a beetle with all respective features. The most interesting process connected with this class in mating of two beetles. First, demands of both beetles are checked by function IsExpOnPartnerSatisfied(). When beetles find themselves attracted in the other one, CreateChild() operation is called.  This method first applies Crossover1Point(),contains the genetic crossover algorithm, and generates two chromosomes. One of them is randomly chosen for the new-born descendant. The descendant then undergoes random changes in operation Mutation(). The new beetle is then placed in one of four cells that are neighboring for both parents. If none of them is empty, the beetle is immediately discarded. Afterwards it start to live its own life.
+%Beetle's action
+Class CBeetle represents a beetle with all respective features. Beetles make one action in every turn. It can be a step, a rotation or a mating. An attempt to mate happens every time, when a beetle sees another beetle in front of him. If the attemp is not successful, the beetle chooses another action according to his Brain. In the Brain only rotations and steps are included.
 
-Another important process in the environment is the run of life in the environment. Instance of class CEnvironment is called $env$. Its attributes Grid and Grid\_Past are of type CGrid. Grid\_Past represents the grid in previous update. Using following code the new env.Grid, representing the grid of the new update is created.
+The possibility to place mating among other actions in the brain was tried for Abeetles, but it made it impossible for randomly created beetles to evolve, because only a small number of them received randomly the decision to mate in the suitable situation. And the number was not enought to keep the density of population in next generation above the border of extinction.
 
+%Mating
+The most interesting process connected with this class in mating of two beetles. First, demands of both beetles are checked by function IsExpOnPartnerSatisfied(). When beetles find themselves attracted in the other one, CreateChild() operation is called.  This method first applies Crossover1Point(),contains the genetic crossover algorithm, and generates two chromosomes. One of them is randomly chosen for the new-born descendant. The descendant then undergoes random changes in operation Mutation(). The new beetle is then placed in one of four cells that are neighboring for both parents. If none of them is empty, the beetle is immediately discarded. Afterwards it starts to live its own life.
 
+%Run of life
+Another important process in the environment is the run of life in the environment. Instance of class CEnvironment is called $env$. Its attributes Grid and Grid\_Past are of type CGrid. Grid\_Past represents the grid in previous update. Using the following code the new env.Grid, representing the grid of the new update is created.
 
 \begin{verbatim}
-for(I=0;I<env.Grid\_Past.G\_Width;I++)
-  for(J=0;J<env.Grid\_Past.G\_Height;J++)	
+for(I=0;I<env.Grid_Past.G_Width;I++)
+  for(J=0;J<env.Grid_Past.G_Height;J++)	
   {
-    if (env.Grid\_Past.GetCellContent(I,J)==BEETLE) 
+    if (env.Grid_Past.GetCellContent(I,J)==BEETLE) 
       env.MakeBeetleAction(I,J);	
-    else if (env.Grid\_Past.GetCellContent(I,J)==NOTHING) 
+    else if (env.Grid_Past.GetCellContent(I,J)==NOTHING) 
             env.MakeFlowerGrow(I,J);
-         else if (env.Grid\_Past.GetCellContent(I,J)==FLOWER) 
+         else if (env.Grid_Past.GetCellContent(I,J)==FLOWER) 
                 env.MakeFlowerDie(I,J);	
   }
-\end{verbatim}			
-  
-			
-Lorem ipsum dolor sit amet consectetuer mauris vitae urna malesuada condimentum. Accumsan sociis nec tristique ullamcorper facilisi.
- 
- 
+\end{verbatim}		
+
+The border between two updates is method NextTime() of class CEnvironment. It copied Grid to Grid_Past and counts statistics of the previous turn.
 
 \begin{figure}
 \begin{center}
@@ -864,7 +866,9 @@ Lorem ipsum dolor sit amet consectetuer mauris vitae urna malesuada condimentum.
 \end{figure}
 
 
-%2nd - Components of Abeetles - Class diagram of CRunScript(+COneRun), MainWindow(+CBeetleDlg,CNewEnvDlg), CStatistEnv, CEnvironment, CfgManager  ajejich detailnejsi pomocne tridy
+\section{Design of other components of Abeetles}
+%2nd - Components of Abeetles - Class diagram of CRunScript(+COneRun), MainWindow(+CBeetleDlg,CNewEnvDlg), CStatistEnv, CEnvironment, CfgManager  a jejich detailnejsi pomocne tridy
+Components of the system Abeetles and their relationships are in \ref{img.ComponentModel}. The classCfgManager encapsulates only input and output methods, it has no attributes. It should be available to all other classes any time. Therefore this class exists in the system only in one instance as a global variable. Class CEnvironment is instantiated by CRunScript as well as by CRunGui. In both it exists in only one piece at a time. Object of class CStatisticsEnv collects information about the run of an environment. So it is designed to be an attribute of CEnvironment, it is constructed and destructed together with it.
 
 %3rd - Detailed GUI - picture and some description -  why and what
 
@@ -872,6 +876,9 @@ Lorem ipsum dolor sit amet consectetuer mauris vitae urna malesuada condimentum.
 
 %5th - Script - What does it contain and how to write it.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Description of prototype implementation}
+%Detailed description of both prototypes - GUI version and console application  - from technical point of view.
 \section{Description of the model of a beetle}
 %This is 
  Representation of an agent(beetle) in Abeetles from genetical point of view:
@@ -888,17 +895,6 @@ ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter
 InvInChild = 1B
 HungryThreshold = 1B
 LearningAbility = 1B
-
-\subsection{Description of the model of the environment}
-
-\subsubsection{Moving strategy}
-The predecessor of Abeetles, Broucci, evolved
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Description of prototype implementation}
-%Detailed description of both prototypes - GUI version and console application  - from technical point of view.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Experiments}
 

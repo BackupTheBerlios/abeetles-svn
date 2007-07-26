@@ -4,7 +4,9 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model ID="{4506E772-25EC-401D-ABBE-FFB46B91C16C}" Name="ObjectOrientedModel_1" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="../Abeetles/gui/ObjectOrientedModel_1.oom"/>
+		<Model ID="{4506E772-25EC-401D-ABBE-FFB46B91C16C}" Name="ClassDiagrAbeetlesAlife" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="ClassDiagrAbeetlesAlife.oom"/>
+		<Model Expanded="Yes" ID="{905E5976-C185-4FDE-8F1F-EFA799C52312}" Name="ClassDiagrComponentsAbeetles" Selected="Yes" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="ClassDiagrComponentsAbeetles.oom"/>
+		<Model ID="{AC60EA73-0158-4EF9-B66B-775D62F3D504}" Name="ConceptualModelAlife" Type="{18112060-1A4B-11D1-83D9-444553540000}" URL="Conceptual model of alife in Abeetles.oom"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
