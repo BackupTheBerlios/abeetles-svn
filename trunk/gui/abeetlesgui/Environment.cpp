@@ -16,6 +16,9 @@ CEnvironment::CEnvironment(void)
 	Time=0; 
 	IsEmpty=true;
 	StepCost=A_STEP_COSTS;RotCost=A_ROTATION_COSTS;CopulCost=A_COPULATION_COSTS;WaitCost=A_WAIT_COSTS;
+	LearningOn=true;
+	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+
 	
 
 	//load function of Age and EnergyFromFlower from bmp file		
@@ -40,6 +43,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	CopulCost=oneRun->CopulCost;
 	WaitCost=oneRun->WaitCost;
 	LearningOn=oneRun->LearningOn;
+	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -441,7 +445,10 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 //tries agains probability to plant a flower on the x,y.
 bool CEnvironment::MakeFlowerGrow(int x, int y)
 {
-	int prob = Grid_Past.GetCellGrowingProbability(x,y);
+	if (FlowerGrowingRatio==FLOWERGROWINGRATIO_BOTTOM) return false; //no flower can grow regardless of the percentage in the map
+	int prob;
+	if (FlowerGrowingRatio==FLOWERGROWINGRATIO_TOP) prob=100; //allways a flower grows
+	else prob = (int)(CfgMng.FlowerGrowingRatioTable[FlowerGrowingRatio]*(Grid_Past.GetCellGrowingProbability(x,y)));
 	if ((Grid.GetCellContent(x,y) == NOTHING) //a beetle might have made a step into this cell
 		&&(prob> RandInBound(100))) 
 	{

@@ -64,6 +64,7 @@ private slots:
 
 	void DisplayChanged(int value);//Qt values: Qt::checked, Qt::unchecked
 	void LearningChanged(int value);
+	void FlowerGrowingRatioInEnvChanged(int value);
 	
     void saveAggrStats();
     void saveTimeStats();

@@ -15,6 +15,8 @@ class CfgManager
 public:
 	CfgManager(void);
 	~CfgManager(void);
+	
+	float FlowerGrowingRatioTable[9];
 
 	bool SaveBeetles(CGrid * grid,char * filename);
 	bool SaveBeetles(CGrid * grid,QString filename);

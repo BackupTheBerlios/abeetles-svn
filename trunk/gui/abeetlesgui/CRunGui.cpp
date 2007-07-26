@@ -91,6 +91,21 @@ CRunGui::CRunGui():Env()
 	ZoomSlid->setDisabled(true);
 	connect(ZoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
 
+	//Growing Flowers Ratio Slider
+	QSlider * GFSlider = new QSlider(Qt::Horizontal);
+	GFSlider->setRange(0, FLOWERGROWINGRATIO_NUM-1);
+	GFSlider->setValue(FLOWERGROWINGRATIO_INIT);
+	GFSlider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
+	connect(GFSlider,SIGNAL(valueChanged(int)),this,SLOT(FlowerGrowingRatioInEnvChanged(int)));
+
+	QLabel * GFLabel=new QLabel("Ratio of growth of flowers: ");
+	GFLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed); 
+
+	QVBoxLayout * GFLayout= new QVBoxLayout();
+	GFLayout->addWidget(GFLabel);
+	GFLayout->addWidget(GFSlider);
+
+
 	//connect(this,SIGNAL(envIsEmpty(bool)),ZoomSlid,SLOT(setDisabled(bool)));
 	
 	//CheckBox for display
@@ -154,6 +169,7 @@ CRunGui::CRunGui():Env()
 	 rightLayout->addWidget(NumStepsSpin);
 	 rightLayout->addWidget(MakeNStepsBut);
 	 rightLayout->addStretch(1);
+	 rightLayout->addLayout(checksLayout,Qt::AlignHCenter);
 	 rightLayout->addWidget(legend);
 
 
@@ -179,7 +195,7 @@ CRunGui::CRunGui():Env()
 	gridLayout->addWidget(scrollArea,0,0,1,2);
 	gridLayout->addLayout(typeViewLayout,1,2);
 	gridLayout->addWidget(ZoomSlid,1,0);
-	gridLayout->addLayout(checksLayout,1,1,Qt::AlignHCenter);//DisplayCheck,1,1,Qt::AlignHCenter);
+	gridLayout->addLayout(GFLayout,1,1);//DisplayCheck,1,1,Qt::AlignHCenter);
 	gridLayout->addLayout(rightLayout,0,2);
 	gridLayout->addLayout(bottomLayout,2,0,1,3);
 	//gridLayout->addLayout(
@@ -567,5 +583,11 @@ void CRunGui::LearningChanged(int value)//Qt values: Qt::Checked, Qt::Unchecked
 	{
 		Env.LearningOn = true;
 	}
+}
+
+void CRunGui::FlowerGrowingRatioInEnvChanged(int value)
+{
+	Env.FlowerGrowingRatio=value;
+	//QMessageBox::information(this,"",QString::number(value));
 }
 

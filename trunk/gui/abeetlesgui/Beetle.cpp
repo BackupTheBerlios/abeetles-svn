@@ -464,3 +464,4 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
 
 	return beetle;
 }
+

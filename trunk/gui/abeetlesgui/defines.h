@@ -128,5 +128,10 @@
 
 #define EMPTY_FIELD_SIZE 0 //should be same or smaller than DEFAULT_GRID_WIDTH!!
 #define INIT_ZOOM 0
+#define FLOWERGROWINGRATIO_INIT 4
+#define FLOWERGROWINGRATIO_BOTTOM 0 //index of the bottom value
+#define FLOWERGROWINGRATIO_TOP 8 //index of the top value
+#define FLOWERGROWINGRATIO_NUM 9
+
 
 
