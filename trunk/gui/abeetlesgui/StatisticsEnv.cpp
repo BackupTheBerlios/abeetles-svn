@@ -16,6 +16,16 @@
 
 CStatisticsEnv::CStatisticsEnv(void)
 {
+	TotalCleanup();
+	
+}
+
+CStatisticsEnv::~CStatisticsEnv(void)
+{
+}
+
+void CStatisticsEnv::TotalCleanup(void)
+{
 	MakeEmpty();
 	startBuf=0;
 	LastNumBirths=0;
@@ -24,10 +34,6 @@ CStatisticsEnv::CStatisticsEnv(void)
 	QString stdTstFN(STAT_TIME_FILE);
 	QFile::remove(stdTstFN);
 	
-}
-
-CStatisticsEnv::~CStatisticsEnv(void)
-{
 }
 /**
 * Public method <br>

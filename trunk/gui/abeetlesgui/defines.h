@@ -18,6 +18,8 @@
 #define EFF_BMP_Y 20
 #define EFF_BMP_FILE "EnergyFromFlower.bmp"
 
+#define DEFAULT_BEETLES_FILE "Beetles.txt"
+
 #define MAXTIME 200000 
 
 #define PROB_FLOWER_DIE 20 //probability of dying of a flower
@@ -88,7 +90,7 @@
 
 #define MAP_BMP_FILE "env_cfg.bmp"
 #define DEFAULT_FILE_NAME "default"
-#define DEFAULT_NUM_BEETLES 150
+#define DEFAULT_NUM_BEETLES -1
 
 //colors of the map of the environment
 #define CFG_CLR_FLOWER_BOTTOM   0	//= NOTHING

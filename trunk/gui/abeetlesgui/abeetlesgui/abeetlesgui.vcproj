@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\NewEnvDialog.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\RunLife.cpp"
 				>
 			</File>
@@ -271,6 +275,10 @@
 			</File>
 			<File
 				RelativePath="..\Legend.h"
+				>
+			</File>
+			<File
+				RelativePath="..\NewEnvDialog.h"
 				>
 			</File>
 			<File

@@ -42,7 +42,8 @@ public:
 	bool MakeFlowerGrow(int x, int y);
 	bool MakeFlowerDie(int x, int y);
 	void CountStatistics(void);
-	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0,bool isStepOnFlower=true);
+	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0, char * effFN=0, bool isStepOnFlower=true);
+	void SetEnv(COneRun * oneRun);
 
 
 

@@ -199,10 +199,13 @@ bool CField::loadBeetleImages()
 					fname+=QString::number(z);
 					fname+="_";
 					fname+=QString::number(d);
-					fname+=".gif";
+					fname+=".bmp";
 					QDir::setCurrent ("imgs");
+					
 					if (false==ImgBeetle[z][d].load(fname)) return false;
 					//if (0== (img= new QImage(fname))) return false;
+					ImgBeetle[z][d] = ImgBeetle[z][d].convertToFormat(QImage::Format_RGB32);
+					//fprintf(stdout,QString::number(ImgBeetle[z][d].format()).toAscii().data());
 					QDir::setCurrent ("..");
 					//ImgBeetle[z][d]=img;
 			}

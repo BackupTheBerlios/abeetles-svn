@@ -47,18 +47,46 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
-	//load function of Age and EnergyFromFlower from bmp file		
-	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, oneRun->EffFN.toAscii())).isNull())
-	{
-		QErrorMessage errDlg;
-		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful. Application will terminate."));
-		exit (EXIT_FAILURE);
-	}
-	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
-	if (oneRun->BeetlesFN.isNull())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(), oneRun->IsStepOnFlower);
+		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+	if (oneRun->BeetlesFN.isEmpty())
+		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower);
 	else
 	{
+		int res = true;	
+		QString err;
+		//1st part - init environment: Loads map of environment
+		if (false==CfgMng.LoadMapFromBmp(&Grid_Past,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
+		//2nd - load beetles and add them to half finished environment
+		if (false==CfgMng.LoadBeetles(&Grid_Past,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
+		Grid=Grid_Past;
+		CountStatistics();
+		IsEmpty=false;
+
+	}
+
+	//QMessageBox::information(NULL,"MyApp","Filled Randomly"); //ch1
+}
+void CEnvironment::SetEnv(COneRun * oneRun)
+{
+	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
+
+	Time=0; 
+	IsEmpty=false;
+	StepCost=oneRun->StepCost;
+	RotCost=oneRun->RotCost;
+	CopulCost=oneRun->CopulCost;
+	WaitCost=oneRun->WaitCost;
+	LearningOn=oneRun->LearningOn;
+	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+
+	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
+	
+		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
+	if (oneRun->BeetlesFN.isEmpty())
+		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower);
+	else
+	{
+		//fprintf(stdout,"Beetles from file");
 		int res = true;	
 		QString err;
 		//1st part - init environment: Loads map of environment
@@ -389,7 +417,7 @@ bool CEnvironment::SaveEnv(char * fname)
 	return res;
 }
 
-bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, bool isStepOnFlower)
+bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, char * effFN, bool isStepOnFlower)
 {
 	//Grid_Past.SetDefaultGridShape();
 	//Grid and Grid_Past now have old or default values.
@@ -398,9 +426,19 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	if (mapFN==0) mapFN=MAP_BMP_FILE;
 	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,mapFN))
 	{
-		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(MAP_BMP_FILE)+" was not successful. Check, whether it is present in current directory.");
+		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(mapFN)+" was not successful. Check, whether it is present in current directory.");
 		return false;
 	}
+
+	//load function of Age and EnergyFromFlower from bmp file
+	if (effFN==0) effFN=EFF_BMP_FILE;
+	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, effFN)).isNull())
+	{
+		QErrorMessage errDlg;
+		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+QString::fromAscii(effFN)+QString::fromAscii(" was not successful. Application will terminate."));
+		return false;
+	}
+
 	
 	//1QMessageBox::information(NULL,"MyApp","Map is loaded"); //ch1
 
@@ -412,6 +450,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	if (numBeetles==DEFAULT_NUM_BEETLES) endCycle=(Grid_Past.G_Width*Grid_Past.G_Height)/4;
 	//if number of beetles is set, I run cycle many times. cycle stops when number of really placedbeetles== numBeetles
 	else endCycle = MAX_INT; 
+	fprintf(stdout,QString::number(endCycle).toAscii().data());
 	for (K=0;K<endCycle;K++)
 	{
 		I=RandInBound(Grid_Past.G_Width);
@@ -663,5 +702,6 @@ bool CEnvironment::CleanEnv()
 	Grid_Past=Grid;
 	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
+	Statist.TotalCleanup();
 }
 

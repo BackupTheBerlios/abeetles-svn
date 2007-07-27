@@ -53,6 +53,7 @@ public:
 	void NextTime(int Time);
 	
 	void MakeEmpty(void);
+	void TotalCleanup(void);
 	double GetAvgAge(void);
 	double GetAvgEnergy(void);
 	double GetAvgHungryThreshold(void);

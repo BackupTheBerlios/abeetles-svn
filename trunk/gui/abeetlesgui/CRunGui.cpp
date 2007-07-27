@@ -32,6 +32,8 @@
 #include "StatisticsEnv.h"
 #include "BeetleDialog.h"
 #include "Legend.h"
+#include "NewEnvDialog.h"
+#include "COneRun.h"
 #include <QTimer>
 #include <QString>
 
@@ -237,20 +239,27 @@ void CRunGui::contextMenuEvent(QContextMenuEvent *event)
 
 void CRunGui::newEnv()
 {
-   //Preliminarily:
-	//1QMessage::information(NULL,"MyApp","Before cleaning");
-	Env.CleanEnv();
-	//1QMessage::information(NULL,"MyApp","Env is cleaned");
-	Env.FillEmptyEnvRandomly(100);	
-	//1QMessage::information(NULL,"MyApp","Env is filled"); //ch1
-	//emit envChanged();//uprav tak, aby to nastalo jen if Env was 0
-	//Field->setEnvRef(Env);	
-	emit envIsEmpty(Env.IsEmpty);
-	//1QMessage::information(NULL,"MyApp","Message is emited"); //ch1
-	
-	renewAllChildren();
-	statusBar()->showMessage(tr("Random Env made."));
-
+	NewEnvDialog newEnvDialog;
+	int result = newEnvDialog.exec();
+	if (result ==QDialog::Accepted)
+	{
+		COneRun oneRun;
+		newEnvDialog.getData(&oneRun);
+		//QMessageBox::information(NULL,"MyApp",QString::number(oneRun.NumRandBeetles) +" Before cleaning");
+		Env.CleanEnv();
+		//QMessageBox::information(NULL,"MyApp",QString::number(oneRun.NumRandBeetles));
+		Env.SetEnv(&oneRun);
+		//1QMessage::information(NULL,"MyApp","Env is cleaned");
+		//Env.FillEmptyEnvRandomly(seed,numBeetles,mapFN,effFN,isStepOnFlower);	
+		//1QMessage::information(NULL,"MyApp","Env is filled"); //ch1
+		//emit envChanged();//uprav tak, aby to nastalo jen if Env was 0
+		//Field->setEnvRef(Env);	
+		emit envIsEmpty(Env.IsEmpty);
+		//1QMessage::information(NULL,"MyApp","Message is emited"); //ch1
+		
+		renewAllChildren();
+		statusBar()->showMessage(tr("Random Env made."));
+	}
 }
 
 void CRunGui::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.

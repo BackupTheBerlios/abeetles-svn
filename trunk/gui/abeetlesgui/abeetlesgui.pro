@@ -7,11 +7,11 @@ TARGET =
 DEPENDPATH += .
 INCLUDEPATH += c:\Mingw\include
 CONFIG += console 
-QTPLUGIN += qgif
 
 
 # Input
-HEADERS += RunScript.h\
+HEADERS += NewEnvDialog.h\
+	   RunScript.h\
 	   COneRun.h\
 	   Legend.h\
 	   BeetleDialog.h\
@@ -26,7 +26,8 @@ HEADERS += RunScript.h\
            StatisticsEnv.h \
            stdafx.h \
            zoomslider.h
-SOURCES += RunScript.cpp\
+SOURCES += NewEnvDialog.cpp\
+	   RunScript.cpp\
 	   COneRun.cpp\
 	   Legend.cpp\
            BeetleDialog.cpp\

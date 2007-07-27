@@ -815,7 +815,7 @@ These simulators prefer to show statistics graphicaly or textualy in the program
 \subsection {Script}
 
 Script for Abeetles is intended to be easy to understand. It uses format
-"command = value" and avails to input any number of runs of the simulator. For each of them all necessary parameters can be defined.
+"command = value" and avails to set any number of runs of the simulator. For each of them all necessary parameters can be defined.
 
 The alternative of usage of command line parameters instead of an Abeetles specific script was considered. One command could start one run of Abeetles and a set of runs could be created in a command line script. But the first alternative was chosen, because it makes it possible to write the script without knowledge of system commands.
 
@@ -870,10 +870,58 @@ The border between two updates is method NextTime() of class CEnvironment. It co
 %2nd - Components of Abeetles - Class diagram of CRunScript(+COneRun), MainWindow(+CBeetleDlg,CNewEnvDlg), CStatistEnv, CEnvironment, CfgManager  a jejich detailnejsi pomocne tridy
 Components of the system Abeetles and their relationships are in \ref{img.ComponentModel}. The classCfgManager encapsulates only input and output methods, it has no attributes. It should be available to all other classes any time. Therefore this class exists in the system only in one instance as a global variable. Class CEnvironment is instantiated by CRunScript as well as by CRunGui. In both it exists in only one piece at a time. Object of class CStatisticsEnv collects information about the run of an environment. So it is designed to be an attribute of CEnvironment, it is constructed and destructed together with it.
 
-%3rd - Detailed GUI - picture and some description -  why and what
+%Picture of Class diagram of these classes - it is huge.. should I place it here?
 
+\section {Detailed GUI}
+%3rd - Detailed GUI - picture and some description -  why and what
+%This should be written after finnishing the gui to the final form
+
+\section {Statistics}
 %4th - Statistics - detailed list of types, what is included and how to use it.
 
+
+\section{Script}
+Script file is a text file and abeetles must be run with parametr -s <name of cript> so as to start with the script. In script file must be placed one or more individual runs of Abeetles simulator. Runs are separated by key word $run$. The complete form of the file is described in following example. In the script file no comments are allowed.
+\begin{verbatim}
+run=env3 //name of the run and name of directory that will be results written to.
+map=env_cfg.bmp //name of bmp picture of map that should be used. Must be present at current directory
+beetles=random,200,20 //starting set of beetles can be either random or can be read from a file. If it is random, it must be set by word "random", then the seed for generator of pseudorandom numbers "200" and then number of beetles to be initially placed into the map "20". Both numbers can be -1, which means time-based seed and default number of beetles.
+eff=EnergyFromFlower.bmp //name of bmp file that describes function of beetles energy exploited from eaten flowers.
+costs=1,1,2,0 //cost of actions of a beetle: step, rotation, mating, waiting
+endtime=199000 // number of turn of simulator
+aggrstatfn=aggr.txt //name of files where aggregated statistics should be written
+histstatfn=hist.csv //the same for histogram statistics
+timestatfn=time.csv //the same for time statistics
+savetimeaggrreg=150 //every 150 turns will be aggregated statistics saved to file <time><aggrstatfn>
+savetimehistreg=200 //the same for histogram statistics
+
+run=env4
+map=env_cfg.bmp
+beetles="beetles.txt"//name of file of beetles
+eff=EnergyFromFlower.bmp
+costs=1,1,2,0
+endtime=1000
+aggrstatfn=aggr.txt
+histstatfn=hist.csv
+timestatfn=time.csv
+savetimeaggrreg=100
+savetimeshist=70,500,1000 //enumeration of turns, when histogram statistics should be saved. 
+savetimesaggr=70,500,1000 //the same for aggregated statistics
+
+\end{verbatim}
+
+\subsection{Explanation of commands of the script}
+run=env3 //name of the run and name of directory that will be results written to.
+map=env_cfg.bmp //name of bmp picture of map that should be used. Must be present at current directory
+beetles=random,200,20 //starting set of beetles can be either random or can be read from a file. If it is random, it must be set by word "random", then the seed for generator of pseudorandom numbers "200" and then number of beetles to be initially placed into the map "20". Both numbers can be -1, which means time-based seed and default number of beetles.
+eff=EnergyFromFlower.bmp //name of bmp file that describes function of beetles energy exploited from eaten flowers.
+costs=1,1,2,0 //cost of actions of a beetle: step, rotation, mating, waiting
+endtime=199000 // number of turn of simulator
+aggrstatfn=aggr.txt //name of files where aggregated statistics should be written
+histstatfn=hist.csv //the same for histogram statistics
+timestatfn=time.csv //the same for time statistics
+savetimeaggrreg=150 //every 150 turns will be aggregated statistics saved to file <time><aggrstatfn>
+savetimehistreg=200 //the same for histogram statistics
 %5th - Script - What does it contain and how to write it.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -896,6 +944,7 @@ InvInChild = 1B
 HungryThreshold = 1B
 LearningAbility = 1B
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Experiments}
 
 With Abeetles numerous experiments can be conducted. The space is set by possible values in cathegories size of map of environment, layout of walls in the map, probability of growth of flowers, initial	number and features of beetles,	availability of learning, function energy from flower - absolute values	as well as the course of the curve, and costs of actions and their ratio.
@@ -988,11 +1037,13 @@ Differences between courses show, that coincidence influences the course of matt
 Initial features of beetles were random, histogram of run 1 at the beginning: \ref{img.four_caves_run1_hist0}. The Situation after 30,000 updates is in \ref{img.four_caves_run1_hist30000}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Resume of fulfilling of objectives and other known attitudes}
 %******************Comparison of result with brother programs from 3rd chapter
 %9.         Zhodnocení splnìní cílù a srovnání s jinými známými pøístupy
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \chapter{Resume with brief summon of results and contribution}
 %10.         Závìr se struèným shrnutím výsledkù a pøínosu
 

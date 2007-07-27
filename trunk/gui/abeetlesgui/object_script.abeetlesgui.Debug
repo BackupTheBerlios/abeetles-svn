@@ -1,4 +1,5 @@
 INPUT(
+./debug\NewEnvDialog.o
 ./debug\RunScript.o
 ./debug\COneRun.o
 ./debug\Legend.o
@@ -13,6 +14,7 @@ INPUT(
 ./debug\CRunGui.o
 ./debug\StatisticsEnv.o
 ./debug\zoomslider.o
+./debug\moc_NewEnvDialog.o
 ./debug\moc_Legend.o
 ./debug\moc_BeetleDialog.o
 ./debug\moc_Environment.o

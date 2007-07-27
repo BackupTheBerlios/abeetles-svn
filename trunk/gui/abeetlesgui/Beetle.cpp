@@ -408,8 +408,10 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
 							else brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
 					}
 					else //if brain of beetle should be totaly random
+					{
 						if (K==(WALL-1)) brain [I][J][K][L]=1 + RandInBound(NUM_ACTIONS-1); //with wall in the front, never makes a step
 						else brain [I][J][K][L]=RandInBound(NUM_ACTIONS);
+					}
 				}
 	char direction = RandInBound(4);
 	int energy=10+RandInBound(MAX_ENERGY-10);
