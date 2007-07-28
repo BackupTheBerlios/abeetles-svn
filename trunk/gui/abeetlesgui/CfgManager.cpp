@@ -132,10 +132,21 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 	return true;
 }
 
+bool CfgManager::SaveEffToBmp(QString filename)
+{
+	return SaveEffToBmp(filename.toAscii().data());
+}
+
+bool CfgManager::SaveEffToBmp(char * filename)
+{
+	return CBeetle::EffImg.save(filename,"bmp");
+}
+
 bool CfgManager::SaveMapToBmp(CGrid * grid, QString filename)
 {
 	return SaveMapToBmp(grid,filename.toAscii().data());
 }
+
 bool CfgManager::SaveMapToBmp(CGrid * grid, char * filename)
 {
 	QImage img(grid->G_Width,grid->G_Height,QImage::Format_RGB32);
@@ -313,11 +324,19 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	return true;
 }
 
-bool CfgManager::LoadFlowers(CGrid * grid, QString filename)
+bool CfgManager::LoadFlwAndOpt(CGrid * grid, int *time, bool *learningOn, 
+	int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost, 
+	int *waitCost, QString filename)
 {
-	return LoadFlowers(grid,  filename.toAscii().data());
+	return LoadFlwAndOpt(grid,  time,  learningOn, 
+	 flowerGrowingRatio,  stepCost,  rotCost, copulCost, 
+	waitCost,  filename.toAscii().data());
+
 }
-bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
+//bool CfgManager::LoadFlwAndOpt(CGrid * grid, char * filename)
+bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn, 
+	int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost, 
+	int *waitCost,char * filename)
 {
 	int x,y;
 	QFile flwFile (filename);
@@ -326,10 +345,22 @@ bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
 		 QMessageBox::information(NULL,"MyApp","Loading of file of flowers "+QString::fromAscii(filename)+" was not successful.");
          return false;
 	 }
+	
+		
+	int I=-1;
 	while (!flwFile.atEnd())
 	{
 		QByteArray line = flwFile.readLine();
 		line.truncate(line.indexOf(";"));
+		I++;
+		if(I==0) {*time=line.toInt();fprintf(stdout,("\n"+QString::number(*time)).toAscii().data());continue;}
+		if(I==1) {*learningOn=line.toInt();continue;}
+		if(I==2) {*flowerGrowingRatio=line.toInt();continue;}
+		if(I==3) {*stepCost=line.toInt();continue;}
+		if(I==4) {*rotCost=line.toInt();continue;}
+		if(I==5) {*copulCost=line.toInt();continue;}
+		if(I==6) {*waitCost=line.toInt();continue;}
+		
 		x=(line.left(line.indexOf(","))).toInt(); 
 		y=(line.right(line.size()-line.indexOf(",")-1)).toInt(); 
 		grid->SetCellContent(FLOWER,x,y);
@@ -337,11 +368,18 @@ bool CfgManager::LoadFlowers(CGrid * grid, char * filename)
 	return true;
 }
 
-bool CfgManager::SaveFlowers(CGrid * grid,QString filename)
+bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, 
+	int flowerGrowingRatio, int stepCost, int rotCost, int copulCost, 
+	int waitCost,QString filename)
 {
-	return SaveFlowers(grid,filename.toAscii().data());
+	return SaveFlwAndOpt(grid, time,  learningOn, 
+	 flowerGrowingRatio,  stepCost,  rotCost, copulCost, 
+	waitCost,filename.toAscii().data());
 }
-bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
+//bool CfgManager::SaveFlwAndOpt(CGrid * grid,char * filename)
+bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, 
+	int flowerGrowingRatio, int stepCost, int rotCost, int copulCost, 
+	int waitCost, char * filename)
 {
 	int I,J;
 	QFile flwFile (filename);
@@ -349,6 +387,16 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
          return false;
 	
 	QTextStream out(&flwFile);
+	out << time<<";"<< "\n"; 
+	out << learningOn<<";"<< "\n"; 
+	out << flowerGrowingRatio<<";"<< "\n"; 
+	out << stepCost<<";"<< "\n"; 
+	out << rotCost<<";"<< "\n"; 
+	out << copulCost<<";"<< "\n"; 
+	out << waitCost<<";"<< "\n"; 
+
+	
+
 	for (I=0;I<grid->G_Width;I++)
 		for (J=0;J<grid->G_Height;J++)
 			if (grid->GetCellContent(I,J) == FLOWER)
@@ -358,13 +406,13 @@ bool CfgManager::SaveFlowers(CGrid * grid,char * filename)
 }
 
 
-QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], QString filename) //, QImage img)
+QImage CfgManager::LoadEffFromBmp(int EFF_Age [EFF_BMP_X], QString filename) //, QImage img)
 {
 		//QMessageBox::information(NULL,"MyApp","4");
 
-	return LoadEnergyFromFlowerFromBmp(EFF_Age , filename.toAscii().data()) ;
+	return LoadEffFromBmp(EFF_Age , filename.toAscii().data()) ;
 }
-QImage CfgManager::LoadEnergyFromFlowerFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, QImage img)
+QImage CfgManager::LoadEffFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, QImage img)
 {
 	//QMessageBox::information(NULL,"MyApp","3");
 //1. Read the bmp file

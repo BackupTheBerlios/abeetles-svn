@@ -60,5 +60,7 @@ public:
 	char * getFlowersFileName(char *fname);
 	char * getBeetlesFileName(char *fname);
 	char * getTimeStatsFileName(char *fname);
+	char * getEffFileName(char *fname);
+
 
 };

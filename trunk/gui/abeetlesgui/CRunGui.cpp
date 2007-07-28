@@ -268,7 +268,7 @@ void CRunGui::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozi
 	openDlg.setFilter("Abeetles files (*.txt;*.bmp)");
 	openDlg.setFilter("All files (*.*)");
     ActualFN = openDlg.getOpenFileName(this);
-	if (!ActualFN.isEmpty()) ActualFN=ActualFN.left(ActualFN.lastIndexOf("_"));
+	if (!ActualFN.isEmpty()) ActualFN=ActualFN.left(ActualFN.lastIndexOf("."));
 
     if (!ActualFN.isEmpty()) 
 	{

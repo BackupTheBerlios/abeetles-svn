@@ -54,6 +54,7 @@
 
 \usepackage{url}
 \usepackage{graphicx} %mohla bych pridat [driver] coze je ze to chci bud do ps nebo do pdf.
+\usepackage{listings}
 
 \begin{document}
 
@@ -798,18 +799,19 @@ Layout of window of GUI of Abeetles resembles the qt-view of Avida,  see Figure 
 \subsection {Statistics}
 
 Every artifical life simulator that endeavors after more that being just a game includes some kind of statistics. 
-Systems compared with Abeetles show information either graphicaly or output them to a file (indicated in brackets):
+Systems compared with Abeetles display information either graphically or output them to a file (indicated in brackets):
+
 \begin{itemize}
 \item Avida: instruction viewer, details of individual strings 
 \item Bitozoa: graph of populations, energy flow and energy flow averaged, information about environment (to file), details about an agent.
  \item Gene Pool: graph of relationship between number of swimbots and amount of food, features of individual agents, to seek the best agent in chosen criteria.
 \item Mitozoos: genetic landscape, log of events, on reproduction the crossjoin of genotypes is shown graphicaly, details about an agent.
-\item Primordial life: information about environment (population, time death and birth rate numbers), global status of all connected ecosystems, information about an agent.
+\item Primordial life: information about the environment (population, time death and birth rate numbers), global status of all connected ecosystems, information about an agent.
 \end {itemize}
 
-%Possible to add pictures of statistics from other programms.
+%Possible to add pictures of statistics from other programs.
 
-These simulators prefer to show statistics graphicaly or textualy in the program. But for further processing output to files in a standard format might be useful. Abeetles writes statistics into files, only several actual numbers shows in the graphical interface. Abeetles as well as all described simulators shows details of an individual. It counts actual information about environment like time, number of agents, some average values, etc. Graphs of development in time are offered by Bitozoa and Gene Pool. They are very useful for observation of what is going on in the simulator within time. Abeetles does not show graphs directly, but saves values into a file in comma separated value format. Graphs can be then drawn by a special program, e.g. MS Excel. In this format changes of number of beetles, number of flowers and number of births within time are stored. It is also used for graphs of frequency o distribution of values of age,  learning abilities, investment in children and energy.
+These simulators prefer to show statistics graphically or textualy in the program. But for further processing, output to files in a standard format might be more useful. Abeetles writes statistics into files, only several actual numbers shows in the graphical interface. Abeetles as well as all described simulators shows details of an individual. First type of statistics offered by Abeetles is actual information about environment - time, number of agents, number of flowers and average values of features of beetles. The second type are graphs of development in time that are very useful for observation of what is going on in the simulator within time. They are also offered by Bitozoa and Gene Pool. In contrast to them, Abeetles does not show graphs directly, but saves values into a file in comma separated value format. Graphs can be then drawn by a special program, e.g. MS Excel. In this format changes of number of beetles, number of flowers and number of births within time are stored. It is also used for graphs displaying frequency of distribution of values of age, learning abilities, investment in children and energy.
 
   
 \subsection {Script}
@@ -878,21 +880,48 @@ Components of the system Abeetles and their relationships are in \ref{img.Compon
 
 \section {Statistics}
 %4th - Statistics - detailed list of types, what is included and how to use it.
-
+As described in previous chapter, there are three types of statistics produced by Abeetles: aggregated statistics, statistics of behavior of environment within time and histogram statistics.
+\subsection {Aggregated Statistics}
+Aggregated statistics show actual number of beetles, number of flowers, number of new-born beetles and average values of age, energy, hungry threshold, investment in child, learning ability and number of children. These statistics serve to show actual situation in the environment.
+\subsection{Time Statistics}
+Time statistics show development of environment within time. The included values are number of beetles, number of children and number of new-born beetles.
+These values are saved to a file comma separated value format. Specialised applications, e.g. MS Excel can paint a graph from it. 
+\subsection {Histogram statistics}
+Structure of population can be observed using histogram statistics. It shows how many beetles have certain value of a particular feature. It contains age, learn ability,investment in children, energy, number of children and hungry threshold. Also expectations of beetles on partners on energy, age, investment in children and learn ability are included. Each value is connected with number of all beetles who have it within their range. 
 
 \section{Script}
-Script file is a text file and abeetles must be run with parametr -s <name of cript> so as to start with the script. In script file must be placed one or more individual runs of Abeetles simulator. Runs are separated by key word $run$. The complete form of the file is described in following example. In the script file no comments are allowed.
-\begin{verbatim}
-run=env3 //name of the run and name of directory that will be results written to.
-map=env_cfg.bmp //name of bmp picture of map that should be used. Must be present at current directory
-beetles=random,200,20 //starting set of beetles can be either random or can be read from a file. If it is random, it must be set by word "random", then the seed for generator of pseudorandom numbers "200" and then number of beetles to be initially placed into the map "20". Both numbers can be -1, which means time-based seed and default number of beetles.
-eff=EnergyFromFlower.bmp //name of bmp file that describes function of beetles energy exploited from eaten flowers.
-costs=1,1,2,0 //cost of actions of a beetle: step, rotation, mating, waiting
-endtime=199000 // number of turn of simulator
-aggrstatfn=aggr.txt //name of files where aggregated statistics should be written
+%5th - Script - What does it contain and how to write it.
+
+Abeetles can be run with an input script file. The script is a text file containing description of one or more individual runs of the simulator. Runs are separated by key word $run$. The complete form of the file is described in following example using C-style comments. In the script file itself no comments are allowed.
+
+%\lstset{language=c++}
+%\lstset{commentstyle=\textit}
+%\begin{lstlisting}[frame=trbl]{}
+
+
+\begin{verbatim} 
+
+run=env3  //name of the run and name of directory to store 
+          //results
+map=env_cfg.bmp //name of bmp picture of the map that should 
+                //be used 
+beetles=random,200,20 //Initial set of beetles can be either 
+  //random or can be read from a file. If it is random, it must 
+  //be stated by word "random", then follows the seed for 
+  //a generator of pseudorandom numbers "200" and then number 
+  //of beetles to be generated. Both numbers can be -1, which 
+  //means time-based seed and default number of beetles.
+eff=EnergyFromFlower.bmp //name of bmp image that describes 
+  //dependency of beetles energy exploited from an eaten flower.
+costs=1,1,2,0 //cost of actions of a beetle: step, rotation, 
+  //mating, waiting
+endtime=199000 //number of turns of the run of the simulator
+aggrstatfn=aggr.txt //name of files where aggregated statistics 
+  //should be written
 histstatfn=hist.csv //the same for histogram statistics
 timestatfn=time.csv //the same for time statistics
-savetimeaggrreg=150 //every 150 turns will be aggregated statistics saved to file <time><aggrstatfn>
+savetimeaggrreg=150 //every 150 turns will be aggregated 
+  //statistics saved to file <time><aggrstatfn>
 savetimehistreg=200 //the same for histogram statistics
 
 run=env4
@@ -905,24 +934,15 @@ aggrstatfn=aggr.txt
 histstatfn=hist.csv
 timestatfn=time.csv
 savetimeaggrreg=100
-savetimeshist=70,500,1000 //enumeration of turns, when histogram statistics should be saved. 
+savetimeshist=70,500,1000 //enumeration of turns, when
+    //histogram statistics should be saved. 
 savetimesaggr=70,500,1000 //the same for aggregated statistics
 
 \end{verbatim}
 
-\subsection{Explanation of commands of the script}
-run=env3 //name of the run and name of directory that will be results written to.
-map=env_cfg.bmp //name of bmp picture of map that should be used. Must be present at current directory
-beetles=random,200,20 //starting set of beetles can be either random or can be read from a file. If it is random, it must be set by word "random", then the seed for generator of pseudorandom numbers "200" and then number of beetles to be initially placed into the map "20". Both numbers can be -1, which means time-based seed and default number of beetles.
-eff=EnergyFromFlower.bmp //name of bmp file that describes function of beetles energy exploited from eaten flowers.
-costs=1,1,2,0 //cost of actions of a beetle: step, rotation, mating, waiting
-endtime=199000 // number of turn of simulator
-aggrstatfn=aggr.txt //name of files where aggregated statistics should be written
-histstatfn=hist.csv //the same for histogram statistics
-timestatfn=time.csv //the same for time statistics
-savetimeaggrreg=150 //every 150 turns will be aggregated statistics saved to file <time><aggrstatfn>
-savetimehistreg=200 //the same for histogram statistics
-%5th - Script - What does it contain and how to write it.
+%\end{lstlisting}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Description of prototype implementation}

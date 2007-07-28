@@ -22,7 +22,7 @@ CEnvironment::CEnvironment(void)
 	
 
 	//load function of Age and EnergyFromFlower from bmp file		
-	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
+	if ((CBeetle::EffImg= CfgMng.LoadEffFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
 	{
 		QErrorMessage errDlg;
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful. Application will terminate."));
@@ -107,7 +107,7 @@ CEnvironment::CEnvironment(char * fname)
 	Time=0; //Remake to load it from some save file of the environment!
 	LoadEnv(fname);	
 	//load function of Age and EnergyFromFlower from bmp file	
-	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
+	if ((CBeetle::EffImg= CfgMng.LoadEffFromBmp(CBeetle::EFF_Age, EFF_BMP_FILE)).isNull())
 	{
 		QErrorMessage errDlg;
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+EFF_BMP_FILE+QString::fromAscii(" was not successful."));
@@ -375,13 +375,16 @@ bool CEnvironment::LoadEnv(char * fname)
 	
 
 	//1st part - init environment: Loads map of environment
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,getMapFileName(fname)))
-	{
-		res=false;
-	}
+	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,getMapFileName(fname))) res=false;
+
+	if ((CBeetle::EffImg=CfgMng.LoadEffFromBmp(CBeetle::EFF_Age,getEffFileName(fname))).isNull()) res=false;
 
 	//2nd part - load where flowers are
-	if (false==CfgMng.LoadFlowers(&Grid_Past,getFlowersFileName(fname))) res=false;
+	if (false==CfgMng.LoadFlwAndOpt(&Grid_Past,&Time,&LearningOn, 
+		& FlowerGrowingRatio,  &StepCost,  &RotCost,  &CopulCost, 
+		 &WaitCost, getFlowersFileName(fname))) res=false;
+
+	fprintf(stdout,("\n"+QString::number(Time)).toAscii().data());
 
 	//3rd - load beetles and add them to half finished environment
 	if (false==CfgMng.LoadBeetles(&Grid_Past,getBeetlesFileName(fname)))res=false;
@@ -389,9 +392,10 @@ bool CEnvironment::LoadEnv(char * fname)
 	Grid=Grid_Past;
 
 	CountStatistics();
+	int pom;
 	//4th - load time and time statistics, set Statist.startBuf to (Time+1)%BUF_SIZE
-	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname),&Time))
-	{ res=false; Time=0;}
+	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname),&pom))
+	{ res=false; pom=0;}
 
 	IsEmpty=false;
 	return res;
@@ -401,7 +405,8 @@ bool CEnvironment::SaveEnv(char * fname)
 {
 	bool res=true;
 	if (false==CfgMng.SaveBeetles(&Grid,getBeetlesFileName(fname)))res = false;
-	if (false==CfgMng.SaveFlowers(&Grid,getFlowersFileName(fname))) res = false;
+	if (false==CfgMng.SaveFlwAndOpt(&Grid,Time,LearningOn,FlowerGrowingRatio, StepCost, RotCost,CopulCost,WaitCost,getFlowersFileName(fname))) res = false;
+	if (false==CfgMng.SaveEffToBmp(getEffFileName(fname))) res =false;
 
 	//1QMessageBox::information(NULL,"MyApp",getMapFileName(fname));
 
@@ -432,7 +437,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 
 	//load function of Age and EnergyFromFlower from bmp file
 	if (effFN==0) effFN=EFF_BMP_FILE;
-	if ((CBeetle::EffImg= CfgMng.LoadEnergyFromFlowerFromBmp(CBeetle::EFF_Age, effFN)).isNull())
+	if ((CBeetle::EffImg= CfgMng.LoadEffFromBmp(CBeetle::EFF_Age, effFN)).isNull())
 	{
 		QErrorMessage errDlg;
 		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+QString::fromAscii(effFN)+QString::fromAscii(" was not successful. Application will terminate."));
@@ -673,10 +678,17 @@ char * CEnvironment::getMapFileName(char *fname)
 	qFN+="_map.bmp";
 	return qFN.toAscii().data();
 }
+char * CEnvironment::getEffFileName(char *fname)
+{
+	QString qFN(fname); 
+	qFN+="_eff.bmp";
+	return qFN.toAscii().data();
+}
 char * CEnvironment::getFlowersFileName(char *fname)
 {
 	QString  qFN(fname); 
-	qFN+="_flw.txt";
+	if (!qFN.contains(".")) 
+		qFN+=".txt";
 	return qFN.toAscii().data();
 }
 char * CEnvironment::getBeetlesFileName(char *fname)

@@ -30,7 +30,7 @@ int CRunLife::run(void)
 
 	int I,J;
 	CEnvironment env;
-	if (false == env.CreateRandomEnv()) return EXIT_FAILURE ;
+	if (false == env.FillEnvRandomly()) return EXIT_FAILURE ;
 	//env.LoadEnv("sb_t2.txt",MAP_BMP_FILE);
 	int jumpTime;
 

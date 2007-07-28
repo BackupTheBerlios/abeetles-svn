@@ -200,13 +200,13 @@ bool CField::loadBeetleImages()
 					fname+="_";
 					fname+=QString::number(d);
 					fname+=".bmp";
-					QDir::setCurrent ("imgs");
+					if (false==QDir::setCurrent ("imgs")) return false;
 					
 					if (false==ImgBeetle[z][d].load(fname)) return false;
 					//if (0== (img= new QImage(fname))) return false;
 					ImgBeetle[z][d] = ImgBeetle[z][d].convertToFormat(QImage::Format_RGB32);
 					//fprintf(stdout,QString::number(ImgBeetle[z][d].format()).toAscii().data());
-					QDir::setCurrent ("..");
+					if (false==QDir::setCurrent ("..")) return false;
 					//ImgBeetle[z][d]=img;
 			}
 	//if (img==0) QMessageBox::information(this,"MyApp","No image");
