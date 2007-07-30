@@ -2,6 +2,8 @@
 #include "defines.h"
 #include "Grid.h"
 
+
+
 /**
 * Desc: Class CStatisticsEnv serves to monitor features of the environment and its inhabitants, collect them into data structures and output them on demand.
 * System dependence: no
@@ -36,6 +38,7 @@ public:
 	int SumInvInChild;
 	int SumLearnAbility;
 	int SumNumChildren;
+	int NumSpecies;
 
 	//Type 3: Time Statistics
 	int PastNumBeetles [BUF_SIZE];
@@ -67,4 +70,6 @@ public:
 	bool LoadTimeStatist_FromColums(char * tst_filename,int * pTime);
 
 	bool SaveActHistStatist(char * filename, int time,CGrid * grid);
+
+	int FindSpeciesOfBeetles(CGrid * grid);
 };

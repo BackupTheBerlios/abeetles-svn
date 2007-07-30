@@ -139,7 +139,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	if (Front==BEETLE)
 	{
 		action=HA_COPULATE;
-		if (beetle->Energy > CopulCost)
+		if (beetle->Energy > (CopulCost + beetle->InvInChild))
 			{
 				if (true == A_Copulate(x,y,beetle))
 				{										
@@ -654,7 +654,7 @@ void CEnvironment::CountStatistics(void)
 					Statist.NumFlowers++;
 				
 			}
-
+	Statist.NumSpecies=Statist.FindSpeciesOfBeetles(&Grid);
 }
 /*
 bool CEnvironment::CreateDefaultEnv(void)

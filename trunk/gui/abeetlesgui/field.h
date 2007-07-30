@@ -7,6 +7,7 @@ class CEnvironment;
 class QMouseEvent;
 class QImage;
 class CBeetle;
+struct BeetleCoordSpecies;
 //typedef QRgb;
 
 
@@ -37,11 +38,14 @@ protected:
 	virtual void mousePressEvent ( QMouseEvent * evnt );
 	bool loadBeetleImages();
 	bool change1ImgColor(QImage * img, QRgb origColor, QRgb desiredColor);
+public:
+	static QRgb getSpeciesColor(int species);
 
 private:
 	int TypeView;
 	CEnvironment * Env;
 	int Zoom;
+	int NumSpecies;
 
 	int ZoomToSqSize[NUM_ZOOM] ;
 	int ZoomToGapSize[NUM_ZOOM];

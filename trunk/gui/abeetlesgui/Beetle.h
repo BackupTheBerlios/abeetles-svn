@@ -34,6 +34,7 @@ public:
 	int InvInChild;
 	int NumChildren;
 	static int LastId;
+	int Species; //this is valid only after a call to CStatisticsEnv::FindSpeciesOfBeetles()
 
 	int AddEnergy(int HowMuch);
 	//int GetAction(bool bHunger, char Left, char Front, char Right);	
@@ -49,6 +50,7 @@ public:
 	void SetBrain(int Num, int Value);
 	static int GetExpectOnPartnerMax(int which);
 	bool IsExpectOnPartnerSatisfied(CBeetle * beetle2);
+	bool IsExpectOnPartnerPossibleToSatisfy(CBeetle * beetle2);
 	CBeetle * CreateChild(CBeetle * beetle2);
 	static CBeetle * Crossover1Point(CBeetle * beetle1, CBeetle * beetle2);
 	static void Mutation(CBeetle * beetle);

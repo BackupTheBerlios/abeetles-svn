@@ -20,7 +20,7 @@
 
 #define DEFAULT_BEETLES_FILE "Beetles.txt"
 
-#define MAXTIME 200000 
+#define MAXTIME 500000 
 
 #define PROB_FLOWER_DIE 20 //probability of dying of a flower
 
@@ -65,6 +65,8 @@
 #define BRAIN_D2 4
 #define BRAIN_D3 4
 #define BRAIN_D4 4
+
+#define NO_SPECIES -1
 
 //dimesions of beetles expectations on partner
 #define EXPECT_ON_PARTNER_D 6 
@@ -115,13 +117,16 @@
 #define NUM_ZOOM 5
 #define START_ZOOM_VALUE 2
 
-#define NUM_TYPE_VIEW 6
+#define NUM_TYPE_VIEW 8
 #define TYPE_VIEW_1 "normal"
 #define TYPE_VIEW_2 "age"
 #define TYPE_VIEW_3 "energy"
-#define TYPE_VIEW_4 "fertility"
+#define TYPE_VIEW_4 "number of children"
 #define TYPE_VIEW_5 "hunger"
 #define TYPE_VIEW_6 "growth of flowers"
+#define TYPE_VIEW_7 "species"
+#define TYPE_VIEW_8 "genders"
+
 
 #define TIME_STEP 15	//in miliseconds - the time between two time slices.
 #define COLOR_NOTHING "white"

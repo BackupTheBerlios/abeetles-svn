@@ -1,6 +1,7 @@
 #include "Field.h"
 #include "Environment.h"
 #include "Beetle.h"
+#include "StatisticsEnv.h"
 #include <assert.h>
 #include <QtGui>
 #include <QTimer>
@@ -142,6 +143,13 @@ void CField::setTypeView(const QString& type)
     if (type==TYPE_VIEW_4)TypeView=3;//fertility
     if (type==TYPE_VIEW_5)TypeView=4;//Hunger
 	if (type==TYPE_VIEW_6) TypeView=5;//"growth of flowers"
+	if (type==TYPE_VIEW_7) 
+	{
+		TypeView=6;//"species"
+		NumSpecies=Env->Statist.FindSpeciesOfBeetles(&Env->Grid);		
+	}
+	if (type==TYPE_VIEW_8) TypeView=7;//"growth of flowers"
+
 	update();
 }
 
@@ -168,7 +176,12 @@ QImage CField::getBeetleImage(CBeetle * beetle,int x, int y, int zoom,int typeVi
 		newBackClr=qRgb(255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(x,y))/(double)100*255),
 					255,
 					255-(int)(CfgMng.ColorFromFlowerProbability(Env->Grid.GetCellGrowingProbability(x,y))/(double)100*255) );
-			
+	if(typeView==6)//species
+	{
+		
+		newBackClr=getSpeciesColor(beetle->Species);
+
+	}
 	//QMessageBox::information(this,"MyApp","Color: "+QString::number(newBackClr));
 	change1ImgColor(&img,qRgb(255,255,255),newBackClr);
 	return img;
@@ -269,5 +282,21 @@ void CField::setZoom(int zoom)
 
 }
 
+QRgb CField::getSpeciesColor(int species)
+{
+	if (species==NO_SPECIES) return qRgb(255,255,255);
+	if (species%10==0) return qRgb(165, 42, 42); //brown 
+	if (species%10==1) return qRgb(222, 184, 135); //burlywood 
+	if (species%10==2) return qRgb(127, 255, 0); //chartreuse
+	if (species%10==3) return qRgb(255, 127, 80); //cornsilk 
+	if (species%10==4) return qRgb(220, 20, 60); //crimson 
+	if (species%10==5) return qRgb(238, 232, 170); //palegoldenrod 
+	if (species%10==6) return qRgb(152, 251, 152); //palegreen
+	if (species%10==7) return qRgb(175, 238, 238); //paleturquoise 
+	if (species%10==8) return qRgb(219, 112, 147); //palevioletred
+	if (species%10==9) return qRgb(221, 160, 221); //plum 
+
+	return qRgb(255,255,255);
+}
 
 

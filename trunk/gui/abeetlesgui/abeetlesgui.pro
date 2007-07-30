@@ -5,7 +5,8 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
-INCLUDEPATH += c:\Mingw\include
+INCLUDEPATH += c:\Mingw\include\
+		c:\boost_1_34_1
 CONFIG += console 
 
 

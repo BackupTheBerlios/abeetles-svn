@@ -105,6 +105,8 @@ private:
     void createActions();
     void createMenus();
 	void renewAllChildren();
+	void reduceTypeView();
+	void enlargeTypeView();
 
 
     QMenu *fileMenu;

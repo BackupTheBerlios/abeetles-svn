@@ -64,6 +64,9 @@ CRunGui::CRunGui():Env()
     TypeViewCombo->addItem(TYPE_VIEW_4);
     TypeViewCombo->addItem(TYPE_VIEW_5);
     TypeViewCombo->addItem(TYPE_VIEW_6);
+    TypeViewCombo->addItem(TYPE_VIEW_7);
+    TypeViewCombo->addItem(TYPE_VIEW_8);
+
 
 	TypeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
@@ -71,13 +74,14 @@ CRunGui::CRunGui():Env()
 	 typeViewLayout->addWidget(typeViewLabel);
 	 typeViewLayout->addWidget(TypeViewCombo);
 	 //typeViewLayout->addStretch(1);
-
+	
 	//Field
 	Field= new CField(&Env);
 
-    connect(TypeViewCombo, SIGNAL(activated(const QString &)),Field, SLOT(setTypeView(const QString &)));
+    connect(TypeViewCombo, SIGNAL(currentIndexChanged(const QString &)),Field, SLOT(setTypeView(const QString &)));
 	connect(this,SIGNAL(envChanged()),Field,SLOT(renewField()));
 	connect (Field,SIGNAL(cellDetails(int,int)),this,SLOT(showCellDetails(int,int)));
+
 
 	//Legend
 	CLegend * legend = new CLegend();
@@ -478,12 +482,14 @@ void CRunGui::run(bool bStart)
 		NumSteps=-1;
 		Timer->start();//TIME_STEP); // interval is now set as set at DisplayChanged() function.
 		//QMessageBox::information(this,"MyApp","Run infinitely.");
+		reduceTypeView();
 		
 	}
 	else
 	{
 		Timer->stop();
 		NumSteps=0;
+		enlargeTypeView();
 		//QMessageBox::information(this,"MyApp","Stop timer.");
 	}
 	
@@ -496,6 +502,7 @@ void CRunGui::runNSteps(bool bStart)
 	{
 		NumSteps=NumStepsSpin->value();
 		Timer->start(); // interval is now set as set at DisplayChanged() function.
+		reduceTypeView();
 		//QMessageBox::information(this,"MyApp","Start "+QString::number(NumStepsSpin->value())+" steps.");
 				
 	}
@@ -503,6 +510,7 @@ void CRunGui::runNSteps(bool bStart)
 	{		
 		Timer->stop();
 		NumSteps=0;
+		enlargeTypeView();
 		//QMessageBox::information(this,"MyApp","Stop timer.");
 	}
 	
@@ -521,6 +529,7 @@ void CRunGui::make1Step()
 	{
 		QMessageBox::information(this,"MyApp","Maximum of time reached. Start a new environment.");
 		Timer->stop();
+		enlargeTypeView();
 		NumSteps=-1;
 	}
 
@@ -600,3 +609,14 @@ void CRunGui::FlowerGrowingRatioInEnvChanged(int value)
 	//QMessageBox::information(this,"",QString::number(value));
 }
 
+void CRunGui::reduceTypeView()
+{
+	if (TypeViewCombo->currentIndex()>=(TypeViewCombo->count()-2))TypeViewCombo->setCurrentIndex(0); 
+	TypeViewCombo->removeItem(TypeViewCombo->count()-1);
+	TypeViewCombo->removeItem(TypeViewCombo->count()-1);
+}
+void CRunGui::enlargeTypeView()
+{
+    TypeViewCombo->addItem(TYPE_VIEW_7);
+    TypeViewCombo->addItem(TYPE_VIEW_8);
+}

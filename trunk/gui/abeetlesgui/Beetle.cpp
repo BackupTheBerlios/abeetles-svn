@@ -13,11 +13,13 @@ extern int RandInBound(int);
 
 CBeetle::CBeetle(void)
 {	
-	
+	Species=NO_SPECIES;
 }
 CBeetle::CBeetle(int id, int age,char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4],int direction,int energy,int expectOnPartner[EXPECT_ON_PARTNER_D], int hungryThreshold, int invInChild, int learnAbility, int numChildren=0)
 {	
 	int I,J,K,L;
+	Species=NO_SPECIES;
+
 	Age=age;
 	for (I=0;I<2;I++)for (J=0;J<4;J++)for (K=0;K<4;K++)for (L=0;L<4;L++)
 		Brain[I][J][K][L]=brain[I][J][K][L];
@@ -175,6 +177,28 @@ bool CBeetle::IsExpectOnPartnerSatisfied(CBeetle * beetle2)
 	if (beetle2->Energy <=beetle2->InvInChild) return false; //beetle2 would not survive creation of the child
 	//if the beetle who checks the other beetle is not hungry -- I am not sure whether this check should not be somewhere else
 	if (IsHungry() == true) return false;
+	return true;
+	
+}
+
+bool CBeetle::IsExpectOnPartnerPossibleToSatisfy(CBeetle * beetle2)
+{
+	//	ExpectOnPartner - Age [2] = 2B how much younger / older  can be the partner
+	//	ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
+	//	ExpectOnPartner - InvInChild = 1B how much should have at least
+	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
+	
+//Only features that are part of genome are included.
+
+//	if (beetle2->Age < Age - ExpectOnPartner[1]) return false;
+//	if (beetle2->Age > Age + ExpectOnPartner[0]) return false;
+//	if (beetle2->Energy < ExpectOnPartner[3]+ExpectOnPartner[2])return false; 
+	if (beetle2->InvInChild< ExpectOnPartner[3])return false; 
+	if (beetle2->LearnAbility < LearnAbility - ExpectOnPartner[4]) return false;
+	if (beetle2->LearnAbility > LearnAbility + ExpectOnPartner[5]) return false;
+//	if (beetle2->Energy <=beetle2->InvInChild) return false; //beetle2 would not survive creation of the child
+	//if the beetle who checks the other beetle is not hungry -- I am not sure whether this check should not be somewhere else
+//	if (IsHungry() == true) return false;
 	return true;
 	
 }
@@ -425,10 +449,10 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
 	//for (M=0;M<EXPECT_ON_PARTNER_D;M++)
 	expectOnPartner [0]= CBeetle::GetExpectOnPartnerMax(0); 
 	expectOnPartner [1]= CBeetle::GetExpectOnPartnerMax(1); 
-	expectOnPartner [2]= 6; 
-	expectOnPartner [3]= 10; 
-	expectOnPartner [4]=30;
-	expectOnPartner [5]=30;
+	expectOnPartner [2]= 1; 
+	expectOnPartner [3]= 1; 
+	expectOnPartner [4]=MAX_ENERGY;
+	expectOnPartner [5]=MAX_ENERGY;
 				 		
 	
 	int hungryThreshold = 1+RandInBound(MAX_ENERGY);

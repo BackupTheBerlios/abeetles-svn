@@ -1,7 +1,12 @@
 #include "Legend.h"
 #include "Environment.h"
 #include "Beetle.h"
+#include "field.h"
+#include "defines.h"
 #include <QtGui>
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 
 CLegend::CLegend (QWidget * parent): QWidget(parent)
@@ -31,7 +36,7 @@ void CLegend::paintEvent(QPaintEvent *evnt)
 	QString topText="";
 	QString bottomText="";
 
-	if ((TypeView<0) ||(TypeView>5))return;
+	if ((TypeView<0) ||(TypeView>NUM_TYPE_VIEW))return;
 
 	painter.drawText(QRect(3,0,100,20),tr("Legend: "),Qt::AlignTop |Qt::AlignLeft );
 	
@@ -85,6 +90,21 @@ void CLegend::paintEvent(QPaintEvent *evnt)
 		topText="Growth=0%";
 		bottomText="Growth=100%";
 	}
+	if (TypeView==6)//"species"	
+	{
+		painter.setBrush(QBrush(QColor(CField::getSpeciesColor(0))));
+		painter.drawRect(10,20,15,15);
+		painter.drawText(40,30,"Species A");
+		painter.setBrush(QBrush(QColor(CField::getSpeciesColor(1))));
+		painter.drawRect(10,40,15,15);
+		painter.drawText(40,50,"Species B");
+		painter.setBrush(QBrush(QColor(CField::getSpeciesColor(2))));
+		painter.drawRect(10,60,15,15);
+		painter.drawText(40,70,"Species C");
+		painter.drawText(10,90,"etc.");
+
+		return;
+	}
 
 	//QMessageBox::information(this,"MyApp","2");
 
@@ -110,6 +130,9 @@ void CLegend::setTypeView(const QString& type)
     if (type==TYPE_VIEW_4)TypeView=3;//fertility
     if (type==TYPE_VIEW_5)TypeView=4;//Hunger
 	if (type==TYPE_VIEW_6) TypeView=5;//"growth of flowers"
+	if (type==TYPE_VIEW_7) TypeView=6;//species
+	if (type==TYPE_VIEW_8) TypeView=7;
+
 	update();
 }
 
