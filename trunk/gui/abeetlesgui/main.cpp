@@ -53,7 +53,7 @@ int RandInBound (int bound)
     
        if (err != 0)
     {
-       printf("The rand_s function failed!\n");
+       fprintf(stdout,"The rand_s function failed!\n");
 	   return 0;
     }
 	unsigned int Res = ((int)((((double)number /(double) RAND_MAX ) * bound))) % bound;

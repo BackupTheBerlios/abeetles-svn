@@ -22,6 +22,7 @@ COneRun::COneRun()
 	Seed=-1;
 	NumRandBeetles=-1;
 	EndTime=MAXTIME;
+	MutationProb=MUTATION_PROB_DEFAULT;
 	//cost of actions
 	StepCost=A_STEP_COSTS;
 	RotCost=A_ROTATION_COSTS;
@@ -102,6 +103,13 @@ bool COneRun::setEffFN (QString effFN)
 	if (false==QFile::exists(effFN)) return false;
 	EffFN=effFN;
 	return true;
+}
+
+void COneRun::setMutationProb(int mProb)
+{
+	if (mProb<0) mProb=0;
+	if (mProb>10) mProb=10;
+	MutationProb=mProb;
 }
 
 void COneRun::setCostsOfActions( int step, int rot, int copul, int wait)

@@ -13,6 +13,7 @@ public:
 	static int EnergyMax_C;
 	static int EFF_Age [EFF_BMP_X];
 	static 	QImage EffImg;
+	static int MutationProb;
 
 	int Id;
 	int Energy;// 0-100

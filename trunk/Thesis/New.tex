@@ -61,17 +61,19 @@
 \maketitle
 
 \begin{abstract}
-Software simulator allowing experiments with the evolution of simple organisms.
+Target of thesis is to create a software simulator allowing experiments with the evolution of simple organisms, run several experiments and describe results.
+
 \end{abstract}
 
-\chapter{Introduction}
+\chapter{Introduction to Artificial life}
 
 %*************3 pages about 1.Artificial life - definition, history, contemporary course 2. Brief context of my thesis*******************************
 
 %******************Definition of Artificial life*********************
+\section{What is Artificial life?}
 Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}).
 
-Because of its predominance within the field, the term "Artificial Life" is often used to specifically refer to soft alife.%source??
+In this thesis the term "Artificial Life" is often used to specifically refer to soft alife.
 
 The term Artificial life was first coined by Christopher Langton in the late 1980s at the first "International Conference on the Synthesis and Simulation of Living Systems" (otherwise known as Artificial Life I) at the Los Alamos National Laboratory in 1987. He envisioned a study of life as it could be in any possible setting.
 
@@ -85,26 +87,63 @@ The seminal novelty of ALife lies in its synthetic approach. Whereas traditional
 
 For example, answering of questions like how the simple rules of Darwinian evolution lead to high-level structure, or the way in which the simple interactions between ants and their environment lead to complex trail-following behavior promises to provide novel solutions to complex real-world problems, such as disease prevention, stock-market prediction, and data-mining on the Internet.\cite{AdamiBrown}
 
-Artificial life can be split into various subfields according to chosen substrat of the system (digital, mechanical or test-tube) as well as according to aspect of natural life, that is in the focus of the research.
-
-
-%replace this to another chapter!!
-%*************Evolutionary computation: if we choose evolution of biological life as the topic of our artificial life exploration and simulate it using computers.
-One of terms related to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world and simulated using computers. Evolutionary computation thus uses techniques of natural world and applies them using computers in other fields of interest. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are often focused on evolution of moving, shape, visual art and music. 
- 
 %************History of Alife as a science
 %The only source: Wikipedia - History of artificial life. However, citations are poor in this article. 
 %Exists:Artificial Life and the Sciences of Complexity: History and Future, 	Jean-Claude Heudin. But it is not accessible for free.
 %1hour of searching. Lets stop it.
+\section{History of Artificial life}
 
-%************Contemporary course of this science
+Important events at development of mathematics and computer science that later led to ideas of artificial life were presented in late 1940s at the Hixon Symposium in California. Math and computer prodigy John Von Neumann delivered a lecture titled "The General and Logical Theory of Automata" where he defined the term "automaton" and said that natural organisms would in the end be found to follow similar simple rules. He postulated a machine, "kinematic automaton", thatcould create an identical machine. Later he crated one with Stanislaw Ulam, a purely logic-based automata, not requiring a physical body but based on the changing states of the cells in an infinite grid - the first cellular automaton (CA). It was extraordinarily complicated compared to later CAs, having hundreds of thousands of cells which could each exist in one of twenty-nine states.
+ 
+Celular automatons were first field of artificial life in computer science and they are important up to present. A cellular automaton is a discrete model that consists of a regular grid of cells, each in one of a finite number of states. The grid can be in any finite number of dimensions. Time is also discrete, and the state of a cell at time t is a function of the states of a finite number of cells (called its neighborhood) at time $t - 1$. These neighbors are a selection of cells relative to the specified cell, and do not change. Every cell has the same rule for updating, based on the values in this neighbourhood. Each time the rules are applied to the whole grid a new generation is created.
+\cite{Delorme} 
+
+The following important step towards Artificial life was realized by Edgar F. Codd, who simplified Von Neumann's original twenty-nine state monster to one with only eight states.
+ 
+The history of Artificial life dates back to 1987 when the "International Conference on the Synthesis and Simulation of Living Systems" (otherwise known as Artificial Life I) was held at the Los Alamos National Laboratory. Researcher Christopher Langton defined here his idea of new science that had barely existed up to that time.
+ 
+In 1977 founded Ed Fredkin the Information Mechanics Group at MIT, \url{http://www.ai.mit.edu/projects/im/}. This group created a computer especially designed to execute cellular automata, eventually reducing it to the size of a single circuit board. This "cellular automata machine" allowed an explosion of alife research among scientists who could not otherwise afford sophisticated computers.
+
+In 1982, computer scientist Stephen Wolfram turned his attention to cellular automata. He explored and categorized the types of complexity displayed by one-dimensional CAs, and showed how they applied to natural phenomena such as the patterns of seashells and the nature of plant growth. 
+
+Computer animator Craig Reynolds similarly used three simple rules to create recognizable flocking behaviour in groups of computer-drawn "boids" in 1987. With no top-down programming at all, the boids produced life-like solutions to evading obstacles placed in their path. Computer animation has continued to be a key commercial driver of alife research as the creators of movies attempt to find more realistic and inexpensive ways to animate natural forms such as plant life, animal movement, hair growth, and complicated organic textures.
+
+The Unit of Theoretical Behavioural Ecology at the Free University of Brussels applied the self-organization theories to model behavior of swarms and colonies of organisms.
+
+A conference in May of 1985 called "Evolution, Games, and Learning" focused Alife to tie to the emerging field of complex adaptive systems. Key figure was J. Doyne Farmer working at the Center for Nonlinear Studies.
+
+In 2000s the field is underway to create cellular models of artificial life. Initial work on building a complete biochemical model of cellular behavior is underway as part of a number of different research projects, namely BlueGene which seeks to understand the mechanisms behind protein folding.
+
+The current proggres in Artificial life is regulary presented at Alife -International Conference on the Simulation and Synthesis of Living Systems and ECAL - European Conference on Artificial Life organized by International Society of Artificial Life (ISAL), \url{www.alife.org}. 
+
+\section{Abeetles - simulator of artificial life}
+
+%***********This thesis is about -> software, target of this work: 1.set of features 2.simulator 3.experiments
+This thesis is bounded within software approach to Artificial life. Its main target is to design and create software simulator Abeetles. Abeetles runs life of simple organisms in its specific environment and is concerned with evolution of their features and behavior. The system avails experiments with evolution of the organisms under various conditions and offer overviews and statistics of the proccess. Experiments performed with the system will be described in chapter Experiments.
+
+%This is here out of context.
+%Artificial life can be split into various subfields according to chosen substrat of the system (digital, mechanical or test-tube) as well as according to aspect of natural life, that is in the focus of the research.
 
 
-%***********This thesis is about -> software
-This thesis deals with digital substrate, so it is bounded within software approach to Artificial life. Because of the fact that Artificial life uses synthetic methods, the logical realization of software based Artificial life are software simulators that perform the construction of complex systems from elemental units.
+%replace this to another chapter!!
+%*************Evolutionary computation: if we choose evolution of biological life as the topic of our artificial life exploration and simulate it using computers.
+%One of terms related to Artificial life is Evolutionary computation. It is a general term for several computational techniques which are based to some degree on the evolution of biological life in the natural world and simulated using computers. Evolutionary computation thus uses techniques of natural world and applies them using computers in other fields of interest. The most widely used form of evolutionary computation are Genetic Algorithms. Evolution techniques are often focused on evolution of moving, shape, visual art and music. 
 
-%***********Target of this work: 1.set of features 2.simulator 3.experiments
-Target of this thesis is to introduce a simulator named Abeetles, that mimics life of simple organisms and is concerned with evolution of deliberately chosen features and behavior. The system avails experiments with evolution of the organisms under different conditions. Furthemore, several experiments performed with the system are described and a few other proposed.
+
+
+\section{Related terms}
+Abeetles concerns with evolution and genetics. Following terms will be used in this thesis: gene, genome, genotype and phenotype.
+
+Gene is a structural unit of inheritance in living organisms. A gene is, in essence, a segment of DNA that has a particular purpose, i.e., that codes for (contains the chemical information necessary for the creation of) a specific enzyme or other protein.\cite{GeneDic}
+
+In biology the genome of an organism is its whole hereditary information and is encoded in the DNA (or, for some viruses, RNA). This includes both the genes and the non-coding sequences of the DNA. The term was coined as a portmanteau of the words gene and chromosome.\cite{GenomeDef}
+
+The genotype of an organism is the class to which that organism belongs as determined by the description of the actual physical material made up of DNA that was passed to the organism by its parents at the organism's conception. For sexually reproducing organisms that physical material consists of the DNA contributed to the fertilized egg by the sperm and egg of its two parents. For asexually reproducing organisms, for example bacteria, the inherited material is a direct copy of the DNA of its parent. 
+
+The phenotype of an organism is the class to which that organism belongs as determined by the description of the physical and behavioral characteristics of the organism, for example its size and shape, its metabolic activities and its pattern of movement.
+\cite{GenPhen}
+
+%Furthemore should be explained: genome
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,13 +191,7 @@ In classification by simulated phenomenon Abeetles can be ranked among systems c
 
 The purpose of Abeetles is to be a prototype of scientific simulator. But not only for users from comunity of computer scientists, but also for those, who appreciate user friendly interface, even if it decreases performance of the system. 
 
-\section{Term related to fields of concern of Abeetles}
-%dopis, docisti!
-Abeetles concerns with evolution. For writing about matters, that are concerned with it, several key terms should be included. Gene is a structural unit of inheritance in living organisms. A gene is, in essence, a segment of DNA that has a particular purpose, i.e., that codes for (contains the chemical information necessary for the creation of) a specific enzyme or other protein.\cite{GeneDic}
-The distinction between phenotype and genotype is fundamental to the understanding of heredity and development of organisms. The genotype of an organism is the class to which that organism belongs as determined by the description of the actual physical material made up of DNA that was passed to the organism by its parents at the organism's conception. For sexually reproducing organisms that physical material consists of the DNA contributed to the fertilized egg by the sperm and egg of its two parents. For asexually reproducing organisms, for example bacteria, the inherited material is a direct copy of the DNA of its parent. The phenotype of an organism is the class to which that organism belongs as determined by the description of the physical and behavioral characteristics of the organism, for example its size and shape, its metabolic activities and its pattern of movement.
-\cite{GenPhen}
-In biology the genome of an organism is its whole hereditary information and is encoded in the DNA (or, for some viruses, RNA). This includes both the genes and the non-coding sequences of the DNA. The term was coined in 1920 by Hans Winkler, Professor of Botany at the University of Hamburg, Germany, as a portmanteau of the words gene and chromosome.\cite{GenomeDef}
-%Furthemore should be explained: genome
+
 
 
 
@@ -914,6 +947,8 @@ beetles=random,200,20 //Initial set of beetles can be either
   //means time-based seed and default number of beetles.
 eff=EnergyFromFlower.bmp //name of bmp image that describes 
   //dependency of beetles energy exploited from an eaten flower.
+mutationprob=5//probabality of mutation of genes of new-born
+  //beetles. Must be within range 0-10.
 costs=1,1,2,0 //cost of actions of a beetle: step, rotation, 
   //mating, waiting
 endtime=199000 //number of turns of the run of the simulator
@@ -1220,6 +1255,9 @@ Chris Adami and Titus Brown (2000) "What is Artificial Life?" The Seventh Intern
 
 \bibitem{BornhoffenLataud}
 Stefan Bornhofen and Claude Lattaud (2006) Artificial Evolution, chapter Outlines of Artificial Life: A Brief History of Evolutionary Individual Based Models, pages 226-237, Springer, April 2006
+
+\bibitem{Delorme}
+Marianne Delorme, "An Introduction to Cellular Automata," Cellular Automata: a Parallel Model, Mathematicsan Its Application ,Kluwer. \url{http://citeseer.ist.psu.edu/delorme98introduction.html} 
 
 \bibitem{GeneDic}
 Gene. (n.d.). Columbia Electronic Encyclopedia. Retrieved July 14, 2007, from Reference.com website: \url{http://www.reference.com/browse/columbia/gene-ent}

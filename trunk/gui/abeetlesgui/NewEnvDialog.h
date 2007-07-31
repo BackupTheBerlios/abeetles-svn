@@ -37,6 +37,7 @@ public:
 	QSpinBox * CostCopulSpin;
 	QSpinBox * CostWaitSpin;
 	QSpinBox * NumBeetlesSpin;
+	QSpinBox * MutationSpin;
 	QPushButton * MapBut;
 	QPushButton * EffBut;
 	QPushButton * BeetleFileBut;

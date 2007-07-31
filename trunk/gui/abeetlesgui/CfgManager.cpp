@@ -200,7 +200,7 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 	
 	if (NULL==(btlFile= fopen(filename,"w"))) 
 	{
-		printf("%d",errno);
+		fprintf(stdout,"%d",errno);
 		return false;
 	}
 
@@ -250,7 +250,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 	//int err;
 	if (NULL==(btlFile= fopen(filename,"r"))) 
 	{
-		printf("%d",errno);
+		fprintf(stdout,"%d",errno);
 		QMessageBox::information(NULL,"MyApp","Loading of file of beetles "+QString::fromAscii(filename)+" was not successful."); 
 		return false;
 	}
@@ -308,7 +308,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		
 		if (false==grid->SetCellContent(BEETLE,x,y,beetle))
 		{
-			printf("Beetle %d could not be placed into Grid([%d,%d] is out of grid or there is a wall).\n",I,x,y);
+			fprintf(stdout,"Beetle %d could not be placed into Grid([%d,%d] is out of grid or there is a wall).\n",I,x,y);
 			delete beetle;
 		}
 		J++;
@@ -317,7 +317,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	if (ok==false)
 	{
-		printf("File %s was not read correctly.\n",filename);
+		fprintf(stdout,"File %s was not read correctly.\n",filename);
 		return false;
 	}
 
@@ -527,7 +527,12 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 				 }
 			 }
 		 }
-
+		
+		 if(line.startsWith("mutationprob"))
+		 {
+			pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());
+			oneRun->setMutationProb(pom.toInt());
+		 }
 		 if (line.startsWith("costs")) //costs=1,1,2,2
 		 {
 			 pom = line.right(line.size()-line.indexOf("=")-1).trimmed();

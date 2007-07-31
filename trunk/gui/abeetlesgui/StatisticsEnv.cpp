@@ -77,7 +77,7 @@ void CStatisticsEnv::NextTime(int Time)
 
 		if ((statTimeFile= fopen(STAT_TIME_FILE,"w"))==0) 
 		{
-			printf("Creation of file for time statistics was not successful - Error No.%d.\n",errno);
+			fprintf(stdout,"Creation of file for time statistics was not successful - Error No.%d.\n",errno);
 			return; //It is not a reason to finnish the program.
 			//exit (EXIT_FAILURE);
 		}
@@ -99,6 +99,32 @@ void CStatisticsEnv::NextTime(int Time)
 			//SaveTimeStatist_InRowsAppend();
 			SaveTimeStatist_InColumnsAppend();
 		}
+
+		if(Time%MAX_DATA_TO_TIME_STATS_FILE ==0) //if the file reached maximal number of lines visible in MS Excel
+		{											//it is time to start new file
+		//Store of old
+			QString tstFN(STAT_TIME_FILE);
+			QString storeFN= QString::number(Time)+tstFN  ; //filename for storing as an old file
+			
+			if(QFile::exists(storeFN)) QFile::remove(storeFN);//old store file must be removed
+			if (false==QFile::copy(tstFN,storeFN)) //content of full file for saving is copied to be stored
+				fprintf(stdout,"Storing of old time statististics was not successful.\n");
+			QFile::remove(tstFN); //full file for saving of statistics is deleted
+		//Creation of new
+			FILE * statTimeFile;		
+
+			if ((statTimeFile= fopen(STAT_TIME_FILE,"w"))==0) 
+			{
+				fprintf(stdout,"Creation of file for time statistics was not successful - Error No.%d.\n",errno);
+				return; //It is not a reason to finnish the program.
+				//exit (EXIT_FAILURE);
+			}
+			else //adding to columns
+				fprintf(statTimeFile,"Number of beetles;Number of births;Number of flowers\n");
+		
+			fclose(statTimeFile);
+
+		}		
 	}
 	
 	//NumBirths=0;//!!Cannot be zeroed here, because this number is displayed after this saving. So I keep it as lastNumBirths
@@ -172,7 +198,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 
 	if ((statFile= fopen(filename,"w"))==0) 
 	{
-		printf("%d",errno);
+		fprintf(stdout,"File for saving of aggregated statistics was not openned, error: %d",errno);
 		return false;
 	}
 	
@@ -189,6 +215,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 	fprintf(statFile,"AvgLearnAbility=%f;\n",GetAvgLearnAbility());
 	fprintf(statFile,"AvgNumChildren=%f;\n",GetAvgNumChildren());
 
+
 	fprintf(statFile," ---------- \n");
 	
 	fclose(statFile);
@@ -196,7 +223,7 @@ bool CStatisticsEnv::SaveActAgrStatist(char * filename, int time)
 	
 	return true;
 }
-
+/*Not used any more
 bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 {
 		FILE * stTFOld;FILE * stTF;
@@ -208,12 +235,12 @@ bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 		//open old file for reading and new file for writing
 		if ((stTFOld= fopen(STAT_TIME_FILE_OLD,"r"))==0) 
 		{
-			printf("Error No.%d occured, opening of file %s unsuccessful.",errno,STAT_TIME_FILE);			
+			fprintf(stdout,"Error No.%d occured, opening of file %s unsuccessful.",errno,STAT_TIME_FILE);			
 			return false;
 		}
 		if ((stTF= fopen(STAT_TIME_FILE,"w"))==0) 
 		{
-			printf("Error No.%d occured, opening of file %s unsuccessful.",errno,STAT_TIME_FILE);			
+			fprintf(stdout,"Error No.%d occured, opening of file %s unsuccessful.",errno,STAT_TIME_FILE);			
 			return false;
 		}
 		//rewrite old to new up to the end of the first line
@@ -252,7 +279,7 @@ bool CStatisticsEnv::SaveTimeStatist_InRowsAppend()
 		remove (STAT_TIME_FILE_OLD);
 	return true;
 }
-
+*/
 
 /**
 * Public method <br>
@@ -271,7 +298,7 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 	{
 		if ((stTF= fopen(STAT_TIME_FILE,"a+"))==0) 
 		{
-			printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+			fprintf(stdout,"Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
 			return false;
 		}
 		
@@ -299,7 +326,7 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 
 		if ((stTF= fopen(fname,"a+"))==0) 
 		{
-			printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+			fprintf(stdout,"Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
 			return false;
 		}
 		
@@ -328,7 +355,7 @@ bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
 	if ((stTF= fopen(tst_filename,"r"))==0) 
 	{
 		QMessageBox::information(NULL,"MyApp","Loading of file of time statistics "+QString::fromAscii(tst_filename)+" was not successful."); 
-		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
+		fprintf(stdout,"Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
 		return false;
 	}
 	
@@ -449,7 +476,7 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 
 	if ((statFile= fopen(filename,"w"))==0) 
 	{
-		printf("Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),filename);			
+		fprintf(stdout,"Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),filename);			
 		return false;
 	}
 
@@ -510,7 +537,7 @@ int CStatisticsEnv::FindSpeciesOfBeetles(CGrid * grid)
     int num = connected_components(G, &component[0]);
     
     std::vector<int>::size_type i;
-    cout << "Total number of components: " << num << endl;
+    //cout << "Total number of components: " << num << endl;
     for (i = 0; i != component.size(); ++i)
 	{
 		//cout << "Beetle " << i <<" is in component " << component[i] << endl;
@@ -520,10 +547,10 @@ int CStatisticsEnv::FindSpeciesOfBeetles(CGrid * grid)
 	
 	delete beetleArr;
 
-	return component.size();
+	return num;
 	}
 }
-
+/*
 int CStatisticsEnv::FindGendersOfBeetles(CGrid * grid)
 {
 	
@@ -598,4 +625,4 @@ main()
 
   return EXIT_SUCCESS;
 
-}
+}*/

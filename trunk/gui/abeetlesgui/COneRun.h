@@ -17,6 +17,7 @@ public:
 	int NumRandBeetles;
 	int EndTime;
 	QString EffFN;
+	int MutationProb; //0%-10%
 	//cost of actions
 	int StepCost;
 	int RotCost;
@@ -43,6 +44,7 @@ public:
 	void setLearningOn (bool learningOn);
 	void setIsStepOnFlower(bool isStepOnFlower);
 	bool setEffFN (QString effFN);
+	void setMutationProb(int mProb);
 	void setCostsOfActions( int step, int rot, int copul, int wait);
 	void setAggrStatFN( QString aggrStatFN);
 	void setHistStatFN( QString histStatFN);

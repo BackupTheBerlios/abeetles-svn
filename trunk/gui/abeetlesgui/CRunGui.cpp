@@ -546,7 +546,7 @@ void CRunGui::make1Step()
 		/*
 		if (Env.DisplayOn)
 		{
-			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
+			fprintf(stdout," NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",Env.Statist.NumBeetles,Env.Statist.NumBirths,Env.Statist.NumFlowers);		
 			Env.PrintEnv();	
 		}*/
 	if (NumSteps>0) NumSteps--;

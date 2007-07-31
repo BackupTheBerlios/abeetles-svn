@@ -44,6 +44,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	WaitCost=oneRun->WaitCost;
 	LearningOn=oneRun->LearningOn;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+	CBeetle::MutationProb=oneRun->MutationProb;
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -78,6 +79,7 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 	WaitCost=oneRun->WaitCost;
 	LearningOn=oneRun->LearningOn;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+	CBeetle::MutationProb=oneRun->MutationProb;
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -124,7 +126,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	int Left,Front,Right; //content of Beetle's neighbor cells
 	CBeetle * beetle=NULL;
 	Grid_Past.GetCellContent(x,y,&beetle);
-	//printf("E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
+	//fprintf(stdout,"E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
 	
 	//beetle looks around him
 	Left=GetBeetleNeighborCell(x,y,beetle->Direction,'L');
@@ -304,13 +306,13 @@ bool CEnvironment::PrintEnv(void)
 	CBeetle * beetle;
 	int what=NOTHING;
 	
-	printf("\n");
+	fprintf(stdout,"\n");
 
 	//upper line of numbers
 	putc(' ',stdout);
 	for (I=0;I<Grid.G_Width;I++)
 		putc((char)(I%10)+'0',stdout);
-	printf("\n");
+	fprintf(stdout,"\n");
 
 	for(J=0;J<Grid.G_Height;J++)
 	{
@@ -333,7 +335,7 @@ bool CEnvironment::PrintEnv(void)
 				}
 			}
 		}
-		printf("     ");
+		fprintf(stdout,"     ");
 		for(I=0;I<Grid.G_Width;I++)
 		{
 			what=Grid.GetCellGrowingProbability(I,J);
@@ -344,9 +346,9 @@ bool CEnvironment::PrintEnv(void)
 
 		}
 
-		printf("\n");
+		fprintf(stdout,"\n");
 	}
-	printf("\n");
+	fprintf(stdout,"\n");
 	
 	return true;
 }
@@ -471,7 +473,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 			}
 			assert(beetle->GetEnergy()>0);
 		}
-		//printf("E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
+		//fprintf(stdout,"E:%dX:%dY:%d",beetle->GetEnergy(),I,J); //debug info about beetles location
 
 	}
 
@@ -666,7 +668,7 @@ bool CEnvironment::CreateDefaultEnv(void)
 	//Init Grid_Past and Grid (with sizes, flowers probability, walls and beetles)	
 	if (false == LoadEnv(DEFAULT_FILE_NAME ))
 	{
-		printf("Loading of environment file %s_map.bmp was not successful.",DEFAULT_FILE_NAME);
+		fprintf(stdout,"Loading of environment file %s_map.bmp was not successful.",DEFAULT_FILE_NAME);
 		exit (EXIT_FAILURE);
 	}
 	return true;

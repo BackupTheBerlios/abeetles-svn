@@ -67,6 +67,9 @@ NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,
 	EffBut= new QPushButton("Energy From Flower");	
 	connect(EffBut,SIGNAL(pressed()),this,SLOT(setEffFN()));
 
+	QLabel * mutationLabel = new QLabel("Probability of mutation: ");
+	MutationSpin = new QSpinBox();MutationSpin->setMaximum(10);MutationSpin->setMinimum(0);MutationSpin->setValue(MUTATION_PROB_DEFAULT);
+
 	QLabel * costsLabel = new QLabel("Costs of Actions: ");
 	QLabel * costStepLabel = new QLabel("Step: ");
 	QLabel * costRotLabel = new QLabel("Rotation: ");
@@ -89,17 +92,19 @@ NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,
 	bottomGrid->addWidget(MapLabel,0,1);
 	bottomGrid->addWidget(EffBut,1,0);
 	bottomGrid->addWidget(EffLabel,1,1);
-	bottomGrid->addWidget(costsLabel,2,0,1,2);
-	bottomGrid->addWidget(costStepLabel,3,0);
-	bottomGrid->addWidget(CostStepSpin,3,1);
-	bottomGrid->addWidget(costRotLabel,4,0);
-	bottomGrid->addWidget(CostRotSpin,4,1);
-	bottomGrid->addWidget(costCopulLabel,5,0);
-	bottomGrid->addWidget(CostCopulSpin,5,1);
-	bottomGrid->addWidget(costWaitLabel,6,0);
-	bottomGrid->addWidget(CostWaitSpin,6,1);
-	bottomGrid->addWidget(okBut,7,0,Qt::AlignCenter);
-	bottomGrid->addWidget(cancelBut,7,1,Qt::AlignCenter);
+	bottomGrid->addWidget(mutationLabel,2,0);
+	bottomGrid->addWidget(MutationSpin,2,1);
+	bottomGrid->addWidget(costsLabel,3,0,1,2);
+	bottomGrid->addWidget(costStepLabel,4,0);
+	bottomGrid->addWidget(CostStepSpin,4,1);
+	bottomGrid->addWidget(costRotLabel,5,0);
+	bottomGrid->addWidget(CostRotSpin,5,1);
+	bottomGrid->addWidget(costCopulLabel,6,0);
+	bottomGrid->addWidget(CostCopulSpin,6,1);
+	bottomGrid->addWidget(costWaitLabel,7,0);
+	bottomGrid->addWidget(CostWaitSpin,7,1);
+	bottomGrid->addWidget(okBut,8,0,Qt::AlignCenter);
+	bottomGrid->addWidget(cancelBut,8,1,Qt::AlignCenter);
 
 
 
@@ -166,6 +171,7 @@ void NewEnvDialog::getData(COneRun * oneRun)
 
 	oneRun->EffFN = EffFN;
 	oneRun->MapFN = MapFN;
+	oneRun->MutationProb = MutationSpin->value();
 	oneRun->StepCost =CostStepSpin->value();
 	oneRun->RotCost = CostRotSpin->value();
 	oneRun->CopulCost = CostCopulSpin->value();

@@ -35,12 +35,12 @@ int CRunLife::run(void)
 	int jumpTime;
 
 	//First, output to console the situation at the beginning
-	printf("SP:%d,SI:%d\n",sizeof(int*),sizeof(int));
-	printf("Width: %d\n",env.Grid.G_Width);
-	printf("\nTime:%d",env.Time);
+	fprintf(stdout,"SP:%d,SI:%d\n",sizeof(int*),sizeof(int));
+	fprintf(stdout,"Width: %d\n",env.Grid.G_Width);
+	fprintf(stdout,"\nTime:%d",env.Time);
 	if (env.DisplayOn)
 	{
-		printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
+		fprintf(stdout," NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
 		env.PrintEnv();		
 	}
 
@@ -63,10 +63,10 @@ int CRunLife::run(void)
 			}
 
 		//output to console
-		printf("\nTime:%d",env.Time);
+		fprintf(stdout,"\nTime:%d",env.Time);
 		if (env.DisplayOn)
 		{
-			printf(" NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
+			fprintf(stdout," NumBeetles: %d, NumBirths: %d, NumFlowers: %d ",env.Statist.NumBeetles,env.Statist.NumBirths,env.Statist.NumFlowers);		
 			env.PrintEnv();	
 		}
 		
@@ -95,7 +95,7 @@ bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
 	char input;
 
 	//communication with user
-	printf("(quit: x + Enter, continue: Enter, set time for not stopping: n\n save: s, save statistics: t, Display on/off: d): ");
+	fprintf(stdout,"(quit: x + Enter, continue: Enter, set time for not stopping: n\n save: s, save statistics: t, Display on/off: d): ");
 	if (input = _getch()) // (_kbhit()) - zjisteni, byla-li stisknuta klavesa
 	{
 		//input = _getch();
@@ -122,10 +122,10 @@ bool CRunLife::DialogWithUser(CEnvironment * env, int* jumpTime)
 		if (input =='n')
 		{
 			if (env->DisplayOn) env->DisplayOn=false;
-			printf("\nNum of time for not stopping run: ");
+			fprintf(stdout,"\nNum of time for not stopping run: ");
 			scanf("%d",jumpTime);
 		}
 	}
-	printf("\n\n");
+	fprintf(stdout,"\n\n");
 	return true;
 }

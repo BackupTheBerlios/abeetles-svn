@@ -21,6 +21,7 @@
 #define DEFAULT_BEETLES_FILE "Beetles.txt"
 
 #define MAXTIME 500000 
+#define MAX_DATA_TO_TIME_STATS_FILE 32000 //maximum number of lines in csv file of time statistics
 
 #define PROB_FLOWER_DIE 20 //probability of dying of a flower
 
@@ -72,7 +73,7 @@
 #define EXPECT_ON_PARTNER_D 6 
 
 //probability of mutation
-#define MUTATION_PROB 2
+#define MUTATION_PROB_DEFAULT 2
 #define LEARN_PROB 2
 
 //not used any more
