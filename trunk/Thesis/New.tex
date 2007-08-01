@@ -105,9 +105,9 @@ In 1977 founded Ed Fredkin the Information Mechanics Group at MIT, \url{http://w
 
 In 1982, computer scientist Stephen Wolfram turned his attention to cellular automata. He explored and categorized the types of complexity displayed by one-dimensional CAs, and showed how they applied to natural phenomena such as the patterns of seashells and the nature of plant growth. 
 
-Computer animator Craig Reynolds similarly used three simple rules to create recognizable flocking behaviour in groups of computer-drawn "boids" in 1987. With no top-down programming at all, the boids produced life-like solutions to evading obstacles placed in their path. Computer animation has continued to be a key commercial driver of alife research as the creators of movies attempt to find more realistic and inexpensive ways to animate natural forms such as plant life, animal movement, hair growth, and complicated organic textures.
+Computer animator Craig Reynolds similarly used three simple rules to create recognizable flocking behavior in groups of computer-drawn "boids" in 1987. With no top-down programming at all, the boids produced life-like solutions to evading obstacles placed in their path. Computer animation has continued to be a key commercial driver of alife research as the creators of movies attempt to find more realistic and inexpensive ways to animate natural forms such as plant life, animal movement, hair growth, and complicated organic textures.
 
-The Unit of Theoretical Behavioural Ecology at the Free University of Brussels applied the self-organization theories to model behavior of swarms and colonies of organisms.
+The Unit of Theoretical Behavioral Ecology at the Free University of Brussels applied the self-organization theories to model behavior of swarms and colonies of organisms.
 
 A conference in May of 1985 called "Evolution, Games, and Learning" focused Alife to tie to the emerging field of complex adaptive systems. Key figure was J. Doyne Farmer working at the Center for Nonlinear Studies.
 
@@ -167,7 +167,7 @@ Another grouping of simulators can be done according to phenomenon, that they si
 \begin{itemize}
   \item \textbf{Networks} - Relationships in complex natural systems are simulated according to network theory (or diktyology) as networks or graphs and their statistical and topological properties are analyzed. 
   \item \textbf{Nonlineality} - Nonlineal systems are systems that cannot be mathematically described as a sum of their components. While certain assumptions can be made for lineal systems, that often make the mathematical modelling of such systems easy, mathematical modelling of nonlineal systems is often very difficult or impossible. As a result, nonlineal systems are often studied through use of simulations.
-  \item \textbf{Swarms} - A swarm is a group of independent agents that gather together in order to collectively carry out a certain task. Typically, each agent exhibits a very simple behaviour pattern that is influenced by direct or indirect interactions with other swarm members. As a result, the swarm as a whole may exhibit complex and intelligent behaviour patterns. In nature, swarms can be observed in social insects, fish schools, but also in primitive single cell organisms.
+  \item \textbf{Swarms} - A swarm is a group of independent agents that gather together in order to collectively carry out a certain task. Typically, each agent exhibits a very simple behavior pattern that is influenced by direct or indirect interactions with other swarm members. As a result, the swarm as a whole may exhibit complex and intelligent behavior patterns. In nature, swarms can be observed in social insects, fish schools, but also in primitive single cell organisms.
   \item \textbf{Evolution} - Evolution is the process of development or grows by accumulation of small advantageous changes. The study of all forms of evolutionary processes is one of the primary goals of ALife. This includes the study of biological evolution of species as well as other evolutionary processes in natural, artificial and social systems.
   \item \textbf{Cellular Automata} - The term cellular automaton (CA)is described in the previous chapter. It is not directly a phenomenon of natural life, but it is a discrete model of mutual influence of neighboring elements, which can be in the nature observed. 
 \end{itemize}  
@@ -190,7 +190,7 @@ The purpose of Abeetles is to be a scientific simulator. But not only for users 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Precise definition of targets of the system Abeetles}
+\chapter{Targets of Abeetles and their origin}
 
 %Objectives of this thesis have already been briefly mentioned in the first chapter. This chapter has for its objective precise description of these targets and explanation of context of individual bullets where necessary. 
 %no.. these are targets of all thesis, but this chapter is about targets of simulator Abeetles.
@@ -198,7 +198,7 @@ The purpose of Abeetles is to be a scientific simulator. But not only for users 
 %First, swift enumeration: Targets of this thesis are to design the simulator Abeetles, implement it and  introduce several experiments to be run on the simulator. %This is just shortcut of paragraph from the first chapter
 
 %Abeetles: simulates evolution of agents in environment
-The main target of Abeetles, as well as of other similar programs, is to simulate artificial life. But artificial life is rather a general idea, because to simulate all natural life as we know it on the Earth is with contemporary means impossible. Therefore every simulator chooses just a restricted subset. As stated above, Abeetles is concerned with evolution. The next step is thus to specify what will be evolved and how will look like the world, where it will be evolved. In the following text the subject of evolution will be called agents and the world will be called environment. 
+The main target of Abeetles, as well as of other similar programs, is to simulate artificial life. But artificial life is rather a general idea, because to simulate all natural life as we know it on the Earth is with contemporary means impossible. Therefore every simulator chooses just a restricted subset. As stated above, Abeetles is concerned with evolution. The next step is thus to specify what will be evolved and how will look like the world, where it will be evolved. In the following text the subject to evolution will be called agents and the world will be called environment. 
 
 
 
@@ -209,6 +209,7 @@ Abeetles is one of the simulators where both environment and agents are very sim
 
 Browsing in the Internet, one easily ascertains that there are already many simulators of artificial life. Therefore it is necessary to define targets of Abeetles in the context of other artificial life simulators. Attributes of several of these "brother programs" will be described in details and afterwards features of the environment and agents of Abeetles will be stated after careful comparison. For this purpose will serve five existing simulators: Avida, Bitozoa, Gene Pool, Mitozoos and Primordial life. Reasons for choice of each of them will be described. Common attribute of all of them is that their binaries are accesible freely or on demand. Abeetles is also free software and is intended to examine contributing set of features of natural life only within free software.
 
+\section{Brother simulators}
 %Alternative:Accordingly Abeetles only strive to present an original set of features and attitudes among well-described parts of free and accesible implementations of artificial life.
 
 %Already written at the beginning of the paragraph:
@@ -235,7 +236,7 @@ Cathegory Implementation holds: Implementation(= features of implementation of t
  %author
  %cathegorisation into 3 systems
  
-\section {Avida}
+\subsection {Avida}
 
 Avida is an often presented example of a program based simulator. It studies evolution of programs. For definition of targets of Abeetles Avida's implementation is important  - two programs, console and GUI version - serve to scientific purposes, the first one can run very fast and the other one can offer graphical output. Examined release was Avida version 2.0b7 2003 for OS Windows. Avida is a joint project of the Digital Life Laboratory at the California Institute of Technology, \url{http://dllab.caltech.edu/}, (headed by Chris Adami) and the Digital Evolution Group, \url{http://devolab.cse.msu.edu/}, at Michigan State University. Web page of the project is \url{http://dllab.caltech.edu/avida/}.
 
@@ -247,7 +248,6 @@ Avida is an often presented example of a program based simulator. It studies evo
 \end{center}
 \end{figure}
 
-%sem vlozit mezeru! - jak?
 \vspace{20pt}
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
@@ -309,7 +309,7 @@ Programming language&C++ \\ \hline
  %author
  %cathegorisation into 3 systems
 
-\section {Bitozoa}
+\subsection {Bitozoa}
 Bitozoa is a simulator created by M. Borkowski, that uses for representation of agents neural network in combination with a set of parameters. It evolves two types of agents, herbivores and carnivores. It was created for purpose of amusement and education. Used version is Bitozoa 2 - artificial life and artficial intelligence simulation, 2000. Web page of the project is \url{http://www.bpp.com.pl/bitozoa2/bitozoa2.html}.
 
 \begin{figure}
@@ -348,7 +348,7 @@ Investment in offspring&both parents give the same fixed amount\\ \hline
 \vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline 	\textbf  {Environment}&\\ \hline
-Description&space in form of toroid\\ \hline
+Description&space in the form of a toroid\\ \hline
 Features&number of spots, where food grows\\ \hline
 Elements&food growing on special spots, herbivores and carnivores\\ \hline
 \end{tabular}
@@ -376,7 +376,7 @@ Availability of binaries&permission from author\\ \hline
 Programming language&C++ Win32API\\ \hline
 \end{tabular}
 
-\section {Gene Pool}
+\subsection {Gene Pool}
 Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parameter based simulator, dealing with evolution of swimming creatures in a virtual Darwinian aquarium. It is a game with intriguing graphical interface, san serve as an entertaining learning tool, but author demonstrated with it also several interesting results concerning influence of atractiveness of partners on  results of evolution.\cite{GenePool1} \cite{GenePool2}
 
 \begin{figure}
@@ -390,9 +390,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 \vspace{20pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
-&Gene Pool\\ \hline
-&Parameter based\\ \hline
-textbf{Agents}&swimbot\\ \hline
+\textbf{Agents}&swimbots\\ \hline
 Body&mouth, genitals and 2-10 parts for moving\\ \hline
 Moving&swimming using parts, algorithm common for all swimbots\\ \hline
 Behavior&nothing\\ \hline
@@ -443,7 +441,7 @@ do uvodu:&how good is a swimbot in reproducing, which means either being good at
 
 \end{tabular}
 
-\section {Mitozoos}
+\subsection {Mitozoos}
 The author of project Mitozoos is Spanish software company Bestiario. Purpose of the simulator is educational, as author states "Mitozoos is an interactive artificial life model created with the objective that through experimentation and play participants will understand the relationship between genetic code and life." The web presentation of the project can be found at \url{http://bestiario.org/mitozoos/english/index.html}.
 
 \begin{figure}
@@ -479,7 +477,7 @@ Investment in offspring&a fixed amount of energy \\ \hline
 \end{tabular} 
 
  \vspace{10pt} \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}& \\ \hline
-Description&space in form of a circle \\ \hline
+Description&space in the form of a circle \\ \hline
 Features&rate of food growth \\ \hline
 Elements&mitozoos, food bits \\ \hline
 \end{tabular} 
@@ -504,7 +502,7 @@ Availability of binaries&yes \\ \hline
 Programming language&Action Script, (?) \\ \hline
 \end{tabular}
 
-\section {Primordial Life}
+\subsection {Primordial Life}
 For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can be downloaded at \url{http://www.io.com/~spofford/prim30.html}. Primordial life is a shareware parameter based artificial life screen saver writen for purpose to capture the principles of evolution in an interestion and visual way.
 
 \begin{figure}
@@ -520,9 +518,7 @@ For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can
 \vspace{20pt}
  \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
-&Primordial life 3.21\\ \hline
-&parameter based, evolution, game\\ \hline
-textbf{Agents}&biots\\ \hline
+\textbf{Agents}&biots\\ \hline
 Body&pattern of vectors of different colors, color of a part determines its special function.\\ \hline
 Moving&moved by environment or by its motor (light blue parts)\\ \hline
 Behavior&fighting with each other\\ \hline
@@ -573,7 +569,7 @@ Availability of binaries&register\\ \hline
 
 \section{Features of Abeetles}
 %Abeetles is a successor of Broucci(bez pameti)
-The original idea of Abeetles is to create a successor of existing program Broucci (=Beetles) introduced by RNDr. Tomas Holan Phd. as an example of different attitude to solution of complex problems. It is not an artificial life simulator, but it could be classified as Related system. It uses genetic programming to solve a specifical problem. The assignment of Broucci is that there is a world where beetles live. Beetles can move - make a step, rotate left and rotate right. The step can go to an empty space or eat a beetle and occupy its place. They can see what is around them - in the front, on the left and on the right. Find an algorithm, that should a beetle use so as not to die of hunger and not be eaten up by another beetle. Solution described by the author is a console program where beetles are visualized as arrows turned in the direction of beetles sight. Beetles take turns regulary and alway when the number of beetles goes down under certain lever, new beetles are created from the most successful ones using genetic crossover algorithm. Parents do not meet.\cite{Broucci}
+The original idea of Abeetles is to create a successor of existing program Broucci (=Beetles) introduced by RNDr. Tomas Holan Phd. as an example of different attitude to solution of complex problems. It is not an artificial life simulator, but it could be classified as a related system. It uses genetic programming to solve a specifical problem. The assignment of Broucci is that there is a world where beetles live. Beetles can move - make a step, rotate left and rotate right. The step can head for an empty space or to eat a beetle and occupy its place. They can see what is around them - in the front, on the left and on the right. Task is to find an algorithm that should a beetle use so as not to die of hunger and not be eaten up by another beetle. Solution described by the author is a console program where beetles are visualized as arrows turned in the direction of their sight. Beetles take turns regulary and always when the number of beetles goes down under certain level, new beetles are created from the most successful ones using genetic crossover algorithm. Parents do not meet.\cite{Broucci}
 
 \begin{figure}
 \begin{center}
@@ -587,7 +583,7 @@ Abeetles takes over following ideas of Broucci: beetles can move by sequence of 
  
 %Jak propojit navaznost na broucky s vmezerenim se mezi existujici programy? Posloupnost je jasna: 1. urcit, v cem chci na predchozi program navazat. 2. Rozvinout ho tak, aby zajimave vplynul mezi existujici simulatory.
 
-"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, six were chosen as the key ones: moving, learning, choice of partner, distribution of computation, obstacles in environment and aging. The following table compares Abeetles with other solutions specificaly in this cathegories.
+"Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, six were chosen as the key ones: moving, learning, choice of partner, distribution of computation, obstacles in environment and aging. The following table compares Abeetles with other solutions only using these cathegories.
 
 \vspace{10pt} 
 \begin{tabular}{lcccccc}
@@ -599,77 +595,79 @@ Distribution&x&Y&x&x&x&x\\
 Obstacles&x&x&x&x&x&O\\
 Aging&x&x&x&x&x&O\\
 \end{tabular}
+\vspace{10pt}
 
-O - optional (user can influence it)
-S - static (fixed)
-G - genetically evolved
-x - not present
-Y - yes
+O - optional (user can influence it), S - static (fixed), G - genetically evolved, x - not present, Y - yes
 
-Moving strategy is a function of an organism, where input is the view and state of the organism and output is decision what to do. Bitozoa evolve such a function genetically, but bases it on neural networks. Mitozoos uses fixed strategy that is influences by several parameters. These parameters, e.g. maximal distance of a food bit in the view so as to head for it, are subject of evolution. Gene Pool has also fixed strategy. Abeetles overtake the idea of evolution of strategy of moving from its predecessor Broucci and intends to explore it.
+\vspace{10pt}
 
-Learning is a feature that is usually connected with neural networs. Parameter based simulators generally do no not use it. But influence of simple learning on evolution of moving can be interesting, therefore it is placed among objectives of Abeetles. The term learning is very general, Abeetles inspired its view of learning with memetic theory. 
+Moving strategy is a function of an organism, where input is the view and state of the organism and output is a decision what to do. Bitozoa evolve such a function genetically, but bases it on neural networks. Mitozoos uses fixed strategy that is influenced by several parameters. These parameters, e.g. maximal distance of a food bit in the view so as to head for it, are subject to evolution. Gene Pool has also fixed strategy. Abeetles overtake the idea of evolution of strategy of moving from its predecessor Broucci and intends to explore it.
 
-The term meme was first coined by Richard Dawkins in 1976. Dawkins defined the meme as "a unit of cultural transmission, or a unit of imitation"\cite{SelfishGene}. Memes have as an important characteristic their propagation through imitation, a concept introduced by the French sociologist Gabriel Tarde. Imitation involves copying the observed behaviour of another individual. Researchers have observed memetic copying in just a few species on Earth, including hominids, dolphins and birds (which learn how to sing by imitating their parents). The technique of dissemination of mems in population can be formalized, as it is described e.g. in lectures of Vlado Kvasnicka from CHTF STU \url{ftp://math.chtf.stuba.sk/pub/vlado/Evol_alg_MFF/prednaska1_transp.pdf}.
+Learning is a feature that is usually connected with neural networs. Parameter based simulators generally do not use it. But influence of simple learning on evolution of moving might be interesting, therefore it is placed among objectives of Abeetles. The term learning is very general, Abeetles inspired its view of learning with memetic theory. 
+
+The term meme was first coined by Richard Dawkins in 1976. Dawkins defined the meme as "a unit of cultural transmission or a unit of imitation"\cite{SelfishGene}. Memes have as an important characteristic their propagation through imitation, a concept introduced by the French sociologist Gabriel Tarde. Imitation involves copying the observed behavior of another individual. Researchers have observed memetic copying in just a few species on Earth, including hominids, dolphins and birds (which learn how to sing by imitating their parents). The technique of dissemination of memes in population can be formalized and it is described e.g. in lectures of Vlado Kvasnicka from CHTF STU at \url{ftp://math.chtf.stuba.sk/pub/vlado/Evol_alg_MFF/prednaska1_transp.pdf}.
 
 Abeetles uses imitation of behavior in the way that agents copy some patterns of behavior from other more successful beetles. It would be interesting to explore, to which extent is mutual learning convenient. Abeetle adds probability of learning from another beetle to features of agents and evolves it.
 
-Choice of partner for mating is the next idea Abeetles concens with. In Primordial Life, Bitozoa and Mitozoos choice of partner is restricted to demand on sufficient level of energy of both parents. Gene Pool is on the other hand interested in influence of criterion of choice of partner on results of evolution. \cite{GenePool2} In contrast to it Abeetles chooses fixed criteria and evolves their values.   
+Choice of partner for mating is the next idea Abeetles concerns with. In Primordial Life, Bitozoa and Mitozoos choice of partner is restricted to demand on sufficient level of energy of both parents. Gene Pool is on the other hand interested in influence of criterion of choice of partner on results of evolution. \cite{GenePool2} In contrast to it, Abeetles chooses fixed criteria and evolves their values.   
 
 Simulator Primordial life offers possiblity to connect simulators and in order to it connect environments together. Plan of Abeetles originally included computation distributed on more computers, but finally it is only single compute r application. Reasons are described later. 
 
 Obstacles are incomporated in none of the five simulators. But obstacles and consequenly the shape of the environment can be very interesting for Abeetles, which evolves strategy of motion.  
 
-Aging is generally meant as dependence of performance of an agent on age. None of the five simulators implement it. Abeetles make it possible for user to set amount of energy obtained from food according to age of a beetle.
+Aging is generally meant as dependence of performance of an agent on age. None of the five simulators implements it. Abeetles makes it possible for a user to set amount of energy obtained from food according to age of a beetle.
 
+%Nemela bych jeste udelat presnou tabulku jako je u brother programs?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Structure of the thesis in relation to chosen objectives}
+%Chmmm... tohle snad neni potreba vubec. Vyhodim to.
+%\chapter{Structure of the thesis in relation to chosen objectives}
 %4.         Struktura práce ve vztahu k vytyèeným cílùm
 
-Chosen objectives are: model of artificial life and implementation of simulator that will run the life and idea of possible experiments and their realization.
+%Chosen objectives are: model of artificial life and implementation of simulator that will run the life and idea of possible experiments and their realization.
 
-The course of following chapters will be:
+%The course of following chapters will be:
 
-\section {Analysis} %(=Co se ma udelat)projdu jednotlive cile a urcim jake (meritelne) vlastnosti musi program mit, aby cile splnoval.
-The first step will be specification of the model of artificial life that will Abeetles use. The model should conform to examination of chosen features of natural life that were described in the previous chapter.
+%\section {Analysis} %(=Co se ma udelat)projdu jednotlive cile a urcim jake (meritelne) vlastnosti musi program mit, aby cile splnoval.
+%The first step will be specification of the model of artificial life that will Abeetles use. The model should conform to examination of chosen features of natural life that were described in the previous chapter.
 
-The second step will be description of requirements on the simulator. Which features it should have and which functionality it should offer to users.
+%The second step will be description of requirements on the simulator. Which features it should have and which functionality it should offer to users.
  
-\section {Design} %(=Jak se to ma udelat)
-Design of Abeetles and discussion of alternatives.
+%\section {Design} %(=Jak se to ma udelat)
+%Design of Abeetles and discussion of alternatives.
 
-\section {Detailed design of Abeetles}
+%\section {Detailed design of Abeetles}
 
-\section {Implementation}
+%\section {Implementation}
 
-\section {Experiments - description, course and results}
+%\section {Experiments - description, course and results}
 
-\section {Review of completion of objectives in comparison with other attitudes}   
-
+%\section {Review of completion of objectives in comparison with other attitudes}   
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Analysis of the problem from different aspects}
+\chapter{Analysis of the problem from different aspects}%Ten nazev se mi nelibi, co s nim? Jen "Analysis"? nebo "Design"?
 
 %1.Datovy model Abeetles se vztahy a integritnimi omezenimi
+
 \section {Model of artificial life of Abeetles}
 
+% Class diagram s entitami, jejich vztahy a integritnimi omezenimi.
 \begin{figure}
 \begin{center}
-  \includegraphics [scale=0.8]{AnalysisDataModel.eps} %
+  \includegraphics [scale=0.8]{AnalysisDataModel.eps} 
   \caption{Conceptual data model of Abeetles}
-  \label{obr.graphicx}
+  \label{obr.AnalysisDataModel}
 \end{center}
 \end{figure}
 
-Artificial life in simulator Abeetles simulates natural life as environment inhabited by agents. Agents are those elements of environment that are subject to evolution and environment is all the world with other not evolved objects where agents live.
+%Abeetles - simulator with agents and environment
+Artificial life in simulator Abeetles is an environment inhabited by agents. Agents are those elements of environment that are subject to evolution and environment is all the world with other not evolved objects where agents live. The conceptual model key objects in Abeetles is shown in Figure \ref{obr.AnalysisDataModel}.
 
-Agents in Abeetles are called beetles and generally they all are of the same species as they can mate with each other and bear descendants, and share the same static part as well as constrains on the variable part of their behavior. Environment is a grid in form of toroid. In the grid  three types of objects are placed. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. Neither beetles nor flowers can occur in cells of the grid, where are walls. Walls are static obstacles that serve for forming of the shape of the environment.
+%Beetles - agents with static part and genome. Flowers. Walls
+Agents in Abeetles are called beetles and generally they all are instances of the same model, as they share the same static part as well as constrains on the variable part of their behavior. It can be also influenced by learning.  The variable part makes up the genome and it is altered by evolution. Relationships among beetles are created by mating and bearing of children. 
 
-Beetles contain static part, that can not be evolved, evolvable part and part that can be influenced during life by learning. Basic features are level of energy, decision mechanism that takes as input what the beetle see and in which state he is and outputs a decision what to do and expectation on a partner for mating. 
-
-% Nakresli a vloz Class diagram s entitami a jejich vztahy a integritnimi omezenimi.
+The environment is a grid in the form of a toroid. In the grid three types of objects are placed. Beetles are the only inhabitants of the environment that are able to move. Another type of objects are flowers. Flowers grow in cells of the environment and serve as food for beetles. Neither beetles nor flowers can occur in cells of the grid, where are walls. Walls are static obstacles that serve for forming of the shape of the environment.
 
 \section{Functionality of Abeetles}
 
@@ -677,7 +675,7 @@ The simulator runs the artificial model described above. Scenarios of usage can 
 %A co soupnout napad tehle tri scenarii uz do Chapter 3?
 
 \subsection {Running of an experiment}
-The expectations on the system in this case are:
+UML sequence diagram is snown in Figure. The expectations on the system in this case are:
 \begin{itemize}
 \item Speed: Experiment run with the simulator should avail execution of thousands of turns so as to get interesting results of evolution. Also for statistical purposes high number of various inputs must be used when experimenting on random data. Therefore Abeetles should offer possibility to run very fast. 
 \item Input: Start of experiments can not be done manually one by one. Data entry should be read from a script. 
@@ -686,6 +684,13 @@ The expectations on the system in this case are:
 
 \end{itemize}
 
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{ScenarioRunExperiment.eps} 
+  \caption{UML Sequence diagram - run of a script}
+  \label{obr.ScenarioRunExperiment}
+\end{center}
+\end{figure}
 %Scenarion of running of an experiment - sequence diagram.
 
 \subsection{View of an experiment}
@@ -694,6 +699,13 @@ The expectations on the system in this case are:
 \item Run of simulator: Simulator should be capable of running step by step, of running optional number of turns or of running until being stopped.
 \end{itemize}
 
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{ScenarioViewSituation.eps} 
+  \caption{UML Sequence diagram - view of a situation}
+  \label{obr.ScenarioViewSituation}
+\end{center}
+\end{figure}
 %Scenario of view of an experiment
 
 \subsection{Learning about Abeetles}
