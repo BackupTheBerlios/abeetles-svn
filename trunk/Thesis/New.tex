@@ -54,7 +54,7 @@
 
 \usepackage{url}
 \usepackage{graphicx} %mohla bych pridat [driver] coze je ze to chci bud do ps nebo do pdf.
-\usepackage{listings}
+%\usepackage{listings}
 
 \begin{document}
 
@@ -95,8 +95,7 @@ For example, answering of questions like how the simple rules of Darwinian evolu
 
 Important events at development of mathematics and computer science that later led to ideas of artificial life were presented in late 1940s at the Hixon Symposium in California. Math and computer prodigy John Von Neumann delivered a lecture titled "The General and Logical Theory of Automata" where he defined the term "automaton" and said that natural organisms would in the end be found to follow similar simple rules. He postulated a machine, "kinematic automaton", thatcould create an identical machine. Later he crated one with Stanislaw Ulam, a purely logic-based automata, not requiring a physical body but based on the changing states of the cells in an infinite grid - the first cellular automaton (CA). It was extraordinarily complicated compared to later CAs, having hundreds of thousands of cells which could each exist in one of twenty-nine states.
  
-Celular automata were first field of artificial life in computer science and they are important up to present. A cellular automaton is a discrete model that consists of a regular grid of cells, each in one of a finite number of states. The grid can be in any finite number of dimensions. Time is also discrete, and the state of a cell at time t is a function of the states of a finite number of cells (called its neighborhood) at time $t - 1$. These neighbors are a selection of cells relative to the specified cell, and do not change. Every cell has the same rule for updating, based on the values in this neighbourhood. Each time the rules are applied to the whole grid a new generation is created.
-\cite{Delorme} 
+Celular automata were first field of artificial life in computer science and they are important up to present. A cellular automaton is a discrete model that consists of a regular grid of cells, each in one of a finite number of states. The grid can be in any finite number of dimensions. Time is also discrete, and the state of a cell at time t is a function of the states of a finite number of cells (called its neighborhood) at time $t - 1$. These neighbors are a selection of cells relative to the specified cell, and do not change. Every cell has the same rule for updating, based on the values in this neighbourhood. Each time the rules are applied to the whole grid a new generation is created.\cite{Delorme} 
 
 The following important step towards Artificial life was realized by Edgar F. Codd, who simplified Von Neumann's original twenty-nine state monster to one with only eight states.
  
@@ -114,7 +113,7 @@ A conference in May of 1985 called "Evolution, Games, and Learning" focused Alif
 
 In 2000s the field is underway to create cellular models of artificial life. Initial work on building a complete biochemical model of cellular behavior is underway as part of a number of different research projects, namely BlueGene which seeks to understand the mechanisms behind protein folding.
 
-The current proggres in Artificial life is regulary presented at Alife -International Conference on the Simulation and Synthesis of Living Systems and ECAL - European Conference on Artificial Life organized by International Society of Artificial Life (ISAL), \url{www.alife.org}. 
+The current proggres in Artificial life is regulary presented at Alife -International Conference on the Simulation and Synthesis of Living Systems and ECAL - European Conference on Artificial Life organized by International Society of Artificial Life (ISAL), \url{http://www.alife.org}. 
 
 \section{Abeetles - simulator of artificial life}
 
@@ -183,15 +182,11 @@ Apparently, the main purpose of Artificial life simulators is to simulate artifi
 \end{itemize}
 
 \section{Classification of Abeetles}
-As far as definition of agents is concerned, target class of Abeetles are parameter based systems. Space of possibilities of Abeetles is bounded by finite number of parameters and Abeetles avails to explore what implies which setting of parameters in the world of this system.
+As far as definition of agents is concerned, target class of Abeetles are parameter based systems. Genome of agents is defined as a set of parameters that  directly influence their life and behavior.
 
-In classification by simulated phenomenon Abeetles can be ranked among systems concerned with evolution. But the field of evolution is too wide and features that Abeetles examines will be described later. %Add in which section!!
+In classification by simulated phenomenon Abeetles can be ranked among systems concerned with evolution. Abeetles evolves population of agents under various conditions and enables to monitor the development.
 
-The purpose of Abeetles is to be a prototype of scientific simulator. But not only for users from comunity of computer scientists, but also for those, who appreciate user friendly interface, even if it decreases performance of the system. 
-
-
-
-
+The purpose of Abeetles is to be a scientific simulator. But not only for users from comunity of computer scientists, but also for those who besides fast results also appreciate user friendly interface with visualisation, even if it decreases performance of the system. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -203,35 +198,36 @@ The purpose of Abeetles is to be a prototype of scientific simulator. But not on
 %First, swift enumeration: Targets of this thesis are to design the simulator Abeetles, implement it and  introduce several experiments to be run on the simulator. %This is just shortcut of paragraph from the first chapter
 
 %Abeetles: simulates evolution of agents in environment
-The main target of Abeetles, as well as of other similar programs, is to simulate artificial life. But artificial life is rather a general idea, because to simulate all natural life as we know it on the Earth is with contemporary means impossible. Therefore every simulator chooses just a restricted subset. As stated above, Abeetles is concerned with evolution. But even this field is too wide. The next step is thus to specify what will be evolved and how will look like the world, where it will be evolved. In the following text the subject of evolution will be called agents and the world will be called environment. 
+The main target of Abeetles, as well as of other similar programs, is to simulate artificial life. But artificial life is rather a general idea, because to simulate all natural life as we know it on the Earth is with contemporary means impossible. Therefore every simulator chooses just a restricted subset. As stated above, Abeetles is concerned with evolution. The next step is thus to specify what will be evolved and how will look like the world, where it will be evolved. In the following text the subject of evolution will be called agents and the world will be called environment. 
 
 
 
 %Target of this kind of simulation: models not like anything natural, but despite it search for features, that would bring them closer to natural ones. 
-Abeetles is one of simulators, where both environment and agents are very simplyfied abstractions that do not have any concrete model in the nature. Abeetles does not endeavor to simulate any existing organisms, but to explore features of natural processes like evolution or natural selection and others on organisms that are from their basis virtual. Interesting question, that arises from this kind of simulation of evolutional processes is, what should parameters of agents and environment, whose models have little in common with real life, look like, so as to cause, that the results and course of evolution would resemble patterns of natural organisms in their environment.  
+Abeetles is one of the simulators where both environment and agents are very simplyfied abstractions that do not have any concrete model in the nature. Abeetles does not endeavor to simulate any existing organisms, but to explore features of natural processes like evolution or natural selection on organisms that are in essence virtual. The question, that arises from this kind of simulation of evolutional processes is, what should parameters of agents and environment, whose models have little in common with real life, look like, so as to cause that the results and course of evolution would resemble patterns of natural organisms in their environment.  
 
 %with specific features and in This chapter will focus on more detailed features of the system Abeetles, will explain their context and outline their targets.%The third - is it true?
 
-Browsing in the Internet, one easily ascertains, that there are already many simulators of artificial life. Therefore it is necessary to define targets of Abeetles in the context of other artificial life simulators. Attributes of several of these "brother programs" will be described in details and afterwards features of environment and agents of Abeetles will be chosen through careful comparison. For this purpose will serve five existing simulators, that should exemplify: Avida, Bitozoa, Gene Pool, Mitozoos and Primordial life. Reasons for choice of each of them will be described later. Common attribute of all of them is that their binaries are freely or almost freely accesible. Abeetles is also free software and is intended to examine contributing set of features of natural life only within free software.
+Browsing in the Internet, one easily ascertains that there are already many simulators of artificial life. Therefore it is necessary to define targets of Abeetles in the context of other artificial life simulators. Attributes of several of these "brother programs" will be described in details and afterwards features of the environment and agents of Abeetles will be stated after careful comparison. For this purpose will serve five existing simulators: Avida, Bitozoa, Gene Pool, Mitozoos and Primordial life. Reasons for choice of each of them will be described. Common attribute of all of them is that their binaries are accesible freely or on demand. Abeetles is also free software and is intended to examine contributing set of features of natural life only within free software.
+
 %Alternative:Accordingly Abeetles only strive to present an original set of features and attitudes among well-described parts of free and accesible implementations of artificial life.
 
 %Already written at the beginning of the paragraph:
 % Features of selected simulators will be described and on their base will be chosen the set of features of the nature Abeetles will focus on and other attributes of the simulator.
 
-The simulators are classified by twenty-seven features. Features are sorted into   
-six cathegories: Agents, Mating, Environment, User interface settings and implementation.
+The simulators are classified by twenty-seven features. Features are sorted to   
+six cathegories: Agents, Mating, Environment, User interface settings and Implementation. Symbol (?) in the classification means that features of the simulator from this aspect are unknown.
 
-Cathegory Agents contains following features: Body(=description of body of agents), Moving(=how do agents move), Behavior(=what they do besides basic activities of life - moving, mating and eating), Features(=features that change during life), Life-span, Genes(=representation of genes), Phenotypic space(=space of all possible phenotypes of agents), Learning(=whether some ability to learn is included in model of agents)
+Cathegory Agents contains following features: Body(= description of body of agents), Moving(= how do agents move), Behavior(= what they do besides basic activities of life - moving, mating and eating), Features(= features that change during life), Life-span, Genes(= representation of genes), Phenotypic space(= space of all possible phenotypes of agents), Learning(= whether some ability to learn is included in the model of agents)
 
-Cathegory Mating comprises: Number of offspring in one reproduction, (Genetic algorithm(=algorithm used for creation of genes of a descendant), Choice of partner(=features that a partner must have to be chosen for mating), Conditions of mating(=what conditions must be satisfied before mating), Investment in offspring(=the amount of some resource, usually energy, that is given to a descendant by its parents at its birth)
+Cathegory Mating comprises: Number of offspring in one reproduction, (Genetic algorithm(= algorithm used for creation of genes of a descendant), Choice of partner(= features that a partner must have to be chosen for mating), Conditions of mating(= what conditions must be satisfied before mating), Investment in offspring(= the amount of some resource, usually energy, that is given to a descendant by its parents at its birth)
 
-Cathegory Environment includes: Description(=what does the environment look like), Features(=parameters of the environment, that are not represented by objects contained in the environment),Elements(=objects, that inhabit or are placed in the environment together with agents)
+Cathegory Environment includes: Description(= what does the environment look like), Features(= parameters of the environment, that are not represented by objects contained in the environment),Elements(= objects, that inhabit or are placed in the environment together with agents)
 
-Cathegory User Interface Settings  encompasses attributes, by which can a user influence the artificial life run by the simulator. They are sorted in 3 cathegories, Mating, Life of individual and Environment.
+Cathegory User Interface Settings  encompasses attributes by which a user  influences the run of life in the simulator. They are sorted to three cathegories: Mating, Life of individual and Environment.
 
-Cathegory Statistics is alone.
+Cathegory Statistics is standalone.
 
-Cathegory Implementation holds: Implementation(=features of implementation of the simulator), Distribution of computation(=whether and how it is possible to distribute the computation of the artificial life in the simulator to more computers), Speed settings(=whether and how it is possible to influence the speed of computation), Available sources(= whether source file of the simulator are available), Availability of binaries(=under what conditions are binaries available, e.g. on registration, free, ect.), Programming language(=programming language used and key libraries)
+Cathegory Implementation holds: Implementation(= features of implementation of the simulator), Distribution of computation(= whether and how it is possible to distribute the computation of the artificial life to more computers), Speed settings(= whether and how it is possible to influence the speed of computation), Available sources(= whether source file of the simulator are available), Availability of binaries(= under what conditions are binaries available, e.g. on registration, free, ect.), Programming language(= programming language used and key libraries)
 
  %*****Opening paragraph about every simulator: 
  %Name and version that I examined, 
@@ -241,7 +237,7 @@ Cathegory Implementation holds: Implementation(=features of implementation of th
  
 \section {Avida}
 
-Avida is an often presented example of a program based simulator. It studies evolution of programs. For definition targets of Abeetles is important Avida's implementation - two programs, gui and console version - serve to scientific purposes, can run very fast, but can ofer graphical output as well. Examined release was Avida version 2.0b7 2003 for OS Windows. Avida is a joint project of the Digital Life Laboratory at the California Institute of Technology, \url{http://dllab.caltech.edu/}, (headed by Chris Adami) and the Digital Evolution Group, \url{http://devolab.cse.msu.edu/}, at Michigan State University. Web page of the project is \url{http://dllab.caltech.edu/avida/}.
+Avida is an often presented example of a program based simulator. It studies evolution of programs. For definition of targets of Abeetles Avida's implementation is important  - two programs, console and GUI version - serve to scientific purposes, the first one can run very fast and the other one can offer graphical output. Examined release was Avida version 2.0b7 2003 for OS Windows. Avida is a joint project of the Digital Life Laboratory at the California Institute of Technology, \url{http://dllab.caltech.edu/}, (headed by Chris Adami) and the Digital Evolution Group, \url{http://devolab.cse.msu.edu/}, at Michigan State University. Web page of the project is \url{http://dllab.caltech.edu/avida/}.
 
 \begin{figure}
 \begin{center}
@@ -251,6 +247,8 @@ Avida is an often presented example of a program based simulator. It studies evo
 \end{center}
 \end{figure}
 
+%sem vlozit mezeru! - jak?
+\vspace{20pt}
 
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
@@ -263,8 +261,9 @@ Life-span&not restricted \\ \hline
 Genes&string is itself a genome \\ \hline
 Phenotypic space&any finite string constructed of instruction of the language. \\ \hline
 Learning&no \\ \hline 
-\end{tabular} 
-
+\end{tabular}
+ 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|} 
 \hline \textbf{Mating}& \\ \hline
 Number of parents&1 \\ \hline
@@ -275,6 +274,7 @@ Conditions of mating&no \\ \hline
 Investment in offspring&no \\ \hline 
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|} 
 \hline 
 \textbf{Environment}& \\ \hline
@@ -283,15 +283,18 @@ Features&resources and tasks, completion of a task gives a bonus to the string \
 Inhabitants&strings \\ \hline 
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular} {|p{150pt}|p{220pt}|}\hline \textbf{UI settings}& \\ \hline
 Mating&mutation rate \\ \hline
 Life of individual&initial genomes of initial individuals \\ \hline
 Environment&resources and tasks of the environment \\ \hline 
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular} {|p{150pt}|p{220pt}|}\hline \textbf{Statistics}&instruction viewer, string details, etc. \\ \hline
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}& \\ \hline
 Distribution of computation&no \\ \hline
 Speed settings&console version versus gui version  \\ \hline
@@ -307,8 +310,7 @@ Programming language&C++ \\ \hline
  %cathegorisation into 3 systems
 
 \section {Bitozoa}
-Bitozoa is a simulator created by M. Borkowski, that uses for representation of agents neural network in combination with a set of parameters. It evolves two types of agents, herbivores and carnivores. It was created for purpose of amusement and education. 
-Used version is Bitozoa 2 - artificial life & artficial intelligence simulation, 2000. Web page of the project is \url{http://www.bpp.com.pl/bitozoa2/bitozoa2.html}.
+Bitozoa is a simulator created by M. Borkowski, that uses for representation of agents neural network in combination with a set of parameters. It evolves two types of agents, herbivores and carnivores. It was created for purpose of amusement and education. Used version is Bitozoa 2 - artificial life and artficial intelligence simulation, 2000. Web page of the project is \url{http://www.bpp.com.pl/bitozoa2/bitozoa2.html}.
 
 \begin{figure}
 \begin{center}
@@ -318,6 +320,7 @@ Used version is Bitozoa 2 - artificial life & artficial intelligence simulation,
 \end{center}
 \end{figure}
 
+\vspace{20pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 \textbf{Agents}&Bitozoa - herbivores(eat plants) and carnivores(eat herbivora)\\ \hline
@@ -331,6 +334,7 @@ Phenotypic space&angle of flagella connection to body, number of neurons, topolo
 Learning&no\\ \hline
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline 	\textbf  {Mating}&\\ \hline
 Number of parents&2 or 1\\ \hline
@@ -341,6 +345,7 @@ Conditions of mating&meeting of two bitozoa \\ \hline
 Investment in offspring&both parents give the same fixed amount\\ \hline
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline 	\textbf  {Environment}&\\ \hline
 Description&space in form of toroid\\ \hline
@@ -348,6 +353,7 @@ Features&number of spots, where food grows\\ \hline
 Elements&food growing on special spots, herbivores and carnivores\\ \hline
 \end{tabular}
  
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline 	\textbf  {UI settings}&\\ \hline
 Mating&breed distance, breed level of stamina, inherited stamina\\ \hline
@@ -355,10 +361,12 @@ Life of individual&asexual reproduction allowed, costs of an action, flagella an
 Environment&number of bitozoa and food spots at the beginning, time increment, viscosity, random numbers generator seed\\ \hline
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline 	\textbf  {Statistics}&graph of population, energy flow and energy flow averaged, simulation description\\ \hline
 \end{tabular} 
 
+\vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}\hline 	
 \textbf  {Implementation}&\\ \hline
 Distribution of computation&no\\ \hline
@@ -379,6 +387,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 \end{center}
 \end{figure}
   
+\vspace{20pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 &Gene Pool\\ \hline
@@ -390,11 +399,12 @@ Behavior&nothing\\ \hline
 Features&energy\\ \hline
 Life-span&not restricted\\ \hline
 Genes&(?)\\ \hline
-Phenotypic space&length, width, system of attachment, phases and amplitudes of every part\\ \hline
+Phenotypic space&length, width, phases, amplitudes and attachment of every part\\ \hline
 Learning&no\\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}&\\ \hline
+\vspace{10pt}
+\begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}&\\ \hline
 Number of parents&2\\ \hline
 Number of offsprings&1\\ \hline
 Genetic algorithm&crossover algorithm with mutation\\ \hline
@@ -403,22 +413,26 @@ Conditions of mating&swimbots mate when at least one of them is pursuing the oth
 Investment in offspring&50\% of actual energy\\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}&\\ \hline
+\vspace{10pt}
+\begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}&\\ \hline
 Description&rectangular pool\\ \hline
 Features&constant amount of energy in environment, cyling: food->swimbots->pool->food\\ \hline
 Elements&food bits, swimbots\\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}&\\ \hline
+\vspace{10pt}
+\begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}&\\ \hline
 Mating&attraction criterion\\ \hline
 Life of individual&location in environment, creation a swimbot, hunger threshold, energy for offspring\\ \hline
 Environment&food growth - birth delay, spread radius, energy from 1 piece\\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating\\ \hline
+\vspace{10pt}
+\begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, the best one in attraction/mating/eating\\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}&\\ \hline
+\vspace{10pt}
+\begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}&\\ \hline
 Distribution of computation&no\\ \hline
 Speed settings&no\\ \hline
 Available sources&no\\ \hline
@@ -430,7 +444,7 @@ do uvodu:&how good is a swimbot in reproducing, which means either being good at
 \end{tabular}
 
 \section {Mitozoos}
-Author of project Mitozoos is Spanish software company Bestiario, \url{http://www.bestiario.org/}. Its purpose is educational, as author states "Mitozoos is an interactive artificial life model created with the objective that through experimentation and play participants will understand the relationship between genetic code and life." The web presentation of the project can be found at \url{http://bestiario.org/mitozoos/english/index.html}.
+The author of project Mitozoos is Spanish software company Bestiario. Purpose of the simulator is educational, as author states "Mitozoos is an interactive artificial life model created with the objective that through experimentation and play participants will understand the relationship between genetic code and life." The web presentation of the project can be found at \url{http://bestiario.org/mitozoos/english/index.html}.
 
 \begin{figure}
 \begin{center}
@@ -440,21 +454,21 @@ Author of project Mitozoos is Spanish software company Bestiario, \url{http://ww
 \end{center}
 \end{figure}
 
+\vspace{20pt}
 \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
-&Mitozoos \\ \hline
-&Parameter based \\ \hline
-textbf{Agents}&mitozoos \\ \hline
+\textbf{Agents}&mitozoos \\ \hline
 Body&spider-like, with 2 eyes, body in shape of tetrahydron and four bent legs \\ \hline
 Moving&walking using legs, algorithm common for all mitozoos \\ \hline
 Behavior&strategy of eating, frequency and duration of resting periods \\ \hline
 Features&energy \\ \hline
 Life-span&not restricted \\ \hline
-Genes&ten genes, each gene has four bases (= colors) \\ \hline
+Genes&ten genes, each gene has four bases represented by colors \\ \hline
 Phenotypic space&length of parts of legs, procreation threshold, eating strategy \\ \hline
 Learning&no \\ \hline
 \end{tabular} 
 
+\vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}& \\ \hline
 Number of parents&2 \\ \hline
 Number of offsprings&1 \\ \hline
@@ -464,27 +478,30 @@ Conditions of mating&meeting of two mitozoos with energy higher than procreation
 Investment in offspring&a fixed amount of energy \\ \hline
 \end{tabular} 
 
- \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}& \\ \hline
+ \vspace{10pt} \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}& \\ \hline
 Description&space in form of a circle \\ \hline
 Features&rate of food growth \\ \hline
 Elements&mitozoos, food bits \\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}& \\ \hline
 Mating&no \\ \hline
 Life of individual&special application, which avails user to create a mitozoos by setting its genes and add it to running life. \\ \hline
 Environment&initial number of mitozoos and food pieces, food growing rate, mutation rate \\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&graph of number of swimbots vs. food, features of individual, genetic landscape, log of events, on reproduction join crossjoin of genotypes is shown \\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}& \\ \hline
 Distribution of computation&no, but coders can run on different computers. \\ \hline
 Speed settings&no \\ \hline
 Available sources&no \\ \hline
 Availability of binaries&yes \\ \hline
-Programming language&Flash, (?) \\ \hline
+Programming language&Action Script, (?) \\ \hline
 \end{tabular}
 
 \section {Primordial Life}
@@ -500,7 +517,8 @@ For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can
 
 
  
-\begin{tabular}{|p{150pt}|p{220pt}|}
+\vspace{20pt}
+ \begin{tabular}{|p{150pt}|p{220pt}|}
 \hline
 &Primordial life 3.21\\ \hline
 &parameter based, evolution, game\\ \hline
@@ -512,9 +530,10 @@ Features&energy level\\ \hline
 Life-span&restricted\\ \hline
 Genes&64 numbers, describe lines color, orientation and length. Certain genes have special meaning detailing how many lines a biot has, its symmetry, whether it has mirrored or radial symmetry, how many children it should have and whether or not it should disperse its children after they are born. Complete description available.\\ \hline
 Phenotypic space&number and symmetry of vectors, color, orientation and length of each vector, number and dispersion of offspring in a birth\\ \hline
-Learning&learn from collision with other biots - change body accordingly\\ \hline
+Learning&learn from collision with other biots\\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Mating}&\\ \hline
 Number of parents&2 nebo 1\\ \hline
 Number of offsprings&1-n\\ \hline
@@ -524,23 +543,27 @@ Conditions of mating&collision of two biots, one of them with white parts\\ \hli
 Investment in offspring&yes\\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Environment}&\\ \hline
 Description&rectangular space\\ \hline
 Features& mixing of biots continuely up and providing of light, absorbable by green parts of biots and used up as energy\\ \hline
 Elements&biots\\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{UI settings}&\\ \hline
 Mating&mutation rate, sexual/asexual/ both reproduction\\ \hline
 Life of individual&life span, speed, regeneration rate and cost, attacking of child, battle of sibblings, level of selfchange thanks to collision\\ \hline
 Environment&solar intensity, friction, starting population, plague - its duration and lethality\\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Statistics}&ecosystem status (population, death and birth rate numbers), global status of all connected ecosystems(no. of connected ecosystems, population)\\ \hline
 \end{tabular} 
 
+ \vspace{10pt}
  \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}&\\ \hline
-Distribution of computation&automatically connecting ecosystems together over the Internet.\\ \hline
+Distribution of computation&connection of ecosystems in a network over the Internet.\\ \hline
 Speed settings&no\\ \hline
 Available sources&no\\ \hline
 Availability of binaries&register\\ \hline
@@ -566,6 +589,7 @@ Abeetles takes over following ideas of Broucci: beetles can move by sequence of 
 
 "Brother programs" were compared according to 27 different cathegories. Abeetles does not strive to be contributing in all these cathegories. Instead of it, six were chosen as the key ones: moving, learning, choice of partner, distribution of computation, obstacles in environment and aging. The following table compares Abeetles with other solutions specificaly in this cathegories.
 
+\vspace{10pt} 
 \begin{tabular}{lcccccc}
  & Avida & PLife&  Bitozoa& Mit.& GPool & Abeetles\\ \hline
 Moving: strategy&x&x&G&S&S&G\\
@@ -889,7 +913,7 @@ for(I=0;I<env.Grid_Past.G_Width;I++)
   }
 \end{verbatim}		
 
-The border between two updates is method NextTime() of class CEnvironment. It copied Grid to Grid_Past and counts statistics of the previous turn.
+The border between two updates is method NextTime() of class CEnvironment. It copied Grid to Grid\_Past and counts statistics of the previous turn.
 
 \begin{figure}
 \begin{center}
@@ -1280,7 +1304,7 @@ Jeffrey Ventrella 1998, "Attractiveness vs. Efficiency: How Mate Preference Affe
 Jeffrey Ventrella, "Gene Pool: Exploring the Interaction Between Natural Selection and Sexual Selection", Chapter 4 in Artificial Life Models in Software, edited by Andrew Adamatzky and Maciej Komosinski, Springer, 2005
 
 \bibitem{Mitozoos}
-The book of the mitozoos. (\url{http://bestiario.org/mitozoos/english/pdf/mitozoos\_en.pdf}). Mitozoos World is a project created and developed by Bestiario [www.bestiario.org]. Website of the project (\url{http://bestiario.org/mitozoos/english/index.html}).
+The book of the mitozoos. (\url{http://bestiario.org/mitozoos/english/pdf/mitozoos\_en.pdf}). Mitozoos World is a project created and developed by Bestiario company. Website of the project is (\url{http://bestiario.org/mitozoos/english/index.html}).
 
 \bibitem{Broucci}
 Tomas Holan, "Different Programming", \url{http://ksvi.mff.cuni.cz/~holan/jinak/itat.pdf}, ITAT 2004
