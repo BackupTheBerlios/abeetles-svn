@@ -26,14 +26,20 @@ NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,
 	QLabel * stepOnFlowerLabel = new QLabel("Use rule \"Step On Flower\"");
 	StepOnFlowerCheck = new QCheckBox();	
 		StepOnFlowerCheck->setCheckState(Qt::Checked);
+
+	QLabel * noExpectationsLabel = new QLabel("Initially widest expectations");
+	NoExpectationsCheck= new QCheckBox();
+		NoExpectationsCheck->setCheckState(Qt::Checked);
 	
-	QGridLayout * randomGrid = new QGridLayout ();
+	QGridLayout * randomGrid = new QGridLayout();
 	randomGrid->addWidget(seedLabel,0,0);
 	randomGrid->addWidget(SeedSpin,0,1);
 	randomGrid->addWidget(numBeetlesLabel,1,0);
 	randomGrid->addWidget(NumBeetlesSpin,1,1);
 	randomGrid->addWidget(StepOnFlowerCheck,2,0,Qt::AlignRight);
 	randomGrid->addWidget(stepOnFlowerLabel,2,1,Qt::AlignLeft);
+	randomGrid->addWidget(NoExpectationsCheck,3,0,Qt::AlignRight);
+	randomGrid->addWidget(noExpectationsLabel,3,1,Qt::AlignLeft);
 
 	QGroupBox * randomGroup = new QGroupBox();
 	randomGroup->setLayout(randomGrid);
@@ -162,6 +168,8 @@ void NewEnvDialog::getData(COneRun * oneRun)
 		if (StepOnFlowerCheck->checkState()==Qt::Checked) oneRun->IsStepOnFlower=true;
 		else oneRun->IsStepOnFlower=false;
 		oneRun->BeetlesFN="";
+		if (NoExpectationsCheck->checkState()==Qt::Checked) oneRun->IsNoExpectations=true;
+		else oneRun->IsNoExpectations=false;
 	}
 	else
 	{

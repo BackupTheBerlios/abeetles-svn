@@ -12,6 +12,8 @@ public:
 	bool IsBtlRandom;
 	bool IsStepOnFlower;
 	bool LearningOn;
+	bool IsFlowersDie;
+	bool IsNoExpectations;
 	QString BeetlesFN;
 	int Seed;
 	int NumRandBeetles;
@@ -43,6 +45,8 @@ public:
 	void setEndTime(int endTime);
 	void setLearningOn (bool learningOn);
 	void setIsStepOnFlower(bool isStepOnFlower);
+	void setIsNoExpectations(bool isNoExpectations);
+	void setIsFlowersDie(bool isFlowersDie);
 	bool setEffFN (QString effFN);
 	void setMutationProb(int mProb);
 	void setCostsOfActions( int step, int rot, int copul, int wait);

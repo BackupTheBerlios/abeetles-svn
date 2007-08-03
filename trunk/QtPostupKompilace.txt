@@ -5,7 +5,7 @@ Postup kompilace aplikace:
   Ve spustene commandline napis set Path=%Path%C:\Qt\4.3.0\bin\;C:\MinGW\bin\;
 
 3. skoc do adresare
- cd temp\abeetles\gui\abeetlesgui
+ cd temp\abeetles\abeetles\gui\abeetlesgui
 4. Napis projektovy soubor pro qmake:
  
       We'll add the source files to the project file first. To do this you need to use the SOURCES variable. Just start a new line with SOURCES += and put hello.cpp after it. You should have something like this: 

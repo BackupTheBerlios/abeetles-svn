@@ -325,17 +325,17 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 }
 
 bool CfgManager::LoadFlwAndOpt(CGrid * grid, int *time, bool *learningOn, 
-	int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost, 
+	int* flowerGrowingRatio, int * mutationProb, int *stepCost, int *rotCost, int *copulCost, 
 	int *waitCost, QString filename)
 {
 	return LoadFlwAndOpt(grid,  time,  learningOn, 
-	 flowerGrowingRatio,  stepCost,  rotCost, copulCost, 
+	 flowerGrowingRatio, mutationProb, stepCost,  rotCost, copulCost, 
 	waitCost,  filename.toAscii().data());
 
 }
 //bool CfgManager::LoadFlwAndOpt(CGrid * grid, char * filename)
 bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn, 
-	int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost, 
+	int* flowerGrowingRatio, int * mutationProb, int *stepCost, int *rotCost, int *copulCost, 
 	int *waitCost,char * filename)
 {
 	int x,y;
@@ -356,10 +356,11 @@ bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,
 		if(I==0) {*time=line.toInt();fprintf(stdout,("\n"+QString::number(*time)).toAscii().data());continue;}
 		if(I==1) {*learningOn=line.toInt();continue;}
 		if(I==2) {*flowerGrowingRatio=line.toInt();continue;}
-		if(I==3) {*stepCost=line.toInt();continue;}
-		if(I==4) {*rotCost=line.toInt();continue;}
-		if(I==5) {*copulCost=line.toInt();continue;}
-		if(I==6) {*waitCost=line.toInt();continue;}
+		if(I==3) {*mutationProb=line.toInt();continue;}
+		if(I==4) {*stepCost=line.toInt();continue;}
+		if(I==5) {*rotCost=line.toInt();continue;}
+		if(I==6) {*copulCost=line.toInt();continue;}
+		if(I==7) {*waitCost=line.toInt();continue;}
 		
 		x=(line.left(line.indexOf(","))).toInt(); 
 		y=(line.right(line.size()-line.indexOf(",")-1)).toInt(); 
@@ -369,16 +370,16 @@ bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,
 }
 
 bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, 
-	int flowerGrowingRatio, int stepCost, int rotCost, int copulCost, 
+	int flowerGrowingRatio, int mutationProb, int stepCost, int rotCost, int copulCost, 
 	int waitCost,QString filename)
 {
 	return SaveFlwAndOpt(grid, time,  learningOn, 
-	 flowerGrowingRatio,  stepCost,  rotCost, copulCost, 
+	 flowerGrowingRatio, mutationProb, stepCost,  rotCost, copulCost, 
 	waitCost,filename.toAscii().data());
 }
 //bool CfgManager::SaveFlwAndOpt(CGrid * grid,char * filename)
 bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, 
-	int flowerGrowingRatio, int stepCost, int rotCost, int copulCost, 
+	int flowerGrowingRatio, int mutationProb, int stepCost, int rotCost, int copulCost, 
 	int waitCost, char * filename)
 {
 	int I,J;
@@ -390,6 +391,7 @@ bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn,
 	out << time<<";"<< "\n"; 
 	out << learningOn<<";"<< "\n"; 
 	out << flowerGrowingRatio<<";"<< "\n"; 
+	out << mutationProb<<";"<< "\n"; 
 	out << stepCost<<";"<< "\n"; 
 	out << rotCost<<";"<< "\n"; 
 	out << copulCost<<";"<< "\n"; 
@@ -558,7 +560,14 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 		 {			 
 			 oneRun->setIsStepOnFlower(false);
 		 }
-
+		if (line.startsWith("noflowersdie"))
+		{			 
+		 oneRun->setIsFlowersDie(false);
+		}
+		if (line.startsWith("randomexpectations"))
+		{			 
+		 oneRun->setIsNoExpectations(false);
+		}
 		 if (line.startsWith("aggrstatfn"))
 		 {
 			 pom = (line.right(line.size()-line.indexOf("=")-1).trimmed());

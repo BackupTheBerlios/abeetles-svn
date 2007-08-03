@@ -414,8 +414,9 @@ QString CBeetle::GetWordDirection(char direction)
 */
 
 
-CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
+CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower, bool isNoExpectations)
 {
+	
 	int I,J,K,L;
 	//int a;
 	char brain[BRAIN_D1][BRAIN_D2][BRAIN_D3][BRAIN_D4];
@@ -440,7 +441,7 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
 					}
 				}
 	char direction = RandInBound(4);
-	int energy=10+RandInBound(MAX_ENERGY-10);
+	int energy=20+RandInBound(MAX_ENERGY-20);
 	
 	
 	//	ExpectOnPartner - Age [2] = 2B how much younger/older  can be the partner
@@ -449,13 +450,27 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower)
 	//	ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter 
 
 	//for (M=0;M<EXPECT_ON_PARTNER_D;M++)
-	expectOnPartner [0]= CBeetle::GetExpectOnPartnerMax(0); 
-	expectOnPartner [1]= CBeetle::GetExpectOnPartnerMax(1); 
-	expectOnPartner [2]= 1; 
-	expectOnPartner [3]= 1; 
-	expectOnPartner [4]=MAX_ENERGY;
-	expectOnPartner [5]=MAX_ENERGY;
-				 		
+	//maximal ranges of expectations
+	if (isNoExpectations==true)
+	{
+		expectOnPartner [0]= CBeetle::GetExpectOnPartnerMax(0); 
+		expectOnPartner [1]= CBeetle::GetExpectOnPartnerMax(1); 
+		expectOnPartner [2]= 1; 
+		expectOnPartner [3]= 1; 
+		expectOnPartner [4]=MAX_ENERGY;
+		expectOnPartner [5]=MAX_ENERGY;
+	}
+	else
+	//random ranges of expectations
+	{
+		expectOnPartner [0]= 20+RandInBound(MAX_ENERGY-20); 
+		expectOnPartner [1]= 20+RandInBound(MAX_ENERGY-20); 
+		expectOnPartner [2]= 1+RandInBound(MAX_ENERGY / 4); 
+		expectOnPartner [3]= 1+RandInBound(MAX_ENERGY / 4); 
+		expectOnPartner [4]= 20+RandInBound(MAX_ENERGY-20); 
+		expectOnPartner [5]= 20+RandInBound(MAX_ENERGY-20); 
+	}
+
 	
 	int hungryThreshold = 1+RandInBound(MAX_ENERGY);
 	int invInChild = 1+RandInBound(MAX_ENERGY);

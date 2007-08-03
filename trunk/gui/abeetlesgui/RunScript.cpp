@@ -59,7 +59,7 @@ int CRunScript::run()
 		int i_agr=0,i_hist=0,i_env=0;
 		//QMessageBox::information (NULL,"","Life "+oneRun->DirName+" starts");
 		for(time=0;time<=oneRun->EndTime;time++)
-		{
+		{			
 			for(I=0;I<env->Grid_Past.G_Width;I++)
 			for(J=0;J<env->Grid_Past.G_Height;J++)
 			{
@@ -102,11 +102,12 @@ int CRunScript::run()
 				
 
 			env->NextTime();
+			if (env->Statist.NumBeetles==0) break;
 
 		}
-		env->Statist.SaveTimeStatist_InColumnsAppend(oneRun->TimeStatFN.toAscii().data());
+		env->Statist.SaveTimeStatist_InColumnsAppend((QString::number(env->Time)+oneRun->TimeStatFN).toAscii().data());
 		QDir::setCurrent("..");
-		fprintf(stdout,("\nScript "+oneRun->DirName+" finnished.\n\n").toAscii().data());
+		fprintf(stdout,("\nScript "+oneRun->DirName+" finnished after "+QString::number(env->Time)+" updates.\n\n").toAscii().data());
 		delete(env);
 	}
 	return 1;

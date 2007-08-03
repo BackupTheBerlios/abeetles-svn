@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  1 AUG 2007 17:33
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  3 AUG 2007 11:46
 entering extended mode
 **New.tex
 (New.tex
@@ -199,7 +199,7 @@ File: ClassDiagrAbeetlesAlife.eps Graphic file (type eps)
  <ClassDiagrAbeetlesAlife.eps> [31] [32] [33]
 Chapter 7.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1022--1037
+Underfull \hbox (badness 10000) in paragraph at lines 1026--1041
 
  []
 
@@ -221,48 +221,72 @@ File: Exp1_2_time.eps Graphic file (type eps)
 File: Exp1_3_time.eps Graphic file (type eps)
  <Exp1_3_time.eps>
 File: Exp1_4_time.eps Graphic file (type eps)
- <Exp1_4_time.eps>
+ <Exp1_4_time.eps> [36] [37] [38]
 File: Exp1_1_hist0.eps Graphic file (type eps)
- <Exp1_1_hist0.eps>
-File: Exp1_1_hist30000.eps Graphic file (type eps)
 
-<Exp1_1_hist30000.eps> [36] [37] [38] [39]
+<Exp1_1_hist0.eps>
+File: Exp1_1_hist30000.eps Graphic file (type eps)
+ <Exp1_1_hist30000.eps> [39]
+File: Exp1_Sub1_3_A_time.eps Graphic file (type eps)
+ <Exp1_Sub1_3_A_time.eps>
+File: Exp1_Sub1_3_B_time.eps Graphic file (type eps)
+
+<Exp1_Sub1_3_B_time.eps>
+File: Exp1_Sub2_1_histExp.eps Graphic file (type eps)
+ <Exp1_Sub2_1_histExp.eps> [40] [41]
+File: Exp1_1_histExp.eps Graphic file (type eps)
+
+<Exp1_1_histExp.eps>
+
+LaTeX Warning: Reference `Exp1_1_histExp.eps' on page 42 undefined on input lin
+e 1199.
+
+[42]
+
+LaTeX Warning: Reference `Exp1_1_histExp.eps' on page 43 undefined on input lin
+e 1218.
+
+[43]
+File: Exp1_1_hist365000.eps  Graphic file (type eps)
+ <Exp1_1_hist365000.eps >
+File: Exp1_1_hist365000Exp.eps  Graphic file (type eps)
+ <Exp1_1_hist365000Exp.eps > [44] [45]
 Chapter 9.
-[40
+[46
 
 ]
 Chapter 10.
-[41
+[47
 
 ]
 Chapter 11.
-[42
+[48
 
 ]
 Chapter 12.
-[43
+[49
 
 ]
 Missing character: There is no ­ in font cmr12!
 Missing character: There is no ­ in font cmr12!
- [44] [45]
-New.tex:1246: Missing $ inserted
+ [50] [51]
+New.tex:1374: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-New.tex:1247: Missing $ inserted
+New.tex:1375: Missing $ inserted
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 
-Overfull \hbox (151.00804pt too wide) in paragraph at lines 1245--1247
+Overfull \hbox (151.00804pt too wide) in paragraph at lines 1373--1375
 \OT1/cmr/m/n/12 A$[]\OML/cmm/m/it/12 OPULATEPostreh\OT1/cmr/m/n/12 2 : \OML/cmm
 /m/it/12 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/12 )\OML/cmm/m/it/12 Solution \OT1/cmr/m/n/12 :
  []
 
 
-Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1245--1247
+Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1373--1375
 \OML/cmm/m/it/12 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/12 "\OML/cmm/m/it/12 hardwired\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -271,46 +295,46 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 beetleinthe
 front\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 willbemadeaccordingtotheBraintable:$ 
  []
 
-[46]
+[52]
 Chapter 13.
 
-Overfull \hbox (1.65863pt too wide) in paragraph at lines 1260--1262
+Overfull \hbox (1.65863pt too wide) in paragraph at lines 1388--1390
 []$\OT1/cmtt/m/n/12 http : / / www . scs . carleton . ca / \[]soma / biosec / r
 eadings / spafford-[]viruses . pdf$ \OT1/cmr/m/n/12 -
  []
 
-[47
+[53
 
 ]
 Chapter 14.
-[48
+[54
 
-] [49
+] [55
 
 ]
-Underfull \hbox (badness 2269) in paragraph at lines 1319--1320
+Underfull \hbox (badness 2269) in paragraph at lines 1447--1448
 []\OT1/cmr/m/n/12 The book of the mi-to-zoos. ($\OT1/cmtt/m/n/12 http : / / bes
 tiario . org / mitozoos / english / pdf /
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 1322--1323
+Underfull \hbox (badness 2809) in paragraph at lines 1450--1451
 []\OT1/cmr/m/n/12 Tomas Holan, "Dif-fer-ent Pro-gram-ming", $\OT1/cmtt/m/n/12 h
 ttp : / / ksvi . mff . cuni . cz / []holan /
  []
 
-[50] (New.aux)
+[56] (New.aux)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 1160 strings out of 95389
- 13912 string characters out of 1186903
+ 1198 strings out of 95389
+ 14508 string characters out of 1186903
  68438 words of memory out of 1064812
- 4254 multiletter control sequences out of 60000
+ 4268 multiletter control sequences out of 60000
  10346 words of font info for 35 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
  25i,8n,19p,14505b,293s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (52 pages, 127352 bytes).
+Output written on New.dvi (58 pages, 142704 bytes).

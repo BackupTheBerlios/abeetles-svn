@@ -17,6 +17,7 @@ CEnvironment::CEnvironment(void)
 	IsEmpty=true;
 	StepCost=A_STEP_COSTS;RotCost=A_ROTATION_COSTS;CopulCost=A_COPULATION_COSTS;WaitCost=A_WAIT_COSTS;
 	LearningOn=true;
+	IsFlowersDie=true;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
 
 	
@@ -44,13 +45,14 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	WaitCost=oneRun->WaitCost;
 	LearningOn=oneRun->LearningOn;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+	IsFlowersDie=oneRun->IsFlowersDie;
 	CBeetle::MutationProb=oneRun->MutationProb;
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
 		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	if (oneRun->BeetlesFN.isEmpty())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower);
+		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations);
 	else
 	{
 		int res = true;	
@@ -85,7 +87,7 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 	
 		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	if (oneRun->BeetlesFN.isEmpty())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower);
+		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations);
 	else
 	{
 		//fprintf(stdout,"Beetles from file");
@@ -383,7 +385,7 @@ bool CEnvironment::LoadEnv(char * fname)
 
 	//2nd part - load where flowers are
 	if (false==CfgMng.LoadFlwAndOpt(&Grid_Past,&Time,&LearningOn, 
-		& FlowerGrowingRatio,  &StepCost,  &RotCost,  &CopulCost, 
+		& FlowerGrowingRatio, &CBeetle::MutationProb, &StepCost,  &RotCost,  &CopulCost, 
 		 &WaitCost, getFlowersFileName(fname))) res=false;
 
 	fprintf(stdout,("\n"+QString::number(Time)).toAscii().data());
@@ -407,7 +409,7 @@ bool CEnvironment::SaveEnv(char * fname)
 {
 	bool res=true;
 	if (false==CfgMng.SaveBeetles(&Grid,getBeetlesFileName(fname)))res = false;
-	if (false==CfgMng.SaveFlwAndOpt(&Grid,Time,LearningOn,FlowerGrowingRatio, StepCost, RotCost,CopulCost,WaitCost,getFlowersFileName(fname))) res = false;
+	if (false==CfgMng.SaveFlwAndOpt(&Grid,Time,LearningOn,FlowerGrowingRatio, CBeetle::MutationProb, StepCost, RotCost,CopulCost,WaitCost,getFlowersFileName(fname))) res = false;
 	if (false==CfgMng.SaveEffToBmp(getEffFileName(fname))) res =false;
 
 	//1QMessageBox::information(NULL,"MyApp",getMapFileName(fname));
@@ -424,7 +426,7 @@ bool CEnvironment::SaveEnv(char * fname)
 	return res;
 }
 
-bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, char * effFN, bool isStepOnFlower)
+bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, char * effFN, bool isStepOnFlower,bool isNoExpectations)
 {
 	//Grid_Past.SetDefaultGridShape();
 	//Grid and Grid_Past now have old or default values.
@@ -464,7 +466,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 		J=RandInBound(Grid_Past.G_Height);
 		if (Grid_Past.GetCellContent(I,J)==NOTHING)
 		{
-			beetle=CBeetle::CreateRandomBeetle(isStepOnFlower);
+			beetle=CBeetle::CreateRandomBeetle(isStepOnFlower,isNoExpectations);
 			if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
 			{
 				Statist.NumBeetles++;
@@ -510,6 +512,8 @@ bool CEnvironment::MakeFlowerGrow(int x, int y)
 
 bool CEnvironment::MakeFlowerDie(int x, int y)
 {
+	if (!IsFlowersDie) return false; //if dying of flowers is turned off, immediately return.
+
 	int prob = PROB_FLOWER_DIE;
 	if ((Grid.GetCellContent(x,y) == FLOWER) //a beetle might have made a step into this cell
 		&&(prob> RandInBound(100))) 

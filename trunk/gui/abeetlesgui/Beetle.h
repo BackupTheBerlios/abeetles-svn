@@ -60,6 +60,6 @@ public:
 	void LearnFrom(CBeetle* beetle2);
 	
 	static int CreateNewId(void);
-	static CBeetle * CreateRandomBeetle(bool isStepOnFlower);
+	static CBeetle * CreateRandomBeetle(bool isStepOnFlower=true, bool isNoExpectations=true);
 
 };

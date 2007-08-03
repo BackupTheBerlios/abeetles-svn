@@ -751,7 +751,7 @@ But is the model of Abeetles suitable for parallelization of computation? The di
 
 The first question is whether computation of artificial life of Abeetles can be split into independent subtasks. Generally, the run of an artificial life simulator is a sequence of more or less detached updates. In each update each  object in the environment gets opportunity to make a small number of actions, usually one, with one input of information from the environment, e.g. snapshot of its surroundings. Interactions in the environment should be only local, so as to split the environment into several parts and each of them compute on a different machine. 
 
-In Abeetles the environment is a grid in the form of a toroid. Beetles see only three neihbouring cells. As described later, growth of flowers is dependent only on a setting of each cell. Therefore interactions are only local and paralelization could be covenient. 
+In Abeetles the environment is a grid in the form of a toroid. Beetles see only three neihbouring cells. As described later, growth of flowers is dependent only on a setting of each cell. Therefore interactions are only local and paralelization could be convenient. 
 
 A possibility of division of the task is splitting of the environment into parts that compute every update separately, run on different computers and after each update send and receive information about the edges that can be in view of objects in the neighboring parts of the environment. Two alternatives of realization of such distribution are: the first, The parts on individual machines are equal applications that communicate peer-to-peer. Each application knows only information about its part of environment and about the borders of neighbors. Despite the peer-to-peer character, this organization needs a server node that starts and stops the other nodes and collects results.
 
@@ -983,6 +983,10 @@ eff=EnergyFromFlower.bmp //name of bmp image that describes
   //dependency of beetles energy exploited from an eaten flower.
 mutationprob=5//probabality of mutation of genes of new-born
   //beetles. Must be within range 0-10.
+nolearning
+noflowersdie
+nosteponflower
+randomexpectations
 costs=1,1,2,0 //cost of actions of a beetle: step, rotation, 
   //mating, waiting
 endtime=199000 //number of turns of the run of the simulator
@@ -1037,15 +1041,18 @@ LearningAbility = 1B
 
 \chapter{Experiments}
 
-With Abeetles numerous experiments can be conducted. The space is set by possible values in cathegories size of map of environment, layout of walls in the map, probability of growth of flowers, initial	number and features of beetles,	availability of learning, function energy from flower - absolute values	as well as the course of the curve, and costs of actions and their ratio.
+With Abeetles numerous experiments can be conducted. The space is set by possible values in cathegories size of map of environment, layout of walls in the map, probability of growth of flowers, initial	number and features of beetles,	mutation rate, availability of learning, function energy from flower - absolute values	as well as the course of the curve, and costs of actions and their ratio.
 
-Focus of experiments can be manifold. As mentioned above, such simulators are used for exploration of paralels between artificial and natural life. Parameters could be set to resemble some natural life feature and then examine what happens or search initial parameters that would cause development with some attributes of natural life. Often problem of artificial life simulators is that the evolution after starting development gets to a balanced point, aroud which it only oscilate but does not change essentialy any more. %I read it in some paper.. but which one?
+Focus of experiments can be manifold. As mentioned above, such simulators are used for exploration of paralels between artificial and natural life. Parameters could be set to resemble some natural life feature and then examine what happens or search initial parameters that would cause development with some attributes of natural life. Often problem of artificial life simulators is that the evolution after starting development gets to a balanced point, around which it only oscilates, but does not change essentialy any more. %I read it in some paper.. but which one?
 
 In this chapter .. experiments conducted with Abeetles will be introduced and described.
 
 \section{Experiment1 - Four Caves}
 
-Map of environment are four caves connected with narrow corridors. It contains 900 cells. Percentage of growth of flowers is 100\%.
+Target of the first experiment called Four Caves is to monitor development of population of beetles in four caves connected with narrow corridors. The experiment should demonstrate that life in Abeetles is not determined by initial setting, but coincidence influences it to a great extent and therefore each run can bring more or less different results. Mutual dependence of development of populations in the caves will be observed. And influence of evolution on features of beetles will be researched from initial random values to resulting ones after thousands updates. 
+
+\subsection{Initial setting of the experiment}
+Map of the environment of Four Caves contains 900 cells. Percentage of growth of flowers is 100\% in all cells and dying is switched off. 
 
 \begin{figure}
 \begin{center}
@@ -1063,7 +1070,7 @@ Map of environment are four caves connected with narrow corridors. It contains 9
 \end{center}
 \end{figure}
 
-Initial number of beetles is 100, their features were chosen randomly with rule "step on flower". Costs of actions were set to 2 for a step, 2 for a turn, 3 for mating and 1 for waiting. 30,000 updates were made. Function of energy from flower is shown in figure \ref{img.four_caves_eff}. The EFF function restricts the age of beetle to approximately 100 years.
+Initial number of beetles is 100, their features were chosen randomly with rule "step on flower" and "noexpectations". The first rule means that all initial beetles decide to make a step when they are hungry and there is a flower in from of them. The second means that feature Expectation on parter is initially set to maximal intervals and thus every two beetles can mate without restrictions of expectations. Costs of actions were set to 2 for a step, 2 for a turn, 3 for mating and 1 for waiting. Mutation rate was 2\%. 30,000 updates were made. The used function of energy from flower (EFF function) is shown in figure \ref{img.four_caves_eff}. The EFF function borders the age of beetles by approximately 100 years.
 
 
 
@@ -1099,12 +1106,20 @@ Initial number of beetles is 100, their features were chosen randomly with rule 
 \end{center}
 \end{figure}
 
-The experiment contains four runs with seeds 300, 350, 400 and 450 for generator of pseudorandom numbers. Course of experiments are in figures \ref{img.four_caves_run1_time}, \ref{img.four_caves_run2_time}, \ref{img.four_caves_run3_time} and \ref{img.four_caves_run4_time}. Number of beetles, number of flowers and number on new born beetles is shown in figures. 
+The experiment contains four runs with seeds 300, 350, 400 and 450 for generator of pseudorandom numbers. 
 
 
+
+\subsection{Results of the experiment}
 %Development of number of beetles in time..extincion and inhabitation of a new cave
-Differences between courses show, that coincidence influences the course of matters to a great extent. The map of four caves causes that course of number of agents is not smooth. As a free cave is inhabited, the number of beetles jumps by about 50. Inhabitation means that the density of population in the cave is high enough to be independent on immigration from other caves. In other words there are enough beetles to meet, mate and thereby keep the population. On the other hand, if the population shinks under certain size, it becomes extinct in the cave. For example, in update 26,500 in run 1, \ref{img.four_caves_run1_time}, in top left hand corner beetles became extinct, while the other three caves are populated.  
 
+Development of population in the four runs of the experiment is in figures \ref{img.four_caves_run1_time}, \ref{img.four_caves_run2_time}, \ref{img.four_caves_run3_time} and \ref{img.four_caves_run4_time}. Number of beetles, number of flowers and number on new born beetles are shown in the figures.
+ 
+Differences among the four graphs of development of populations in the four runs show that coincidence influences the course of runs significantly - each of them is different.
+
+In all four cases the initial number of beetles falls under half of it at first. This is a general event that happens at the beginning of every simulation with random beetles. A plenty of them are not able to survive, because the random values are not suitable. Only one or two caves remain populated. But children of these beetles are already able to cope with the situation better and they keep the life in the caves. Through corridors they get to neigboring cells and when the number of immigrants is high enough the new cave is inhabited. Inhabitation of a free cave is visible in the graphs, as the number of beetles jumps swiftly by about 50. In run 1 around 4,800th update two empty caves are inhabited, population increased by approximately 100. Between 12,000th and 15,000th update the fourth cave was and was not inhabited alternately. Similarly the development of population in caves can be observed in the other three runs.
+ 
+From the development of population in the experiment can be concluded that beetles with the introduced settings are able to inhabitate empty areas through a narrow corridor. Inhabitation in the scope of Abeetles means that the density of population in the cave is high enough to be independent on immigration from other caves. In other words there are enough beetles to meet, mate and thereby keep the population. On the other hand, if the population shinks under certain size, it becomes extinct in the cave. 
 
  
 \begin{figure}
@@ -1124,11 +1139,124 @@ Differences between courses show, that coincidence influences the course of matt
 \end{figure}
  
  %Features of beetles.. initial and evolved.
-Initial features of beetles were random, histogram of run 1 at the beginning: \ref{img.four_caves_run1_hist0}. The Situation after 30,000 updates is in \ref{img.four_caves_run1_hist30000}.
+Features of beetles developed interestingly in the experiment. Initial features of beetles were random. So as to support the problematic initial period, expectations on partners were set to maximal intervals. Figure \ref{img.four_caves_run1_hist0} shows the distribution of values of features of beetles at the beginning of run 1 and figure \ref{img.four_caves_run1_hist30000} describes the situation after 30,000 updates. The values of features can be 0 - 50, only age goes up to 100.
+
+The fluctuation of age is low, no significant death rate of any age group can be observed. Thus the EFF function gives enough chance to survive in any time.
+ 
+Random learn abilities from the beginning narrowed to two major values (35 and 48) and several minor values. In other experiments these values also show direction of development towards several values. In run 2 the major values of learn ability are 4 (133 beetles) and 13 (31 beetles). In run 3 learn abilities narrowed to 4 values and in run 4 to 2 values.
+Investment in child also narrowed in run 1, to values 11 and 12. Other runs the results are similar.
+
+The reduction of values of these two features is a general effect of any run of Abeetles. It is a result of the fact that these two features are also subject of expectations on partner. The expectation on a partner's learning ability of a beetle is set as a deviation from the value of learning ability of the beetle. Thus if they both have the same values, they are always suitable partner for the other one no matter what are the expectations. And therefore a group of beetles with similar values can mate more easily. And thanks to this fact and the fact that crossover algorithm with low rate of mutation varies the value only rarely, the particular value from such a group is propagated through children to the next generations more successfully, then from groups of beetles with different values.
+
+There is reciprocial proportion between number of children and number of beetles who have it, which resembles common situation in nature. Hungry thresholds, which are borders between two decision strategies, also narrowed to several values between 20 and 38. This is probably suitable border for this type of map with the 100\% rate of growth of flowers.
+
+\subsection{Subexperiment 1 - flowers die}
+
+If the initial setting of the experiment Four Caves is changed so, that flowers can die with 20\% probability, then they the population becomes extinct rapidly,in run 1 after 440 updates, in run 2 after 1260 updates, in run 3 after 9420 updates, see Figure \ref{img.Exp1_Sub1_3_A_time} and in run 4 after 303 updates. 
+
+When the Subexperiment 1 is run with costs of actions 1,1,2,1, then the population survives in all four cases. It differs from the Experiment 1 in the way that the oscilation range of numbers short slice of time is about 100 whereas in Experiment 1 the oscilation range is about 50. The course of run 2 is in Figure \ref{img.Exp1_Sub1_3_B_time}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_Sub1_3_A_time.eps}
+  \caption{Subexperiment 1 Experiment1 - Four Caves.}
+  \label{img.Exp1_Sub1_3_A_time}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_Sub1_3_B_time.eps}
+  \caption{Subexperiment 1 Experiment1 - Four Caves.}
+  \label{img.Exp1_Sub1_3_B_time}
+\end{center}
+\end{figure}
+
+The subexperiment 1 implies that dying of flowers only decreases the real availability of food for beetles, but does not confuse their ability to survive in more variable environment that changes irregulary.
+
+\subsection{Subexperiment 2 - random inital expectations}
+
+If the initial expectations are random, the beetles tend much more to become extinct. With 250 beetles at the beginning in all four runs all beetles died within first 320 updates.
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_Sub2_1_histExp.eps}
+  \caption{Subexperiment 1 Experiment1 - Four Caves.}
+  \label{img.Exp1_Sub2_1_histExp}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_histExp.eps}
+  \caption{Run 1 Experiment1 - histogram after 30,000 updates.}
+  \label{img.Exp1_1_histExp.eps}
+\end{center}
+\end{figure}
+
+Run of this settings was then tried with random seeds and the 16th attempt was successful and population survived all 30,000 updates. At the end there were 144 beetles. Thanks to this success, development of expectation on partner can be observed in the case of random values of expectations. See Figure \ref{img.Exp1_Sub2_1_histExp}. One curve in the histogram, e.g. Age Expectations, shows for how many beetles (axes y) is the value of partners's age(axes x) acceptable.
+
+It can be compared with result of run of Experiment 1 and its histogram after 30,000 updates in \ref{Exp1_1_histExp.eps}. It shows that random expectations on a partner allow opportunity for value to vary more, but tendences are not so different from result of case when the ranges of expectations were the widest possible. In that case it is only expectation on energy that changed significantly and can be in connection with the fact that energy at the time of mating is already restricted by hungry threshold. We expected the expectation on investment in child to grow to at least fourth of maximum of energy, but it developed to about 4 (but did not shrink under 2) in case of random initial values and in case of the widest ranges remained 0 for most of beetles but a tenth of them. Even it this case only one beetle in 144 invests less than 2. The result implies that it is enough for a new-born beetle to get 4 pieces of energy at the beginning when costs are 2,2,3,1.
+
+\section{Experiment2 - Species of beetles}
+
+This experiment have for its objective to explore possibilities of development of species of beetles. Species of beetles are defined for this purpose as such groups of beetles that members of one group can never mate with beetles from another group. The difference that would cause such an incompatibility can only sping up when expectations and respective features do not match. 
+
+Species are searched in Abeetles as connected components in a not oriented graph. Vertices of the graph are beetles and an edge is between every pair of beetles that have compatible features and expectations on them.
+ 
+The choice of these features is important. A part of expectations concerns energy and age, which cannot be counted as difference between species. Only expectations on investment in children and on learning ability could serve for this purpose. 
+
+\subsection{Initial setting of the experiment}
+The question is, what initial setting of environment and beetle to choose, so as to reach separation of beetles into species. For separation of species local separation to some extent will be necessary - beetles should be bred separately. When they are bred totaly separately, it is the same situation as if the two different runs with same general settings is performed and resulting beetles compared. Then species can be bred easily, as it Experiment 1 run 2 values of learning ability are up to 13 and in run 3 at least value 16 is expected. 
+
+Therefore the level of local separation will be searched. First, spaces connected with a corridor of width 1 cell will be examined. For this purpose the map from experiment Four Caves can be used and species can be searched in results of the four runs of that experiment.  
+
+It can be predicted from conclusions of Subexperiment 2 of Experiment 1 that environment of abeetles will not tend to development towards various values of investment in children and expectations on it easily. 
+
+In figure \ref{img.Exp1_Sub2_1_histExp} and figure \ref{img.Exp1_1_histExp.eps} is visible that values of expectations on investment in children have very restricted range and from figure \ref{img.four_caves_run1_hist30000} and other descriptions of results of Experiment 1 is clear that values of investment in children behave similarly.
+
+Development of learning abilities in Experiment 1 was more hopeful, as the values narrowed to two separated ranges, see \ref{img.four_caves_run1_hist30000}. When the situation of the environment is viewed, details of beetles proove that beetles with learning ability 34 live in the bottom left cave and beetles with learning ability 46 live in the bottom right cell (the other two cells are not inhabited). Thus beetles really developed to two different groups, which is for species very promising, even though expectations, see \ref{Exp1_1_histExp.eps}, are a wide range over almost all possible values. Therefore this result will be used for this experiment 
+
+In order to it, initial setting of Experiment 2 is the final setting of Experiment 1 run 1. Now various attempts will be done to breed species from these beetles.
+
+\subsection{Results of the experiment}
+
+The first attempt was to increase \textbf{mutation rate} so as to get expectations to follow respective values. The result was that also the value of learning ability started to vary swiftly and also the beetles became extinct in several thousands updates.
+ 
+
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_hist365000.eps }
+  \caption{Run1 Experiment1 histogram of features of beetles after 365,000 updates}
+  \label{img.Exp1_1_hist365000}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{Exp1_1_hist365000Exp.eps }
+  \caption{Run1 Experiment1 histogram of expectations on partner after 365,000 updates}
+  \label{img.Exp1_1_hist365000Exp}
+\end{center}
+\end{figure}
+  
+The second attempt was to run the environment much longer and leave enough time for evolution to do its work. After roughly 300,000 updates two species of beetles separated, see figure \ref{img.Exp1_1_hist365000} and figure \ref{img.Exp1_1_hist365000Exp}.
+
+
+
+
+ 
+
+
+   
+  
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Resume of fulfilling of objectives and other known attitudes}
+\chapter{Resume of fullfiling of objectives and other known attitudes}
 %******************Comparison of result with brother programs from 3rd chapter
 %9.         Zhodnocení splnìní cílù a srovnání s jinými známými pøístupy
 

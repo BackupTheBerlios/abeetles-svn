@@ -27,6 +27,7 @@ public:
 	int StepCost;int RotCost;int CopulCost;int WaitCost;
 	bool LearningOn;
 	int FlowerGrowingRatio;
+	bool IsFlowersDie;
 	CStatisticsEnv Statist; //Statistics of the environment
 	//bool DisplayOn; removed to CRunGui
 				
@@ -42,7 +43,7 @@ public:
 	bool MakeFlowerGrow(int x, int y);
 	bool MakeFlowerDie(int x, int y);
 	void CountStatistics(void);
-	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0, char * effFN=0, bool isStepOnFlower=true);
+	bool FillEmptyEnvRandomly(int seed,int numBeetles=DEFAULT_NUM_BEETLES, char * mapFN=0, char * effFN=0, bool isStepOnFlower=true, bool isNoExpectations=true);
 	void SetEnv(COneRun * oneRun);
 
 

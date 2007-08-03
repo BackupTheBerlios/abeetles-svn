@@ -606,6 +606,8 @@ void CRunGui::LearningChanged(int value)//Qt values: Qt::Checked, Qt::Unchecked
 void CRunGui::FlowerGrowingRatioInEnvChanged(int value)
 {
 	Env.FlowerGrowingRatio=value;
+	if (value==FLOWERGROWINGRATIO_TOP)Env.IsFlowersDie=false;
+	else Env.IsFlowersDie=true;
 	//QMessageBox::information(this,"",QString::number(value));
 }
 

@@ -42,6 +42,7 @@ public:
 	QPushButton * EffBut;
 	QPushButton * BeetleFileBut;
 	QCheckBox * StepOnFlowerCheck;	
+	QCheckBox * NoExpectationsCheck;
 	QRadioButton * RandomRadio;
 	QRadioButton * BeetleFileRadio;
 

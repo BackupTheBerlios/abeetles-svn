@@ -4,6 +4,7 @@
 #include <QFile>
 #include "COneRun.h"
 #include "defines.h"
+#include <iostream>
 
 extern int RandInBound (int bound);
 
@@ -19,6 +20,8 @@ COneRun::COneRun()
 	LearningOn=true;
 	IsStepOnFlower = true;
 	IsBtlRandom=true;
+	IsFlowersDie=true; 
+	IsNoExpectations=true;
 	Seed=-1;
 	NumRandBeetles=-1;
 	EndTime=MAXTIME;
@@ -63,9 +66,9 @@ bool COneRun::setMapFN(QString mapFN)
 }
 
 void COneRun::setRandom(int seed, int numRandBeetles)
-{
-	if (seed==-1) 
-		seed=( QTime::currentTime().msec() * QTime::currentTime().minute() ) % MAX_INT;
+{	
+	if (seed==-1) 		
+		Seed= RandInBound( MAX_INT);
 	else Seed=seed;
 	NumRandBeetles=numRandBeetles;
 	IsBtlRandom=true;
@@ -98,6 +101,14 @@ void COneRun::setIsStepOnFlower (bool isStepOnFlower)
 	IsStepOnFlower=isStepOnFlower;
 }
 
+void COneRun::setIsFlowersDie (bool isFlowersDie)
+{
+	IsFlowersDie=isFlowersDie;
+}
+void COneRun::setIsNoExpectations (bool isNoExpectations)
+{
+	IsNoExpectations=isNoExpectations;
+}
 bool COneRun::setEffFN (QString effFN)
 {
 	if (false==QFile::exists(effFN)) return false;

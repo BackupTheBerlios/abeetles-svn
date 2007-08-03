@@ -20,8 +20,8 @@ public:
 
 	bool SaveBeetles(CGrid * grid,char * filename);
 	bool SaveBeetles(CGrid * grid,QString filename);
-	bool SaveFlwAndOpt(CGrid * grid,int time, bool learningOn,int flowerGrowingRatio, int stepCost, int rotCost, int copulCost,int waitCost,char * filename);
-	bool SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, int flowerGrowingRatio, int stepCost, int rotCost, int copulCost,int waitCost,QString filename);
+	bool SaveFlwAndOpt(CGrid * grid,int time, bool learningOn,int flowerGrowingRatio,int mutationProb,int stepCost, int rotCost, int copulCost,int waitCost,char * filename);
+	bool SaveFlwAndOpt(CGrid * grid,int time, bool learningOn, int flowerGrowingRatio, int mutationProb,int stepCost, int rotCost, int copulCost,int waitCost,QString filename);
 	bool SaveMapToBmp(CGrid * grid, char * filename);
 	bool SaveMapToBmp(CGrid * grid, QString filename);
 	bool SaveEffToBmp(QString filename);
@@ -32,8 +32,8 @@ public:
 	bool LoadMapFromBmp(CGrid * grid, QString filename);
 	bool LoadBeetles(CGrid * grid, char * filename);
 	bool LoadBeetles(CGrid * grid, QString filename);
-	bool LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost,int *waitCost, char * filename);
-	bool LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,int* flowerGrowingRatio, int *stepCost, int *rotCost, int *copulCost,int *waitCost, QString filename);
+	bool LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,int* flowerGrowingRatio, int * mutationProb,int *stepCost, int *rotCost, int *copulCost,int *waitCost, char * filename);
+	bool LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,int* flowerGrowingRatio, int * mutationProb,int *stepCost, int *rotCost, int *copulCost,int *waitCost, QString filename);
 	QImage LoadEffFromBmp(int EFF_Age [EFF_BMP_X], char * filename); //, QImage image);
 	QImage LoadEffFromBmp(int EFF_Age [EFF_BMP_X], QString filename); //, QImage image);
 
