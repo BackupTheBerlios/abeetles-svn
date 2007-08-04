@@ -545,7 +545,7 @@ int CStatisticsEnv::FindSpeciesOfBeetles(CGrid * grid)
 	}
     //cout << endl;
 	
-	delete beetleArr;
+	delete [] beetleArr;
 
 	return num;
 	}

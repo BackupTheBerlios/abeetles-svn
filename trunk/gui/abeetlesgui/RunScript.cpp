@@ -55,21 +55,12 @@ int CRunScript::run()
 		//QMessageBox::information (NULL,"","2");
 		QDir::setCurrent(oneRun->DirName);
 		int time;
-		int I,J;
+		//int I,J;
 		int i_agr=0,i_hist=0,i_env=0;
 		//QMessageBox::information (NULL,"","Life "+oneRun->DirName+" starts");
 		for(time=0;time<=oneRun->EndTime;time++)
 		{			
-			for(I=0;I<env->Grid_Past.G_Width;I++)
-			for(J=0;J<env->Grid_Past.G_Height;J++)
-			{
-				if (env->Grid_Past.GetCellContent(I,J)==BEETLE) env->MakeBeetleAction(I,J);
-				else if (env->Grid_Past.GetCellContent(I,J)==NOTHING) env->MakeFlowerGrow(I,J);
-				else if (env->Grid_Past.GetCellContent(I,J)==FLOWER) env->MakeFlowerDie(I,J);
-				//if there is a wall, flower of something bad, do nothing
-			}
-
-
+			env->Make1Update();
 			
 			//if (time%10==0) env->Statist.SaveActAgrStatist(oneRun->AggrStatFN.toAscii().data(),time);
 			if (time==oneRun->SaveTimesAggr[i_agr])

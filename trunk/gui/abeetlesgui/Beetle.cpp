@@ -11,6 +11,7 @@ int CBeetle::EFF_Age [EFF_BMP_X]={10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,1
 QImage CBeetle::EffImg;
 int CBeetle::MutationProb=MUTATION_PROB_DEFAULT;
 extern int RandInBound(int);
+int CBeetle::AlocBeetles=0;
 
 CBeetle::CBeetle(void)
 {	
@@ -214,8 +215,9 @@ CBeetle * CBeetle::CreateChild(CBeetle * beetle2)
 
 CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 {
-	CBeetle * beetle_child1=new CBeetle();
-	CBeetle * beetle_child2=new CBeetle();
+	CBeetle * beetle_child1=new CBeetle();CBeetle::AlocBeetles++;
+	//fprintf(stdout,("Beetle "+QString::number(beetle1->Id)+" + Beetle "+QString::number(beetle2->Id)+"alloc 2 babies").toAscii().data());
+	CBeetle * beetle_child2=new CBeetle();CBeetle::AlocBeetles++;
 	CBeetle * pom_ref_beetle;
 	
 	
@@ -307,8 +309,8 @@ CBeetle * CBeetle::Crossover1Point(CBeetle * beetle1, CBeetle * beetle2)
 	
 	//choice of one of two beetle_childs, produced by crossover}
 	CBeetle * beetle_child=NULL;
-	if (RandInBound(2)==0) {beetle_child=beetle_child1;delete(beetle_child2);beetle_child2=NULL;}
-	else {beetle_child=beetle_child2;delete(beetle_child1);beetle_child1=NULL;};
+	if (RandInBound(2)==0) {beetle_child=beetle_child1;delete(beetle_child2); AlocBeetles--; beetle_child2=NULL;}//fprintf(stdout,"One child deleted.");}
+	else {beetle_child=beetle_child2;delete(beetle_child1);AlocBeetles--; beetle_child1=NULL; }//	fprintf(stdout,"One child deleted.");};
 
 	beetle_child->Age=0;
 	beetle_child->Energy= beetle1->InvInChild + beetle2->InvInChild;	
@@ -499,6 +501,7 @@ CBeetle * CBeetle::CreateRandomBeetle(bool isStepOnFlower, bool isNoExpectations
 	*/
 	CBeetle * beetle;
 	beetle = new CBeetle(CBeetle::CreateNewId(),0,brain,direction,energy,expectOnPartner,hungryThreshold,invInChild,learnAbility,0);
+	CBeetle::AlocBeetles++;
 	/* Removed to CountStatistics()
 	Statist.SumHungryThreshold+=hungryThreshold;
 	Statist.SumInvInChild+=invInChild;

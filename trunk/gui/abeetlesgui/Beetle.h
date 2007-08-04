@@ -14,6 +14,7 @@ public:
 	static int EFF_Age [EFF_BMP_X];
 	static 	QImage EffImg;
 	static int MutationProb;
+	static int AlocBeetles;
 
 	int Id;
 	int Energy;// 0-100

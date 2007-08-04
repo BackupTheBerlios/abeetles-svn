@@ -267,7 +267,7 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	while (!feof(btlFile))
 	{
-		beetle=new CBeetle();
+		beetle=new CBeetle();CBeetle::AlocBeetles++;
 							
 		fscanf(btlFile," ---------- ");
 		if (0==fscanf(btlFile," Id = %d ; ",&VarValue)) {ok=false;break;};
@@ -306,10 +306,10 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		if (0==fscanf(btlFile," y = %d ; ",&y)) {ok=false;break;};		
 		fscanf(btlFile," ---------- ");
 		
-		if (false==grid->SetCellContent(BEETLE,x,y,beetle))
+		if (false==grid->SetCellContentNotUpdate(BEETLE,x,y,beetle))
 		{
 			fprintf(stdout,"Beetle %d could not be placed into Grid([%d,%d] is out of grid or there is a wall).\n",I,x,y);
-			delete beetle;
+			delete beetle;CBeetle::CBeetle::AlocBeetles--;
 		}
 		J++;
 	}
@@ -364,7 +364,7 @@ bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,
 		
 		x=(line.left(line.indexOf(","))).toInt(); 
 		y=(line.right(line.size()-line.indexOf(",")-1)).toInt(); 
-		grid->SetCellContent(FLOWER,x,y);
+		grid->SetCellContentNotUpdate(FLOWER,x,y);
 	}
 	return true;
 }

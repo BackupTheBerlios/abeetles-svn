@@ -13,6 +13,8 @@
 #define G_FIRST_INDEX_MAX 1
 #define DEFAULT_GRID_WIDTH 30 //should be same or bigger than EMPTY_FIELD_SIZE !!
 #define DEFAULT_GRID_HEIGHT 30 //should be same or bigger than EMPTY_FIELD_SIZE !!
+#define UPDATED_SYMBOL1 0 //symbols for cells, if they are updated or not.
+#define UPDATED_SYMBOL2 1
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 20

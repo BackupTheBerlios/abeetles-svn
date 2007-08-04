@@ -10,6 +10,8 @@ CGrid::CGrid(void)
 	G_Width=DEFAULT_GRID_WIDTH;
 	G_Height=DEFAULT_GRID_HEIGHT;
 	G_FirstIndex=1;
+	UpdatedSymbol= UPDATED_SYMBOL1;
+	NotUpdatedSymbol= UPDATED_SYMBOL2;
 	//init all Grid to zero values.. all the allocated memory, not only within default grid and height!
 	for (I=0;I<(G_WIDTH_MAX+ (2* G_FIRST_INDEX_MAX));I++ )//((2*G_FirstIndex)+G_Width);I++)
 		for (J=0;J<(G_HEIGHT_MAX+ (2* G_FIRST_INDEX_MAX));J++ )//((2*G_FirstIndex)+G_Height);J++)
@@ -17,6 +19,7 @@ CGrid::CGrid(void)
 			GridMatrix[I][J][0]=NOTHING;
 			GridMatrix[I][J][1]=0;
 			GridMatrix[I][J][2]=0;
+			GridMatrix[I][J][3]=NotUpdatedSymbol;
 		}
 	//1QMessageBox::information(NULL,"Grid","Grid is in constructor");
 }
@@ -68,7 +71,7 @@ int CGrid::GetCellGrowingProbability(int x, int y)
 	else return GridMatrix [x+G_FirstIndex][y+G_FirstIndex][2] ;
 }
 
-bool CGrid::SetCellContent(int what,int x, int y, CBeetle * beetle )
+bool CGrid::SetCellContentAndUpdate(int what,int x, int y, CBeetle * beetle )
 {
 	//x and y must be within borders
 	if ((x<0) ||(x>=(G_Width))||(y<0)||(y>=(G_Height))) return false;
@@ -87,6 +90,31 @@ bool CGrid::SetCellContent(int what,int x, int y, CBeetle * beetle )
 		GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=NULL;//if here was a ref to beetle, I have to delete it.
 		
 	GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]=what;
+
+	this->SetCellUpdated(x,y);
+	return true;
+}
+
+bool CGrid::SetCellContentNotUpdate(int what,int x, int y, CBeetle * beetle )
+{
+	//x and y must be within borders
+	if ((x<0) ||(x>=(G_Width))||(y<0)||(y>=(G_Height))) return false;
+	//'what' must be beetle, flower or nothing
+	if ((what!=BEETLE) &&(what!=NOTHING)&&(what!=FLOWER)) return false;
+	//wall cannot be changed in this soft setCellContent function
+	if (GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]==WALL) return false;
+	//if cell is gonna be changed to beetle, beetle_ref must be pointed to a beetle 
+	if (what==BEETLE) 
+	{
+		if (beetle == NULL) return false;
+		else
+			GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=(int)beetle;
+	}
+	else
+		GridMatrix [x+G_FirstIndex][y+G_FirstIndex][1]=NULL;//if here was a ref to beetle, I have to delete it.
+		
+	GridMatrix [x+G_FirstIndex][y+G_FirstIndex][0]=what;
+
 	return true;
 }
 
@@ -153,10 +181,11 @@ void CGrid::CleanGridAndBeetles()
 	for (I=0;I< ((2*G_FirstIndex)+G_Width);I++)
 			for (J=0;J< ((2*G_FirstIndex)+G_Height);J++)
 			{
-				if (GridMatrix[I][J][0]==BEETLE) delete ((CBeetle*)GridMatrix[I][J][1]);
+				if (GridMatrix[I][J][0]==BEETLE) {delete ((CBeetle*)GridMatrix[I][J][1]);CBeetle::AlocBeetles--;}
 				GridMatrix[I][J][0]=NOTHING;
 				GridMatrix[I][J][1]=0;
 				GridMatrix[I][J][2]=0;
+				GridMatrix[I][J][3]=NotUpdatedSymbol;
 			}
 	G_Width=DEFAULT_GRID_WIDTH;
 	G_Height=DEFAULT_GRID_HEIGHT;
@@ -202,6 +231,27 @@ bool CGrid::GetNeigborCellCoords(int x, int y, int * n_x,int * n_y, char directi
 	*n_y=y;
 
 return true;
+}
+
+bool CGrid::IsCellUpdated(int x,int y)
+{
+	if ((x<0) ||(x>=(G_Width))||(y<0)||(y>=(G_Height))) return false;
+	if (GridMatrix[x+G_FirstIndex][y+G_FirstIndex][3]==UpdatedSymbol)
+		return true;
+	else return false;
+}
+bool CGrid::SetCellUpdated(int x,int y)
+{
+	if ((x<0) ||(x>=(G_Width))||(y<0)||(y>=(G_Height))) return false;
+	GridMatrix[x+G_FirstIndex][y+G_FirstIndex][3]=UpdatedSymbol;
+	return true;
+}
+bool CGrid::SwitchUpdatedGridToNotUpdated()
+{
+	//I just switch symbols.
+	int pom = UpdatedSymbol;
+	UpdatedSymbol=NotUpdatedSymbol;
+	NotUpdatedSymbol=pom;
 }
 
 int CGrid::WestBorder(void)

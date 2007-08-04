@@ -21,7 +21,7 @@ public:
 	~CEnvironment(void);
 	
 	bool IsEmpty;
-	CGrid Grid_Past; //actual grid
+	//CGrid Grid_Past; //actual grid
 	CGrid Grid; //grid for the following time value
 	int Time;
 	int StepCost;int RotCost;int CopulCost;int WaitCost;
@@ -31,6 +31,9 @@ public:
 	CStatisticsEnv Statist; //Statistics of the environment
 	//bool DisplayOn; removed to CRunGui
 				
+	
+	void Make1Update();
+
 	void MakeBeetleAction(int x, int y);
 	void NextTime(void); // increases time by 1
 	bool PrintEnv(void);

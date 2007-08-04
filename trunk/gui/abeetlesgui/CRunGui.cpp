@@ -533,14 +533,7 @@ void CRunGui::make1Step()
 		NumSteps=-1;
 	}
 
-	for(I=0;I<Env.Grid_Past.G_Width;I++)
-		for(J=0;J<Env.Grid_Past.G_Height;J++)
-		{
-			if (Env.Grid_Past.GetCellContent(I,J)==BEETLE) Env.MakeBeetleAction(I,J);
-			else if (Env.Grid_Past.GetCellContent(I,J)==NOTHING) Env.MakeFlowerGrow(I,J);
-			else if (Env.Grid_Past.GetCellContent(I,J)==FLOWER) Env.MakeFlowerDie(I,J);
-			//if there is a wall, flower of something bad, do nothing
-		}
+	Env.Make1Update();
 
 		//output 
 		/*

@@ -12,7 +12,7 @@ extern int RandInBound (int bound);
 
 CEnvironment::CEnvironment(void)
 {
-	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
+	//Grid is initialized in its constructor to default size and empty content.
 	Time=0; 
 	IsEmpty=true;
 	StepCost=A_STEP_COSTS;RotCost=A_ROTATION_COSTS;CopulCost=A_COPULATION_COSTS;WaitCost=A_WAIT_COSTS;
@@ -35,7 +35,7 @@ CEnvironment::CEnvironment(void)
 
 CEnvironment::CEnvironment(COneRun * oneRun)
 {
-	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
+	//Grid is initialized in its constructor to default size and empty content.
 
 	Time=0; 
 	IsEmpty=false;
@@ -58,10 +58,10 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 		int res = true;	
 		QString err;
 		//1st part - init environment: Loads map of environment
-		if (false==CfgMng.LoadMapFromBmp(&Grid_Past,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
+		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
 		//2nd - load beetles and add them to half finished environment
-		if (false==CfgMng.LoadBeetles(&Grid_Past,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
-		Grid=Grid_Past;
+		if (false==CfgMng.LoadBeetles(&Grid,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
+		//Grid=Grid_Past;
 		CountStatistics();
 		IsEmpty=false;
 
@@ -71,7 +71,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 }
 void CEnvironment::SetEnv(COneRun * oneRun)
 {
-	//Grid and Grid_Past are initialized in their constructor to default size and empty content.
+	//Grid is initialized in constructor to default size and empty content.
 
 	Time=0; 
 	IsEmpty=false;
@@ -94,10 +94,10 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 		int res = true;	
 		QString err;
 		//1st part - init environment: Loads map of environment
-		if (false==CfgMng.LoadMapFromBmp(&Grid_Past,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
+		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
 		//2nd - load beetles and add them to half finished environment
-		if (false==CfgMng.LoadBeetles(&Grid_Past,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
-		Grid=Grid_Past;
+		if (false==CfgMng.LoadBeetles(&Grid,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
+		//Grid=Grid_Past;
 		CountStatistics();
 		IsEmpty=false;
 
@@ -127,7 +127,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 {
 	int Left,Front,Right; //content of Beetle's neighbor cells
 	CBeetle * beetle=NULL;
-	Grid_Past.GetCellContent(x,y,&beetle);
+	Grid.GetCellContent(x,y,&beetle);
 	//fprintf(stdout,"E:%dX:%dY:%d",beetle->GetEnergy(),x,y); //debug info about beetles location
 	
 	//beetle looks around him
@@ -144,17 +144,17 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	{
 		action=HA_COPULATE;
 		if (beetle->Energy > (CopulCost + beetle->InvInChild))
-			{
-				if (true == A_Copulate(x,y,beetle))
-				{										
-					Statist.NumBeetles++;
-					Statist.NumBirths++;
-					beetle->ConsumeEnergy(CopulCost);
-					newChild = true;
-				}
-				//else beetle->ConsumeEnergy(WaitCost);
+		{
+			if (true == A_Copulate(x,y,beetle))
+			{										
+				Statist.NumBeetles++;
+				Statist.NumBirths++;
+				beetle->ConsumeEnergy(CopulCost);
+				newChild = true;
 			}
-			else beetle->Energy =0;
+			//else beetle->ConsumeEnergy(WaitCost);
+		}
+		else beetle->Energy =0;
 	}	
 	// if there was no copulation or no child created, beetle decides what to do according to what he sees and whether he is hungry
 	
@@ -170,7 +170,7 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	switch (action) 
 	{
 		case A_STEP: 
-			if (beetle->Energy > StepCost)
+			if ((beetle->Energy > StepCost)&&(beetle->Energy>WaitCost))
 			{
 				if (true ==A_Step(x,y,beetle->GetDirection())) // check, whether the step was really made
 					beetle->ConsumeEnergy(StepCost);
@@ -210,9 +210,9 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 		{	
 			beetle->Die();
 			Statist.NumBeetles--;
-			delete(beetle);	beetle = NULL;
-			Grid_Past.SetCellContent(NOTHING,x,y);// even in old grid beetle must be removed - it would be reference to deleted memory
-			Grid.SetCellContent(NOTHING,x,y);//in next grid the beetle is on same position as in old one.
+			delete(beetle);	beetle = NULL;CBeetle::AlocBeetles--;
+			Grid.SetCellContentAndUpdate(NOTHING,x,y);// even in old grid beetle must be removed - it would be reference to deleted memory
+			//Grid.SetCellContent(NOTHING,x,y);//in next grid the beetle is on same position as in old one.
 			return;
 		}
 
@@ -223,8 +223,8 @@ void CEnvironment::MakeBeetleAction(int x, int y)
 	if ((newChild==false)&&(Front==BEETLE) && 
 		(RandInBound(MAX_LEARN_ABILITY) < beetle->LearnAbility )) // beetles that have higher learnAbility, have higher probability, that they learn something
 	{
-		Grid_Past.GetNeigborCellCoords(x,y,&b2_x,&b2_y, beetle->Direction);
-		Grid_Past.GetCellContent(b2_x,b2_y, &beetle2);
+		Grid.GetNeigborCellCoords(x,y,&b2_x,&b2_y, beetle->Direction);
+		Grid.GetCellContent(b2_x,b2_y, &beetle2);
 		if (beetle2 != NULL)
 		{
 			if ((LearningOn)&&(beetle2->Energy > beetle->Energy))
@@ -249,8 +249,8 @@ int CEnvironment::GetBeetleNeighborCell(int x, int y, char direction, char L_R_F
 	int x_n,y_n;
 	direction = RotateDirection(direction,L_R_F);
 	
-	Grid_Past.GetNeigborCellCoords(x,y,&x_n,&y_n,direction);
-	return Grid_Past.GetCellContent(x_n,y_n, beetle);		
+	Grid.GetNeigborCellCoords(x,y,&x_n,&y_n,direction);
+	return Grid.GetCellContent(x_n,y_n, beetle);		
 }
 
 /**
@@ -265,41 +265,42 @@ int CEnvironment::GetBeetleNeighborCell(int x, int y, char direction, char L_R_F
 bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 {
 	CBeetle * beetle=NULL;
-	Grid_Past.GetCellContent(oldx,oldy,&beetle);
+	Grid.GetCellContent(oldx,oldy,&beetle);
 	int x=oldx;
 	int y=oldy;
-	Grid_Past.GetNeigborCellCoords(oldx,oldy,&x,&y,direction);
+	Grid.GetNeigborCellCoords(oldx,oldy,&x,&y,direction);
 	
 	//check, whether other beetle has decided to go to same cell sooner:
 	if (Grid.GetCellContent(x,y)==BEETLE) return false; // do nothing, the first beetle goes there.
 	else if (Grid.GetCellContent(x,y)==WALL) return false;// do nothing, there is a wall
 	else
 	{		
-			//if there is a flower in the Grid_Past, beetle eats it.
-			if (Grid_Past.GetCellContent(x,y)==FLOWER) 
+			//if there is a flower in the Grid, beetle eats it.
+			if (Grid.GetCellContent(x,y)==FLOWER) 
 			{
 				Statist.NumFlowers--;
 				beetle->AddEnergy(beetle->EnergyFromFlower());
 			}
-			//if in this time slice has grown a flower in Grid, but was not in Grid_Past, I cancel its growth
-			if ((Grid_Past.GetCellContent(x,y)==NOTHING) && (Grid.GetCellContent(x,y)==FLOWER))
-				Statist.NumFlowers--;
+			//if in this time slice has grown a flower in Grid, but was not in Grid, I cancel its growth
+			//if ((Grid.GetCellContent(x,y)==NOTHING) && (Grid.GetCellContent(x,y)==FLOWER))
+			//	Statist.NumFlowers--;
 			
-			Grid.SetCellContent(NOTHING, oldx, oldy);
-			Grid.SetCellContent(BEETLE,x,y,beetle);						
+			Grid.SetCellContentAndUpdate(NOTHING, oldx, oldy);
+			Grid.SetCellContentAndUpdate(BEETLE,x,y,beetle);						
 	}	
 	return true;
 }
 
 
 
-//Should be called at the end of a time slice - rewrites Grid_Past with Grid
+//Should be called at the end of a time slice.
 void CEnvironment::NextTime(void)
 {
 	
 	Statist.NextTime(Time);
-	Grid_Past=Grid;
+	Grid.SwitchUpdatedGridToNotUpdated();
 	Time++;
+	//fprintf(stdout,("NumAloc: "+QString::number(CBeetle::AlocBeetles)+"UpdSymb: "+QString::number(Grid.UpdatedSymbol)+"\n").toAscii().data());
 }
 
 bool CEnvironment::PrintEnv(void)
@@ -379,21 +380,21 @@ bool CEnvironment::LoadEnv(char * fname)
 	
 
 	//1st part - init environment: Loads map of environment
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,getMapFileName(fname))) res=false;
+	if (false==CfgMng.LoadMapFromBmp(&Grid,getMapFileName(fname))) res=false;
 
 	if ((CBeetle::EffImg=CfgMng.LoadEffFromBmp(CBeetle::EFF_Age,getEffFileName(fname))).isNull()) res=false;
 
 	//2nd part - load where flowers are
-	if (false==CfgMng.LoadFlwAndOpt(&Grid_Past,&Time,&LearningOn, 
+	if (false==CfgMng.LoadFlwAndOpt(&Grid,&Time,&LearningOn, 
 		& FlowerGrowingRatio, &CBeetle::MutationProb, &StepCost,  &RotCost,  &CopulCost, 
 		 &WaitCost, getFlowersFileName(fname))) res=false;
 
 	fprintf(stdout,("\n"+QString::number(Time)).toAscii().data());
 
 	//3rd - load beetles and add them to half finished environment
-	if (false==CfgMng.LoadBeetles(&Grid_Past,getBeetlesFileName(fname)))res=false;
+	if (false==CfgMng.LoadBeetles(&Grid,getBeetlesFileName(fname)))res=false;
 	
-	Grid=Grid_Past;
+	//Grid=Grid_Past;
 
 	CountStatistics();
 	int pom;
@@ -428,12 +429,12 @@ bool CEnvironment::SaveEnv(char * fname)
 
 bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, char * effFN, bool isStepOnFlower,bool isNoExpectations)
 {
-	//Grid_Past.SetDefaultGridShape();
-	//Grid and Grid_Past now have old or default values.
+	//Grid.SetDefaultGridShape();
+	//Grid and Grid now have old or default values.
 
 	//First part - init environment: Loads environment without beetles
 	if (mapFN==0) mapFN=MAP_BMP_FILE;
-	if (false==CfgMng.LoadMapFromBmp(&Grid_Past,mapFN))
+	if (false==CfgMng.LoadMapFromBmp(&Grid,mapFN))
 	{
 		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(mapFN)+" was not successful. Check, whether it is present in current directory.");
 		return false;
@@ -456,18 +457,18 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	int I,J,K;
 	CBeetle * beetle;
 	int endCycle=0;
-	if (numBeetles==DEFAULT_NUM_BEETLES) endCycle=(Grid_Past.G_Width*Grid_Past.G_Height)/4;
+	if (numBeetles==DEFAULT_NUM_BEETLES) endCycle=(Grid.G_Width*Grid.G_Height)/4;
 	//if number of beetles is set, I run cycle many times. cycle stops when number of really placedbeetles== numBeetles
 	else endCycle = MAX_INT; 
-	fprintf(stdout,QString::number(endCycle).toAscii().data());
+	//fprintf(stdout,("EndC: "+QString::number(endCycle)+"\n").toAscii().data());
 	for (K=0;K<endCycle;K++)
 	{
-		I=RandInBound(Grid_Past.G_Width);
-		J=RandInBound(Grid_Past.G_Height);
-		if (Grid_Past.GetCellContent(I,J)==NOTHING)
+		I=RandInBound(Grid.G_Width);
+		J=RandInBound(Grid.G_Height);
+		if (Grid.GetCellContent(I,J)==NOTHING)
 		{
 			beetle=CBeetle::CreateRandomBeetle(isStepOnFlower,isNoExpectations);
-			if (Grid_Past.SetCellContent(BEETLE,I,J,beetle))
+			if (Grid.SetCellContentNotUpdate(BEETLE,I,J,beetle))
 			{
 				Statist.NumBeetles++;
 				if ((numBeetles!=DEFAULT_NUM_BEETLES) && (Statist.NumBeetles>=numBeetles))
@@ -481,7 +482,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 
 	//1QMessageBox::information(NULL,"MyApp","Beetles are set."); //ch1
 
-	Grid=Grid_Past;
+	//Grid=Grid_Past;
 	Time=0;
 	//1QMessageBox::information(NULL,"MyApp","Grid_Past is copied to Grid."); //ch1
 	CountStatistics();
@@ -496,12 +497,12 @@ bool CEnvironment::MakeFlowerGrow(int x, int y)
 	if (FlowerGrowingRatio==FLOWERGROWINGRATIO_BOTTOM) return false; //no flower can grow regardless of the percentage in the map
 	int prob;
 	if (FlowerGrowingRatio==FLOWERGROWINGRATIO_TOP) prob=100; //allways a flower grows
-	else prob = (int)(CfgMng.FlowerGrowingRatioTable[FlowerGrowingRatio]*(Grid_Past.GetCellGrowingProbability(x,y)));
+	else prob = (int)(CfgMng.FlowerGrowingRatioTable[FlowerGrowingRatio]*(Grid.GetCellGrowingProbability(x,y)));
 	if ((Grid.GetCellContent(x,y) == NOTHING) //a beetle might have made a step into this cell
 		&&(prob> RandInBound(100))) 
 	{
 		
-		if (true == Grid.SetCellContent(FLOWER,x,y))
+		if (true == Grid.SetCellContentAndUpdate(FLOWER,x,y))
 		{
 			Statist.NumFlowers++;
 			return true;
@@ -519,7 +520,7 @@ bool CEnvironment::MakeFlowerDie(int x, int y)
 		&&(prob> RandInBound(100))) 
 	{
 		
-		if ((true == Grid.SetCellContent(NOTHING,x,y))&&(true==Grid_Past.SetCellContent(NOTHING,x,y)))
+		if (true == Grid.SetCellContentAndUpdate(NOTHING,x,y))
 		{
 			Statist.NumFlowers--;
 			return true;
@@ -564,34 +565,45 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 			//check if there is a space next to both of beetles( 4 possibile cells)
 				int neigh[4][3];//1st column - what, 2nd - x, 3rd - y
 				int x2,y2;			
-				Grid_Past.GetNeigborCellCoords(x,y,&x2,&y2,beetle->Direction);//get coords of beetle2
+				Grid.GetNeigborCellCoords(x,y,&x2,&y2,beetle->Direction);//get coords of beetle2
 				int free_n=0; //number of free cell from the 4 of the neighborhood 
 
-				Grid_Past.GetNeigborCellCoords(x,y,&(neigh[0][1]),&(neigh[0][2]),RotateDirection(beetle->Direction,'L'));
-				Grid_Past.GetNeigborCellCoords(x,y,&(neigh[1][1]),&(neigh[1][2]),RotateDirection(beetle->Direction,'R'));
-				Grid_Past.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction,'L'));
-				Grid_Past.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction,'R'));
+				Grid.GetNeigborCellCoords(x,y,&(neigh[0][1]),&(neigh[0][2]),RotateDirection(beetle->Direction,'L'));
+				Grid.GetNeigborCellCoords(x,y,&(neigh[1][1]),&(neigh[1][2]),RotateDirection(beetle->Direction,'R'));
+				Grid.GetNeigborCellCoords(x2,y2,&(neigh[2][1]),&(neigh[2][2]),RotateDirection(beetle->Direction,'L'));
+				Grid.GetNeigborCellCoords(x2,y2,&(neigh[3][1]),&(neigh[3][2]),RotateDirection(beetle->Direction,'R'));
+				
+				//fprintf(stdout,("Neigh 0: "+QString::number(neigh[0][1])+" "+QString::number(neigh[0][2])+"\n").toAscii().data());
+				//fprintf(stdout,("Neigh 1: "+QString::number(neigh[1][1])+" "+QString::number(neigh[1][2])+"\n").toAscii().data());
+				//fprintf(stdout,("Neigh 2: "+QString::number(neigh[2][1])+" "+QString::number(neigh[2][2])+"\n").toAscii().data());
+				//fprintf(stdout,("Neigh 3: "+QString::number(neigh[3][1])+" "+QString::number(neigh[3][2])+"\n").toAscii().data());
 
 				//get content of neighbor cells in following step and count the number of free ones
 				int I,J;
 				for (I=0;I<4;I++)
 				{
 					neigh[I][0]=Grid.GetCellContent(neigh[I][1],neigh[I][2]);				
-					free_n++;
+					if ((neigh[I][0]==FLOWER) ||(neigh[I][0]==NOTHING)) 
+						free_n++;
 				}
 				
 				//if there is no free cell in neighborhood, new beetle cannot be born
 				if (free_n== 0 )return false;
 				
 				//take random one from free neighbors
+				int chosenNeighI=-1;
 				int rand_n = RandInBound (free_n);
+
 				rand_n++;
 				for (J=0;J<4;J++)
 					if ((neigh[J][0]==FLOWER) ||(neigh[J][0]==NOTHING)) 
 					{
 						rand_n--;
 						if (rand_n==0)
+						{
+							chosenNeighI=J;
 							break;
+						}
 					}
 				//J is now the index of the chosen neighbor
 						
@@ -606,13 +618,18 @@ bool CEnvironment::A_Copulate(int x, int y, CBeetle * beetle)
 				assert(beetle2->Energy >0);
 				
 				//if there is a flower in the target cell, it must be count out from statistics
-				if (Grid.GetCellContent(neigh[J][1],neigh[J][2]) == FLOWER)
+				if (Grid.GetCellContent(neigh[chosenNeighI][1],neigh[chosenNeighI][2]) == FLOWER)
 					Statist.NumFlowers--;
 
 				//child_beetle is placed into environment
-				if (Grid.SetCellContent(BEETLE,neigh[J][1],neigh[J][2],beetle_child))
+				if (Grid.SetCellContentAndUpdate(BEETLE,neigh[chosenNeighI][1],neigh[chosenNeighI][2],beetle_child))
 					return true;
-				else return false;
+				else 
+				{
+					//fprintf(stdout,("Error: Child was not placed on neighbor"+ QString::number(chosenNeighI)+", "+QString::number(neigh[chosenNeighI][1])+" "+QString::number(neigh[chosenNeighI][2])+"\n").toAscii().data());
+					delete(beetle_child);
+					return false;
+				}
 		
 		}
 	}
@@ -667,9 +684,9 @@ bool CEnvironment::CreateDefaultEnv(void)
 {
 	Time=0;
 
-	Grid_Past.SetDefaultGridShape() ;
+	Grid.SetDefaultGridShape() ;
 
-	//Init Grid_Past and Grid (with sizes, flowers probability, walls and beetles)	
+	//Init Grid and Grid (with sizes, flowers probability, walls and beetles)	
 	if (false == LoadEnv(DEFAULT_FILE_NAME ))
 	{
 		fprintf(stdout,"Loading of environment file %s_map.bmp was not successful.",DEFAULT_FILE_NAME);
@@ -717,9 +734,28 @@ bool CEnvironment::CleanEnv()
 	Grid.CleanGridAndBeetles();
 	//1QMessageBox::information(NULL,"MyApp","Grid is cleaned");
 	//Alert! I cannot clean beetles here! - they were already deleted in previous function. So I make shallow copy.
-	Grid_Past=Grid;
+	//Grid_Past=Grid;
 	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
 	Statist.TotalCleanup();
+}
+
+void CEnvironment::Make1Update()
+{
+	int I,J;
+	for(I=0;I<Grid.G_Width;I++)
+		for(J=0;J<Grid.G_Height;J++)
+		{
+			//if cell was not updated yet, I update it.
+			if ((Grid.IsCellUpdated(I,J))==false)
+			{
+				if (Grid.GetCellContent(I,J)==BEETLE) MakeBeetleAction(I,J);
+				else if (Grid.GetCellContent(I,J)==NOTHING) MakeFlowerGrow(I,J);
+				else if (Grid.GetCellContent(I,J)==FLOWER) MakeFlowerDie(I,J);
+				//I mark the cell as updated one
+				Grid.SetCellUpdated(I,J); 
+			}
+			//if there is a wall, flower or something bad, do nothing
+		}
 }
 
