@@ -297,7 +297,7 @@ Environment&resources and tasks of the environment \\ \hline
 \vspace{10pt}
 \begin{tabular}{|p{150pt}|p{220pt}|} \hline \textbf{Implementation}& \\ \hline
 Distribution of computation&no \\ \hline
-Speed settings&console version versus gui version  \\ \hline
+Speed settings&console version versus GUI version  \\ \hline
 Available sources&yes \\ \hline
 Availability of binaries&free \\ \hline
 Programming language&C++ \\ \hline
@@ -778,7 +778,7 @@ For Abeetles the distribution using peer-to-peer alternative was previously cons
     %1 module
     %2 applications
     %1 module + 1 computational library
-  %language and gui libraries
+  %language and GUI libraries
     % c++ 
       % + qt lib
       % + win32api
@@ -791,13 +791,13 @@ Important facts from analysis that influence choice of layout of modules are usa
 
 Abeetles could be designed as a tool containing two separate applications that can only share some representation of data. First is a graphical viewer and second is a program run from a command line or a console application. This attitude is used by simulator Avida. Avida contains even three kinds of applications: graphical viewer, console application and primitive run with only listing of updates in a console.
 
-Abeetles was first considered to be designed in this way. The console application could be written really primitively without any gui concerned libraries and therefore could run very fast. Gui needs a supporting graphical library. For Abeetles the program language C++ together with graphical library Qt by Trolltech was used, as described in following section. This library, as well as Win32API or MFC, contains useful tools for work with files and parsing of text, which are necessary in both versions. Develop these operations for console version separately using non library constructs would be more difficult and time consuming, but without any real contribution. Therefore parallel development of two applications was abandoned. 
+Abeetles was first considered to be designed in this way. The console application could be written really primitively without any GUI concerned libraries and therefore could run very fast. Gui needs a supporting graphical library. For Abeetles the program language C++ together with graphical library Qt by Trolltech was used, as described in following section. This library, as well as Win32API or MFC, contains useful tools for work with files and parsing of text, which are necessary in both versions. Develop these operations for console version separately using non library constructs would be more difficult and time consuming, but without any real contribution. Therefore parallel development of two applications was abandoned. 
 
 Division of application into modules could also follow separation of computation of artificial life from all wrapping functionality. The computation could be called as a dynamical library. For reuse of the core of Abeetles with different interface it would be convenient and it would also be suitable for cooperation of more developers. Abeetles are planned to be prepared for transfer to other operation systems, unix based or MacOS. And dynamical libraries are only usable at one system.
 
 To sum up, Abeetles is an application that contains only one module that serves for both purposes - running of experiments as well as overlooking individual situations in the environment and running step by step. Disadvantage is lower reusability, but it simplified development and thanks to chosen library conforms to future compilation on other operation systems.
 
-%language and gui libraries
+%language and GUI libraries
     % c++ 
       % + qt lib
       % + win32api
@@ -809,7 +809,7 @@ To sum up, Abeetles is an application that contains only one module that serves 
 
 Platform for Abeetles is MS Windows XP. Thanks to usage of Qt library it should be possible compile Abeetles for other OS in future.
 
-Speed was the leading criterion when the question of programming language was considered. The model of Abeetles invokes realization by a class based languages, the abstraction is then intuitive. Abeetles needs graphical interface and for the chosen language a library for creation of gui should be accessible. Three languages were taken into account: Java, C\# and C++. Both Java and C\# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language with many convenient features. e.g. garbage collector. C\# applications can run only on MS Windows, but the support will probably grow. It is as slow as Java. The criterion of speed was considered crucial for Abeetles and therefore C++ was chosen.
+Speed was the leading criterion when the question of programming language was considered. The model of Abeetles invokes realization by a class based languages, the abstraction is then intuitive. Abeetles needs graphical interface and for the chosen language a library for creation of GUI should be accessible. Three languages were taken into account: Java, C\# and C++. Both Java and C\# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and is a language with many convenient features. e.g. garbage collector. C\# applications can run only on MS Windows, but the support will probably grow. It is as slow as Java. The criterion of speed was considered crucial for Abeetles and therefore C++ was chosen.
 
 Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt.
 
@@ -904,10 +904,10 @@ The alternative of usage of command line parameters instead of an Abeetles speci
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Detailed design of chosen solution}
+\chapter{Detailed design and implementation}
 % Detailni rozpracování modelu reseni - tj. datove struktury k implementaci
 
-\section{Data Model of Abeetles Alife}
+\section{Artificial life of Abeetles}
 %1st - Data model of Alife in Abeetles - UML Class diagram of attributes and methods of Environment, Grid and Beetles
 
 Detailed design of life of Abeetles compounds three classes. CEnvironment, CGrid and CBeetle. UML Class diagram of all three classes and their relationships is in \ref{img.ClassDiagrAbeetlesAlife}. 
@@ -915,30 +915,35 @@ Detailed design of life of Abeetles compounds three classes. CEnvironment, CGrid
 Class CGrid represents the grid of the environment. It stores its size and contents. The most important operations are GetFlowerGrowingProbability and GetCellContent, which returns what is placed in certain cell and in case it is a beetle, it returns reference to it. This class is designed to encapsulate prospective paralelization.
 
 %Beetle's action
-Class CBeetle represents a beetle with all respective features. Beetles make one action in every turn. It can be a step, a rotation or a mating. An attempt to mate happens every time, when a beetle sees another beetle in front of him. If the attemp is not successful, the beetle chooses another action according to his Brain. In the Brain only rotations and steps are included.
+Class CBeetle represents a beetle with all respective features. Beetles make one action in every turn. It can be a step, a rotation or a mating. An attempt to mate happens every time, when a beetle sees another beetle in front of him. If the attempt is not successful, the beetle chooses another action according to his Brain. In the Brain only rotations and steps are included.
 
 The possibility to place mating among other actions in the brain was tried for Abeetles, but it made it impossible for randomly created beetles to evolve, because only a small number of them received randomly the decision to mate in the suitable situation. And the number was not enought to keep the density of population in next generation above the border of extinction.
 
 %Mating
-The most interesting process connected with this class in mating of two beetles. First, demands of both beetles are checked by function IsExpOnPartnerSatisfied(). When beetles find themselves attracted in the other one, CreateChild() operation is called.  This method first applies Crossover1Point(),contains the genetic crossover algorithm, and generates two chromosomes. One of them is randomly chosen for the new-born descendant. The descendant then undergoes random changes in operation Mutation(). The new beetle is then placed in one of four cells that are neighboring for both parents. If none of them is empty, the beetle is immediately discarded. Afterwards it starts to live its own life.
+The most interesting process connected with class CBeetle in mating of two beetles. First, demands of both beetles are checked by function IsExpOnPartnerSatisfied(). When beetles find themselves mutualy attractive,  operation CreateChild() is called. This method first applies Crossover1Point() containing a genetic crossover algorithm and generates two genomes. One of them is randomly chosen for the new-born descendant. The descendant then undergoes random changes in operation Mutation(). The new beetle is then placed in one of four cells that are neighboring for both parents. If none of them is empty, the beetle is immediately discarded. Afterwards it starts to live its own life.
 
 %Run of life
-Another important process in the environment is the run of life in the environment. Instance of class CEnvironment is called $env$. Its attributes Grid and Grid\_Past are of type CGrid. Grid\_Past represents the grid in previous update. Using the following code the new env.Grid, representing the grid of the new update is created.
+Another important process in the environment is the run of life in the environment. Instance of class CEnvironment is called $env$. Its attribute Grid   contains the actual situation in the environment. Using the following code one update of the environment is performed.
 
 \begin{verbatim}
-for(I=0;I<env.Grid_Past.G_Width;I++)
-  for(J=0;J<env.Grid_Past.G_Height;J++)	
-  {
-    if (env.Grid_Past.GetCellContent(I,J)==BEETLE) 
-      env.MakeBeetleAction(I,J);	
-    else if (env.Grid_Past.GetCellContent(I,J)==NOTHING) 
-            env.MakeFlowerGrow(I,J);
-         else if (env.Grid_Past.GetCellContent(I,J)==FLOWER) 
-                env.MakeFlowerDie(I,J);	
-  }
+
+for(I=0;I<Grid.G_Width;I++)
+		for(J=0;J<Grid.G_Height;J++)
+		{
+			//if cell was not updated yet, I update it.
+			if ((Grid.IsCellUpdated(I,J))==false)
+			{
+				if (Grid.GetCellContent(I,J)==BEETLE) MakeBeetleAction(I,J);
+				else if (Grid.GetCellContent(I,J)==NOTHING) MakeFlowerGrow(I,J);
+				else if (Grid.GetCellContent(I,J)==FLOWER) MakeFlowerDie(I,J);
+				//I mark the cell as updated one
+				Grid.SetCellUpdated(I,J); 
+			}
+		}
+		
 \end{verbatim}		
 
-The border between two updates is method NextTime() of class CEnvironment. It copied Grid to Grid\_Past and counts statistics of the previous turn.
+The border between two updates is method NextTime() of class CEnvironment. Among others, it counts statistics of the previous turn.
 
 \begin{figure}
 \begin{center}
@@ -949,24 +954,58 @@ The border between two updates is method NextTime() of class CEnvironment. It co
 \end{figure}
 
 
-\section{Design of other components of Abeetles}
+\section{Functional components of Abeetles}
 %2nd - Components of Abeetles - Class diagram of CRunScript(+COneRun), MainWindow(+CBeetleDlg,CNewEnvDlg), CStatistEnv, CEnvironment, CfgManager  a jejich detailnejsi pomocne tridy
-Components of the system Abeetles and their relationships are in \ref{img.ComponentModel}. The classCfgManager encapsulates only input and output methods, it has no attributes. It should be available to all other classes any time. Therefore this class exists in the system only in one instance as a global variable. Class CEnvironment is instantiated by CRunScript as well as by CRunGui. In both it exists in only one piece at a time. Object of class CStatisticsEnv collects information about the run of an environment. So it is designed to be an attribute of CEnvironment, it is constructed and destructed together with it.
+Components of the system Abeetles and their relationships can be visualised as a class diagram, see figure\ref{img.ComponentModel}. The class CfgManager encapsulates input and output methods and should be available to all other classes any time. Therefore this class exists in the system only in one instance as a global variable. Class CEnvironment is instantiated by CRunScript as well as by CRunGui. In both it exists in only one piece at a time. Object of class CStatisticsEnv collects information about the run of an environment. So it is designed to be an attribute of CEnvironment, it is constructed and destructed together with it.
 
 %Picture of Class diagram of these classes - it is huge.. should I place it here?
 
-\section {Detailed GUI}
+\section {GUI of Abeetles}
 %3rd - Detailed GUI - picture and some description -  why and what
-%This should be written after finnishing the gui to the final form
+%This should be written after finnishing the GUI to the final form
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.6]{AbeetlesGUI.eps}
+  \caption{User interface of Abeetles}
+  \label{img.AbeetlesGUI}
+\end{center}
+\end{figure}
+
+Grafical user interface of Abeetles is designed as a window with many widgets affecting the run of the simulator, see figure \ref{img.AbeetlesGUI}. Detailed description and guidelines of usage are described in user documentation of the application.
+
+\section{Storage of environment}
+
+The environment run by Abeetles can be saved and loaded from disc. This function is accessible from both graphical and script interface. The representation of the environment is designed to use standard formats. User can access a saved situation of an environment and modify it. Thereby is the possibility to influence the course of life in Abeetles even wider.
+
+Environment is saved into the following bunch of files:
+\begin{itemize}
+\item envname.btl - main file of the environment, user chooses its name in dialog or script file. It is a text file that contains information about environment in following format:
+\begin{verbatim}
+2000; //time
+1; //1 - learning on, 2 - learning off
+4; //Rate of growing of flowers
+2; //mutation probability in %
+2; //cost of a step
+2;  //cost of a rotation
+3; //cost of a mating
+1; //cost of waiting
+10,12; //coordinates of a flower, on following lines are 
+       //coordinates of the other flowers 
+\end{verbatim}
+\item envname\_map.bmp - image file that contains the map of the environment
+\item envname\_eff.bmp - image file that contains the function energy from flower 
+\item envname\_btl.txt - text file containing beetles and their features 
+\item envname\_tst.csv - time statistics of elapsed updates
+\end{itemize}  
 
 \section {Statistics}
 %4th - Statistics - detailed list of types, what is included and how to use it.
 As described in previous chapter, there are three types of statistics produced by Abeetles: aggregated statistics, statistics of behavior of environment within time and histogram statistics.
 \subsection {Aggregated Statistics}
-Aggregated statistics show actual number of beetles, number of flowers, number of new-born beetles and average values of age, energy, hungry threshold, investment in child, learning ability and number of children. These statistics serve to show actual situation in the environment.
+Aggregated statistics shows actual number of beetles, number of flowers, number of new-born beetles and average values of age, energy, hungry threshold, investment in child, learning ability and number of children. These statistics serve to show actual situation in the environment.
 \subsection{Time Statistics}
 Time statistics show development of environment within time. The included values are number of beetles, number of children and number of new-born beetles.
-These values are saved to a file comma separated value format. Specialised applications, e.g. MS Excel can paint a graph from it. 
+These values are saved to a file in the comma separated value format. Specialised applications, e.g. MS Excel can create the respective graph. 
 \subsection {Histogram statistics}
 Structure of population can be observed using histogram statistics. It shows how many beetles have certain value of a particular feature. It contains age, learn ability,investment in children, energy, number of children and hungry threshold. Also expectations of beetles on partners on energy, age, investment in children and learn ability are included. Each value is connected with number of all beetles who have it within their range. 
 
@@ -1030,26 +1069,6 @@ savetimesaggr=70,500,1000 //the same for aggregated statistics
 %\end{lstlisting}
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Description of prototype implementation}
-%Detailed description of both prototypes - GUI version and console application  - from technical point of view.
-\section{Description of the model of a beetle}
-%This is 
- Representation of an agent(beetle) in Abeetles from genetical point of view:
-Chromosome of a beetle includes following genes:\\
-\\
-Brain [2][4][4][4] - Set of actions, each of them is chosen by the beetle in the proper situation. Situation is defined by the quaternion (hunger,what is in the left, the front, the right). Item "hunger" specifies whether or not is the beetle hungry. Values of what is in the three directions from the beetle are four: beetle, flower, wall or nothing. These four possibilities are precisely the four possible contents of cells of the environment.\\
-Actions, for which the beetle can decide in this situations are chosen from the following set: make one step, turn right, turn left.\\
-Originally there were five actions: these three and copulation and waiting. Decision for copulation has sense only in situations, where is another beetle in front of the beetle and when the beetle is not hungry. And, furthemore, it these situations the beetle should always or almost always copulate (add here more rigorous explanation)when he meets another beetle. As a result, it is compulsory action in case a beetle sees another beetle in front of him.\\
- The action waiting was omitted - it gets beetles into deadlock situation. They should never decide for waiting, when they are hungry, because there cannot grow any flower on the spot, where they are staying. And when they are not hungry, it might be useful only as waiting for somebody to come and make child with him. But even in this situation it is not clever - beetle cannot finish it, because it has no memory. So it waits until it gets hungry or situation around changes.\\
-ExpectOnPartner - Age [2] = 2B how much older / younger can be the partner
-ExpectOnPartner - Energy = 1B how much more than ExpectOnPartner - InvInChild
-ExpectOnPartner - InvInChild = 1B how much more than InvInChild
-ExpectOnPartner - LearningAbility [2]= how much less/more can have the parter
-InvInChild = 1B
-HungryThreshold = 1B
-LearningAbility = 1B
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Experiments}

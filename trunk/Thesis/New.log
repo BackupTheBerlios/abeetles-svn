@@ -1,16 +1,15 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  3 AUG 2007 19:25
-entering extended mode
+This is TeX, Version 3.14159 (MiKTeX 2.2) (preloaded format=latex 2000.11.28)  4 AUG 2007 21:29
 **New.tex
 (New.tex
-LaTeX2e <2005/12/01>
+LaTeX2e <2001/06/01>
 Loading CZ hyphenation patterns: Pavel Sevecek, v3, 1995
 Loading SK hyphenation patterns: Jana Chlebikova, 1992
-Babel <v3.8g> and hyphenation patterns for english, dumylang, nohyphenation, cz
-ech, slovak, german, ngerman, french, loaded.
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\report.cls"
-Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\size12.clo"
-File: size12.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+Babel <v3.7h> and hyphenation patterns for english, french, german, ngerman, cz
+ech, slovak, dumylang, nohyphenation, loaded.
+(C:\TeX\texmf\tex\latex\base\report.cls
+Document Class: report 2001/04/21 v1.4e Standard LaTeX document class
+(C:\TeX\texmf\tex\latex\base\size12.clo
+File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -25,10 +24,10 @@ File: size12.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files\MiKTeX 2.5\tex\latex\geometry\geometry.sty"
+(C:\TeX\texmf\tex\latex\geometry\geometry.sty
 Package: geometry 2002/07/08 v3.2 Page Geometry
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\keyval.sty"
+(C:\TeX\texmf\tex\latex\graphics\keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
@@ -41,7 +40,7 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\geometry\geometry.cfg")
+(C:\TeX\texmf\tex\latex\geometry\geometry.cfg)
 
 Package geometry Warning: Over-specification in `h'-direction.
     `width' (597.50787pt) is ignored.
@@ -50,25 +49,23 @@ Package geometry Warning: Over-specification in `h'-direction.
 Package geometry Warning: Over-specification in `v'-direction.
     `height' (845.04675pt) is ignored.
 
-) ("C:\Program Files\MiKTeX 2.5\tex\latex\ltxmisc\url.sty"
+) (C:\TeX\texmf\tex\latex\ltxmisc\url.sty
 \Urlmuskip=\muskip10
-Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
+Package: url 1999/03/28  ver 1.5x  Verb mode for urls, etc.
 )
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphicx.sty"
+(C:\TeX\texmf\tex\latex\graphics\graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\graphics.sty"
-Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+(C:\TeX\texmf\tex\latex\graphics\graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\trig.sty"
+(C:\TeX\texmf\tex\latex\graphics\trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files\MiKTeX 2.5\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2005/12/29 v1.2 MiKTeX 'graphics' configuration
-)
-Package graphics Info: Driver file: dvips.def on input line 90.
+(C:\TeX\texmf\tex\latex\00miktex\graphics.cfg)
+Package graphics Info: Driver file: dvips.def on input line 80.
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\graphics\dvips.def"
+(C:\TeX\texmf\tex\latex\graphics\dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 \Gin@req@height=\dimen107
@@ -129,8 +126,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <14.4> on input line 61.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 61.
-
-[1
+ [1
 
 ] [1]
 Chapter 1.
@@ -147,7 +143,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 Chapter 2.
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 159.
 
-("C:\Program Files\MiKTeX 2.5\tex\latex\base\omscmr.fd"
+(C:\TeX\texmf\tex\latex\base\omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
@@ -161,123 +157,291 @@ Chapter 3.
 [7
 
 ]
+
+New.tex:245: LaTeX Error: Cannot determine size of graphic in AvidaGUI.eps (no 
+BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: AvidaGUI.eps Graphic file (type eps)
- <AvidaGUI.eps> [8] [9]
+<AvidaGUI.eps> [8]
+
+New.tex:317: LaTeX Error: Cannot determine size of graphic in Bitozoa.eps (no B
+oundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Bitozoa.eps Graphic file (type eps)
- <Bitozoa.eps> [10]
+<Bitozoa.eps> [9] [10]
+
+New.tex:384: LaTeX Error: Cannot determine size of graphic in GenePool.eps (no 
+BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: GenePool.eps Graphic file (type eps)
- <GenePool.eps> [11] [12]
+<GenePool.eps> [11] [12]
+
+New.tex:449: LaTeX Error: Cannot determine size of graphic in Mitozoos.eps (no 
+BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Mitozoos.eps Graphic file (type eps)
+<Mitozoos.eps> [13]
 
-<Mitozoos.eps> [13] [14]
+New.tex:510: LaTeX Error: Cannot determine size of graphic in PrimordialLife.ep
+s (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: PrimordialLife.eps Graphic file (type eps)
- <PrimordialLife.eps> [15] [16] [17]
+<PrimordialLife.eps> [14] [15]
+
+New.tex:576: LaTeX Error: Cannot determine size of graphic in Broucci.eps (no B
+oundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Broucci.eps Graphic file (type eps)
- <Broucci.eps>
-[18] [19]
+<Broucci.eps> [16] [17] [18]
 Chapter 4.
+
+New.tex:658: LaTeX Error: Cannot determine size of graphic in AnalysisDataModel
+.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: AnalysisDataModel.eps Graphic file (type eps)
-<AnalysisDataModel.eps> [20
+<AnalysisDataModel.eps> [19
 
 ]
+
+New.tex:689: LaTeX Error: Cannot determine size of graphic in ScenarioRunExperi
+ment.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: ScenarioRunExperiment.eps Graphic file (type eps)
- <ScenarioRunExperiment.eps> [21]
+<ScenarioRunExperiment.eps>
+
+New.tex:705: LaTeX Error: Cannot determine size of graphic in ScenarioViewSitua
+tion.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: ScenarioViewSituation.eps Graphic file (type eps)
-
-<ScenarioViewSituation.eps> [22] [23]
+<ScenarioViewSituation.eps> [20] [21]
 Chapter 5.
-[24
+[22
 
-] [25] [26]
+] [23] [24] [25]
+
+New.tex:865: LaTeX Error: Cannot determine size of graphic in ComponentModel.ep
+s (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: ComponentModel.eps Graphic file (type eps)
- <ComponentModel.eps> [27] [28] [29]
+<ComponentModel.eps> [26] [27]
 Chapter 6.
-[30
+[28
 
 ]
-File: ClassDiagrAbeetlesAlife.eps Graphic file (type eps)
- <ClassDiagrAbeetlesAlife.eps> [31] [32] [33]
-Chapter 7.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1029--1044
-
+Overfull \hbox (2.65346pt too wide) in paragraph at lines 946--947
+[]\OT1/cmr/m/n/12 The bor-der be-tween two up-dates is method Next-Time() of cl
+ass CEn-vi-ron-ment. Among
  []
 
-[34
 
-]
-Chapter 8.
+New.tex:950: LaTeX Error: Cannot determine size of graphic in ClassDiagrAbeetle
+sAlife.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
+File: ClassDiagrAbeetlesAlife.eps Graphic file (type eps)
+<ClassDiagrAbeetlesAlife.eps>
+
+New.tex:968: LaTeX Error: Cannot determine size of graphic in AbeetlesGUI.eps (
+no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
+File: AbeetlesGUI.eps Graphic file (type eps)
+<AbeetlesGUI.eps> [29] [30] [31] [32]
+Chapter 7.
+
+New.tex:1091: LaTeX Error: Cannot determine size of graphic in four_caves_map.e
+ps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: four_caves_map.eps Graphic file (type eps)
 <four_caves_map.eps>
+
+New.tex:1099: LaTeX Error: Cannot determine size of graphic in four_caves_eff.e
+ps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: four_caves_eff.eps Graphic file (type eps)
- <four_caves_eff.eps> [35
+<four_caves_eff.eps> [33
 
 ]
+
+New.tex:1111: LaTeX Error: Cannot determine size of graphic in Exp1_1_time.eps 
+(no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_1_time.eps Graphic file (type eps)
- <Exp1_1_time.eps>
+<Exp1_1_time.eps>
+
+New.tex:1119: LaTeX Error: Cannot determine size of graphic in Exp1_2_time.eps 
+(no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_2_time.eps Graphic file (type eps)
-
 <Exp1_2_time.eps>
+
+New.tex:1127: LaTeX Error: Cannot determine size of graphic in Exp1_3_time.eps 
+(no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_3_time.eps Graphic file (type eps)
- <Exp1_3_time.eps>
+<Exp1_3_time.eps>
+
+New.tex:1135: LaTeX Error: Cannot determine size of graphic in Exp1_4_time.eps 
+(no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_4_time.eps Graphic file (type eps)
- <Exp1_4_time.eps> [36] [37] [38]
+<Exp1_4_time.eps> [34]
+
+New.tex:1159: LaTeX Error: Cannot determine size of graphic in Exp1_1_hist0.eps
+ (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_1_hist0.eps Graphic file (type eps)
-
 <Exp1_1_hist0.eps>
+
+New.tex:1167: LaTeX Error: Cannot determine size of graphic in Exp1_1_hist30000
+.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_1_hist30000.eps Graphic file (type eps)
- <Exp1_1_hist30000.eps> [39]
+<Exp1_1_hist30000.eps> [35]
+
+New.tex:1193: LaTeX Error: Cannot determine size of graphic in Exp1_Sub1_3_A_ti
+me.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_Sub1_3_A_time.eps Graphic file (type eps)
- <Exp1_Sub1_3_A_time.eps>
+<Exp1_Sub1_3_A_time.eps>
+
+New.tex:1201: LaTeX Error: Cannot determine size of graphic in Exp1_Sub1_3_B_ti
+me.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_Sub1_3_B_time.eps Graphic file (type eps)
+<Exp1_Sub1_3_B_time.eps> [36]
 
-<Exp1_Sub1_3_B_time.eps>
+New.tex:1215: LaTeX Error: Cannot determine size of graphic in Exp1_Sub2_1_hist
+Exp.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_Sub2_1_histExp.eps Graphic file (type eps)
- <Exp1_Sub2_1_histExp.eps> [40] [41]
+<Exp1_Sub2_1_histExp.eps>
+
+New.tex:1223: LaTeX Error: Cannot determine size of graphic in Exp1_1_histExp.e
+ps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_1_histExp.eps Graphic file (type eps)
+<Exp1_1_histExp.eps> [37] [38]
 
-<Exp1_1_histExp.eps> [42] [43]
+New.tex:1264: LaTeX Error: Cannot determine size of graphic in Exp1_1_hist36500
+0.eps  (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
 File: Exp1_1_hist365000.eps  Graphic file (type eps)
- <Exp1_1_hist365000.eps >
-File: Exp1_1_hist365000Exp.eps  Graphic file (type eps)
+<Exp1_1_hist365000.eps >
 
-<Exp1_1_hist365000Exp.eps > [44] [45]
+New.tex:1272: LaTeX Error: Cannot determine size of graphic in Exp1_1_hist36500
+0Exp.eps  (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help
+? 
+File: Exp1_1_hist365000Exp.eps  Graphic file (type eps)
+<Exp1_1_hist365000Exp.eps > [39]
+Chapter 8.
+[40
+
+]
 Chapter 9.
-[46
+[41
 
 ]
 Chapter 10.
-[47
+[42
 
 ]
 Chapter 11.
-[48
-
-]
-Chapter 12.
-[49
+[43
 
 ]
 Missing character: There is no ­ in font cmr12!
 Missing character: There is no ­ in font cmr12!
- [50] [51]
-New.tex:1372: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+ [44] [45]
+New.tex:1401: Missing $ inserted
+? 
+New.tex:1402: Missing $ inserted
+? 
 
-New.tex:1373: Missing $ inserted
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (151.00804pt too wide) in paragraph at lines 1371--1373
+Overfull \hbox (151.00804pt too wide) in paragraph at lines 1400--1402
 \OT1/cmr/m/n/12 A$[]\OML/cmm/m/it/12 OPULATEPostreh\OT1/cmr/m/n/12 2 : \OML/cmm
 /m/it/12 Ajenutne; abybroucekprikazdemsetkanisjinymbrouckemprovedlA[]OPULATE\OT
 1/cmr/m/n/12 )\OML/cmm/m/it/12 Solution \OT1/cmr/m/n/12 :
  []
 
 
-Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1371--1373
+Overfull \hbox (1340.31685pt too wide) in paragraph at lines 1400--1402
 \OML/cmm/m/it/12 omitactionA[]OPULATEfromlistofpossibleactionsandincludeitas\OT
 1/cmr/m/n/12 "\OML/cmm/m/it/12 hardwired\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 :Soth
 isactionwillbeperformedalwayswheninfrontofabeetleisanotherbeetleandnodecisionwi
@@ -286,46 +450,37 @@ swerenotmet; thedecisionforthecase\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 beetleinthe
 front\OT1/cmr/m/n/12 "\OML/cmm/m/it/12 willbemadeaccordingtotheBraintable:$ 
  []
 
-[52]
-Chapter 13.
+[46]
+Chapter 12.
 
-Overfull \hbox (1.65863pt too wide) in paragraph at lines 1386--1388
-[]$\OT1/cmtt/m/n/12 http : / / www . scs . carleton . ca / \[]soma / biosec / r
-eadings / spafford-[]viruses . pdf$ \OT1/cmr/m/n/12 -
+Overfull \hbox (1.65863pt too wide) in paragraph at lines 1415--1417
+[]$\OT1/cmtt/m/n/12 http : / / www . scs . carleton . ca / \~soma / biosec / re
+adings / spafford-[]viruses . pdf$ \OT1/cmr/m/n/12 -
  []
 
-[53
+[47
 
 ]
-Chapter 14.
-[54
+Chapter 13.
+[48
 
-] [55
+] [49
 
 ]
-Underfull \hbox (badness 2269) in paragraph at lines 1445--1446
+Underfull \hbox (badness 2269) in paragraph at lines 1474--1475
 []\OT1/cmr/m/n/12 The book of the mi-to-zoos. ($\OT1/cmtt/m/n/12 http : / / bes
 tiario . org / mitozoos / english / pdf /
  []
 
 
-Underfull \hbox (badness 2809) in paragraph at lines 1448--1449
+Underfull \hbox (badness 2809) in paragraph at lines 1477--1478
 []\OT1/cmr/m/n/12 Tomas Holan, "Dif-fer-ent Pro-gram-ming", $\OT1/cmtt/m/n/12 h
-ttp : / / ksvi . mff . cuni . cz / []holan /
+ttp : / / ksvi . mff . cuni . cz / ~holan /
  []
 
-[56] (New.aux)
+[50] (New.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
- ) 
-Here is how much of TeX's memory you used:
- 1198 strings out of 95389
- 14493 string characters out of 1186903
- 68438 words of memory out of 1064812
- 4268 multiletter control sequences out of 60000
- 10346 words of font info for 35 fonts, out of 1000000 for 2000
- 19 hyphenation exceptions out of 8191
- 25i,8n,19p,14505b,293s stack positions out of 5000i,500n,10000p,200000b,32768s
-
-Output written on New.dvi (58 pages, 144324 bytes).
+ )
+Output written on New.dvi (52 pages, 139668 bytes).
