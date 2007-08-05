@@ -131,7 +131,6 @@ void CLegend::setTypeView(const QString& type)
     if (type==TYPE_VIEW_5)TypeView=4;//Hunger
 	if (type==TYPE_VIEW_6) TypeView=5;//"growth of flowers"
 	if (type==TYPE_VIEW_7) TypeView=6;//species
-	if (type==TYPE_VIEW_8) TypeView=7;
 
 	update();
 }

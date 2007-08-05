@@ -28,8 +28,8 @@ public:
 	bool SaveEffToBmp(char * filename);
 
 	//bool LoadCfgFile(char* cfg_filename);
-	bool LoadMapFromBmp(CGrid * grid, char * filename);
-	bool LoadMapFromBmp(CGrid * grid, QString filename);
+	bool LoadMapFromBmp(CGrid * grid, char * filename,int * numFreeCells );
+	bool LoadMapFromBmp(CGrid * grid, QString filename,int * numFreeCells );
 	bool LoadBeetles(CGrid * grid, char * filename);
 	bool LoadBeetles(CGrid * grid, QString filename);
 	bool LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,int* flowerGrowingRatio, int * mutationProb,int *stepCost, int *rotCost, int *copulCost,int *waitCost, char * filename);

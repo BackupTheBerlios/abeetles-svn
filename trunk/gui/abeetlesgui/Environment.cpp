@@ -58,7 +58,7 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 		int res = true;	
 		QString err;
 		//1st part - init environment: Loads map of environment
-		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
+		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN,&NumFreeCells)){res=false; err+="Map was not loaded.\n";}
 		//2nd - load beetles and add them to half finished environment
 		if (false==CfgMng.LoadBeetles(&Grid,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
 		//Grid=Grid_Past;
@@ -94,7 +94,7 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 		int res = true;	
 		QString err;
 		//1st part - init environment: Loads map of environment
-		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN)){res=false; err+="Map was not loaded.\n";}
+		if (false==CfgMng.LoadMapFromBmp(&Grid,oneRun->MapFN,&NumFreeCells)){res=false; err+="Map was not loaded.\n";}
 		//2nd - load beetles and add them to half finished environment
 		if (false==CfgMng.LoadBeetles(&Grid,oneRun->BeetlesFN)){res=false;	err+="Beetles were not loaded.\n";}	
 		//Grid=Grid_Past;
@@ -296,9 +296,10 @@ bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 //Should be called at the end of a time slice.
 void CEnvironment::NextTime(void)
 {
-	
+	//fprintf(stdout,"In: Env::NextTime");
 	Statist.NextTime(Time);
-	Grid.SwitchUpdatedGridToNotUpdated();
+	if (Time>0) //If grid was already updated
+		Grid.SwitchUpdatedGridToNotUpdated();
 	Time++;
 	//fprintf(stdout,("NumAloc: "+QString::number(CBeetle::AlocBeetles)+"UpdSymb: "+QString::number(Grid.UpdatedSymbol)+"\n").toAscii().data());
 }
@@ -380,7 +381,7 @@ bool CEnvironment::LoadEnv(char * fname)
 	
 
 	//1st part - init environment: Loads map of environment
-	if (false==CfgMng.LoadMapFromBmp(&Grid,getMapFileName(fname))) res=false;
+	if (false==CfgMng.LoadMapFromBmp(&Grid,getMapFileName(fname),&NumFreeCells)) res=false;
 
 	if ((CBeetle::EffImg=CfgMng.LoadEffFromBmp(CBeetle::EFF_Age,getEffFileName(fname))).isNull()) res=false;
 
@@ -389,7 +390,7 @@ bool CEnvironment::LoadEnv(char * fname)
 		& FlowerGrowingRatio, &CBeetle::MutationProb, &StepCost,  &RotCost,  &CopulCost, 
 		 &WaitCost, getFlowersFileName(fname))) res=false;
 
-	fprintf(stdout,("\n"+QString::number(Time)).toAscii().data());
+	//fprintf(stdout,("\n"+QString::number(Time)).toAscii().data());
 
 	//3rd - load beetles and add them to half finished environment
 	if (false==CfgMng.LoadBeetles(&Grid,getBeetlesFileName(fname)))res=false;
@@ -397,10 +398,10 @@ bool CEnvironment::LoadEnv(char * fname)
 	//Grid=Grid_Past;
 
 	CountStatistics();
-	int pom;
+	Statist.LastNumBirths=Statist.NumBirths;
 	//4th - load time and time statistics, set Statist.startBuf to (Time+1)%BUF_SIZE
-	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname),&pom))
-	{ res=false; pom=0;}
+	if (false == Statist.LoadTimeStatist_FromColums(getTimeStatsFileName(fname)))
+	{ res=false; }
 
 	IsEmpty=false;
 	return res;
@@ -434,7 +435,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 
 	//First part - init environment: Loads environment without beetles
 	if (mapFN==0) mapFN=MAP_BMP_FILE;
-	if (false==CfgMng.LoadMapFromBmp(&Grid,mapFN))
+	if (false==CfgMng.LoadMapFromBmp(&Grid,mapFN,&NumFreeCells))
 	{
 		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(mapFN)+" was not successful. Check, whether it is present in current directory.");
 		return false;
@@ -457,6 +458,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	int I,J,K;
 	CBeetle * beetle;
 	int endCycle=0;
+	if (numBeetles> (0.9*NumFreeCells))numBeetles=0.9*NumFreeCells;
 	if (numBeetles==DEFAULT_NUM_BEETLES) endCycle=(Grid.G_Width*Grid.G_Height)/4;
 	//if number of beetles is set, I run cycle many times. cycle stops when number of really placedbeetles== numBeetles
 	else endCycle = MAX_INT; 
@@ -711,7 +713,7 @@ char * CEnvironment::getFlowersFileName(char *fname)
 {
 	QString  qFN(fname); 
 	if (!qFN.contains(".")) 
-		qFN+=".txt";
+		qFN+=".abl";
 	return qFN.toAscii().data();
 }
 char * CEnvironment::getBeetlesFileName(char *fname)
@@ -738,10 +740,12 @@ bool CEnvironment::CleanEnv()
 	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
 	Statist.TotalCleanup();
+	return true;
 }
 
 void CEnvironment::Make1Update()
 {
+	//fprintf(stdout,"In: Env::Make1Update");
 	int I,J;
 	for(I=0;I<Grid.G_Width;I++)
 		for(J=0;J<Grid.G_Height;J++)

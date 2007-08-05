@@ -17,7 +17,7 @@
 #define UPDATED_SYMBOL2 1
 
 #define EFF_BMP_X 100
-#define EFF_BMP_Y 20
+#define EFF_BMP_Y 50
 #define EFF_BMP_FILE "EnergyFromFlower.bmp"
 
 #define DEFAULT_BEETLES_FILE "Beetles.txt"
@@ -120,7 +120,7 @@
 #define NUM_ZOOM 5
 #define START_ZOOM_VALUE 2
 
-#define NUM_TYPE_VIEW 8
+#define NUM_TYPE_VIEW 7
 #define TYPE_VIEW_1 "normal"
 #define TYPE_VIEW_2 "age"
 #define TYPE_VIEW_3 "energy"
@@ -128,7 +128,6 @@
 #define TYPE_VIEW_5 "hunger"
 #define TYPE_VIEW_6 "growth of flowers"
 #define TYPE_VIEW_7 "species"
-#define TYPE_VIEW_8 "genders"
 
 
 #define TIME_STEP 15	//in miliseconds - the time between two time slices.

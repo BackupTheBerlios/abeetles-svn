@@ -320,7 +320,7 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 		//remove old file of fname name:
 		QString tstFN(fname);
 		QFile::remove(tstFN);
-
+		
 		//non-overwriting copy of TStat file to file with std name STAT_TIME_FILE
 		if (false== QFile::copy(QString(STAT_TIME_FILE),tstFN) ) return false;
 
@@ -348,9 +348,10 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 	return true;
 }
 
-bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
+bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename)
 {
 	FILE * stTF;
+	int numLines;
 
 	if ((stTF= fopen(tst_filename,"r"))==0) 
 	{
@@ -359,22 +360,20 @@ bool CStatisticsEnv::LoadTimeStatist_FromColums(char * tst_filename,int * pTime)
 		return false;
 	}
 	
-	if (pTime!=0) //if it's necessary to count lines in tst_filename csv file
+	int I=0;
+	int p1,p2,p3; //helping variables for unimportant values;
+	fscanf(stTF,"Number of beetles;Number of births;Number of flowers\n");
+	while (!feof(stTF))
 	{
-		int I=0;
-		int p1,p2,p3; //helping variables for unimportant values;
-		fscanf(stTF,"Number of beetles;Number of births;Number of flowers\n");
-		while (!feof(stTF))
-		{
-			fscanf(stTF," %d ; %d ; %d ; ",&p1,&p2,&p3);
-			I++;		
-		}
-		
-		//I - now represents number of rows in the csv file.
-		*pTime=I;
-		startBuf=*pTime%BUF_SIZE;	
-		endBuf=-1;
+		fscanf(stTF," %d ; %d ; %d ; ",&p1,&p2,&p3);
+		I++;		
 	}
+	
+	//I - now represents number of rows in the csv file.
+	numLines=I;
+	startBuf=numLines%BUF_SIZE;	
+	endBuf=-1;
+	
 	fclose(stTF);
 
 	//remove old file of std name:

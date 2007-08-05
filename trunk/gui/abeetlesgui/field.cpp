@@ -38,7 +38,7 @@ CField::CField (CEnvironment * env,QWidget * parent): QWidget(parent)
 	if (Env->IsEmpty)setFixedSize(QSize(0,0));
 	else setFixedSize(QSize(Env->Grid.G_Width,Env->Grid.G_Width));
 
-	/*int fieldWidth=EMPTY_FIELD_SIZE;
+	int fieldWidth=EMPTY_FIELD_SIZE;
 	int fieldHeight=EMPTY_FIELD_SIZE;
 
 	setFixedSize(QSize(fieldWidth,fieldHeight));*/
@@ -148,7 +148,7 @@ void CField::setTypeView(const QString& type)
 		TypeView=6;//"species"
 		NumSpecies=Env->Statist.FindSpeciesOfBeetles(&Env->Grid);		
 	}
-	if (type==TYPE_VIEW_8) TypeView=7;//"growth of flowers"
+	//if (type==TYPE_VIEW_8) TypeView=7;//"growth of flowers"
 
 	update();
 }

@@ -65,7 +65,6 @@ CRunGui::CRunGui():Env()
     TypeViewCombo->addItem(TYPE_VIEW_5);
     TypeViewCombo->addItem(TYPE_VIEW_6);
     TypeViewCombo->addItem(TYPE_VIEW_7);
-    TypeViewCombo->addItem(TYPE_VIEW_8);
 
 
 	TypeViewCombo->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
@@ -222,8 +221,8 @@ CRunGui::CRunGui():Env()
 //	QMessageBox::information(this,"MyApp","9");
 
     setWindowTitle(tr("Abeetles"));
-    setMinimumSize(300, 400);
-    resize(480, 500);
+    setMinimumSize(400, 520);
+    resize(480, 530);
 	renewAllChildren();
 	
 	
@@ -261,6 +260,7 @@ void CRunGui::newEnv()
 		emit envIsEmpty(Env.IsEmpty);
 		//1QMessage::information(NULL,"MyApp","Message is emited"); //ch1
 		
+		Env.NextTime();
 		renewAllChildren();
 		statusBar()->showMessage(tr("Random Env made."));
 	}
@@ -269,9 +269,10 @@ void CRunGui::newEnv()
 void CRunGui::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozit cas, kytky, statistiky.
 {
 	QFileDialog openDlg;
-	openDlg.setFilter("Abeetles files (*.txt;*.bmp)");
-	openDlg.setFilter("All files (*.*)");
-    ActualFN = openDlg.getOpenFileName(this);
+	openDlg.setFileMode(QFileDialog::ExistingFile); 
+	//openDlg.setFilter("Abeetles files (*.txt)");
+	//QMessageBox::information(this,"", openDlg.filters().join("\n"));
+    ActualFN = openDlg.getOpenFileName(this,"Open Environment","","Abeetles files (*.abl)");
 	if (!ActualFN.isEmpty()) ActualFN=ActualFN.left(ActualFN.lastIndexOf("."));
 
     if (!ActualFN.isEmpty()) 
@@ -301,8 +302,8 @@ void CRunGui::saveEnvAs()//pozor! tahle funkce ulozi jenom broucky - chybi: uloz
 {
     QFileDialog saveDlg;
 	//saveDlg.setFilter("Abeetles files (*.txt;*.bmp)");
-	saveDlg.setFilter("All files (*.*)");
-	ActualFN = saveDlg.getSaveFileName(this);
+	//saveDlg.setFilter("All files (*.*)");
+	ActualFN = saveDlg.getSaveFileName(this,"Save Environment","","Abeetles files (*.abl)");
 	//1QMessage::information(NULL,"MyApp",ActualFN); 
     if (ActualFN.isEmpty())return;
 		//if the filename already contains the suffix, I want to remove it
@@ -518,7 +519,8 @@ void CRunGui::runNSteps(bool bStart)
 }
 void CRunGui::make1Step()
 {
-	int I,J;
+	//fprintf(stdout,"In: Make1Step");
+	//int I,J;
 
 	if (NumSteps==0) 
 	{
@@ -606,12 +608,12 @@ void CRunGui::FlowerGrowingRatioInEnvChanged(int value)
 
 void CRunGui::reduceTypeView()
 {
-	if (TypeViewCombo->currentIndex()>=(TypeViewCombo->count()-2))TypeViewCombo->setCurrentIndex(0); 
+	if (TypeViewCombo->currentIndex()>=(TypeViewCombo->count()-1))TypeViewCombo->setCurrentIndex(0); 
 	TypeViewCombo->removeItem(TypeViewCombo->count()-1);
-	TypeViewCombo->removeItem(TypeViewCombo->count()-1);
+	//TypeViewCombo->removeItem(TypeViewCombo->count()-1);
 }
 void CRunGui::enlargeTypeView()
 {
     TypeViewCombo->addItem(TYPE_VIEW_7);
-    TypeViewCombo->addItem(TYPE_VIEW_8);
+    //TypeViewCombo->addItem(TYPE_VIEW_8);
 }

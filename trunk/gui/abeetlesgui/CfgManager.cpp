@@ -76,12 +76,14 @@ bool CfgManager::LoadCfgFile(char* cfg_filename)
 * @param filename [Complete name of the file of the grid. Can have any extension. Checked only for bmp.]<br>
 */
 //
-bool CfgManager::LoadMapFromBmp(CGrid * grid, QString filename)
+bool CfgManager::LoadMapFromBmp(CGrid * grid, QString filename, int * numFreeCells )
 {
-	return LoadMapFromBmp(grid, filename.toAscii().data());
+	return LoadMapFromBmp(grid, filename.toAscii().data(),numFreeCells);
 }
-bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
+bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename, int * numFreeCells)
 {
+	int pom=0;
+
 //1. Read the bmp file
 	QImage * img = new QImage (filename);
 	//1QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
@@ -122,13 +124,16 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename)
 			else 
 			{
 				grid->SetCellContent_Init(NOTHING,I,J);
+				pom++;
 				grid->SetCellGrowingProbability(0,I,J);
 				if ((qRed(color)==0)&&(qBlue(color)==0)&&(qGreen (color)>= CFG_CLR_FLOWER_BOTTOM) && (qGreen (color)<= CFG_CLR_FLOWER_TOP))
 					grid->SetCellGrowingProbability(FlowerProbabilityFromColor(qGreen (color)),I,J);
 			}
 		}
+		
 	}
-
+	//fprintf(stdout,QString::number(pom).toAscii().data());
+	*numFreeCells=pom;
 	return true;
 }
 
@@ -420,22 +425,25 @@ QImage CfgManager::LoadEffFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, 
 //1. Read the bmp file
 	QImage img (filename);
 	//img.load(filename);
+	int width; int height;
 	
 	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img.width())+", "+QString::number(img.height()));
-	if ((img.isNull())||(img.width()< EFF_BMP_X) ||( img.height()< EFF_BMP_Y))
+	if (img.isNull())
 	{
-		QMessageBox::information(NULL,"MyApp","No bmp map or bmp map too small - expected: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
+		QMessageBox::information(NULL,"MyApp","No eff bmp, expected bmp: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
 		return QImage();
 	}
+	img.width()< EFF_BMP_X ? width=img.width() : width=EFF_BMP_X ;
+	img.height()< EFF_BMP_Y ? height=img.height() : height=EFF_BMP_Y;
 
 //2.Fill EnergyFromFlower array with information from the image
 	QRgb color;	
 	int I,J;
 
 	//for the sake of the printf in lines, this reads in the direction of columns from bottom up.
-	for (I=0;I<EFF_BMP_X;I++)	
+	for (I=0;I<width;I++)	
 	{	
-		for (J=EFF_BMP_Y-1;J>=0;J--)
+		for (J=height-1;J>=0;J--)
 		{
 			if (!(img.valid(I,J))) 
 			{
@@ -445,7 +453,7 @@ QImage CfgManager::LoadEffFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, 
 			color = img.pixel(I,J); 
 			if (QColor::fromRgb(color) == QColor("black"))
 			{
-				EFF_Age[I]=EFF_BMP_Y - J-1;
+				EFF_Age[I]=height - J-1;
 				//QMessageBox::information(NULL,"MyApp","EFF: "+QString::number(EFF_BMP_Y - J-1));
 				continue;
 			}

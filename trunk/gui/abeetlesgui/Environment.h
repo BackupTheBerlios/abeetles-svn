@@ -27,6 +27,7 @@ public:
 	int StepCost;int RotCost;int CopulCost;int WaitCost;
 	bool LearningOn;
 	int FlowerGrowingRatio;
+	int NumFreeCells;
 	bool IsFlowersDie;
 	CStatisticsEnv Statist; //Statistics of the environment
 	//bool DisplayOn; removed to CRunGui
