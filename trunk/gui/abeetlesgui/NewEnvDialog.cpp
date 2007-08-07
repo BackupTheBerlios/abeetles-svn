@@ -5,11 +5,37 @@
 #include <QtGui>
 #include <QTime>
 
-NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
+NewEnvDialog::NewEnvDialog(QString mapFilePath, QString effFilePath ,QString beetlesFilePath , QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
 {
-	MapFN=MAP_BMP_FILE;
-	EffFN= EFF_BMP_FILE;
-	BeetleFN = DEFAULT_BEETLES_FILE;
+		
+	
+	if(mapFilePath.isEmpty())
+	{
+		MapFN=MAP_BMP_FILE;MapLabel = new QLabel("Default");
+	}
+	else 
+	{
+		MapFN=mapFilePath;MapLabel = new QLabel(mapFilePath);
+	}
+	if(effFilePath.isEmpty())
+	{
+		EffFN= EFF_BMP_FILE; EffLabel = new QLabel("Default");
+	}
+	else
+	{
+		EffFN= effFilePath;EffLabel = new QLabel(effFilePath);
+	}
+
+	if ( beetlesFilePath.isEmpty())
+	{
+		BeetleFileLabel = new QLabel("Default");
+		BeetleFN = DEFAULT_BEETLES_FILE;
+	}
+	else 
+	{
+		BeetleFN = beetlesFilePath;
+		BeetleFileLabel = new QLabel(beetlesFilePath);
+	}
 	RandomRadio = new QRadioButton(tr("Random beetles"));
 		RandomRadio->setChecked(true);
 	QLabel * seedLabel = new QLabel("Seed: ");
@@ -49,7 +75,6 @@ NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,
 	BeetleFileRadio = new QRadioButton(tr("Beetles from file"));
 		BeetleFileRadio->setChecked(false);
 	BeetleFileBut= new QPushButton("File of beetles");
-	BeetleFileLabel = new QLabel("Default");
 	connect(BeetleFileBut,SIGNAL(pressed()),this,SLOT(setBeetleFN()));
 	
 
@@ -66,10 +91,9 @@ NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,
 	connect(BeetleFileRadio,SIGNAL(toggled(bool)),beetleFileGroup,SLOT(setEnabled(bool))); 
 
 
-	MapLabel = new QLabel("Default");
+
 	MapBut= new QPushButton("Map");
 	connect(MapBut,SIGNAL(pressed()),this,SLOT(setMapFN()));
-	EffLabel = new QLabel("Default");
 	EffBut= new QPushButton("Energy From Flower");	
 	connect(EffBut,SIGNAL(pressed()),this,SLOT(setEffFN()));
 

@@ -7,6 +7,8 @@
 #include <time.h>
 #include <assert.h>
 #include <QtGui>
+#include <iostream>
+#include <stdio.h>
 
 extern int RandInBound (int bound);
 
@@ -19,6 +21,9 @@ CEnvironment::CEnvironment(void)
 	LearningOn=true;
 	IsFlowersDie=true;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+	MapFilePath ="";
+	EffFilePath ="";
+	BeetlesFilePath ="";
 
 	
 
@@ -36,6 +41,7 @@ CEnvironment::CEnvironment(void)
 CEnvironment::CEnvironment(COneRun * oneRun)
 {
 	//Grid is initialized in its constructor to default size and empty content.
+	//pom=true; //DEBUG !!!!!!!!!!!!!!!!111
 
 	Time=0; 
 	IsEmpty=false;
@@ -47,12 +53,24 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
 	IsFlowersDie=oneRun->IsFlowersDie;
 	CBeetle::MutationProb=oneRun->MutationProb;
+	MapFilePath ="";
+	EffFilePath ="";
+	BeetlesFilePath ="";
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
 		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	if (oneRun->BeetlesFN.isEmpty())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations);
+	{
+		if (false==	FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations))
+		{
+			CleanEnv();
+			IsEmpty=true;
+			return;
+		}
+		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+	}
 	else
 	{
 		int res = true;	
@@ -64,7 +82,15 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 		//Grid=Grid_Past;
 		CountStatistics();
 		IsEmpty=false;
-
+		if (res==false)
+		{
+			CleanEnv();
+			IsEmpty=true;
+			return;
+		}
+		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+		QFileInfo beetlesFInfo (oneRun->BeetlesFN);BeetlesFilePath=beetlesFInfo.absoluteFilePath();
 	}
 
 	//QMessageBox::information(NULL,"MyApp","Filled Randomly"); //ch1
@@ -81,13 +107,26 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 	WaitCost=oneRun->WaitCost;
 	LearningOn=oneRun->LearningOn;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
+//	IsFlowersDie=oneRun->IsFlowersDie;..tady ne!
 	CBeetle::MutationProb=oneRun->MutationProb;
+	MapFilePath ="";
+	EffFilePath ="";
+	BeetlesFilePath ="";
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
 		//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(CBeetle::EffImg.width())+", "+QString::number(CBeetle::EffImg.height()));
 	if (oneRun->BeetlesFN.isEmpty())
-		FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations);
+	{
+		if (false==	FillEmptyEnvRandomly(oneRun->Seed, oneRun->NumRandBeetles,oneRun->MapFN.toAscii().data(),oneRun->EffFN.toAscii().data(), oneRun->IsStepOnFlower,oneRun->IsNoExpectations))
+		{
+			CleanEnv();
+			IsEmpty=true;
+			return;
+		}
+		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+	}
 	else
 	{
 		//fprintf(stdout,"Beetles from file");
@@ -296,6 +335,14 @@ bool CEnvironment::A_Step(int oldx, int oldy, char direction)
 //Should be called at the end of a time slice.
 void CEnvironment::NextTime(void)
 {
+	/*
+	if ((pom==true) && (QFile::exists("`xs"))) 
+	{
+		pom=false;
+		fprintf(stdout,("In NextTime:"+QString::number(Time)+", exists\n").toAscii().data());
+	}*/
+	if (QFile::exists("`xs")) QFile::remove("`xs");
+
 	//fprintf(stdout,"In: Env::NextTime");
 	Statist.NextTime(Time);
 	if (Time>0) //If grid was already updated
@@ -404,7 +451,19 @@ bool CEnvironment::LoadEnv(char * fname)
 	{ res=false; }
 
 	IsEmpty=false;
-	return res;
+
+	if (res==false)
+	{
+		CleanEnv();
+		IsEmpty=true;
+		return false;
+	}
+
+	QFileInfo mapFInfo(getMapFileName(fname));MapFilePath=mapFInfo.absoluteFilePath();
+	QFileInfo effFInfo(getEffFileName(fname));EffFilePath=effFInfo.absoluteFilePath();
+	QFileInfo beetlesFInfo (getBeetlesFileName(fname));BeetlesFilePath=beetlesFInfo.absoluteFilePath();
+
+	return true;
 }
 
 bool CEnvironment::SaveEnv(char * fname)
@@ -432,7 +491,7 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 {
 	//Grid.SetDefaultGridShape();
 	//Grid and Grid now have old or default values.
-
+	//fprintf(stdout, (QString::number(sizeof(CBeetle))+"\n").toAscii().data());
 	//First part - init environment: Loads environment without beetles
 	if (mapFN==0) mapFN=MAP_BMP_FILE;
 	if (false==CfgMng.LoadMapFromBmp(&Grid,mapFN,&NumFreeCells))
@@ -650,7 +709,7 @@ char CEnvironment::RotateDirection(char direction, char L_R_F)
 
 /**
 * Public method <br>
-* Description: Counts Statistics of two kinds: NumFlower, NumBeetles and NumBirths (useful after loading of environment) and counts Sums of features of beetles(necessary before call to Statist->SaveAggrStatistics())<br>
+* Description: Counts Statistics of three kinds: NumFlower, NumBeetles and NumBirths (useful after loading of environment) and counts Sums of features of beetles(necessary before call to Statist->SaveAggrStatistics())<br>
 * System dependence: no.<br>
 * Usage comments: Two different cases of usage. View description part.<br>
 */
@@ -739,6 +798,9 @@ bool CEnvironment::CleanEnv()
 	//Grid_Past=Grid;
 	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
+	MapFilePath ="";
+	EffFilePath ="";
+	BeetlesFilePath ="";
 	Statist.TotalCleanup();
 	return true;
 }

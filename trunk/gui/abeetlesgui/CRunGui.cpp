@@ -136,29 +136,26 @@ CRunGui::CRunGui():Env()
      
 
 	//Start, Stop, Make n steps buttons
-	 QPushButton * runBut = new QPushButton(tr("Run"));
-	 runBut-> setCheckable(true);
+	 RunBut = new QPushButton(tr("Run"));
+	 RunBut-> setCheckable(true);
 	 NumStepsSpin = new QSpinBox();
 	 NumStepsSpin ->setMaximum(MAXTIME);
+	 NumStepsSpin->setMinimum(1);
 	 NumStepsSpin->setValue(100);
 	 MakeNStepsBut = new QPushButton(tr("Make steps"));
 	 MakeNStepsBut-> setCheckable(true);
 
-	 runBut->setDisabled(true);MakeNStepsBut->setDisabled(true);NumStepsSpin->setDisabled(true);
+	RunBut->setDisabled(true);MakeNStepsBut->setDisabled(true);NumStepsSpin->setDisabled(true);
 
-	 if (false ==connect(runBut,SIGNAL(toggled(bool)),MakeNStepsBut,SLOT(setDisabled(bool))))
-		 QMessageBox::information(this,"MyApp","not connected: runBut,MakeNStepsBut");
-	 if (false ==connect(MakeNStepsBut,SIGNAL(toggled(bool)),runBut,SLOT(setDisabled(bool))))
-		 QMessageBox::information(this,"MyApp","not connected: runBut,MakeNStepsBut");
-
-	if (false ==connect(runBut,SIGNAL(toggled(bool)),NumStepsSpin,SLOT(setDisabled(bool))))
-		 QMessageBox::information(this,"MyApp","not connected: runBut,NumStepsSpin");
+	connect(RunBut,SIGNAL(toggled(bool)),MakeNStepsBut,SLOT(setDisabled(bool)));
+	connect(MakeNStepsBut,SIGNAL(toggled(bool)),RunBut,SLOT(setDisabled(bool)));
+	connect(RunBut,SIGNAL(toggled(bool)),NumStepsSpin,SLOT(setDisabled(bool)));
 	
 	connect(MakeNStepsBut,SIGNAL(toggled(bool)),this,SLOT(runNSteps(bool)));
-	connect(runBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
+	connect(RunBut,SIGNAL(toggled(bool)),this,SLOT(run(bool)));
 
 	//If there is no environment opened, all buttons are disabled
-	connect(this, SIGNAL(envIsEmpty(bool)),runBut,SLOT(setDisabled(bool)));
+	connect(this, SIGNAL(envIsEmpty(bool)),RunBut,SLOT(setDisabled(bool)));
 	connect(this, SIGNAL(envIsEmpty(bool)),NumStepsSpin,SLOT(setDisabled(bool)));
 	connect(this, SIGNAL(envIsEmpty(bool)),MakeNStepsBut,SLOT(setDisabled(bool)));
 
@@ -170,7 +167,7 @@ CRunGui::CRunGui():Env()
 	 QVBoxLayout * rightLayout= new QVBoxLayout();
 	 rightLayout->addWidget(TimeLCD);
 	 //rightLayout->addStretch(1);
-	 rightLayout->addWidget(runBut);
+	 rightLayout->addWidget(RunBut);
 	 rightLayout->addWidget(NumStepsSpin);
 	 rightLayout->addWidget(MakeNStepsBut);
 	 rightLayout->addStretch(1);
@@ -205,9 +202,6 @@ CRunGui::CRunGui():Env()
 	gridLayout->addLayout(bottomLayout,2,0,1,3);
 	//gridLayout->addLayout(
 	gridLayout->setRowStretch(0, 1);
-   /* layout->addWidget(topFiller);
-    layout->addWidget(infoLabel);
-    layout->addWidget(bottomFiller);*/
     mainWidget->setLayout(gridLayout);
 
 //	QMessageBox::information(this,"MyApp","8");
@@ -242,7 +236,8 @@ void CRunGui::contextMenuEvent(QContextMenuEvent *event)
 
 void CRunGui::newEnv()
 {
-	NewEnvDialog newEnvDialog;
+	stopRun();
+	NewEnvDialog newEnvDialog(Env.MapFilePath, Env.EffFilePath ,Env.BeetlesFilePath, this );
 	int result = newEnvDialog.exec();
 	if (result ==QDialog::Accepted)
 	{
@@ -262,7 +257,7 @@ void CRunGui::newEnv()
 		
 		Env.NextTime();
 		renewAllChildren();
-		statusBar()->showMessage(tr("Random Env made."));
+		statusBar()->showMessage(tr("New environment made."));
 	}
 }
 
@@ -616,4 +611,14 @@ void CRunGui::enlargeTypeView()
 {
     TypeViewCombo->addItem(TYPE_VIEW_7);
     //TypeViewCombo->addItem(TYPE_VIEW_8);
+}
+
+void CRunGui::stopRun()
+{
+	runNSteps(false);
+	if (RunBut->isChecked()) RunBut->setChecked(false);
+	if (MakeNStepsBut->isChecked()) MakeNStepsBut->setChecked(false);
+	NumStepsSpin->setDisabled(false);
+	MakeNStepsBut->setDisabled(false);
+	RunBut->setDisabled(false);
 }

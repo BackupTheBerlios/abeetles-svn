@@ -98,6 +98,7 @@ void CStatisticsEnv::NextTime(int Time)
 		{
 			//SaveTimeStatist_InRowsAppend();
 			SaveTimeStatist_InColumnsAppend();
+			endBuf=-1;
 		}
 
 		if(Time%MAX_DATA_TO_TIME_STATS_FILE ==0) //if the file reached maximal number of lines visible in MS Excel
@@ -294,6 +295,8 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 	FILE *  stTF;
 	int I;
 
+	//if (QFile::exists("`xs")) fprintf(stdout,"In open SaveTime, exists\n");	
+
 	if (fname==0)//this call is from method CStatisticsEnv::NextTime()
 	{
 		if ((stTF= fopen(STAT_TIME_FILE,"a+"))==0) 
@@ -314,23 +317,32 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 				for (I=0;I<=endBuf;I++)
 					fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
 		fclose(stTF);
+
+		if (QFile::exists("`xs")) fprintf(stdout,"In SaveTime, exists\n");	
 	}	
 	else //e.a. (fname!= 0), this is not call from method CStatisticsEnv::NextTime() .
 	{
 		//remove old file of fname name:
 		QString tstFN(fname);
 		QFile::remove(tstFN);
-		
+		//QMessageBox::information(NULL,"",QString::fromAscii("Saving TimeStats to ")+fname);
+		//if (QFile::exists("`xs")) fprintf(stdout,"In SaveTime, exists");
+		//QDir::
 		//non-overwriting copy of TStat file to file with std name STAT_TIME_FILE
-		if (false== QFile::copy(QString(STAT_TIME_FILE),tstFN) ) return false;
+		if (false== QFile::copy(QString(STAT_TIME_FILE),tstFN) ) 
+		{
+			fprintf(stdout,"No stat time found.");
+			return false;
+		}
 
 		if ((stTF= fopen(fname,"a+"))==0) 
 		{
 			fprintf(stdout,"Error No.%d occured: %s, opening of file %s unsuccessful.",errno,strerror(errno),STAT_TIME_FILE);			
 			return false;
 		}
-		
+		//fprintf(stdout,(" "+QString::number(startBuf)+" "+QString::number(endBuf)+" ").toAscii().data());
 		if (-1!=endBuf) //there is nothing to save. It happens when if I am on just loaded time position, there is nothing to save.
+		{
 			if (startBuf>0)//if I am short after last load of environment
 			{
 				if (startBuf<(BUF_SIZE-1)) //the startBuf index's value is the last value that already is in .csv file.
@@ -339,12 +351,18 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 				startBuf=0; //after one incomplete turn of these arrays, next are already complete.
 			}
 			else
+			{
 				for (I=0;I<=endBuf;I++)
 					fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
+			}
+		}
 		fclose(stTF);
+
+		
+	//if (QFile::exists("`xs")) fprintf(stdout,"In end SaveTime, exists\n");	
 	
 	}
-		
+	
 	return true;
 }
 

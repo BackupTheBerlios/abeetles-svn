@@ -20,9 +20,9 @@
 CfgManager::CfgManager(void)
 {
 	FlowerGrowingRatioTable[0]=-1;
-	FlowerGrowingRatioTable[1]=0.25; 
-	FlowerGrowingRatioTable[2]=0.5; 
-	FlowerGrowingRatioTable[3]=0.75;
+	FlowerGrowingRatioTable[1]=0.1; 
+	FlowerGrowingRatioTable[2]=0.4; 
+	FlowerGrowingRatioTable[3]=0.7;
 	FlowerGrowingRatioTable[4]=1;
 	FlowerGrowingRatioTable[5]=1.5;
 	FlowerGrowingRatioTable[6]=2;

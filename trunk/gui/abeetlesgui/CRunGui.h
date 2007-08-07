@@ -87,6 +87,7 @@ private:
 	QComboBox * TypeViewCombo;
 	QSpinBox * NumStepsSpin;
 	QPushButton * MakeNStepsBut;
+	QPushButton * RunBut;
 	ZoomSlider * ZoomSlid;
 	QCheckBox * DisplayCheck;
 	QCheckBox * LearningCheck;
@@ -107,6 +108,7 @@ private:
 	void renewAllChildren();
 	void reduceTypeView();
 	void enlargeTypeView();
+	void stopRun();
 
 
     QMenu *fileMenu;

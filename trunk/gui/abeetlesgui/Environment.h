@@ -4,6 +4,7 @@
 #include "CfgManager.h"
 #include "StatisticsEnv.h"
 #include <QWidget>
+#include <QString>
 #include "defines.h"
 
 //make globals visible
@@ -20,6 +21,8 @@ public:
 	//CEnvironment::CEnvironment(int seed); // creation of random environment
 	~CEnvironment(void);
 	
+	//bool pom;//DEBUG!!!!!!!!!!!!!!!!!
+
 	bool IsEmpty;
 	//CGrid Grid_Past; //actual grid
 	CGrid Grid; //grid for the following time value
@@ -30,7 +33,9 @@ public:
 	int NumFreeCells;
 	bool IsFlowersDie;
 	CStatisticsEnv Statist; //Statistics of the environment
-	//bool DisplayOn; removed to CRunGui
+	QString MapFilePath;
+	QString EffFilePath;
+	QString BeetlesFilePath;
 				
 	
 	void Make1Update();
