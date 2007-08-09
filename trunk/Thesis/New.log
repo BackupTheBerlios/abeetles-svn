@@ -1,4 +1,4 @@
-This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  7 AUG 2007 15:49
+This is pdfeTeX, Version 3.141592-1.30.6-2.2 (MiKTeX 2.5) (preloaded format=latex 2007.4.18)  8 AUG 2007 23:44
 entering extended mode
 **New.tex
 (New.tex
@@ -410,28 +410,36 @@ Chapter 4.
 File: images/AnalysisDataModel.eps Graphic file (type eps)
 <images/AnalysisDataModel.eps> [25
 
-]
-File: images/ScenarioRunExperiment.eps Graphic file (type eps)
- <images/ScenarioRunExperiment.eps> [26]
-File: images/ScenarioViewSituation.eps Graphic file (type eps)
-
-<images/ScenarioViewSituation.eps> [27] [28]
-Chapter 5.
-[29
-
-] [30] [31] [32]
-File: images/ComponentModel.eps Graphic file (type eps)
- <images/ComponentModel.eps> [33] [34]
-Chapter 6.
-[35
-
-]
+] [26] [27]
 File: images/ClassDiagrAbeetlesAlife.eps Graphic file (type eps)
- <images/ClassDiagrAbeetlesAlife.eps>
-File: images/AbeetlesGUI.eps Graphic file (type eps)
- <images/AbeetlesGUI.eps> [36]
-[37] [38] [39] [40] [41]
+
+<images/ClassDiagrAbeetlesAlife.eps> [28] [29]
+Chapter 5.
+File: images/ScenarioRunExperiment.eps Graphic file (type eps)
+<images/ScenarioRunExperiment.eps> [30
+
+]
+File: images/ScenarioViewSituation.eps Graphic file (type eps)
+ <images/ScenarioViewSituation.eps>
+[31] [32]
+Chapter 6.
+[33
+
+]
+File: images/ComponentModel.eps Graphic file (type eps)
+ <images/ComponentModel.eps> [34] [35] [36]
 Chapter 7.
+File: images/AbeetlesGUI.eps Graphic file (type eps)
+<images/AbeetlesGUI.eps> [37
+
+] [38]
+Overfull \hbox (5.6298pt too wide) in paragraph at lines 1070--1071
+\OT1/cmr/m/n/12 bee-tles have cer-tain value of a par-tic-u-lar fea-ture. It co
+n-tains age, learn-ing abil-ity,investment
+ []
+
+[39] [40] [41]
+Chapter 8.
 File: images/four_caves_map.eps Graphic file (type eps)
 <images/four_caves_map.eps>
 File: images/four_caves_eff.eps Graphic file (type eps)
@@ -467,26 +475,31 @@ File: images/Exp1_1_hist365000.eps  Graphic file (type eps)
  <images/Exp1_1_hist365000.eps >
 File: images/Exp1_1_hist365000Exp.eps  Graphic file (type eps)
 
-<images/Exp1_1_hist365000Exp.eps > [51] [52]
-Chapter 8.
-[53
+<images/Exp1_1_hist365000Exp.eps >
+File: images/Exp2_GUI_species.eps  Graphic file (type eps)
+ <images/Exp2_GUI_species.eps >
 
-] [54
+LaTeX Warning: Reference `img.Ex2_GUI_species.eps' on page 51 undefined on inpu
+t line 1348.
 
-]
-Underfull \hbox (badness 2726) in paragraph at lines 1454--1455
-[]\OT1/cmr/m/n/12 Bestiario com-pany, "The book of the mi-to-zoos", ($\OT1/cmtt
-/m/n/12 http : / / bestiario . org /
- []
+[51] [52] [53]
+Chapter 9.
+[54
 
-[55] (New.aux) ) 
+] [55
+
+] [56] (New.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 1497 strings out of 95389
- 16847 string characters out of 1186903
+ 1506 strings out of 95389
+ 16984 string characters out of 1186903
  71039 words of memory out of 1067413
- 4461 multiletter control sequences out of 60000
+ 4464 multiletter control sequences out of 60000
  9432 words of font info for 32 fonts, out of 1000000 for 2000
  19 hyphenation exceptions out of 8191
  25i,8n,19p,14512b,304s stack positions out of 5000i,500n,10000p,200000b,32768s
 
-Output written on New.dvi (55 pages, 150356 bytes).
+Output written on New.dvi (56 pages, 148124 bytes).

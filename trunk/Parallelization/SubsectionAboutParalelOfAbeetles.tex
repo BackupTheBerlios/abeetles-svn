@@ -1,0 +1,22 @@
+\subsubsection{Possible paralelization of Abeetles}
+
+Is the model of Abeetles suitable for parallelization of computation? The parallelization speeds up the computation only if the task can be separated into independent subtasks and the costs of interchange of data after the completion of each subtask do not prevail the savings from parallel run of the subtasks.
+
+The first question is whether computation of artificial life of Abeetles can be split into independent subtasks. Generally, the run of an artificial life simulator is a sequence of more or less separated updates. In each update each  object in the environment gets an opportunity to make a small number of actions, usually one, with one input of information from the environment, e.g. snapshot of its surroundings. Interactions in the environment should be only local, so as to split the environment into several parts and each of them compute on a different machine. 
+
+In Abeetles the environment is a grid in the form of a toroid. Beetles see only three neighboring cells. As described later, growth of flowers is dependent only on the setting of each cell and a general variable --- flower growing ratio. Therefore interactions are only local and parallelization could be convenient. 
+
+One possibility of division of the task is to split the environment into parts that compute every update separately, run these parts on different computers and after each update send and receive information about the edges that can be in view of objects in the neighboring parts of the environment. Two alternatives of realization of such a distribution are: The first one is that the parts run on individual machines are equal applications and communicate peer-to-peer. Each application knows only information about its part of environment and information about the borders with neighbors. Such an architecture could be supported by some common parallelization middleware, e.g. MPI or PVM.
+
+% Deployment (?-nebyl by lepsi nejaky popis zprav?) diagram of this situation according to schema in notysek.
+
+The other one is that a central server splits the environment, sends the parts to individual machines, all the machines compute one update and return results to the server.
+
+%Deployment diagram of this situation according to schema in notysek.
+Decision for one of the architectures should consider number of sent messages and their size in both cases. The environment has the shape of a square and it is split into $n$ smaller squares. Length of an edge of such a square is $x$. Radius of view of an object in the environment is $v$. Then in the first case the number of exchanged messages is $4n$ and each message carries information of size $av$. In the second case the number of messages is $2n$ and size of contained information is $a^2$. Then for a particular messaging system can be considered, which solution is more convenient.  
+
+%Pro co tedy vlastne tenhle agrument mluvi? Je posilani vetsich zprav alespon dvakrat pomalejsi? Ve chvili kdy se zprava musi rozdelit na dve mensi, tak urcite je.
+
+I would be very interesting to know whether any of these methods of distribution could be so effective that it would secure such considerable speedup that would outweigh all the costs of the distribution.
+
+For Abeetles the distribution using peer-to-peer alternative was previously considered, but it would need a great deal of work that exceeds the possibilities of this thesis. Nevertheless, implementation of data structure of the grid of the environment is prepared for usage in the peer-to-peer model. 

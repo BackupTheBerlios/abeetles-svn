@@ -23,7 +23,7 @@ favorite location in your home directory.<P>
 <CENTER><IMG HEIGHT="143" WIDTH="404" SRC="readme_imgs/cmdline_start.jpg" alt="Start of Abeetles from command line"></CENTER>
 
 
-<h3> Abeetles - graphical version </h3>
+<h2> Abeetles - graphical version </h3>
 
 <p>After launching, the main window of application is opened.
 
@@ -33,78 +33,109 @@ So as to create a new environment choose "New Environment" in menu "File". This 
 
 <CENTER><IMG HEIGHT="633" WIDTH="736" SRC="readme_imgs/NewEnvDialog.jpg"></CENTER>
 
-<P>Thereafter the new environment is created and main window show the situation in the environment. It offers many useful widget to run the environment, adjust view or influence the course of matters.
+<P>Thereafter the new environment is created and main window shows the situation in the environment. It offers many useful widgets to run the environment, adjust view or influence the course of matters.
 
-<CENTER><IMG HEIGHT="543" WIDTH="777" SRC="readme_imgs/Picture4.jpg"></CENTER>
+<CENTER><IMG HEIGHT="626" WIDTH="937" SRC="readme_imgs/MainWindow.jpg"></CENTER>
 
 <P>Details of individual beetles can be accessed by right-clicking on the arrow of a beetle. Dialog of beetle's features is displayed as it is described in following two pictures.
 
 
 <p>The top of the dialog:
-<CENTER><IMG HEIGHT="673" WIDTH="776" SRC="readme_imgs/BeetlesDialogTop.jpg"></CENTER>
+<CENTER><IMG HEIGHT="637" WIDTH="776" SRC="readme_imgs/BeetlesDialogTop.jpg"></CENTER>
 
 <p> The bottom of the dialog:
 <CENTER><IMG HEIGHT="500" WIDTH="776" SRC="readme_imgs/BeetlesDialogBottom.jpg"></CENTER>
 
 <P>
 
-<CENTER><IMG HEIGHT="540" WIDTH="777" SRC="readme_imgs/Picture6.jpg"></CENTER><P>
 
-6.	Avida is now ready to begin.  Click the button labeled "Finish" in the Setup Assistant:<P>
+<h2>Abeetles - script run </h2>
 
-<CENTER><IMG HEIGHT="543" WIDTH="776" SRC="readme_imgs/Picture7.jpg"></CENTER><P>
+<P>Abeetles, when run from command line with an input script, does not start any window application. It only saves desired statistics and situations and outputs to the command line. How to write a script file is described in file "ScriptReadme.txt"
 
-7.	Avida will present a "Map" window showing a single organism in the Avida world.  Select 
-"Start Avida" from the "File" menu to start Avida:<P>
+<CENTER><IMG HEIGHT="295" WIDTH="668" SRC="readme_imgs/cmdline_script.jpg"></CENTER>
 
-<CENTER><IMG HEIGHT="438" WIDTH="558" SRC="readme_imgs/Picture8.jpg"></CENTER><P>
+<p>For every run set in the script all configuration is displayed, then the run is computed (it may take longer time, when the end time for a run is more then tens of thousands) and final number of updates is written on the screen. All saved statistics and situations of the environment are placed in a directory with the name of the run. 
 
-8.	The Avida world will be quickly populated as the original organism and its descendants replicate and experience 
-mutation:<P>
+<h2>Detailed description of chosen features of Abeetles</h2>
 
-<CENTER><IMG HEIGHT="439" WIDTH="558" SRC="readme_imgs/Picture9.jpg"></CENTER><P>
+<h3>Map of environment </h3>
 
-9.	Avida can be paused by selecting "Pause Avida" from the "File" menu:<P>
+Map of environment is an input file that represents the environment. Each pixels stands for one cell. Map sets where are wall and which cells are free. For the free cells it states the percentage of growth of flowers. To sum up, it should have following format:
+<ul>
+<li> Size from 5x5 to 100x100 pixels.</li>
+<li> Pixels where is to be a wall should be red = rgb(255,0,0).
+<li> Pixels that are empty, should have some color from black = rgb(0,0,0) to green rgb(0,255,0). For black cells the probability of growth will be 0% and for the green one it will be 100%. </li>
+<li>Any other color in the map is considered to be black.</li>
+</ul>
 
-<CENTER><IMG HEIGHT="439" WIDTH="557" SRC="readme_imgs/Picture10.jpg"></CENTER><P>
+<h3>Energy from flower function</h3>
 
-10.	Various map modes can be selected using the "Map mode" popup menu, to show for example the fitnesses of organisms 
-in the population:<P>
+This function should be submitted to the application as a bmp file of size 100x50. The image should contain black curve, 1 pixel wide, going from left to right. The curve represents graph of the function energy from flower. Axe x (width of image) represents ages of beetles from 0 to 100, every column represents one age value. For every age value = column of the picture the first black pixel from the bottom is taken, its height from bottom is counted and used as amount of energy gained from an eaten flower. When a beetle is older than 100 updates, it gains from every flower as much energy as when its age was 100. If in some column a black pixel is missing, the gained enegy is set to 10 for the respective age.
 
-<CENTER><IMG HEIGHT="441" WIDTH="559" SRC="readme_imgs/Picture11.jpg"></CENTER><P>
+<CENTER><IMG HEIGHT="93" WIDTH="330" SRC="readme_imgs/four_caves_eff.bmp"></CENTER>
 
-	Or the merits of organisms in the population:<P>
+<h3>Types of view</h3>
 
-<CENTER><IMG HEIGHT="440" WIDTH="560" SRC="readme_imgs/Picture12.jpg"></CENTER><P>
+In GUI of Abeetles there are seven types of view of the environment:
+<ul>
+<li> <b>Normal: </b> Flowers are yellow, beetles are blue arrows on white fields. </li>
+<li> <b>Age: </b>Cells with beetles have color from white (newborn) to cyan (the oldest).</li>
+<li> <b>Energy: </b>Cells with beetles are colored from white (almost no energy) to red (energy=50).</li>
+<li> <b>Number of children: </b>Colors from white (0 children) to magenta (10 children and more) distinguish between more and less successful beetles.</li>
+<li> <b>Hunger: </b> Red beetles are hungry, white ones feel happy. Whether a beetle is hungy is set by hungry threshold that is individual for every beetle.</li>
+<li> <b>Growth of flowers: </b> In white cells no flowers grow, it the green ones they grow every turn.</li>
+<li> <b>Species: </b>Species of beetles in Abeetles are defined as groups whose members cannot in all their life mate with members of every other group. Their are distinguished by different colors.</li>
+</ul>
 
-11.	Zoom in on an organism in the population using the zoom control and the scrollbars, then select an organism by 
-clicking it:<P>
+<h3>Statistics</h3>
 
-<CENTER><IMG HEIGHT="439" WIDTH="560" SRC="readme_imgs/Picture13.jpg"></CENTER><P>
+To save statistics of the situation in environment use menu Statistics. It offers three types of statistics to save to .txt (Aggregated) or .csv (Time and Histogram) file.
 
-12.	To examine this organism in greater detail, select "Instruction Viewer" from the "Viewers" menu:<P>
+<CENTER><IMG HEIGHT="115" WIDTH="488" SRC="readme_imgs/MenuStatistics.jpg">
+</CENTER>
 
-<CENTER><IMG HEIGHT="437" WIDTH="558" SRC="readme_imgs/Picture14.jpg"></CENTER><P>
+<ul>
+<li> <b>Aggregated statistics: </b> Into a text file actual number of beetles, flowers and births is written, followed by average features of beetles. Example:
 
-	This presents the instructions comprising the genome of the organism:<P>
+<p> ----------<br> 
+Time=0<br>
+NumBeetles=100;<br>
+NumBirths=100;<br>
+NumFlowers=0;<br>
+AvgAge=0.000000;<br>
+AvgEnergy=35.410000;<br>
+AvgHungryThreshold=26.380000;<br>
+AvgInvInChild=27.260000;<br>
+AvgLearnAbility=26.830000;<br>
+AvgNumChildren=0.000000;<br>
+ ---------- <br>
+</li>
+<li><b>Time statistics: </b> Time statistics are saved every 500th update to file "statTime.csv". After the maximum size of a .csv file is reached, the old file is save as "[number of update]statTime.csv" and new "statTime.csv" is being filled. When the command from menu is chosen, actual file "statTime.csv" is filled till current update and saved under chosen name. Format of file:
 
-<CENTER><IMG HEIGHT="673" WIDTH="779" SRC="readme_imgs/Picture15.jpg"></CENTER><P>
+<p>
+Number of beetles;Number of births;Number of flowers<br> 
+168;14;217;<br> 
+163;9;230;<br> 
+161;7;228;<br> 
+159;8;228;<br> 
+156;5;236;<br> 
+157;6;226;<br> 
+<p>
 
-13.	Plot one of various population statistics against time by choosing "New Plot Viewer..." from the "Viewers" menu:<P>
+MS Excel can create a very nice graph from such data:
 
-<CENTER><IMG HEIGHT="439" WIDTH="559" SRC="readme_imgs/Picture16.jpg"></CENTER><P>
+<CENTER><IMG HEIGHT="384" WIDTH="589" SRC="readme_imgs/TimeGraph.jpg">
+</CENTER>
 
-	Then choose the statistic to plot, and click the button labeled "OK":<P>
+<li><b>Histogram statistics: </b> Shows structure of population. It shows how many beetles have certain value of a particular feature. It contains age, learn ability,investment in children, energy, number of children and hungry threshold. Also expectations of beetles on partners on energy, age, investment in children and learn ability are included. Each value is connected with number of all beetles who have it within their range. 
 
-<CENTER><IMG HEIGHT="544" WIDTH="559" SRC="readme_imgs/Picture17.jpg"></CENTER><P>
-
-	The plot will update itself as Avida runs.  Below is a plot of average fitness over the population versus time in 
-updates:<P>
-
-<CENTER><IMG HEIGHT="267" WIDTH="430" SRC="readme_imgs/Picture18.jpg"></CENTER><P>
+<CENTER><IMG HEIGHT="384" WIDTH="589" SRC="readme_imgs/HistogramGraph.jpg">
+</CENTER>
 
 
-</BODY></HTML>
+</BODY>
+</HTML>
 
 
 

@@ -318,7 +318,7 @@ bool CStatisticsEnv::SaveTimeStatist_InColumnsAppend(char * fname )
 					fprintf(stTF,"%d;%d;%d;\n",PastNumBeetles[I],PastNumBirths[I],PastNumFlowers[I]);
 		fclose(stTF);
 
-		if (QFile::exists("`xs")) fprintf(stdout,"In SaveTime, exists\n");	
+		//if (QFile::exists("`xs")) fprintf(stdout,"In SaveTime, exists\n");	
 	}	
 	else //e.a. (fname!= 0), this is not call from method CStatisticsEnv::NextTime() .
 	{

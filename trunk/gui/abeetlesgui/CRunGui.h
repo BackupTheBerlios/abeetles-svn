@@ -89,6 +89,7 @@ private:
 	QPushButton * MakeNStepsBut;
 	QPushButton * RunBut;
 	ZoomSlider * ZoomSlid;
+	QSlider * GFSlider;
 	QCheckBox * DisplayCheck;
 	QCheckBox * LearningCheck;
 

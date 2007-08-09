@@ -96,8 +96,9 @@ CRunGui::CRunGui():Env()
 	ZoomSlid->setDisabled(true);
 	connect(ZoomSlid,SIGNAL(valueChanged(int)),Field,SLOT(setZoom(int)));
 
+
 	//Growing Flowers Ratio Slider
-	QSlider * GFSlider = new QSlider(Qt::Horizontal);
+	GFSlider = new QSlider(Qt::Horizontal);
 	GFSlider->setRange(0, FLOWERGROWINGRATIO_NUM-1);
 	GFSlider->setValue(FLOWERGROWINGRATIO_INIT);
 	GFSlider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed); 
@@ -253,6 +254,8 @@ void CRunGui::newEnv()
 		//emit envChanged();//uprav tak, aby to nastalo jen if Env was 0
 		//Field->setEnvRef(Env);	
 		emit envIsEmpty(Env.IsEmpty);
+		FlowerGrowingRatioInEnvChanged(GFSlider->value());
+
 		//1QMessage::information(NULL,"MyApp","Message is emited"); //ch1
 		
 		Env.NextTime();
@@ -276,6 +279,7 @@ void CRunGui::openEnv() //pozor! tahle funkce ulozi jenom broucky - chybi: ulozi
 		Env.LoadEnv(ActualFN.toAscii().data()); //!! zmen soubor beetles.txt tak, aby ukladal i jmeno prislusne mapy!
 		//emit envChanged(); 
 		emit envIsEmpty(Env.IsEmpty);
+		FlowerGrowingRatioInEnvChanged(GFSlider->value());
 		renewAllChildren();
 		statusBar()->showMessage(tr("Environment opened."));
 	}
@@ -604,12 +608,15 @@ void CRunGui::FlowerGrowingRatioInEnvChanged(int value)
 void CRunGui::reduceTypeView()
 {
 	if (TypeViewCombo->currentIndex()>=(TypeViewCombo->count()-1))TypeViewCombo->setCurrentIndex(0); 
-	TypeViewCombo->removeItem(TypeViewCombo->count()-1);
+	if (TypeViewCombo->count() == NUM_TYPE_VIEW)
+		TypeViewCombo->removeItem(TypeViewCombo->count()-1);
 	//TypeViewCombo->removeItem(TypeViewCombo->count()-1);
 }
 void CRunGui::enlargeTypeView()
 {
-    TypeViewCombo->addItem(TYPE_VIEW_7);
+	//fprintf(stdout, "Enlarge called\n");
+	if (TypeViewCombo->count() < NUM_TYPE_VIEW)
+		TypeViewCombo->addItem(TYPE_VIEW_7);
     //TypeViewCombo->addItem(TYPE_VIEW_8);
 }
 
