@@ -40,7 +40,8 @@
 //Q_IMPORT_PLUGIN(qgif)
 
 //Global variables
-CfgManager CfgMng; 
+CfgManager CfgMng;
+bool IsScript;
 
 
 int RandInBound (int bound)
@@ -67,20 +68,20 @@ int main(int argc, char *argv[])
 	//fprintf(stdout,"Ahoj");
 
 	int i;
-	bool isScript=false;
+	IsScript=false;
 	for (i=0;i<app.arguments().size();i++)
 	{
 		
-		if (isScript==true) 
+		if (IsScript==true) 
 		{
 			//QMessageBox::information(NULL,"",QString::number(i)+" "+app.arguments().at(i));			
 			break;
 		}
 			
-		if (app.arguments().at(i) =="-s") isScript=true;
+		if (app.arguments().at(i) =="-s") IsScript=true;
 
 	}
-	if (isScript) 
+	if (IsScript) 
 	{
 		QString scriptFN=app.arguments().at(i);
 		//fprintf(stdout,("Script "+scriptFN+" starts execution.\n").toAscii().data());

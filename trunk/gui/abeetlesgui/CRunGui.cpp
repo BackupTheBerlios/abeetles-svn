@@ -45,6 +45,9 @@ CRunGui::CRunGui():Env()
     QWidget *mainWidget = new QWidget;
     setCentralWidget(mainWidget);
 
+	newEnvDialog = new NewEnvDialog (this);
+
+
 	//non-gui attributes:
 //	Env=NULL;Env is now non dynamic attribute.
 //	emit envIsEmpty(true); No need
@@ -115,14 +118,14 @@ CRunGui::CRunGui():Env()
 	//connect(this,SIGNAL(envIsEmpty(bool)),ZoomSlid,SLOT(setDisabled(bool)));
 	
 	//CheckBox for display
-	DisplayCheck = new QCheckBox(tr("Display On"));
+	DisplayCheck = new QCheckBox(tr("&Display On"));
 	//DisplayCheck->resize(100,30);
 	//DisplayCheck->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 	connect(DisplayCheck, SIGNAL(stateChanged(int)),this,SLOT(DisplayChanged(int)));
 	DisplayCheck->setCheckState(Qt::Checked);
 	
 	//CheckBox for LearningOn
-	LearningCheck = new QCheckBox(tr("Learning On"));
+	LearningCheck = new QCheckBox(tr("&Learning On"));
 	connect(LearningCheck, SIGNAL(stateChanged(int)),this,SLOT(LearningChanged(int)));
 	if (Env.LearningOn) LearningCheck->setCheckState(Qt::Checked);
 	else LearningCheck->setCheckState(Qt::Unchecked);
@@ -137,13 +140,13 @@ CRunGui::CRunGui():Env()
      
 
 	//Start, Stop, Make n steps buttons
-	 RunBut = new QPushButton(tr("Run"));
+	 RunBut = new QPushButton(tr("&Run"));
 	 RunBut-> setCheckable(true);
 	 NumStepsSpin = new QSpinBox();
 	 NumStepsSpin ->setMaximum(MAXTIME);
 	 NumStepsSpin->setMinimum(1);
 	 NumStepsSpin->setValue(100);
-	 MakeNStepsBut = new QPushButton(tr("Make steps"));
+	 MakeNStepsBut = new QPushButton(tr("&Make steps"));
 	 MakeNStepsBut-> setCheckable(true);
 
 	RunBut->setDisabled(true);MakeNStepsBut->setDisabled(true);NumStepsSpin->setDisabled(true);
@@ -224,26 +227,16 @@ CRunGui::CRunGui():Env()
 //	QMessageBox::information(this,"MyApp","10");
 
 }
-//Context menu - not used now.
-/*
-void CRunGui::contextMenuEvent(QContextMenuEvent *event)
-{
-    QMenu menu(this);
-    menu.addAction(saveHistStatsAct);
-    menu.addAction(copyAct);
-    menu.addAction(pasteAct);
-    menu.exec(event->globalPos());
-}*/
 
 void CRunGui::newEnv()
 {
 	stopRun();
-	NewEnvDialog newEnvDialog(Env.MapFilePath, Env.EffFilePath ,Env.BeetlesFilePath, this );
-	int result = newEnvDialog.exec();
+	//NewEnvDialog newEnvDialog(Env.MapFilePath, Env.EffFilePath ,Env.BeetlesFilePath, this );
+	int result = newEnvDialog->exec();
 	if (result ==QDialog::Accepted)
 	{
 		COneRun oneRun;
-		newEnvDialog.getData(&oneRun);
+		newEnvDialog->getData(&oneRun);
 		//QMessageBox::information(NULL,"MyApp",QString::number(oneRun.NumRandBeetles) +" Before cleaning");
 		Env.CleanEnv();
 		//QMessageBox::information(NULL,"MyApp",QString::number(oneRun.NumRandBeetles));

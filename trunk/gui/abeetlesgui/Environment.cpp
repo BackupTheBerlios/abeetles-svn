@@ -21,9 +21,9 @@ CEnvironment::CEnvironment(void)
 	LearningOn=true;
 	IsFlowersDie=true;
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
-	MapFilePath ="";
-	EffFilePath ="";
-	BeetlesFilePath ="";
+	//MapFilePath ="";
+	//EffFilePath ="";
+	//BeetlesFilePath ="";
 
 	
 
@@ -53,9 +53,9 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
 	IsFlowersDie=oneRun->IsFlowersDie;
 	CBeetle::MutationProb=oneRun->MutationProb;
-	MapFilePath ="";
-	EffFilePath ="";
-	BeetlesFilePath ="";
+	//MapFilePath ="";
+	//EffFilePath ="";
+	//BeetlesFilePath ="";
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -68,8 +68,8 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 			IsEmpty=true;
 			return;
 		}
-		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
-		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+		//QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		//QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
 	}
 	else
 	{
@@ -88,9 +88,9 @@ CEnvironment::CEnvironment(COneRun * oneRun)
 			IsEmpty=true;
 			return;
 		}
-		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
-		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
-		QFileInfo beetlesFInfo (oneRun->BeetlesFN);BeetlesFilePath=beetlesFInfo.absoluteFilePath();
+		//QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		//QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+		//QFileInfo beetlesFInfo (oneRun->BeetlesFN);BeetlesFilePath=beetlesFInfo.absoluteFilePath();
 	}
 
 	//QMessageBox::information(NULL,"MyApp","Filled Randomly"); //ch1
@@ -109,9 +109,9 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 	FlowerGrowingRatio=FLOWERGROWINGRATIO_INIT;
 //	IsFlowersDie=oneRun->IsFlowersDie;..tady ne!
 	CBeetle::MutationProb=oneRun->MutationProb;
-	MapFilePath ="";
-	EffFilePath ="";
-	BeetlesFilePath ="";
+	//MapFilePath ="";
+	//EffFilePath ="";
+	//BeetlesFilePath ="";
 
 	//QMessageBox::information(NULL,"MyApp","2"+oneRun->EffFN);
 	
@@ -124,8 +124,8 @@ void CEnvironment::SetEnv(COneRun * oneRun)
 			IsEmpty=true;
 			return;
 		}
-		QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
-		QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
+		//QFileInfo mapFInfo(oneRun->MapFN);MapFilePath=mapFInfo.absoluteFilePath();
+		//QFileInfo effFInfo(oneRun->EffFN);EffFilePath=effFInfo.absoluteFilePath();
 	}
 	else
 	{
@@ -459,9 +459,9 @@ bool CEnvironment::LoadEnv(char * fname)
 		return false;
 	}
 
-	QFileInfo mapFInfo(getMapFileName(fname));MapFilePath=mapFInfo.absoluteFilePath();
-	QFileInfo effFInfo(getEffFileName(fname));EffFilePath=effFInfo.absoluteFilePath();
-	QFileInfo beetlesFInfo (getBeetlesFileName(fname));BeetlesFilePath=beetlesFInfo.absoluteFilePath();
+	//QFileInfo mapFInfo(getMapFileName(fname));MapFilePath=mapFInfo.absoluteFilePath();
+	//QFileInfo effFInfo(getEffFileName(fname));EffFilePath=effFInfo.absoluteFilePath();
+	//QFileInfo beetlesFInfo (getBeetlesFileName(fname));BeetlesFilePath=beetlesFInfo.absoluteFilePath();
 
 	return true;
 }
@@ -496,7 +496,6 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	if (mapFN==0) mapFN=MAP_BMP_FILE;
 	if (false==CfgMng.LoadMapFromBmp(&Grid,mapFN,&NumFreeCells))
 	{
-		QMessageBox::information(NULL,"Error", "Opening of file with map "+QString::fromAscii(mapFN)+" was not successful. Check, whether it is present in current directory.");
 		return false;
 	}
 
@@ -504,8 +503,6 @@ bool CEnvironment::FillEmptyEnvRandomly(int seed, int numBeetles, char * mapFN, 
 	if (effFN==0) effFN=EFF_BMP_FILE;
 	if ((CBeetle::EffImg= CfgMng.LoadEffFromBmp(CBeetle::EFF_Age, effFN)).isNull())
 	{
-		QErrorMessage errDlg;
-		errDlg.showMessage(QString::fromAscii("Loading of energy from flower bmp file ")+QString::fromAscii(effFN)+QString::fromAscii(" was not successful. Application will terminate."));
 		return false;
 	}
 
@@ -798,9 +795,9 @@ bool CEnvironment::CleanEnv()
 	//Grid_Past=Grid;
 	//1QMessageBox::information(NULL,"MyApp","Grid past is cleaned");
 	Time=0;
-	MapFilePath ="";
-	EffFilePath ="";
-	BeetlesFilePath ="";
+	//MapFilePath ="";
+	//EffFilePath ="";
+	//BeetlesFilePath ="";
 	Statist.TotalCleanup();
 	return true;
 }

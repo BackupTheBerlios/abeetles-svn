@@ -5,37 +5,11 @@
 #include <QtGui>
 #include <QTime>
 
-NewEnvDialog::NewEnvDialog(QString mapFilePath, QString effFilePath ,QString beetlesFilePath , QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
+NewEnvDialog::NewEnvDialog( QWidget * parent, Qt::WindowFlags f):QDialog(parent,f)
 {
-		
-	
-	if(mapFilePath.isEmpty())
-	{
-		MapFN=MAP_BMP_FILE;MapLabel = new QLabel("Default");
-	}
-	else 
-	{
-		MapFN=mapFilePath;MapLabel = new QLabel(mapFilePath);
-	}
-	if(effFilePath.isEmpty())
-	{
-		EffFN= EFF_BMP_FILE; EffLabel = new QLabel("Default");
-	}
-	else
-	{
-		EffFN= effFilePath;EffLabel = new QLabel(effFilePath);
-	}
-
-	if ( beetlesFilePath.isEmpty())
-	{
-		BeetleFileLabel = new QLabel("Default");
-		BeetleFN = DEFAULT_BEETLES_FILE;
-	}
-	else 
-	{
-		BeetleFN = beetlesFilePath;
-		BeetleFileLabel = new QLabel(beetlesFilePath);
-	}
+	MapFN=MAP_BMP_FILE;
+	EffFN= EFF_BMP_FILE;
+	BeetleFN = DEFAULT_BEETLES_FILE;
 	RandomRadio = new QRadioButton(tr("Random beetles"));
 		RandomRadio->setChecked(true);
 	QLabel * seedLabel = new QLabel("Seed: ");
@@ -75,6 +49,7 @@ NewEnvDialog::NewEnvDialog(QString mapFilePath, QString effFilePath ,QString bee
 	BeetleFileRadio = new QRadioButton(tr("Beetles from file"));
 		BeetleFileRadio->setChecked(false);
 	BeetleFileBut= new QPushButton("File of beetles");
+	BeetleFileLabel = new QLabel("Default");
 	connect(BeetleFileBut,SIGNAL(pressed()),this,SLOT(setBeetleFN()));
 	
 
@@ -91,9 +66,10 @@ NewEnvDialog::NewEnvDialog(QString mapFilePath, QString effFilePath ,QString bee
 	connect(BeetleFileRadio,SIGNAL(toggled(bool)),beetleFileGroup,SLOT(setEnabled(bool))); 
 
 
-
+	MapLabel = new QLabel("Default");
 	MapBut= new QPushButton("Map");
 	connect(MapBut,SIGNAL(pressed()),this,SLOT(setMapFN()));
+	EffLabel = new QLabel("Default");
 	EffBut= new QPushButton("Energy From Flower");	
 	connect(EffBut,SIGNAL(pressed()),this,SLOT(setEffFN()));
 
@@ -158,27 +134,22 @@ NewEnvDialog::~NewEnvDialog(void)
 void NewEnvDialog::setBeetleFN()
 {
 	QFileDialog openDlg;
-	openDlg.setFilter("(*.txt)");
-	openDlg.setFilter("All files (*.*)");
-    if (!(BeetleFN = openDlg.getOpenFileName(this)).isNull());
+    if (!(BeetleFN = openDlg.getOpenFileName(this,"File of beetles","","Txt files (*.txt)")).isNull());
 		BeetleFileLabel->setText(BeetleFN);
 }
 
 void NewEnvDialog::setMapFN()
 {
 	QFileDialog openDlg;
-	openDlg.setFilter("(*.bmp)");
-	openDlg.setFilter("All files (*.*)");
-    if (!(MapFN = openDlg.getOpenFileName(this)).isNull());
+	
+    if (!(MapFN = openDlg.getOpenFileName(this,"File of map","","Bmp files (*.bmp)")).isNull());
 		MapLabel->setText(MapFN);
 }
 
 void NewEnvDialog::setEffFN()
 {
 	QFileDialog openDlg;
-	openDlg.setFilter("(*.bmp)");
-	openDlg.setFilter("All files (*.*)");
-    if (!(EffFN = openDlg.getOpenFileName(this)).isNull());
+    if (!(EffFN = openDlg.getOpenFileName(this,"File of energy from flower function","","Bmp files (*.bmp)")).isNull());
 		EffLabel->setText(EffFN);
 }
 

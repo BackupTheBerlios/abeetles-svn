@@ -36,6 +36,7 @@ class CEnvironment;
 class LabeledLCD;
 class ZoomSlider;
 class QWidget;
+class NewEnvDialog;
 
 class CRunGui : public QMainWindow
 {
@@ -92,6 +93,7 @@ private:
 	QSlider * GFSlider;
 	QCheckBox * DisplayCheck;
 	QCheckBox * LearningCheck;
+	NewEnvDialog * newEnvDialog;
 
 	QTimer * Timer;
 

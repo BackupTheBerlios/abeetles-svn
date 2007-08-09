@@ -16,6 +16,7 @@
 #include "COneRun.h"
 
 
+extern bool IsScript;
 
 CfgManager::CfgManager(void)
 {
@@ -89,7 +90,8 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename, int * numFreeCell
 	//1QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img->width())+", "+QString::number(img->height()));
 	if (img==NULL)
 	{
-		QMessageBox::information(NULL,"MyApp","No file "+QString::fromAscii(filename)+" found."); 
+		if (IsScript)fprintf(stdout, ("No file "+QString::fromAscii(filename)+" found.\n").toAscii().data());
+		else QMessageBox::information(NULL,"MyApp","No file "+QString::fromAscii(filename)+" found."); 
 		return false;
 	}
 	if ((img->width()<= G_WIDTH_MAX) && (img->width()>= G_WIDTH_MIN) && (img->height()<= G_HEIGHT_MAX)&&(img->height()>= G_HEIGHT_MIN))
@@ -99,6 +101,7 @@ bool CfgManager::LoadMapFromBmp(CGrid * grid, char * filename, int * numFreeCell
 	}
 	else
 	{
+		if (IsScript) fprintf(stdout, ("Bitmap "+QString::fromAscii(filename)+" has not correct size. Correct size is from "+QString::number(G_WIDTH_MIN)+"x"+QString::number(G_HEIGHT_MIN)+" to "+QString::number(G_WIDTH_MAX)+"x"+QString::number(G_HEIGHT_MAX)+".\n").toAscii().data());
 		QMessageBox::information(NULL,"MyApp","Bitmap "+QString::fromAscii(filename)+" has not correct size. Correct size is from "+QString::number(G_WIDTH_MIN)+"x"+QString::number(G_HEIGHT_MIN)+" to "+QString::number(G_WIDTH_MAX)+"x"+QString::number(G_HEIGHT_MAX)+".");
 		return false;
 	}
@@ -203,9 +206,11 @@ bool CfgManager::SaveBeetles(CGrid * grid,char * filename)
 	//int err;
 	int I,J,K,L,M,N;	
 	
+
 	if (NULL==(btlFile= fopen(filename,"w"))) 
 	{
-		fprintf(stdout,"%d",errno);
+		if(IsScript) fprintf(stdout,("Saving of file " + QString::fromAscii(filename) + " was not successful.").toAscii().data());
+		else QMessageBox::information(NULL,"Error","Saving of file " + QString::fromAscii(filename) + " was not successful.");
 		return false;
 	}
 
@@ -253,10 +258,17 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	FILE * btlFile;
 	//int err;
+	if (! QFile::exists(QString::fromAscii(filename)))
+	{
+		if(IsScript) fprintf(stdout,("File "+QString::fromAscii(filename)+" does not exist.").toAscii().data());
+		else QMessageBox::information(NULL,"Error","File " + QString::fromAscii(filename) + " does not exist.");
+		return false;
+
+	}
 	if (NULL==(btlFile= fopen(filename,"r"))) 
 	{
-		fprintf(stdout,"%d",errno);
-		QMessageBox::information(NULL,"MyApp","Loading of file of beetles "+QString::fromAscii(filename)+" was not successful."); 
+		if(IsScript) fprintf(stdout,("Loading of file of beetles "+QString::fromAscii(filename)+" was not successful.").toAscii().data());
+		else QMessageBox::information(NULL,"MyApp","Loading of file of beetles "+QString::fromAscii(filename)+" was not successful."); 
 		return false;
 	}
 
@@ -313,7 +325,9 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 		
 		if (false==grid->SetCellContentNotUpdate(BEETLE,x,y,beetle))
 		{
-			fprintf(stdout,"Beetle %d could not be placed into Grid([%d,%d] is out of grid or there is a wall).\n",I,x,y);
+			if(IsScript) fprintf(stdout,("Beetle "+QString::number(I)+" could not be placed into Grid(["+QString::number(x)+","+QString::number(y)+"] is out of grid or there is a wall).\n").toAscii().data());
+			else QMessageBox::information(NULL,"MyApp","Beetle "+QString::number(I)+" could not be placed into Grid(["+QString::number(x)+","+QString::number(y)+"] is out of grid or there is a wall).\n"); 
+
 			delete beetle;CBeetle::CBeetle::AlocBeetles--;
 		}
 		J++;
@@ -322,7 +336,9 @@ bool CfgManager::LoadBeetles(CGrid * grid, char * filename)
 
 	if (ok==false)
 	{
-		fprintf(stdout,"File %s was not read correctly.\n",filename);
+		if(IsScript) fprintf(stdout,("File "+QString::fromAscii(filename)+" was not read correctly.\n").toAscii().data());
+		else QMessageBox::information(NULL,"Error","File "+QString::fromAscii(filename)+" was not read correctly.\n"); 
+
 		return false;
 	}
 
@@ -347,7 +363,9 @@ bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,
 	QFile flwFile (filename);
 	 if (!flwFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	 {
-		 QMessageBox::information(NULL,"MyApp","Loading of file of flowers "+QString::fromAscii(filename)+" was not successful.");
+		if(IsScript) fprintf(stdout,("Loading of file of flowers "+QString::fromAscii(filename)+" was not successful.\n").toAscii().data());
+		else QMessageBox::information(NULL,"Error","Loading of file of flowers "+QString::fromAscii(filename)+" was not successful.\n"); 
+
          return false;
 	 }
 	
@@ -358,7 +376,7 @@ bool CfgManager::LoadFlwAndOpt(CGrid * grid,int *time, bool *learningOn,
 		QByteArray line = flwFile.readLine();
 		line.truncate(line.indexOf(";"));
 		I++;
-		if(I==0) {*time=line.toInt();fprintf(stdout,("\n"+QString::number(*time)).toAscii().data());continue;}
+		if(I==0) {*time=line.toInt();/*fprintf(stdout,("\n"+QString::number(*time)).toAscii().data());*/continue;}
 		if(I==1) {*learningOn=line.toInt();continue;}
 		if(I==2) {*flowerGrowingRatio=line.toInt();continue;}
 		if(I==3) {*mutationProb=line.toInt();continue;}
@@ -390,7 +408,12 @@ bool CfgManager::SaveFlwAndOpt(CGrid * grid,int time, bool learningOn,
 	int I,J;
 	QFile flwFile (filename);
 	if (!flwFile.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		if(IsScript) fprintf(stdout,("Saving of file "+QString::fromAscii(filename)+" was not successful.\n").toAscii().data());
+		else QMessageBox::information(NULL,"Error","Saving of file "+QString::fromAscii(filename)+" was not successful.\n"); 
+
          return false;
+	}
 	
 	QTextStream out(&flwFile);
 	out << time<<";"<< "\n"; 
@@ -430,7 +453,9 @@ QImage CfgManager::LoadEffFromBmp(int EFF_Age [EFF_BMP_X], char * filename) //, 
 	//QMessageBox::information(NULL,"MyApp","Bmp map,"+QString::number(img.width())+", "+QString::number(img.height()));
 	if (img.isNull())
 	{
-		QMessageBox::information(NULL,"MyApp","No eff bmp, expected bmp: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y));
+		if(IsScript) fprintf(stdout,("No eff bmp, expected bmp: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y)+"\n").toAscii().data());
+		else QMessageBox::information(NULL,"Error","No eff bmp, expected bmp: width - "+QString::number(EFF_BMP_X)+", height - "+ QString::number(EFF_BMP_Y)); 
+
 		return QImage();
 	}
 	img.width()< EFF_BMP_X ? width=img.width() : width=EFF_BMP_X ;
@@ -477,7 +502,9 @@ QList<COneRun*> CfgManager::LoadScript(QString scriptFN)
 	QFile scrFile (scriptFN);
 	if (!scrFile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		fprintf(stdout,("Opening of file "+scriptFN+" was not successful.").toAscii().data());		
+		if(IsScript) fprintf(stdout,("Opening of file "+scriptFN+" was not successful.\n").toAscii().data());
+		else QMessageBox::information(NULL,"Error","Opening of file "+scriptFN+" was not successful."); 
+
 		return list;
 	}
 

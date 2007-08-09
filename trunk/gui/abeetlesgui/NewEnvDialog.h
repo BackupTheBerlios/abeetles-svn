@@ -14,7 +14,7 @@ class NewEnvDialog:public QDialog
 	Q_OBJECT
 
 public:
-	NewEnvDialog( QString mapFilePath, QString effFilePath ,QString beetlesFilePath , QWidget * parent=0, Qt::WindowFlags f= 0);
+	NewEnvDialog( QWidget * parent=0, Qt::WindowFlags f= 0);
 public:
 	~NewEnvDialog(void);
 

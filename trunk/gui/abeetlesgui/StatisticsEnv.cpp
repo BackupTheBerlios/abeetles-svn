@@ -498,9 +498,13 @@ bool CStatisticsEnv::SaveActHistStatist(char * filename, int time,CGrid * grid)
 	}
 
 	fprintf(statFile,"Ages;LearnAbilities;InvInChilds;Energies;NumsChildren;HungryThresholds;AgeExpectations;EnergyExpectations;InvInChildExpectations;LearnAbilityExpectations\n");
-	for (I=0;I<MAX_HIST;I++)
+	for (I=0;I<=MAX_ENERGY;I++)
 	{
 		fprintf(statFile,"%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\n",Ages[I],LearnAbilities[I],InvInChilds[I],Energies[I],NumsChildren[I],HungryThresholds[I],AgeExpectations[I],EnergyExpectations[I],InvInChildExpectations[I],LearnAbilityExpectations[I]);
+	}
+	for (I=MAX_ENERGY+1;I<MAX_HIST;I++)
+	{
+		fprintf(statFile,"%d;;;;;;;;;\n",Ages[I]);
 	}
 	
 	fclose(statFile);

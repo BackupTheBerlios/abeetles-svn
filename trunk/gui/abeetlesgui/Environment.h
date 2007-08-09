@@ -33,9 +33,9 @@ public:
 	int NumFreeCells;
 	bool IsFlowersDie;
 	CStatisticsEnv Statist; //Statistics of the environment
-	QString MapFilePath;
-	QString EffFilePath;
-	QString BeetlesFilePath;
+	//QString MapFilePath;
+	//QString EffFilePath;
+	//QString BeetlesFilePath;
 				
 	
 	void Make1Update();

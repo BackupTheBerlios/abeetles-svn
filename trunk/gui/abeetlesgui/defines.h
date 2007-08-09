@@ -18,9 +18,9 @@
 
 #define EFF_BMP_X 100
 #define EFF_BMP_Y 50
-#define EFF_BMP_FILE "EnergyFromFlower.bmp"
+#define EFF_BMP_FILE "default_eff.bmp"
 
-#define DEFAULT_BEETLES_FILE "Beetles.txt"
+#define DEFAULT_BEETLES_FILE "default_beetles.txt"
 
 #define MAXTIME 500000 
 #define MAX_DATA_TO_TIME_STATS_FILE 32000 //maximum number of lines in csv file of time statistics
@@ -61,7 +61,7 @@
 #define MAX_LEARN_ABILITY 50
 #define MAX_AGE 100
 #define MAX_INV_IN_CHILD 25
-#define MAX_HIST 100
+#define MAX_HIST 500
 
 //dimesions of beetles brain
 #define BRAIN_D1 2
@@ -93,7 +93,7 @@
 #define NUMOPTVARIABLES 1
 
 
-#define MAP_BMP_FILE "env_cfg.bmp"
+#define MAP_BMP_FILE "default_map.bmp"
 #define DEFAULT_FILE_NAME "default"
 #define DEFAULT_NUM_BEETLES -1
 

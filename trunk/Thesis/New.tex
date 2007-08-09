@@ -117,7 +117,7 @@ Kabinet software a v\'{y}uky informatiky
 %during REU. Many helpful comments and ideas by Ji\v{r}\'{i} Fiala and 
 %Martin Tancer improved the whole work. This should be in Czech.
 
-Děkuji RNDr. Tomášovi Holanovi, Ph.D. za vedení práce.
+Děkuji RNDr. Tomášovi Holanovi, Ph.D. za vedení práce a inspiraci, Jiřímu Svobodovi a RNDr. Františku Mrázovi, CSc. za konzultace k návrhu řešení. 
 
 \vspace{\fill} % nastavuje dynamické umístění následujícího textu do spodní části stránky
 \noindent Prohlašuji, že jsem svou diplomovou práci napsala samostatně a výhradně s použitím citovaných pramenů. Souhlasím se zapůjčováním práce a jejím zveřejňováním.
@@ -174,7 +174,7 @@ Supervisor's e-mail address: Tomas.Holan@mff.cuni.cz\\
  
 \vspace{8mm}
 
-\noindent Keywords: artificial life, simulator, evolution
+\noindent Keywords: artificial life, evolution, simulator
 
 
 %\begin{abstract}
@@ -188,7 +188,7 @@ Supervisor's e-mail address: Tomas.Holan@mff.cuni.cz\\
 
 %******************Definition of Artificial life*********************
 \section{What is Artificial Life?}
-Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}).
+Artificial Life, (commonly \textbf{Alife} or \textbf{alife}) is a field of study and an art form that examines systems related to life, its processes and its evolution through simulations using computer models, robotics, and biochemistry (called "soft", "hard", and "wet" approaches respectively \cite{Bedau}).
 
 In this thesis the term "Artificial Life" is often used to specifically refer to soft alife.
 
@@ -289,7 +289,7 @@ Another grouping of simulators can be done according to phenomenon, that they si
   \item \textbf{Cellular Automata} --- The term cellular automaton (CA)is described in the previous chapter. It is not directly a phenomenon of natural life, but it is a discrete model of mutual influence of neighboring elements, which can be in the nature observed. 
 \end{itemize}  
 
-\section{Classification by purpose}
+\section{Classification by Purpose}
 Apparently, the main purpose of Artificial life simulators is to simulate artificial life. The target can be the complexity of simulation as well as the concentration on a small selection of its attributes. As the simulator is a software system, it is designed for a certain group of users and expected usage. And a decision in this field influences interface, adjustability and output of the program. Also availability of the system is related to the purpose. 
 \begin{itemize}
   \item \textbf{Games} --- Frequent purpose of simulators is entertainment, because game industry is constantly researching for new ideas to animate artificial characters. Simulators from this class are usually supplied with attractive user interface, but neither artificial life techniques and settings nor source code are accessible to examination. The game Creatures is a well-known example of an artificial life computer program series, created in the mid-1990s by English computer scientist Steve Grand. The program is regarded as an important breakthrough in the advancement of artificial life research.
@@ -432,7 +432,7 @@ Bitozoa is a simulator created by M. Borkowski, that uses for representation of 
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{images/Bitozoa.eps}
-  \caption{Bitozoa 2}
+  \caption{Bitozoa 2.}
   \label{img.Bitozoa}
 \end{center}
 \end{figure}
@@ -488,7 +488,7 @@ Environment&number of bitozoa and food spots at the beginning, time increment, v
 \textbf  {Implementation}&\\ \hline
 Distribution of computation&no\\ \hline
 Speed settings&animation on-off\\ \hline
-Available sources&partial\\ \hline
+Available sources&partially\\ \hline
 Availability of binaries&permission from author\\ \hline
 Programming language&C++ Win32API\\ \hline
 \end{tabular}
@@ -499,7 +499,7 @@ Gene Pool was created by Jeffrey Ventrella, current version is 5. It is a parame
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{images/GenePool.eps}
-  \caption{Gene Pool 5}
+  \caption{Gene Pool 5.}
   \label{img.GenePool}
 \end{center}
 \end{figure}
@@ -523,7 +523,7 @@ Learning&no\\ \hline
 Number of parents&2\\ \hline
 Number of offsprings&1\\ \hline
 Genetic algorithm&crossover algorithm with mutation\\ \hline
-Choice of partner&swimbot chooses at one snapshot in his view horizon one mate, that most satisfies his attractiveness criterion"\\ \hline
+Choice of partner&swimbot chooses at one snapshot in his view horizon one mate that most satisfies his attractiveness criterion\\ \hline
 Conditions of mating&swimbots mate when at least one of them is pursuing the other and the distance between their genitals is less than the length of the genital vector\\ \hline
 Investment in offspring&50\% of actual energy\\ \hline
 \end{tabular} 
@@ -564,7 +564,7 @@ The author of project Mitozoos is Spanish software company Bestiario. Purpose of
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{images/Mitozoos.eps}
-  \caption{Mitozoos}
+  \caption{Mitozoos.}
   \label{img.Mitozoos}
 \end{center}
 \end{figure}
@@ -625,7 +625,7 @@ For following evaluation Primordial Life 3.0 by Jason Spofford was tried. It can
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{images/PrimordialLife.eps}
-  \caption{Primordial Life 3.21}
+  \caption{Primordial Life 3.21.}
   \label{img.PrimordialLife}
 \end{center}
 \end{figure}
@@ -691,7 +691,7 @@ The original idea of Abeetles is to create a successor of existing program Brouc
 \begin{figure}
 \begin{center}
   \includegraphics[scale=0.5]{images/Broucci.eps}
-  \caption{Broucci}
+  \caption{Broucci.}
   \label{img.Broucci}
 \end{center}
 \end{figure}
@@ -741,13 +741,13 @@ Aging is generally meant as dependence of performance of an agent on age. None o
 
 This chapter describes the model of life in simulator Abeetles. It starts with basic ideas and continues to details and diagrams of the model.  
 
-\section {Basic Ideas of The Model}
+\section {Basic Ideas of the Model}
 
 % Class diagram s entitami, jejich vztahy a integritnimi omezenimi.
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.8]{images/AnalysisDataModel.eps} 
-  \caption{Conceptual data model of Abeetles}
+  \caption{Conceptual data model of Abeetles.}
   \label{obr.AnalysisDataModel}
 \end{center}
 \end{figure}
@@ -840,7 +840,7 @@ The border between two updates is method NextTime() placed in class CEnvironment
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/ClassDiagrAbeetlesAlife.eps}
-  \caption{Class diagram of Alife in Abeetles}
+  \caption{Class diagram of Alife in Abeetles.}
   \label{img.ClassDiagrAbeetlesAlife}
 \end{center}
 \end{figure}
@@ -868,7 +868,7 @@ UML sequence diagram is shown in figure \ref{obr.ScenarioRunExperiment}.In this 
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/ScenarioRunExperiment.eps} 
-  \caption{UML Sequence diagram --- run of a script}
+  \caption{UML Sequence diagram --- run of a script.}
   \label{obr.ScenarioRunExperiment}
 \end{center}
 \end{figure}
@@ -884,7 +884,7 @@ UML sequence diagram is displayed in figure \ref{obr.ScenarioRunExperiment}. Exp
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/ScenarioViewSituation.eps} 
-  \caption{UML Sequence diagram --- view of a situation}
+  \caption{UML Sequence diagram --- view of a situation.}
   \label{obr.ScenarioViewSituation}
 \end{center}
 \end{figure}
@@ -954,11 +954,11 @@ Platform for Abeetles is MS Windows XP. Thanks to usage of Qt library it should 
 
 Speed was the leading criterion when the question of programming language was considered. The model of Abeetles invokes realization by a class based languages, the abstraction is then intuitive. Abeetles needs graphical interface and for the chosen language a library for creation of GUI should be accessible. Three languages were taken into account: Java, C\# and C++. Both Java and C\# are, thanks to interpretation of bytecode at runtime, slow in comparison with C++. But a Java application can be run at different OS and it is a language with many convenient features. e.g. garbage collector. The criterion of speed was considered crucial for Abeetles and therefore C++ was chosen.
 
-Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt.
+Graphical user interface in Abeetles is created using library Qt by Trolltech. Is offers encapsulating class based abstraction of interface and can be used for MS Windows, MacOS Unix and many Unix based platforms. Details are published at Trolltech's webpage \url{http://trolltech.com/products/qt}. Abeetles uses the open source version of Qt, which demands compilation using MinGW, \url{http://mingw.org/}.
 
 Other possibilities were Win32API and MFC. The first is not class based and is difficult to use. MFC is a class based library, it is distributed freely with MS  Visual Studio, but the level of abstraction is lower than in Qt and Microsoft now prefers usage of .NET to usage of this library.
 
-
+Graph algorithms used in Abeetles are realized using Boost C++ library, \url{http://www.boost.org/}. This library is designed for usage in C++ programs and compilation by MinGW is supported. 
 
 
 \section {Components}
@@ -967,15 +967,15 @@ Other possibilities were Win32API and MFC. The first is not class based and is d
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.8]{images/ComponentModel.eps} %
-  \caption{Diagram of main classes of Abeetles}
+  \caption{Diagram of main classes of Abeetles.}
   \label{img.ComponentModel}
 \end{center}
 \end{figure}
 
 Functionality of Abeetles is divided into following components: Environment, Run of Script, Run of Gui, Statistics and Configuration Manager. Configuration Manager encapsulates functions for saving and loading of environments and scripts. Each of these components is  represented by its key class, see figure \ref {img.ComponentModel}.
 
-\section {User interface}
-\subsection {Graphical user interface}
+\section {User Interface}
+\subsection {Graphical User Interface}
 The idea of graphical user interface of Abeetles was inspired by interface of Broucci, see figure \ref{img.Broucci} on page \pageref{img.Broucci}, regarding visualization of beetles. In Abeetles agents are also represented by arrows showing their direction. %figure
 
 Layout of the window of GUI of Abeetles resembles the qt-view of Avida,  see Figure \ref{img.Avida} on page \pageref{img.Avida} . The reason is the similarity of grid base of environments and intention to serve as a scientific tool.
@@ -1026,7 +1026,7 @@ Components of the system Abeetles and their relationships can be visualised as a
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/AbeetlesGUI.eps}
-  \caption{User interface of Abeetles}
+  \caption{User interface of Abeetles.}
   \label{img.AbeetlesGUI}
 \end{center}
 \end{figure}
@@ -1060,14 +1060,35 @@ Environment is saved into the following bunch of files:
 
 \section {Statistics}
 %4th - Statistics - detailed list of types, what is included and how to use it.
-As described in previous chapter, there are three types of statistics produced by Abeetles: aggregated statistics, statistics of behavior of environment within time and histogram statistics.
-\subsection {Aggregated Statistics}
+As described in previous chapter, there are three types of statistics produced by Abeetles: aggregated statistics, statistics of behavior of the environment within time and histogram statistics.
+\begin{itemize}
+\item \textbf{Aggregated statistics: }
 Aggregated statistics shows actual number of beetles, number of flowers, number of new-born beetles and average values of age, energy, hungry threshold, investment in child, learning ability and number of children. These statistics serve to show actual situation in the environment.
-\subsection{Time Statistics}
+\item \textbf{Time statistics: }
 Time statistics show development of environment within time. The included values are number of beetles, number of children and number of new-born beetles.
 These values are saved to a file in the comma separated value format. Specialised applications, e.g. MS Excel can create the respective graph. 
-\subsection {Histogram Statistics}
+\item \textbf{Histogram statistics: }
 Structure of population can be observed using histogram statistics. It shows how many beetles have certain value of a particular feature. It contains age, learning ability,investment in children, energy, number of children and hungry threshold. Also expectations of beetles on partners on energy, age, investment in children and learn ability are included. Each value is connected with number of all beetles who have it within their range. 
+\end{itemize}
+
+Besides statistics, Abeetles offers in the GUI also view of details of individual beetles, where all features are published. The brain of beetles is showed in eight tables, see figure {img.BrainGUI}.
+
+\begin{figure}
+\begin{center}
+  \includegraphics [scale=0.5]{images/BrainGUI.eps}
+  \caption{Representation of brain of beetles.}
+  \label{img.BrainGUI}
+\end{center}
+\end{figure}
+
+In the main window of the application it is possible to choose a type of view of the situation. 
+\begin{itemize}
+\item 	\textbf{Normal: } Flowers and beetles with their direction are displayed. 
+\item 	\textbf{Age, energy, number of children, hunger: } Color distinguished beetles of different value of the feature.
+\item 	\textbf{Growth of flowers: } Shows growth of flowers in cells.
+\item 	\textbf{Species: }Species of beetles in Abeetles are defined as groups whose members cannot in all their life mate with members of any other group. More detailed description of species in Abeetles is in chapter Experiments, section Experiment 2 --- Species. In GUI they are distinguished by different colors.
+\end{itemize}
+
 
 \section{Script}
 %5th - Script - What does it contain and how to write it.
@@ -1145,7 +1166,7 @@ In this chapter two experiments conducted with Abeetles will be introduced and d
 
 Target of the first experiment called Four Caves is to monitor development of population of beetles in four caves connected with narrow corridors. The experiment should demonstrate that life in Abeetles is not determined by initial setting, but coincidence influences it to a great extent and therefore each run can bring more or less different results. Mutual dependence of development of populations in the caves will be observed. And influence of evolution on features of beetles will be researched from initial random values to resulting ones after thousands updates. 
 
-\subsection{Initial setting of the experiment}
+\subsection{Initial Settings of the Experiment}
 Map of the environment of Four Caves contains 900 cells. Percentage of growth of flowers is 100\% in all cells and dying is switched off. 
 
 \begin{figure}
@@ -1159,7 +1180,7 @@ Map of the environment of Four Caves contains 900 cells. Percentage of growth of
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.5]{images/four_caves_eff.eps}
-  \caption{Course of function Energy From Flower in Experiment1 --- Four Caves. horizontal vertex = time: 0 .. 100th update, vertical vertex = energy: 0--20}
+  \caption{Course of function Energy From Flower in Experiment1 --- Four Caves. Horizontal vertex = time: 0 .. 100th update, vertical vertex = energy: 0--20.}
   \label{img.four_caves_eff}
 \end{center}
 \end{figure}
@@ -1324,7 +1345,7 @@ The first attempt was to increase mutation rate so as to restrict expectations c
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/Exp1_1_hist365000.eps }
-  \caption{Run1 Experiment1 histogram of features of beetles after 365,000 updates}
+  \caption{Run1 Experiment1 histogram of features of beetles after 365,000 updates.}
   \label{img.Exp1_1_hist365000}
 \end{center}
 \end{figure}
@@ -1332,7 +1353,7 @@ The first attempt was to increase mutation rate so as to restrict expectations c
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/Exp1_1_hist365000Exp.eps }
-  \caption{Run1 Experiment1 histogram of expectations on partner after 365,000 updates}
+  \caption{Run1 Experiment1 histogram of expectations on partner after 365,000 updates.}
   \label{img.Exp1_1_hist365000Exp}
 \end{center}
 \end{figure}
@@ -1340,12 +1361,12 @@ The first attempt was to increase mutation rate so as to restrict expectations c
 \begin{figure}
 \begin{center}
   \includegraphics [scale=0.6]{images/Exp2_GUI_species.eps }
-  \caption{Run1 Experiment1 histogram of expectations on partner after 365,000 updates}
+  \caption{Run1 Experiment1 histogram of expectations on partner after 365,000 updates.}
   \label{img.Exp2_GUI_species.eps}
 \end{center}
 \end{figure}
   
-The second attempt was to run the environment much longer and leave enough time for evolution to do its work. After roughly 300,000 updates two species of beetles separated, see graphs in figure \ref{img.Exp1_1_hist365000} and figure \ref{img.Exp1_1_hist365000Exp} and situation in \ref{img.Ex2_GUI_species.eps} . But they stayed apart for only about one thousand updates and then beetles from one species passing through corridors prevailed against the other species and the weaker species became extinct. 
+The second attempt was to run the environment much longer and leave enough time for evolution to do its work. After roughly 300,000 updates two species of beetles separated, see graphs in figure \ref{img.Exp1_1_hist365000} and figure \ref{img.Exp1_1_hist365000Exp} and situation in \ref{img.Exp2_GUI_species.eps} . But they stayed apart for only about one thousand updates and then beetles from one species passing through corridors prevailed against the other species and the weaker species became extinct. 
 
 To sum up, species in Abeetles can evolve, in separated territories easily, in connected territories it is more difficult and it holds only for a short time.
 
@@ -1365,7 +1386,7 @@ Objectives of this thesis were to create simulator Abeetles and run experiments 
 \item Aging --- Special function for aging was introduced and waits for further experiments. 
 \end{itemize}
 
-Abeetles open possibilities for further searching for interesting results of evolution and offer supporting tools.
+\noindent Abeetles open possibilities for further searching for interesting results of evolution and offer supporting tools.
 
 
 \begin{thebibliography}{99}
